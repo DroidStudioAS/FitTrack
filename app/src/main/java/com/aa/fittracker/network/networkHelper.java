@@ -18,15 +18,17 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import com.aa.fittracker.logic.store;
 
 public class networkHelper {
+    public static String SERVER_RESPONSE;
 
     public interface NetworkCallback {
         void onSuccess(String response);
 
         void onFailure(IOException e);
     }
-    public static void get(OkHttpClient client, String url, Map<String,String> params) throws IOException{
+    public static void get(OkHttpClient client, String url, Map<String,String> params,NetworkCallback callback) throws IOException{
         //initialize response;
         String stringResponse = "";
         //initialize the urlBuilder
@@ -50,7 +52,7 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 //success
-                Log.i("IMPORTANT", response.body().string());
+                store.setServerResponse(response.body().string());
 
             }
         });

@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.aa.fittracker.logic.store;
 import com.aa.fittracker.network.networkHelper;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.Map;
 import okhttp3.OkHttpClient;
 
 
-public class loginFragment extends Fragment {
+public class loginFragment extends Fragment implements networkHelper.NetworkCallback {
 
     EditText usernameEt;
     EditText passwordEt;
@@ -32,6 +33,8 @@ public class loginFragment extends Fragment {
     /********************BACKEND PARAMETER TITLES*********************/
     private final String USERNAME_PARAMETER = "username";
     private final String PASSWORD_PARAMETER = "password";
+
+    private String SERVER_RESPONSE;
 
     public loginFragment() {
         // Required empty public constructor
@@ -62,9 +65,11 @@ public class loginFragment extends Fragment {
                     params.put("password",password);
                     //API GET REQUEST (LOGIN)
                     try {
-                        networkHelper.get(client,"http://165g123.e2.mars-hosting.com/api/login_register/login",params);
+                        networkHelper.get(client,"http://165g123.e2.mars-hosting.com/api/login_register/login",params,loginFragment.this);
                     } catch (IOException e) {
                         e.printStackTrace();
+                    }finally {
+                        Log.i("RESPONSE", store.getSERVER_RESPONSE());
                     }
                 }
 
@@ -73,5 +78,16 @@ public class loginFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onSuccess(String response) {
+        SERVER_RESPONSE = response;
+        Log.i("SERVER SAYS", SERVER_RESPONSE);
+    }
+
+    @Override
+    public void onFailure(IOException e) {
+
     }
 }
