@@ -34,4 +34,10 @@ public class pagerAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return NUM_OF_PAGES;
     }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return TITLES[position];
+    }
 }
+
