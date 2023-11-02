@@ -28,7 +28,7 @@ public class networkHelper {
 
         void onFailure(IOException e);
     }
-    public static void get(OkHttpClient client, String url, Map<String,String> params,NetworkCallback callback) throws IOException{
+    public static void get(OkHttpClient client, String url, Map<String,String> params) throws IOException{
         //initialize response;
         String stringResponse = "";
         //initialize the urlBuilder

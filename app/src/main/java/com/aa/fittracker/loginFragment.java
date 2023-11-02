@@ -65,7 +65,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                     params.put("password",password);
                     //API GET REQUEST (LOGIN)
                     try {
-                        networkHelper.get(client,"http://165g123.e2.mars-hosting.com/api/login_register/login",params,loginFragment.this);
+                        networkHelper.get(client,"http://165g123.e2.mars-hosting.com/api/login_register/login",params);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }finally {
