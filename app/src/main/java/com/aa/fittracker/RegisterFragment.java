@@ -13,8 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.aa.fittracker.logic.store;
+import com.aa.fittracker.network.networkHelper;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.OkHttpClient;
 
 
 public class RegisterFragment extends Fragment {
@@ -23,6 +29,8 @@ public class RegisterFragment extends Fragment {
     EditText KgET;
 
     Button trigger;
+
+    OkHttpClient client;
 
 
 
@@ -42,15 +50,22 @@ public class RegisterFragment extends Fragment {
         KgET=view.findViewById(R.id.KgET);
         trigger = view.findViewById(R.id.registerTrigger);
 
+        client=new OkHttpClient();
         trigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //get values
                 String username = UsernameET.getText().toString();
                 String pass = PasswordET.getText().toString();
                 String Kg = KgET.getText().toString();
+                //FRONT END CHECK TO NOT SEND EMPTY PARAMETERS
                 if(username.equals("")||pass.equals("")||Kg.equals("")){
                     //MISSING REGISTRATION INFO
                     Toast.makeText(getContext(),"Missing info",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(Double.parseDouble(Kg)<=30){
+                    Toast.makeText(getContext(),"U must be 18 to use app", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Map<String,String> params = new HashMap<>();
@@ -59,6 +74,12 @@ public class RegisterFragment extends Fragment {
                 params.put("kg",Kg);
                 for(Map.Entry<String,String> x : params.entrySet()){
                     Log.i("DATA", x.getKey() + " " + x.getValue());
+                }
+                try {
+                    networkHelper.post(client,"http://165g123.e2.mars-hosting.com/api/login_register/register",params);
+                    Log.i("store server resp" , store.getSERVER_RESPONSE());
+                }catch (IOException exc){
+                    exc.printStackTrace();
                 }
             }
         });

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -60,39 +61,37 @@ public class networkHelper {
 
     //Request request = new Request.Builder().url(url)
     }
-
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-    public static void makePostRequest(String url, JSONObject jsonPayload, final NetworkCallback callback) {
-        OkHttpClient client = new OkHttpClient();
-
-        // Create a JSON request body
-        RequestBody requestBody = RequestBody.create(JSON, jsonPayload.toString());
-
-        // Build the POST request
+    public static void post(OkHttpClient client, String url, Map<String, String> params) throws IOException {
+        // Create a FormBody.Builder to build the request body
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        // Add parameters to the request body
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            formBuilder.add(entry.getKey(), entry.getValue());
+        }
+        // Build the request body
+        RequestBody requestBody = formBuilder.build();
+        // Build the request with the POST method and request body
         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
                 .build();
-
+        // Enqueue the request
         client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    ResponseBody responseBody = response.body();
-                    if (responseBody != null) {
-                        String responseData = responseBody.string();
-                        callback.onSuccess(responseData);
-                    }
-                } else {
-                    callback.onFailure(new IOException("Request failed with code: " + response.code()));
-                }
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.i("IMPORTANT", "Failed to make POST request: " + e.getMessage());
             }
-
             @Override
-            public void onFailure(Call call, IOException e) {
-                callback.onFailure(e);
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    store.setServerResponse(response.body().string());
+                    Log.i("RESPONSE-NETWORKHELPER", store.getSERVER_RESPONSE());
+                } else {
+                    Log.i("IMPORTANT", "POST request failed with response code: " + response.code());
+                }
             }
         });
     }
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 }
