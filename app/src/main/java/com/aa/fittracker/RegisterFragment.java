@@ -93,6 +93,7 @@ public class RegisterFragment extends Fragment {
                 Log.i("Finally broken" , store.getServerResponseRegister());
                 //check if all is ok
                 if(store.getServerResponseRegister().contains("ok")){
+                    store.setUSERNAME(username);
                     Intent intent = new Intent(getActivity(),IndexActivity.class);
                     startActivity(intent);
                 }

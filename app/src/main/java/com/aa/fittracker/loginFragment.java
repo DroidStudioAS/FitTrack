@@ -80,6 +80,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                     Log.i("Finally broken", store.getServerResponseLogin());
                     //check if all is ok
                     if(store.getServerResponseLogin().contains("ok")){
+                        store.setUSERNAME(username);
                         Intent intent =  new Intent(requireContext(),IndexActivity.class);
                         startActivity(intent);
                     }
