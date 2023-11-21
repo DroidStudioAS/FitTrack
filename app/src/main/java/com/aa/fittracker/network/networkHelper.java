@@ -53,7 +53,8 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 //success
-                store.setServerResponse(response.body().string());
+                store.setServerResponseLogin(response.body().string());
+                Log.i("response from nh", store.getServerResponseLogin());
 
             }
         });
@@ -84,8 +85,8 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    store.setServerResponse(response.body().string());
-                    Log.i("RESPONSE-NETWORKHELPER", store.getSERVER_RESPONSE());
+                    store.setServerResponseRegister(response.body().string());
+                    Log.i("response from nh", store.getServerResponseRegister());
                 } else {
                     Log.i("IMPORTANT", "POST request failed with response code: " + response.code());
                 }

@@ -1,6 +1,7 @@
 package com.aa.fittracker;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.aa.fittracker.logic.JsonParser;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.network.networkHelper;
 
@@ -66,19 +68,27 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                     //API GET REQUEST (LOGIN)
                     try {
                         networkHelper.get(client,"http://165g123.e2.mars-hosting.com/api/login_register/login",params);
+                        Log.i("response from login try", store.getServerResponseRegister());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }finally {
-                        Log.i("RESPONSE", store.getSERVER_RESPONSE());
+                        //if store is not set await
+                       while (store.getServerResponseLogin().length()==0) {
+                           Log.i("Waiting", store.getServerResponseLogin());
+                       }
+                    }
+                    Log.i("Finally broken", store.getServerResponseLogin());
+                    //check if all is ok
+                    if(store.getServerResponseLogin().contains("ok")){
+                        Intent intent =  new Intent(requireContext(),IndexActivity.class);
+                        startActivity(intent);
                     }
                 }
-
-
             }
         });
-
         return view;
     }
+
 
     @Override
     public void onSuccess(String response) {

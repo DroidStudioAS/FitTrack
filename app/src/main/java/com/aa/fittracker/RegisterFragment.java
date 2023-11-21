@@ -1,6 +1,7 @@
 package com.aa.fittracker;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -68,18 +69,32 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getContext(),"U must be 18 to use app", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //map post parameters
                 Map<String,String> params = new HashMap<>();
                 params.put("username",username);
                 params.put("password",pass);
                 params.put("kg",Kg);
+                //add post parameters
                 for(Map.Entry<String,String> x : params.entrySet()){
                     Log.i("DATA", x.getKey() + " " + x.getValue());
                 }
+                //
                 try {
                     networkHelper.post(client,"http://165g123.e2.mars-hosting.com/api/login_register/register",params);
-                    Log.i("store server resp" , store.getSERVER_RESPONSE());
+                    Log.i("store server resp" , store.getServerResponseRegister());
                 }catch (IOException exc){
                     exc.printStackTrace();
+                }finally {
+                    while (store.getServerResponseRegister().length()==0){
+                        Log.i("Waiting",store.getServerResponseRegister());
+                    }
+                }
+
+                Log.i("Finally broken" , store.getServerResponseRegister());
+                //check if all is ok
+                if(store.getServerResponseRegister().contains("ok")){
+                    Intent intent = new Intent(getActivity(),IndexActivity.class);
+                    startActivity(intent);
                 }
             }
         });
