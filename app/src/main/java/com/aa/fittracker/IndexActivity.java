@@ -3,6 +3,7 @@ package com.aa.fittracker;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.aa.fittracker.logic.JsonParser;
@@ -15,6 +16,11 @@ public class IndexActivity extends AppCompatActivity {
 OkHttpClient client;
 
 TextView desiredWeightView;
+
+Button journalButton;
+Button trainingsButton;
+Button noutritionButton;
+Button weightButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
