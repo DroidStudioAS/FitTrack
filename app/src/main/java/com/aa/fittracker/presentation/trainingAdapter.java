@@ -1,6 +1,8 @@
 package com.aa.fittracker.presentation;
+
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aa.fittracker.R;
+import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
+import com.aa.fittracker.trainingservice.onItemClickListener;
 
-import java.sql.Array;
 import java.util.List;
 
 public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyViewHolder> {
 
     private List<Training> dataList;
     private Context context;
+    private onItemClickListener listener;
 
-    // Constructor to initialize with data list and context
+    public void setOnItemClickListener(onItemClickListener listener) {
+        this.listener = listener;
+    }
+
     public trainingAdapter(List<Training> dataList, Context context) {
         this.dataList = dataList;
         this.context = context;
@@ -40,19 +47,17 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
         int startIndex = position * itemsPerPage;
         int endIndex = Math.min(startIndex + itemsPerPage, dataList.size());
 
-
-        // Access individual views within the custom layout
         TextView tv1 = holder.itemView.findViewById(R.id.targetTv1);
         TextView tv2 = holder.itemView.findViewById(R.id.targetTv2);
         TextView tv3 = holder.itemView.findViewById(R.id.targetTv3);
-        TextView[] tv = new TextView[]{tv1,tv2,tv3};
+        TextView[] tv = new TextView[]{tv1, tv2, tv3};
 
-        for(TextView x : tv){
+        for (TextView x : tv) {
             x.setVisibility(View.GONE);
         }
         for (int i = startIndex; i < endIndex; i++) {
             Training currentItem = dataList.get(i);
-            switch (i - startIndex){
+            switch (i - startIndex) {
                 case 0:
                     tv1.setText(currentItem.getName());
                     tv1.setVisibility(View.VISIBLE);
@@ -70,9 +75,24 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
                     break;
             }
         }
+        for(TextView x : tv){
+            x.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    store.setTrainingInFocusName(x.getText().toString());
+                    Log.i("focus: ", store.getTrainingInFocusName());
+                    store.setTrainingInFocus(store.findInFocus(store.getTrainingInFocusName()));
+                    Log.i("Focused",store.getTrainingInFocus().toString());
+                    if(listener!=null){
+                        listener.onTrainingFocus(store.getTrainingInFocus());
+                    }
+                }
+            });
+        }
     }
-    public int getColor(int difficulty){
-        switch (difficulty){
+
+    public int getColor(int difficulty) {
+        switch (difficulty) {
             case 1:
                 return Color.GREEN;
             case 2:
@@ -86,14 +106,18 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return dataList.size(); // Return the size of the data list
+        return dataList.size();
     }
 
-    // ViewHolder class
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
     }
 }
-

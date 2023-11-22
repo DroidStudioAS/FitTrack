@@ -85,6 +85,16 @@ public class AddTrainingActivity extends Activity {
                     Toast.makeText(AddTrainingActivity.this, "Please fill out all the info", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(!store.getUserTrainings().isEmpty()){
+                    List<Training> list = store.getUserTrainings();
+                    for(Training x : list){
+                        if(x.getName().equals(trainingName)){
+                            //NAME MUST BE UNIQUE
+                            Toast.makeText(AddTrainingActivity.this,"Name already exists",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
                 Training trainingToAdd = new Training(difficulty,trainingName,trainingDesc);
                 //Add training
                 store.addToUserTrainings(trainingToAdd);

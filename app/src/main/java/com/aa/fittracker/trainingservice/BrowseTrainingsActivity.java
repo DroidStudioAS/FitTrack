@@ -2,6 +2,8 @@ package com.aa.fittracker.trainingservice;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,15 +18,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class BrowseTrainingsActivity extends Activity {
+public class BrowseTrainingsActivity extends Activity implements onItemClickListener {
     trainingAdapter adapter;
     RecyclerView rv;
     List<Training> dataList;
+
+    TextView nameTv;
+    TextView descTv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_trainings);
+        nameTv=(TextView)findViewById(R.id.showNameTv);
+        descTv=(TextView)findViewById(R.id.descTV);
 
         dataList= store.getUserTrainings();
 
@@ -33,7 +40,15 @@ public class BrowseTrainingsActivity extends Activity {
         rv.setLayoutManager(layoutManager);
 
         adapter = new trainingAdapter(dataList,this);
+        adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
 
+    }
+
+    //callback to set training description to display
+    @Override
+    public void onTrainingFocus(Training training) {
+        nameTv.setText(training.getName());
+        descTv.setText(training.getDescription());
     }
 }

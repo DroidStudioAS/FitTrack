@@ -59,4 +59,6 @@ public class Training {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
 }
