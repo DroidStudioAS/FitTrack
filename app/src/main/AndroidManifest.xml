@@ -16,7 +16,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".TrainingsIndex"
+            android:name=".trainingservice.BrowseTrainingsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".trainingservice.AddTrainingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".trainingservice.TrainingsIndex"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

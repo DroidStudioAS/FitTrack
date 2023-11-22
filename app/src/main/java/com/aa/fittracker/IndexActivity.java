@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.aa.fittracker.logic.JsonParser;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.trainingservice.TrainingsIndex;
 
 import okhttp3.OkHttpClient;
 
@@ -60,7 +61,7 @@ Button weightButton;
         trainingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),TrainingsIndex.class);
+                Intent intent = new Intent(getApplicationContext(), TrainingsIndex.class);
                 startActivity(intent);
             }
         });
