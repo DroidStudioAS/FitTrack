@@ -18,8 +18,8 @@ public class TrainingsIndex extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainings_index);
 
-        Intent intentAdd = new Intent(this,AddTrainingActivity.class);
-        Intent intentBrowse = new Intent(this,BrowseTrainingsActivity.class);
+
+
 
         addButton=(Button) findViewById(R.id.button5);
         browseButton=(Button) findViewById(R.id.button6);
@@ -27,6 +27,7 @@ public class TrainingsIndex extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intentAdd = new Intent(getApplicationContext(),AddTrainingActivity.class);
                 startActivity(intentAdd);
             }
         });
@@ -34,6 +35,7 @@ public class TrainingsIndex extends AppCompatActivity {
         browseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intentBrowse = new Intent(getApplicationContext(),BrowseTrainingsActivity.class);
                 startActivity(intentBrowse);
             }
         });
