@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aa.fittracker.R;
+import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.presentation.trainingAdapter;
 
@@ -25,11 +26,7 @@ public class BrowseTrainingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_trainings);
 
-        Training one = new Training(0,1,"easy 1 blablablablalbalblablablab","loremipsumloremipsum");
-        Training two = new Training(0,2,"medium 2","loremipsumloremipsum");
-        Training three = new Training(0,3,"hard 3","loremipsumloremipsum");
-        Training four = new Training(0,1,"easy again 4","loremipsumloremipsum");
-        dataList = Arrays.asList(one,two,three,four);
+        dataList= store.getUserTrainings();
 
         rv=(RecyclerView) findViewById(R.id.trainingList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);

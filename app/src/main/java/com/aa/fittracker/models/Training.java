@@ -9,8 +9,18 @@ public class Training {
     public Training() {
     }
 
-    public Training(int id, int difficulty, String name, String description) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "Training{" +
+                "id=" + id +
+                ", difficulty=" + difficulty +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    public Training(int difficulty, String name, String description) {
+
         this.difficulty = difficulty;
         this.name = name;
         this.description = description;
