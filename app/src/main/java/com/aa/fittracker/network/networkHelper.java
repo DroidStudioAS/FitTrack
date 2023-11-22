@@ -29,6 +29,26 @@ public class networkHelper {
 
         void onFailure(IOException e);
     }
+    public static void addExcercise(int diff, String name, String desc, OkHttpClient cli){
+        if(store.getUSERNAME().equals("")){
+            Log.e("nh get weight","username not found");
+            return;
+        }
+        String username = store.getUSERNAME();
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/exc/addExercise").newBuilder();
+        urlBuilder.addQueryParameter("username",username);
+        urlBuilder.addQueryParameter("diff", String.valueOf(diff));
+        urlBuilder.addQueryParameter("name",name);
+        urlBuilder.addQueryParameter("desc",desc);
+
+
+
+
+
+
+
+    }
     public static void getWeight(OkHttpClient client){
         if(store.getUSERNAME().equals("")){
             Log.e("nh get weight","username not found");

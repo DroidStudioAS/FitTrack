@@ -15,11 +15,19 @@ import androidx.annotation.Nullable;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
+import com.aa.fittracker.network.networkHelper;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.OkHttpClient;
 
 public class AddTrainingActivity extends Activity {
+
+    OkHttpClient client;
 
     EditText nameET;
     EditText descET;
@@ -35,6 +43,7 @@ public class AddTrainingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_training);
 
+        client= new OkHttpClient();
         difficulty=-1; //SAFETY VALUE TO ENSURE THAT BUTTON WAS PRESSED;
 
         nameET=(EditText) findViewById(R.id.trainingNameET);
@@ -99,6 +108,18 @@ public class AddTrainingActivity extends Activity {
                 //Add training
                 store.addToUserTrainings(trainingToAdd);
                 //tell user of succes
+                Map<String,String> params = new HashMap<>();
+                params.put("username",store.getUSERNAME());
+                params.put("diff",String.valueOf(trainingToAdd.getDifficulty()));
+                params.put("name",trainingName);
+                params.put("desc",trainingDesc);
+
+                try {
+                    networkHelper.post(client,"http://165g123.e2.mars-hosting.com/api/exc/addExercise",params);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
 
                 Snackbar snackbar = Snackbar.make(v,"Success. Check Trainings?",Snackbar.LENGTH_LONG);
                 snackbar.setAction("Go", new View.OnClickListener() {
