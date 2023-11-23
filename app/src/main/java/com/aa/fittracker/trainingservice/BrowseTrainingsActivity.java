@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.presentation.trainingAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -117,21 +119,34 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
             }
         });
+        deleteBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(store.getTrainingToDeleteName().equals("")){
+                    Toast.makeText(getApplicationContext(),"No training selected",Toast.LENGTH_SHORT).show();
+                }else{
+                    Snackbar deleteWarning = Snackbar.make(v,"Are you sure you want to delete "+store.getTrainingToDeleteName()+" ?",Snackbar.LENGTH_INDEFINITE);
+                    deleteWarning.setAction("Yes", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    deleteWarning.show();
+                }
+
+            }
+        });
+
 
 
     }
+    //sets the list to the original list fetched by the networkHelper
     public void refreshList(){
         Log.i("refresh triggered", "true");
         adapter.setDataList(store.getUserTrainings());
         store.clearFilteredUserTrainings();
         rv.setAdapter(adapter);
-    }
-    //callback to set training description to display
-    @Override
-    public void onTrainingFocus(Training training) {
-        nameTv.setText(training.getTraining_name());
-        descTv.setText(training.getTraining_desc());
-        deleteBut.setVisibility(View.VISIBLE);
     }
 
     TimerTask timerTask = new TimerTask() {
@@ -140,6 +155,16 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
             localList=store.getUserTrainings();
         }
     };
+    /*****************onItemClickListener Callback****************/
+    //callback to set training description to display
+    @Override
+    public void onTrainingFocus(Training training) {
+        nameTv.setText(training.getTraining_name());
+        descTv.setText(training.getTraining_desc());
+        deleteBut.setVisibility(View.VISIBLE);
+        //store the name of the training in focus as a parameter in case user wants to delete
+        store.setTrainingToDeleteName(training.getTraining_name());
+    }
 }
 
 
