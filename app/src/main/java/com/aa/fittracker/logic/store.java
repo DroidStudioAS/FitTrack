@@ -29,6 +29,9 @@ public class store {
     private static Training TRAINING_IN_FOCUS = new Training();
     private static String TRAINING_TO_DELETE_NAME ="";
     private static int ACTIVE_DIFFICULTY_FILTER=-1;
+    private static boolean EDIT_MODE_ACTIVE=false;
+
+
 
 
 
@@ -78,7 +81,9 @@ public class store {
     public static String getTrainingInFocusName() {
         return TRAINING_IN_FOCUS_NAME;
     }
-
+    public static boolean isEditModeActive() {
+        return EDIT_MODE_ACTIVE;
+    }
     public static Training getTrainingInFocus() {
         return TRAINING_IN_FOCUS;
     }
@@ -152,10 +157,16 @@ public class store {
     public static void setServerResponseLogin(String serverResponseLogin) {
         SERVER_RESPONSE_LOGIN = serverResponseLogin;
     }
+
     public static void setServerResponseRegister(String serverResponseRegister) {
         SERVER_RESPONSE_REGISTER = serverResponseRegister;
     }
+
     public static void setUSERNAME(String USERNAME) {
         store.USERNAME = USERNAME;
+    }
+
+    public static void setEditModeActive() {
+        EDIT_MODE_ACTIVE = !EDIT_MODE_ACTIVE;
     }
 }

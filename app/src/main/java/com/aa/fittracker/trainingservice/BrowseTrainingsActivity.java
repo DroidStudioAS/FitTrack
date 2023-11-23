@@ -46,6 +46,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
     Button filter;
     Button reset;
     Button deleteBut;
+    Button editBut;
 
     Button easyFilter;
     Button mediumFilter;
@@ -66,6 +67,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         filter = (Button) findViewById(R.id.filter);
         reset = (Button) findViewById(R.id.reset);
         deleteBut=(Button)findViewById(R.id.deleteTrigger);
+        editBut=(Button)findViewById(R.id.editTrigger);
 
         easyFilter = (Button)findViewById(R.id.easyFilter);
         mediumFilter = (Button)findViewById(R.id.mediumFilter);
@@ -184,9 +186,13 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
             }
         });
-
-
-
+        editBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                store.setEditModeActive();
+                Log.i("active?:",String.valueOf(store.isEditModeActive()));
+            }
+        });
     }
     public void difficultyFilterClickReaction(int filter_to_activate){
         switch (filter_to_activate){
@@ -228,6 +234,8 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         rv.setAdapter(adapter);
 
         deleteBut.setVisibility(View.GONE);
+        editBut.setVisibility(View.GONE);
+
         nameTv.setText("No Training Selected");
         descTv.setText("");
     }
@@ -245,6 +253,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         nameTv.setText(training.getTraining_name());
         descTv.setText(training.getTraining_desc());
         deleteBut.setVisibility(View.VISIBLE);
+        editBut.setVisibility(View.VISIBLE);
         //store the name of the training in focus as a parameter in case user wants to delete
         store.setTrainingToDeleteName(training.getTraining_name());
     }
