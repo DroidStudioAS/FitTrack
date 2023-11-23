@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class store {
 /*******************VARIABLES**********************/
@@ -50,6 +51,15 @@ public class store {
     public static String getServerResponseTrainingDeleted() {
         return SERVER_RESPONSE_TRAINING_DELETED;
     }
+    public static void removeFromUserTrainings(Training toDelete){
+        Training toRemove = new Training();
+        for(Training x : USER_TRAININGS){
+            if(x.getTraining_name().toLowerCase(Locale.ROOT).equals(toDelete.getTraining_name().toLowerCase(Locale.ROOT))){
+                toRemove=x;
+            }
+        }
+        USER_TRAININGS.remove(toRemove);
+    }
 
     /*******************GETTERS***********************/
 
@@ -84,12 +94,12 @@ public class store {
     }
 
 
+
+
+    /*******************SETTERS***********************/
     public static void setServerResponseTrainingDeleted(String serverResponseTrainingDeleted) {
         SERVER_RESPONSE_TRAINING_DELETED = serverResponseTrainingDeleted;
     }
-
-    /*******************SETTERS***********************/
-
     public static void setServerResponseAllExc(String serverResponseAllExc) {
         //clear the list so it does not concat
         USER_TRAININGS.clear();

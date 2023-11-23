@@ -86,11 +86,12 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
         localList = store.getUserTrainings();
         if (localList.isEmpty()) {
-            while (localList.isEmpty()) {
-                localList = store.getUserTrainings();
-                Log.i("Fetching data: ", localList.toString());
+                while (store.getServerResponseAllExc().equals("")) {
+                    localList = store.getUserTrainings();
+                    Log.i("Fetching data: ", localList.toString());
+                }
             }
-        }
+
         adapter = new trainingAdapter(localList, this);
         adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
@@ -130,6 +131,14 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                         @Override
                         public void onClick(View v) {
                             networkHelper.deleteExc(clientel);
+                            Training toDelete = new Training();
+                            for(Training x : store.getUserTrainings()){
+                                if(x.getTraining_name().equals(store.getTrainingToDeleteName())){
+                                    toDelete=x;
+                                }
+                            }
+                            store.removeFromUserTrainings(toDelete);
+                            refreshList();
                         }
                     });
                     deleteWarning.show();
@@ -147,6 +156,10 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         adapter.setDataList(store.getUserTrainings());
         store.clearFilteredUserTrainings();
         rv.setAdapter(adapter);
+
+        deleteBut.setVisibility(View.GONE);
+        nameTv.setText("No Training Selected");
+        descTv.setText("");
     }
 
     TimerTask timerTask = new TimerTask() {
