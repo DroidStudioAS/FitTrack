@@ -12,43 +12,61 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
+import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.presentation.trainingAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.OkHttpClient;
 
 public class BrowseTrainingsActivity extends Activity implements onItemClickListener {
     trainingAdapter adapter;
     RecyclerView rv;
-    List<Training> dataList;
+
 
     TextView nameTv;
     TextView descTv;
+
+    OkHttpClient clientel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_trainings);
+
+        clientel=new OkHttpClient();
+
         nameTv=(TextView)findViewById(R.id.showNameTv);
         descTv=(TextView)findViewById(R.id.descTV);
-
-        dataList= store.getUserTrainings();
 
         rv=(RecyclerView) findViewById(R.id.trainingList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         rv.setLayoutManager(layoutManager);
 
-        adapter = new trainingAdapter(dataList,this);
+        adapter = new trainingAdapter(store.getUserTrainings(),this);
         adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
+
+        Map<String,String> params = new HashMap<>();
+        params.put("username",store.getUSERNAME());
+        try {
+            networkHelper.getExc(clientel,"http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings",params);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
     //callback to set training description to display
     @Override
     public void onTrainingFocus(Training training) {
-        nameTv.setText(training.getName());
-        descTv.setText(training.getDescription());
+        nameTv.setText(training.getTraining_name());
+        descTv.setText(training.getTraining_desc());
     }
 }

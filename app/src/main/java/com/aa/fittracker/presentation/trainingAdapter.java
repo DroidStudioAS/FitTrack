@@ -59,19 +59,19 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
             Training currentItem = dataList.get(i);
             switch (i - startIndex) {
                 case 0:
-                    tv1.setText(currentItem.getName());
+                    tv1.setText(currentItem.getTraining_name());
                     tv1.setVisibility(View.VISIBLE);
-                    tv1.setBackgroundColor(getColor(currentItem.getDifficulty()));
+                    tv1.setBackgroundColor(getColor(currentItem.getTraining_difficulty()));
                     break;
                 case 1:
-                    tv2.setText(currentItem.getName());
+                    tv2.setText(currentItem.getTraining_name());
                     tv2.setVisibility(View.VISIBLE);
-                    tv2.setBackgroundColor(getColor(currentItem.getDifficulty()));
+                    tv2.setBackgroundColor(getColor(currentItem.getTraining_difficulty()));
                     break;
                 case 2:
-                    tv3.setText(currentItem.getName());
+                    tv3.setText(currentItem.getTraining_name());
                     tv3.setVisibility(View.VISIBLE);
-                    tv3.setBackgroundColor(getColor(currentItem.getDifficulty()));
+                    tv3.setBackgroundColor(getColor(currentItem.getTraining_difficulty()));
                     break;
             }
         }

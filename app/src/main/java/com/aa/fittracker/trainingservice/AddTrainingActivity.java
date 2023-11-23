@@ -97,25 +97,28 @@ public class AddTrainingActivity extends Activity {
                 if(!store.getUserTrainings().isEmpty()){
                     List<Training> list = store.getUserTrainings();
                     for(Training x : list){
-                        if(x.getName().equals(trainingName)){
+                        if(x.getTraining_name().equals(trainingName)){
                             //NAME MUST BE UNIQUE
                             Toast.makeText(AddTrainingActivity.this,"Name already exists",Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
                 }
-                Training trainingToAdd = new Training(difficulty,trainingName,trainingDesc);
+                Training trainingToAdd = new Training();
+                trainingToAdd.setTraining_difficulty(difficulty);
+                trainingToAdd.setTraining_name(trainingName);
+                trainingToAdd.setTraining_desc(trainingDesc);
                 //Add training
                 store.addToUserTrainings(trainingToAdd);
                 //tell user of succes
                 Map<String,String> params = new HashMap<>();
                 params.put("username",store.getUSERNAME());
-                params.put("diff",String.valueOf(trainingToAdd.getDifficulty()));
+                params.put("diff",String.valueOf(trainingToAdd.getTraining_difficulty()));
                 params.put("name",trainingName);
                 params.put("desc",trainingDesc);
 
                 try {
-                    networkHelper.post(client,"http://165g123.e2.mars-hosting.com/api/exc/addExercise",params);
+                    networkHelper.postExc(client,"http://165g123.e2.mars-hosting.com/api/exc/addExercise",params);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
