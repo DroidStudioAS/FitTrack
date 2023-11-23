@@ -47,6 +47,10 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
     Button reset;
     Button deleteBut;
 
+    Button easyFilter;
+    Button mediumFilter;
+    Button hardFilter;
+
     OkHttpClient clientel;
     List<Training> localList;
 
@@ -63,6 +67,12 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         reset = (Button) findViewById(R.id.reset);
         deleteBut=(Button)findViewById(R.id.deleteTrigger);
 
+        easyFilter = (Button)findViewById(R.id.easyFilter);
+        mediumFilter = (Button)findViewById(R.id.mediumFilter);
+        hardFilter=(Button)findViewById(R.id.hardFilter);
+
+
+
         clientel = new OkHttpClient();
         Map<String, String> params = new HashMap<>();
         params.put("username", store.getUSERNAME());
@@ -71,6 +81,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         timer = new Timer();
         timer.schedule(timerTask, 5000);
@@ -96,6 +107,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
 
+
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +130,24 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                 searchEt.setText("");
                 refreshList();
 
+            }
+        });
+        easyFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterClickReaction(1);
+            }
+        });
+        mediumFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterClickReaction(2);
+            }
+        });
+        hardFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               filterClickReaction(3);
             }
         });
         deleteBut.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +179,29 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
 
 
+    }
+    public void filterClickReaction(int filter_to_activate){
+        switch (filter_to_activate){
+            case 1:
+                store.setActiveDifficultyFilter(filter_to_activate);
+                easyFilter.setAlpha(1);
+                mediumFilter.setAlpha((float)0.4);
+                hardFilter.setAlpha((float)0.4);
+                break;
+            case 2:
+                store.setActiveDifficultyFilter(filter_to_activate);
+                easyFilter.setAlpha((float)0.4);
+                mediumFilter.setAlpha(1);
+                hardFilter.setAlpha((float)0.4);
+                break;
+            case 3:
+                store.setActiveDifficultyFilter(filter_to_activate);
+                easyFilter.setAlpha((float)0.4);
+                mediumFilter.setAlpha((float)0.4);
+                hardFilter.setAlpha(1);
+                break;
+        }
+        Log.i("Activity Filter Change:", String.valueOf(store.getActiveDifficultyFilter()));
     }
     //sets the list to the original list fetched by the networkHelper
     public void refreshList(){

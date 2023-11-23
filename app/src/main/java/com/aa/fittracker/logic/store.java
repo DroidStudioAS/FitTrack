@@ -28,6 +28,9 @@ public class store {
     private static String TRAINING_IN_FOCUS_NAME =  "";
     private static Training TRAINING_IN_FOCUS = new Training();
     private static String TRAINING_TO_DELETE_NAME ="";
+    private static int ACTIVE_DIFFICULTY_FILTER=-1;
+
+
 
     /*******************CUSTOM FUNCTIONS***********************/
     public static Training findInFocus(String name){
@@ -63,7 +66,9 @@ public class store {
 
     /*******************GETTERS***********************/
 
-
+    public static int getActiveDifficultyFilter() {
+        return ACTIVE_DIFFICULTY_FILTER;
+    }
     public static String getTrainingToDeleteName() {
         return TRAINING_TO_DELETE_NAME;
     }
@@ -100,6 +105,11 @@ public class store {
     public static void setServerResponseTrainingDeleted(String serverResponseTrainingDeleted) {
         SERVER_RESPONSE_TRAINING_DELETED = serverResponseTrainingDeleted;
     }
+
+    public static void setActiveDifficultyFilter(int activeDifficultyFilter) {
+        ACTIVE_DIFFICULTY_FILTER = activeDifficultyFilter;
+    }
+
     public static void setServerResponseAllExc(String serverResponseAllExc) {
         //clear the list so it does not concat
         USER_TRAININGS.clear();
