@@ -43,6 +43,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
     Button filter;
     Button reset;
+    Button deleteBut;
 
     OkHttpClient clientel;
     List<Training> localList;
@@ -55,8 +56,10 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         setContentView(R.layout.activity_browse_trainings);
 
         searchEt = (EditText) findViewById(R.id.searchET);
+
         filter = (Button) findViewById(R.id.filter);
         reset = (Button) findViewById(R.id.reset);
+        deleteBut=(Button)findViewById(R.id.deleteTrigger);
 
         clientel = new OkHttpClient();
         Map<String, String> params = new HashMap<>();
@@ -128,6 +131,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
     public void onTrainingFocus(Training training) {
         nameTv.setText(training.getTraining_name());
         descTv.setText(training.getTraining_desc());
+        deleteBut.setVisibility(View.VISIBLE);
     }
 
     TimerTask timerTask = new TimerTask() {
