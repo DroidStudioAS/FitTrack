@@ -43,12 +43,21 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_trainings);
+
+        clientel=new OkHttpClient();
+        Map<String,String> params = new HashMap<>();
+        params.put("username",store.getUSERNAME());
+        try {
+            networkHelper.getExc(clientel,"http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings",params);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         timer=new Timer();
         timer.schedule(timerTask,5000);
 
-        localList = store.getUserTrainings();
 
-        clientel=new OkHttpClient();
+
 
         nameTv=(TextView)findViewById(R.id.showNameTv);
         descTv=(TextView)findViewById(R.id.descTV);
@@ -58,17 +67,18 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         rv.setLayoutManager(layoutManager);
 
 
+        localList = store.getUserTrainings();
+        if(localList.isEmpty()){
+            while (localList.isEmpty()){
+                localList = store.getUserTrainings();
+                Log.i("Fetching data: " , localList.toString());
+            }
+        }
         adapter = new trainingAdapter(localList,this);
         adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
 
-        Map<String,String> params = new HashMap<>();
-        params.put("username",store.getUSERNAME());
-        try {
-            networkHelper.getExc(clientel,"http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings",params);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
 
     }

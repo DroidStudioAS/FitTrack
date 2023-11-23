@@ -37,8 +37,11 @@ public class store {
     }
 
     public static void setServerResponseAllExc(String serverResponseAllExc) {
+        //clear the list so it does not concat
         USER_TRAININGS.clear();
+
         SERVER_RESPONSE_ALL_EXC = serverResponseAllExc;
+
         String parsed = JsonParser.extractJsonArray(getServerResponseAllExc());
         Log.i("Parsed", parsed);
 
