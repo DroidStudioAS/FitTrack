@@ -10,10 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class store {
-    //VARIABLES
+/*******************VARIABLES**********************/
+    //SERVER RESPONSES
     private static String SERVER_RESPONSE_LOGIN = "";
     private static String SERVER_RESPONSE_REGISTER = "";
     private static String SERVER_RESPONSE_ALL_EXC = "";
+    private static String SERVER_RESPONSE_TRAINING_DELETED = "";
 
     //USER DATA
     private static String USERNAME = "";
@@ -45,8 +47,12 @@ public class store {
     }
 
 
+    public static String getServerResponseTrainingDeleted() {
+        return SERVER_RESPONSE_TRAINING_DELETED;
+    }
 
     /*******************GETTERS***********************/
+
 
     public static String getTrainingToDeleteName() {
         return TRAINING_TO_DELETE_NAME;
@@ -78,7 +84,12 @@ public class store {
     }
 
 
+    public static void setServerResponseTrainingDeleted(String serverResponseTrainingDeleted) {
+        SERVER_RESPONSE_TRAINING_DELETED = serverResponseTrainingDeleted;
+    }
+
     /*******************SETTERS***********************/
+
     public static void setServerResponseAllExc(String serverResponseAllExc) {
         //clear the list so it does not concat
         USER_TRAININGS.clear();

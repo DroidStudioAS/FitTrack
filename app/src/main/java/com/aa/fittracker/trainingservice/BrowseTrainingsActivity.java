@@ -129,7 +129,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                     deleteWarning.setAction("Yes", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            networkHelper.deleteExc(clientel);
                         }
                     });
                     deleteWarning.show();

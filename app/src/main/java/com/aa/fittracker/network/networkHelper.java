@@ -106,8 +106,6 @@ public class networkHelper {
                 store.setServerResponseAllExc(response.body().string());
                 Log.i("response from nh",store.getServerResponseAllExc());
 
-
-
             }
         });
 
@@ -208,6 +206,30 @@ public class networkHelper {
                 }
             }
         });
+    }
+    public static void deleteExc(OkHttpClient client){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("username",store.getUSERNAME());
+        builder.add("training_name",store.getTrainingToDeleteName());
+
+        RequestBody body = builder.build();
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/userinfo/deleteUserTraining")
+                .delete(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+               store.setServerResponseTrainingDeleted(response.body().string());
+                Log.i("response from nh", store.getServerResponseTrainingDeleted());
+            }
+        });
+
     }
 
 
