@@ -20,6 +20,7 @@ public class store {
     private static String USER_WEIGHT_KG="";
     //TRAINING SERVICE
     private static List<Training> USER_TRAININGS = new ArrayList<>();
+    private static List<Training> FILTERED_USER_TRAININGS = new ArrayList<>();
     private static String TRAINING_IN_FOCUS_NAME =  "";
     private static Training TRAINING_IN_FOCUS = new Training();
 
@@ -31,6 +32,14 @@ public class store {
             }
         }
         return toReturn;
+    }
+
+    public static List<Training> getFilteredUserTrainings() {
+        return FILTERED_USER_TRAININGS;
+    }
+
+    public static void setFilteredUserTrainings(List<Training> filteredUserTrainings) {
+        FILTERED_USER_TRAININGS = filteredUserTrainings;
     }
     public static String getServerResponseAllExc() {
         return SERVER_RESPONSE_ALL_EXC;

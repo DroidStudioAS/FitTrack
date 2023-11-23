@@ -28,6 +28,10 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
         this.listener = listener;
     }
 
+    public void setDataList(List<Training> dataList) {
+        this.dataList = dataList;
+    }
+
     public trainingAdapter(List<Training> dataList, Context context) {
         this.dataList = dataList;
         this.context = context;

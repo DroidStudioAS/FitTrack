@@ -13,19 +13,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.55" />
 
-    <EditText
-        android:id="@+id/searchET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:text="Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trainingList"
         android:layout_width="0dp"
@@ -35,14 +22,17 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchET" />
+        app:layout_constraintTop_toBottomOf="@+id/searchET"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/showNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
+        android:text="No training selected"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,5 +50,52 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showNameTv" />
+
+    <EditText
+        android:id="@+id/searchET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="search"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/filter"
+        android:layout_width="65dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchET"
+        app:layout_constraintStart_toEndOf="@+id/searchET"
+        app:layout_constraintTop_toTopOf="@+id/searchET" />
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="51dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchET"
+        app:layout_constraintEnd_toStartOf="@+id/searchET"
+        app:layout_constraintTop_toTopOf="@+id/searchET" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <Button
+        android:id="@+id/deleteTrigger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="delete"
+        app:layout_constraintBottom_toBottomOf="@+id/showNameTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/showNameTv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
