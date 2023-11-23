@@ -37,6 +37,7 @@ public class store {
     }
 
     public static void setServerResponseAllExc(String serverResponseAllExc) {
+        USER_TRAININGS.clear();
         SERVER_RESPONSE_ALL_EXC = serverResponseAllExc;
         String parsed = JsonParser.extractJsonArray(getServerResponseAllExc());
         Log.i("Parsed", parsed);

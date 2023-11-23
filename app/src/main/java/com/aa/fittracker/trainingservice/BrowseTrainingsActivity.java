@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.OkHttpClient;
 
@@ -33,11 +35,18 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
     TextView descTv;
 
     OkHttpClient clientel;
+    List<Training> localList;
+
+    Timer timer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_trainings);
+        timer=new Timer();
+        timer.schedule(timerTask,5000);
+
+        localList = store.getUserTrainings();
 
         clientel=new OkHttpClient();
 
@@ -48,7 +57,8 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         rv.setLayoutManager(layoutManager);
 
-        adapter = new trainingAdapter(store.getUserTrainings(),this);
+
+        adapter = new trainingAdapter(localList,this);
         adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
 
@@ -69,4 +79,11 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         nameTv.setText(training.getTraining_name());
         descTv.setText(training.getTraining_desc());
     }
+
+    TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            localList=store.getUserTrainings();
+        }
+    };
 }
