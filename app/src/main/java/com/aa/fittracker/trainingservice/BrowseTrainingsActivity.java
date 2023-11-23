@@ -112,14 +112,19 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
             @Override
             public void onClick(View v) {
                 Log.i("filter triggered", "true");
-               List<Training> filtered = new ArrayList<>();
-               String input = searchEt.getText().toString();
-               for(Training x : store.getUserTrainings()){
-                   if(x.getTraining_name().toLowerCase(Locale.ROOT).contains(input.toLowerCase(Locale.ROOT))){
-                       Log.i("match found on click",x.toString());
-                       filtered.add(x);
-                   }
-               }
+                List<Training> filtered = new ArrayList<>();
+                String input = searchEt.getText().toString();
+                //check if diff filter is applied
+
+                for(Training x : store.getUserTrainings()){
+                    if(x.getTraining_name().toLowerCase(Locale.ROOT).contains(input.toLowerCase(Locale.ROOT))){
+                        Log.i("match found on click",x.toString());
+                        filtered.add(x);
+                    }
+                }
+                if(store.getActiveDifficultyFilter()!=-1){
+                            filtered=filterByDifficulty(filtered);
+                    }
                adapter.setDataList(filtered);
                rv.setAdapter(adapter);
             }
@@ -128,6 +133,9 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
             @Override
             public void onClick(View v) {
                 searchEt.setText("");
+                easyFilter.setAlpha((float)0.4);
+                mediumFilter.setAlpha((float)0.4);
+                hardFilter.setAlpha((float)0.4);
                 refreshList();
 
             }
@@ -135,19 +143,19 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         easyFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterClickReaction(1);
+                difficultyFilterClickReaction(1);
             }
         });
         mediumFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filterClickReaction(2);
+                difficultyFilterClickReaction(2);
             }
         });
         hardFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               filterClickReaction(3);
+               difficultyFilterClickReaction(3);
             }
         });
         deleteBut.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +188,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
 
     }
-    public void filterClickReaction(int filter_to_activate){
+    public void difficultyFilterClickReaction(int filter_to_activate){
         switch (filter_to_activate){
             case 1:
                 store.setActiveDifficultyFilter(filter_to_activate);
@@ -202,6 +210,15 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                 break;
         }
         Log.i("Activity Filter Change:", String.valueOf(store.getActiveDifficultyFilter()));
+    }
+    public List<Training> filterByDifficulty(List<Training> list){
+        List<Training> filtered = new ArrayList<>();
+        for(Training x : list){
+            if(x.getTraining_difficulty()==store.getActiveDifficultyFilter()){
+                filtered.add(x);
+            }
+        }
+        return filtered;
     }
     //sets the list to the original list fetched by the networkHelper
     public void refreshList(){
@@ -230,6 +247,9 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         deleteBut.setVisibility(View.VISIBLE);
         //store the name of the training in focus as a parameter in case user wants to delete
         store.setTrainingToDeleteName(training.getTraining_name());
+    }
+    public void difficultyFilter(List<Training> toMutate){
+
     }
 }
 
