@@ -109,6 +109,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchEt.setText("");
                 refreshList();
 
             }
@@ -119,6 +120,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
     public void refreshList(){
         Log.i("refresh triggered", "true");
         adapter.setDataList(store.getUserTrainings());
+        store.clearFilteredUserTrainings();
         rv.setAdapter(adapter);
     }
     //callback to set training description to display

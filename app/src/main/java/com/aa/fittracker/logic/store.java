@@ -34,6 +34,9 @@ public class store {
         return toReturn;
     }
 
+    public static void clearFilteredUserTrainings(){
+        FILTERED_USER_TRAININGS.clear();
+    }
     public static List<Training> getFilteredUserTrainings() {
         return FILTERED_USER_TRAININGS;
     }
