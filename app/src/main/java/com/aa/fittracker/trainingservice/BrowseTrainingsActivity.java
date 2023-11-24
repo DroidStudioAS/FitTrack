@@ -280,11 +280,6 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                 });
                 /*******Show user warning*********/
                 editWarning.show();
-
-
-
-
-
             }
         });
     }
