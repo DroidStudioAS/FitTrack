@@ -21,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -86,8 +87,8 @@ public class AddTrainingActivity extends Activity {
         trigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String trainingName = nameET.getText().toString().trim();
-                String trainingDesc = descET.getText().toString().trim();
+                String trainingName = nameET.getText().toString().trim().toUpperCase(Locale.ROOT);
+                String trainingDesc = descET.getText().toString().trim().toUpperCase(Locale.ROOT);
 
                 //Missing info check
                 if(trainingName.equals("") || trainingDesc.equals("") || difficulty==-1){

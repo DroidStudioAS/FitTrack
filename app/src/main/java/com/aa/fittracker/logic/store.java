@@ -47,13 +47,14 @@ public class store {
         return toReturn;
     }
     public static boolean containsName(String name){
-        for(Training x : USER_TRAININGS){
-                if (x.getTraining_name().equals(name)) {
-                    if(x!=TRAINING_IN_FOCUS) {
-                        return true;
-                    }
-                }
+        for(Training x: USER_TRAININGS){
+            if(x.getTraining_name().equals(name)){
+                Log.i("MatchFound", x.getTraining_name() + " " + name);
+                return true;
             }
+        }
+
+
         return false;
     }
 
@@ -71,7 +72,7 @@ public class store {
     public static void removeFromUserTrainings(Training toDelete){
         Training toRemove = new Training();
         for(Training x : USER_TRAININGS){
-            if(x.getTraining_name().toLowerCase(Locale.ROOT).equals(toDelete.getTraining_name().toLowerCase(Locale.ROOT))){
+            if(x.getTraining_name().equals(toDelete.getTraining_name())){
                 toRemove=x;
             }
         }

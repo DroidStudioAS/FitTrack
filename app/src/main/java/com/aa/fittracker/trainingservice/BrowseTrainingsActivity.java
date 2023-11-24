@@ -205,8 +205,8 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
             @Override
             public void onClick(View v) {
                 //POTENTIAL PARAMETERS FOR BACKEND (MUST BE VALIDATED AND SANITIZED) TODO:sanitize inputs
-                String newName = editNameET.getText().toString();
-                String newDesc = editDescET.getText().toString();
+                String newName = editNameET.getText().toString().toUpperCase(Locale.ROOT);
+                String newDesc = editDescET.getText().toString().toUpperCase(Locale.ROOT);
                 String newDiff = String.valueOf(store.getActiveDifficultyFilter());
 
                 Map<String,String> params = new HashMap<>();
@@ -225,6 +225,8 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                 }
                 if(!newDiff.equals("-1")){
                     params.put("training_difficulty", newDiff);
+                }else{
+                    params.put("training_difficulty", String.valueOf(store.getTrainingInFocus().getTraining_difficulty()));
                 }
 
                 /** VALIDATION TO MAKE BEFORE REQUEST:
@@ -233,10 +235,21 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                 3) IS USER SURE HE WANTS TO MAKE CHANGES? **/
 
                 /*******************Check if any data has been changed or if name is in use**********************/
-                if((newName.equals(store.getTrainingInFocus().getTraining_name())
-                        && newDesc.equals(store.getTrainingInFocus().getTraining_desc())
-                        && newDiff.equals(String.valueOf(store.getTrainingInFocus().getTraining_difficulty()))) ||
-                   store.containsName(newName) )
+                Log.i("Validation", "Validation failed, returning...");
+                Log.i("newName", newName);
+                Log.i("newDesc", newDesc);
+                Log.i("newDiff", newDiff);
+                Log.i("TrainingInFocusName", store.getTrainingInFocus().getTraining_name());
+                Log.i("TrainingInFocusDesc", store.getTrainingInFocus().getTraining_desc());
+                Log.i("TrainingInFocusDiff", String.valueOf(store.getTrainingInFocus().getTraining_difficulty()));
+                Log.i("Contains name", String.valueOf(store.containsName(newName)));
+                if((newName.toLowerCase(Locale.ROOT).equals(store.getTrainingInFocus().getTraining_name().toLowerCase(Locale.ROOT))
+                        && newDesc.toLowerCase(Locale.ROOT).equals(store.getTrainingInFocus().getTraining_desc().toLowerCase(Locale.ROOT))
+                        && newDiff.equals(String.valueOf(store.getTrainingInFocus().getTraining_difficulty())))
+                        ||
+                   store.containsName(newName)
+                        ||
+                        (newDesc.equals("") && newName.equals("")))
                 {
                     /*********Notify user of mistake************/
                     Toast.makeText(getApplicationContext(),"No Changes were made or name already in Use",Toast.LENGTH_SHORT).show();
