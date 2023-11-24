@@ -3,7 +3,12 @@ package com.aa.fittracker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +25,7 @@ public class IndexActivity extends AppCompatActivity {
 OkHttpClient client;
 
 TextView desiredWeightView;
+TextView welcomeTv;
 
 Button journalButton;
 Button trainingsButton;
@@ -32,6 +38,7 @@ Button weightButton;
         setContentView(R.layout.activity_index);
 
         desiredWeightView = (TextView)findViewById(R.id.desiredWeightTv);
+        welcomeTv = (TextView)findViewById(R.id.welcomeTv);
 
         journalButton = (Button) findViewById(R.id.button);
         trainingsButton = (Button) findViewById(R.id.button2);
@@ -47,6 +54,8 @@ Button weightButton;
         while (store.getUserWeightKg().equals("")){
             Log.i("Waiting",store.getUserWeightKg());
         }
+
+        welcomeTv.setText("Welcome: " + store.getUSERNAME());
         desiredWeightView.setText(JsonParser.parsemsg(store.getUserWeightKg()));
 
         for(Button x : buts){

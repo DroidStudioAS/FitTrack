@@ -22,6 +22,15 @@ public class store {
     //USER DATA
     private static String USERNAME = "";
     private static String USER_WEIGHT_KG="";
+    private static String DATE_IN_FOCUS = "";
+
+    public static String getDateInFocus() {
+        return DATE_IN_FOCUS;
+    }
+
+    public static void setDateInFocus(String dateInFocus) {
+        DATE_IN_FOCUS = dateInFocus;
+    }
 
     //TRAINING SERVICE
     private static List<Training> USER_TRAININGS = new ArrayList<>();
@@ -31,6 +40,8 @@ public class store {
     private static String TRAINING_TO_DELETE_NAME ="";
     private static int ACTIVE_DIFFICULTY_FILTER=-1;
     private static boolean EDIT_MODE_ACTIVE=false;
+
+
 
 
 
