@@ -204,11 +204,13 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         patchTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //POTENTIAL PARAMETERS FOR BACKEND (MUST BE VALIDATED AND SANITIZED) TODO:sanitize inputs
                 String newName = editNameET.getText().toString();
                 String newDesc = editDescET.getText().toString();
                 String newDiff = String.valueOf(store.getActiveDifficultyFilter());
 
                 Map<String,String> params = new HashMap<>();
+                //CHECK IF INPUTS ARE EMPTY BEFORE PUTTING THEM AS PARAMETERS IN THE PATCH MAP
                 if(!store.getUSERNAME().equals("")){
                     params.put("username",store.getUSERNAME());
                 }
@@ -224,48 +226,60 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                 if(!newDiff.equals("-1")){
                     params.put("training_difficulty", newDiff);
                 }
-                //VALIDATION TO MAKE BEDORE REQUEST:
-                //1 ARE THERE CHANGES MADE
-                //2 IS THE NAME ALREADY IN USE
-                //IS USER SURE
+
+                /** VALIDATION TO MAKE BEFORE REQUEST:
+                1)ARE THERE ANY CHANGES MADE
+                2)IS THE NAME ALREADY IN USE
+                3) IS USER SURE HE WANTS TO MAKE CHANGES? **/
+
+                /*******************Check if any data has been changed or if name is in use**********************/
                 if((newName.equals(store.getTrainingInFocus().getTraining_name())
                         && newDesc.equals(store.getTrainingInFocus().getTraining_desc())
                         && newDiff.equals(String.valueOf(store.getTrainingInFocus().getTraining_difficulty()))) ||
                    store.containsName(newName) )
                 {
+                    /*********Notify user of mistake************/
                     Toast.makeText(getApplicationContext(),"No Changes were made or name already in Use",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                /***********Validation passed*************/
+                Snackbar editWarning = Snackbar.make(v,"Are you sure you want to change this?",Snackbar.LENGTH_INDEFINITE);
+                /********edit logc********/
+                editWarning.setAction("Yes", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        networkHelper.patchExc(clientel,params);
+                        while(store.getServerResponseExercisePatched().equals("")){
+                            Log.i("Waiting for response", store.getServerResponseExercisePatched());
+                        }
+                        if(store.getServerResponseExercisePatched().contains("!")){
+                            /*******Failed to Patch*********/
+                        }else{
+                            /*******Patch Successful, check for empty variables again in case 1 got
+                             * throgh before altering the locallist*********/
+                            if(!newName.equals("")) {
+                                store.getTrainingInFocus().setTraining_name(newName);
+                            }
+                            if(!newDesc.equals("")) {
+                                store.getTrainingInFocus().setTraining_desc(newDesc);
+                            }
+                            if(!newDiff.equals("-1")) {
+                                store.getTrainingInFocus().setTraining_difficulty(Integer.parseInt(newDiff));
+                            }
 
-                    networkHelper.patchExc(clientel,params);
-
-
-                while(store.getServerResponseExercisePatched().equals("")){
-                    Log.i("Waiting for response", store.getServerResponseExercisePatched());
-                }
-                if(store.getServerResponseExercisePatched().contains("!")){
-                    //not ok
-
-                }else{
-                    //sucess
-                    if(!newName.equals("")) {
-                        store.getTrainingInFocus().setTraining_name(newName);
+                            /*************reset the adapters datalist, refresh the adapter, exit edit mode and focus on the new Training*************/
+                            adapter.setDataList(store.getUserTrainings());
+                            rv.setAdapter(adapter);
+                            edit_browse_toggler();
+                            onTrainingFocus(store.getTrainingInFocus());
+                            /***********Inform user of success*************/
+                            Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    if(!newDesc.equals("")) {
-                        store.getTrainingInFocus().setTraining_desc(newDesc);
-                    }
-                    if(!newDiff.equals("-1")) {
-                        store.getTrainingInFocus().setTraining_difficulty(Integer.parseInt(newDiff));
-                    }
-                    Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
-
-                    adapter.setDataList(store.getUserTrainings());
-                    rv.setAdapter(adapter);
-                    edit_browse_toggler();
-                    onTrainingFocus(store.getTrainingInFocus());
-
-                }
+                });
+                /*******Show user warning*********/
+                editWarning.show();
 
 
 
@@ -274,6 +288,9 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
             }
         });
     }
+
+
+
 
     /***********Function to set transparency of filters onClick***********/
     public void difficultyFilterClickReaction(int filter_to_activate){
