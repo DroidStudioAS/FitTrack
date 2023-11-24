@@ -6,8 +6,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +43,11 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
     TextView nameTv;
     TextView descTv;
+
+
     EditText searchEt;
+    EditText editDescET;
+    EditText editNameET;
 
     Button filter;
     Button reset;
@@ -57,38 +63,40 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
     Timer timer;
 
+    ScrollView browseView;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_trainings);
-
+         /************Variable Initialization**************/
         searchEt = (EditText) findViewById(R.id.searchET);
+        editDescET=(EditText)findViewById(R.id.editDescET);
+        editNameET=(EditText)findViewById(R.id.editTitleET);
 
         filter = (Button) findViewById(R.id.filter);
         reset = (Button) findViewById(R.id.reset);
         deleteBut=(Button)findViewById(R.id.deleteTrigger);
         editBut=(Button)findViewById(R.id.editTrigger);
-
         easyFilter = (Button)findViewById(R.id.easyFilter);
         mediumFilter = (Button)findViewById(R.id.mediumFilter);
         hardFilter=(Button)findViewById(R.id.hardFilter);
 
+        browseView=(ScrollView)findViewById(R.id.scrollView2);
 
 
+
+        //fetch user exercises
         clientel = new OkHttpClient();
         Map<String, String> params = new HashMap<>();
         params.put("username", store.getUSERNAME());
+
         try {
             networkHelper.getExc(clientel, "http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings", params);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        timer = new Timer();
-        timer.schedule(timerTask, 5000);
-
-
         nameTv = (TextView) findViewById(R.id.showNameTv);
         descTv = (TextView) findViewById(R.id.descTV);
 
@@ -104,12 +112,12 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                     Log.i("Fetching data: ", localList.toString());
                 }
             }
-
+        /**************RV Configuration*******************/
         adapter = new trainingAdapter(localList, this);
         adapter.setOnItemClickListener(this);
         rv.setAdapter(adapter);
 
-
+        /**************OnClickListeners*******************/
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,11 +197,12 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         editBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                store.setEditModeActive();
-                Log.i("active?:",String.valueOf(store.isEditModeActive()));
+                edit_browse_toggler();
             }
         });
     }
+
+    /***********Function to set transparency of filters onClick***********/
     public void difficultyFilterClickReaction(int filter_to_activate){
         switch (filter_to_activate){
             case 1:
@@ -217,6 +226,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         }
         Log.i("Activity Filter Change:", String.valueOf(store.getActiveDifficultyFilter()));
     }
+    /************Filters a list by fiddiculty****************/
     public List<Training> filterByDifficulty(List<Training> list){
         List<Training> filtered = new ArrayList<>();
         for(Training x : list){
@@ -226,7 +236,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         }
         return filtered;
     }
-    //sets the list to the original list fetched by the networkHelper
+    /**************sets the list to the original list fetched by the networkHelper *******************/
     public void refreshList(){
         Log.i("refresh triggered", "true");
         adapter.setDataList(store.getUserTrainings());
@@ -240,12 +250,6 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         descTv.setText("");
     }
 
-    TimerTask timerTask = new TimerTask() {
-        @Override
-        public void run() {
-            localList=store.getUserTrainings();
-        }
-    };
     /*****************onItemClickListener Callback****************/
     //callback to set training description to display
     @Override
@@ -257,8 +261,35 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         //store the name of the training in focus as a parameter in case user wants to delete
         store.setTrainingToDeleteName(training.getTraining_name());
     }
-    public void difficultyFilter(List<Training> toMutate){
+    public void edit_browse_toggler(){
+        store.setEditModeActive();
 
+
+
+        Log.i("active?:",String.valueOf(store.isEditModeActive()));
+        if(store.isEditModeActive()){
+            //so the keyboard pans
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+            browseView.setVisibility(View.GONE);
+            nameTv.setVisibility(View.INVISIBLE);
+
+            editDescET.setVisibility(View.VISIBLE);
+            editDescET.setText(store.getTrainingInFocus().getTraining_desc());
+
+            editNameET.setVisibility(View.VISIBLE);
+            editNameET.setText(store.getTrainingInFocus().getTraining_name());
+
+        }else{
+            //so the keyboard pans
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+            editDescET.setVisibility(View.GONE);
+            editNameET.setVisibility(View.GONE);
+
+            browseView.setVisibility(View.VISIBLE);
+            nameTv.setVisibility(View.VISIBLE);
+
+        }
     }
 }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".trainingservice.BrowseTrainingsActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -33,15 +34,20 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        tools:visibility="visible" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showNameTv">
+        app:layout_constraintTop_toBottomOf="@+id/showNameTv"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/descTV"
@@ -55,6 +61,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/showNameTv" />
     </ScrollView>
+
+    <EditText
+        android:id="@+id/editDescET"
+        android:layout_width="0dp"
+        android:layout_height="248dp"
+        android:ems="10"
+        android:gravity="center_horizontal|center_vertical"
+        android:inputType="textMultiLine"
+        android:text="Name"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showNameTv"
+        tools:visibility="gone" />
+
+    <EditText
+        android:id="@+id/editTitleET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="Hey"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        tools:visibility="gone" />
 
     <EditText
         android:id="@+id/searchET"
