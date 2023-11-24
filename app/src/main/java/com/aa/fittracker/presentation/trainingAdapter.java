@@ -2,20 +2,17 @@ package com.aa.fittracker.presentation;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.trainingservice.onItemClickListener;
-
 import java.util.List;
 
 public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyViewHolder> {
@@ -57,41 +54,43 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
         TextView[] tv = new TextView[]{tv1, tv2, tv3};
 
         for (TextView x : tv) {
-            x.setVisibility(View.GONE);
-        }
-        for (int i = startIndex; i < endIndex; i++) {
-            Training currentItem = dataList.get(i);
-            switch (i - startIndex) {
-                case 0:
-                    tv1.setText(currentItem.getTraining_name());
-                    tv1.setVisibility(View.VISIBLE);
-                    tv1.setBackgroundColor(getColor(currentItem.getTraining_difficulty()));
-                    break;
-                case 1:
-                    tv2.setText(currentItem.getTraining_name());
-                    tv2.setVisibility(View.VISIBLE);
-                    tv2.setBackgroundColor(getColor(currentItem.getTraining_difficulty()));
-                    break;
-                case 2:
-                    tv3.setText(currentItem.getTraining_name());
-                    tv3.setVisibility(View.VISIBLE);
-                    tv3.setBackgroundColor(getColor(currentItem.getTraining_difficulty()));
-                    break;
-            }
-        }
-        for(TextView x : tv){
-            x.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    store.setTrainingInFocusName(x.getText().toString());
-                    Log.i("focus: ", store.getTrainingInFocusName());
-                    store.setTrainingInFocus(store.findInFocus(store.getTrainingInFocusName()));
-                    Log.i("Focused",store.getTrainingInFocus().toString());
-                    if(listener!=null){
-                        listener.onTrainingFocus(store.getTrainingInFocus());
+            // Create a shape drawable with rounded corners and black stroke
+            GradientDrawable shapeDrawable = new GradientDrawable();
+            shapeDrawable.setShape(GradientDrawable.RECTANGLE);
+            shapeDrawable.setCornerRadius(8); // 8dp corners
+            shapeDrawable.setStroke(2, Color.BLACK); // Black stroke
+
+            // Get the index for current TextView in the loop
+            int index = startIndex + java.util.Arrays.asList(tv).indexOf(x);
+
+            if (index < endIndex) {
+                Training currentItem = dataList.get(index);
+                x.setText(currentItem.getTraining_name());
+                x.setVisibility(View.VISIBLE);
+
+                // Set the background color based on your logic (using getColor method)
+                int difficulty = currentItem.getTraining_difficulty();
+                int backgroundColor = getColor(difficulty); // Use your getColor method
+                shapeDrawable.setColor(backgroundColor);
+
+                // Apply the shape drawable as the background for the TextView
+                x.setBackground(shapeDrawable);
+
+                // Set click listener
+                x.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Your onClick logic here
+                        store.setTrainingInFocusName(x.getText().toString());
+                        store.setTrainingInFocus(store.findInFocus(store.getTrainingInFocusName()));
+                        if (listener != null) {
+                            listener.onTrainingFocus(store.getTrainingInFocus());
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                x.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -110,18 +109,12 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return dataList.size();
+        return (dataList.size() + 2) / 3; // Divide by 3 items per row
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
         }
     }
 }
