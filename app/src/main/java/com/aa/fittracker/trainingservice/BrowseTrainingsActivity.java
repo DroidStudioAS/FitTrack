@@ -201,6 +201,78 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                 edit_browse_toggler();
             }
         });
+        patchTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newName = editNameET.getText().toString();
+                String newDesc = editDescET.getText().toString();
+                String newDiff = String.valueOf(store.getActiveDifficultyFilter());
+
+                Map<String,String> params = new HashMap<>();
+                if(!store.getUSERNAME().equals("")){
+                    params.put("username",store.getUSERNAME());
+                }
+                if(!store.getTrainingInFocus().getTraining_name().equals("")){
+                    params.put("old_name",store.getTrainingInFocus().getTraining_name());
+                }
+                if(!newName.equals("")){
+                    params.put("training_name",newName);
+                }
+                if(!newDesc.equals("")){
+                    params.put("training_description",newDesc);
+                }
+                if(!newDiff.equals("-1")){
+                    params.put("training_difficulty", newDiff);
+                }
+                //VALIDATION TO MAKE BEDORE REQUEST:
+                //1 ARE THERE CHANGES MADE
+                //2 IS THE NAME ALREADY IN USE
+                //IS USER SURE
+                if((newName.equals(store.getTrainingInFocus().getTraining_name())
+                        && newDesc.equals(store.getTrainingInFocus().getTraining_desc())
+                        && newDiff.equals(String.valueOf(store.getTrainingInFocus().getTraining_difficulty()))) ||
+                   store.containsName(newName) )
+                {
+                    Toast.makeText(getApplicationContext(),"No Changes were made or name already in Use",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                    networkHelper.patchExc(clientel,params);
+
+
+                while(store.getServerResponseExercisePatched().equals("")){
+                    Log.i("Waiting for response", store.getServerResponseExercisePatched());
+                }
+                if(store.getServerResponseExercisePatched().contains("!")){
+                    //not ok
+
+                }else{
+                    //sucess
+                    if(!newName.equals("")) {
+                        store.getTrainingInFocus().setTraining_name(newName);
+                    }
+                    if(!newDesc.equals("")) {
+                        store.getTrainingInFocus().setTraining_desc(newDesc);
+                    }
+                    if(!newDiff.equals("-1")) {
+                        store.getTrainingInFocus().setTraining_difficulty(Integer.parseInt(newDiff));
+                    }
+                    Toast.makeText(getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+
+                    adapter.setDataList(store.getUserTrainings());
+                    rv.setAdapter(adapter);
+                    edit_browse_toggler();
+                    onTrainingFocus(store.getTrainingInFocus());
+
+                }
+
+
+
+
+
+            }
+        });
     }
 
     /***********Function to set transparency of filters onClick***********/
@@ -265,12 +337,11 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
     public void edit_browse_toggler(){
         store.setEditModeActive();
 
-
-
         Log.i("active?:",String.valueOf(store.isEditModeActive()));
         if(store.isEditModeActive()){
             //so the keyboard pans
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+            editBut.setEnabled(false);
 
             browseView.setVisibility(View.GONE);
             nameTv.setVisibility(View.INVISIBLE);
@@ -285,6 +356,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
         }else{
             //so the keyboard pans
+            editBut.setEnabled(true);
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
             editDescET.setVisibility(View.GONE);
             editNameET.setVisibility(View.GONE);

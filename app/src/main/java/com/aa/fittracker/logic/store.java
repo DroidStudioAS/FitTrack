@@ -46,6 +46,16 @@ public class store {
         }
         return toReturn;
     }
+    public static boolean containsName(String name){
+        for(Training x : USER_TRAININGS){
+                if (x.getTraining_name().equals(name)) {
+                    if(x!=TRAINING_IN_FOCUS) {
+                        return true;
+                    }
+                }
+            }
+        return false;
+    }
 
     public static void clearFilteredUserTrainings(){
         FILTERED_USER_TRAININGS.clear();
