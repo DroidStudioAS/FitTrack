@@ -55,6 +55,7 @@
             android:layout_height="match_parent"
             android:autoText="false"
             android:gravity="center_horizontal"
+            android:visibility="visible"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,12 +66,13 @@
     <EditText
         android:id="@+id/editDescET"
         android:layout_width="0dp"
-        android:layout_height="248dp"
+        android:layout_height="0dp"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
         android:inputType="textMultiLine"
         android:text="Name"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/patchTrigger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showNameTv"
@@ -184,5 +186,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/showNameTv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/showNameTv" />
+
+    <Button
+        android:id="@+id/patchTrigger"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Confirm"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

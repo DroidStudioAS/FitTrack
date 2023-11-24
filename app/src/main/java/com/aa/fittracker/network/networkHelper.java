@@ -112,7 +112,6 @@ public class networkHelper {
 
         //Request request = new Request.Builder().url(url)
     }
-
     public static void get(OkHttpClient client, String url, Map<String,String> params) throws IOException{
         //initialize response;
         String stringResponse = "";
@@ -230,6 +229,33 @@ public class networkHelper {
             }
         });
 
+    }
+
+    public static void patchExc(OkHttpClient client, Map<String,String> params){
+        //Build the request Body Data
+        FormBody.Builder builder = new FormBody.Builder();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            builder.add(entry.getKey(), entry.getValue());
+        }
+        //Build the actual body
+        RequestBody body = builder.build();
+        //atqach the body to a new request
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/userinfo/changeExercise")
+                .patch(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseExercisePatched(response.body().string());
+                Log.i("RESPONSE FROM NH: ", store.getServerResponseExercisePatched());
+            }
+        });
     }
 
 

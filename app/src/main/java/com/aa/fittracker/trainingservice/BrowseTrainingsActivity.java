@@ -53,10 +53,10 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
     Button reset;
     Button deleteBut;
     Button editBut;
-
     Button easyFilter;
     Button mediumFilter;
     Button hardFilter;
+    Button patchTrigger;
 
     OkHttpClient clientel;
     List<Training> localList;
@@ -82,6 +82,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         easyFilter = (Button)findViewById(R.id.easyFilter);
         mediumFilter = (Button)findViewById(R.id.mediumFilter);
         hardFilter=(Button)findViewById(R.id.hardFilter);
+        patchTrigger=(Button)findViewById(R.id.patchTrigger);
 
         browseView=(ScrollView)findViewById(R.id.scrollView2);
 
@@ -274,8 +275,10 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
             browseView.setVisibility(View.GONE);
             nameTv.setVisibility(View.INVISIBLE);
 
+            patchTrigger.setVisibility(View.VISIBLE);
             editDescET.setVisibility(View.VISIBLE);
             editDescET.setText(store.getTrainingInFocus().getTraining_desc());
+
 
             editNameET.setVisibility(View.VISIBLE);
             editNameET.setText(store.getTrainingInFocus().getTraining_name());
@@ -285,6 +288,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
             editDescET.setVisibility(View.GONE);
             editNameET.setVisibility(View.GONE);
+            patchTrigger.setVisibility(View.GONE);
 
             browseView.setVisibility(View.VISIBLE);
             nameTv.setVisibility(View.VISIBLE);

@@ -17,6 +17,7 @@ public class store {
     private static String SERVER_RESPONSE_REGISTER = "";
     private static String SERVER_RESPONSE_ALL_EXC = "";
     private static String SERVER_RESPONSE_TRAINING_DELETED = "";
+    private static String SERVER_RESPONSE_EXERCISE_PATCHED = "";
 
     //USER DATA
     private static String USERNAME = "";
@@ -68,7 +69,9 @@ public class store {
     }
 
     /*******************GETTERS***********************/
-
+    public static String getServerResponseExercisePatched() {
+        return SERVER_RESPONSE_EXERCISE_PATCHED;
+    }
     public static int getActiveDifficultyFilter() {
         return ACTIVE_DIFFICULTY_FILTER;
     }
@@ -169,4 +172,10 @@ public class store {
     public static void setEditModeActive() {
         EDIT_MODE_ACTIVE = !EDIT_MODE_ACTIVE;
     }
+
+
+    public static void setServerResponseExercisePatched(String serverResponseExercisePatched) {
+        SERVER_RESPONSE_EXERCISE_PATCHED = serverResponseExercisePatched;
+    }
+
 }
