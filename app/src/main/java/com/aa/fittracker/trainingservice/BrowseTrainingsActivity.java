@@ -366,7 +366,6 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
         if(store.isEditModeActive()){
             //so the keyboard pans
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-            editBut.setEnabled(false);
 
             browseView.setVisibility(View.GONE);
             nameTv.setVisibility(View.INVISIBLE);
@@ -389,6 +388,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
             browseView.setVisibility(View.VISIBLE);
             nameTv.setVisibility(View.VISIBLE);
+
 
         }
     }
