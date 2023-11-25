@@ -57,11 +57,11 @@
       app:layout_constraintVertical_bias="0.3"
       app:srcCompat="@drawable/centerpiece_fixed" />
 
-  <Button
+  <ImageView
       android:id="@+id/button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@drawable/button_1"
+      android:background="@drawable/journal_service_drawable"
 
       app:layout_constraintBottom_toTopOf="@+id/imageView2"
       app:layout_constraintCircle="@id/imageView2"
@@ -70,35 +70,39 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent" />
 
-  <Button
+  <ImageView
       android:id="@+id/button2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
 
-      android:background="@drawable/button_2"
+      android:background="@drawable/training_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
       app:layout_constraintCircleAngle="45"
-      app:layout_constraintCircleRadius="170dp" />
+      app:layout_constraintCircleRadius="170dp"
+      tools:layout_editor_absoluteX="251dp"
+      tools:layout_editor_absoluteY="60dp" />
 
-  <Button
+  <ImageView
       android:id="@+id/button3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@drawable/button_3"
+      android:background="@drawable/noutrition_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
       app:layout_constraintCircleAngle="135"
-      app:layout_constraintCircleRadius="170dp" />
+      app:layout_constraintCircleRadius="170dp"
+      tools:layout_editor_absoluteX="251dp"
+      tools:layout_editor_absoluteY="301dp" />
 
-  <Button
+  <ImageView
       android:id="@+id/button4"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@drawable/button_4"
+      android:background="@drawable/weight_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
       app:layout_constraintCircleAngle="225"
       app:layout_constraintCircleRadius="170dp"
-      tools:layout_editor_absoluteX="0dp"
-      tools:layout_editor_absoluteY="609dp" />
+      tools:layout_editor_absoluteX="11dp"
+      tools:layout_editor_absoluteY="301dp" />
 
   <TextView
       android:id="@+id/textView7"

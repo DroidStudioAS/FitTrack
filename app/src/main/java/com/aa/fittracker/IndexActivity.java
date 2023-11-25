@@ -12,6 +12,7 @@ import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aa.fittracker.logic.JsonParser;
@@ -27,10 +28,10 @@ OkHttpClient client;
 TextView desiredWeightView;
 TextView welcomeTv;
 
-Button journalButton;
-Button trainingsButton;
-Button noutritionButton;
-Button weightButton;
+ImageView journalButton;
+ImageView trainingsButton;
+ImageView noutritionButton;
+ImageView weightButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,12 @@ Button weightButton;
         desiredWeightView = (TextView)findViewById(R.id.desiredWeightTv);
         welcomeTv = (TextView)findViewById(R.id.welcomeTv);
 
-        journalButton = (Button) findViewById(R.id.button);
-        trainingsButton = (Button) findViewById(R.id.button2);
-        weightButton = (Button) findViewById(R.id.button3);
-        noutritionButton = (Button) findViewById(R.id.button4);
+        journalButton =   (ImageView) findViewById(R.id.button);
+        trainingsButton = (ImageView) findViewById(R.id.button2);
+        weightButton =    (ImageView) findViewById(R.id.button3);
+        noutritionButton =(ImageView) findViewById(R.id.button4);
 
-        Button[] buts = new Button[]{journalButton,weightButton,noutritionButton};
+        ImageView[] buts = new ImageView[]{journalButton,weightButton,noutritionButton};
 
 
         client=new OkHttpClient();
@@ -58,7 +59,7 @@ Button weightButton;
         welcomeTv.setText("Welcome: " + store.getUSERNAME());
         desiredWeightView.setText(JsonParser.parsemsg(store.getUserWeightKg()));
 
-        for(Button x : buts){
+        for(ImageView x : buts){
             x.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
