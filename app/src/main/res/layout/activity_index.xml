@@ -22,6 +22,7 @@
       android:layout_height="wrap_content"
       android:text="label"
       android:textAlignment="center"
+      android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/guideline"
       app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +34,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:textSize="20sp"
+      android:visibility="invisible"
       app:layout_constraintEnd_toStartOf="@+id/weightTv"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -42,6 +44,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="TextView"
+      android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@+id/guideline2"
       app:layout_constraintTop_toTopOf="@+id/textView7" />
@@ -156,6 +159,7 @@
       android:layout_height="wrap_content"
       android:text="label"
       android:textAlignment="center"
+      android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -204,6 +208,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="TextView"
+      android:visibility="invisible"
       app:layout_constraintEnd_toStartOf="@+id/guideline"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@+id/textView7" />

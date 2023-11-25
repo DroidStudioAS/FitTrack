@@ -79,22 +79,20 @@ CalendarView calendarView;
                 String date = year + "-" + month + "-"+ day;
                 store.setDateInFocus(date);
 
-                if(store.getDatesWithLogs().contains(store.getDateInFocus())){
-                    /*************Callback to activity****************/
 
+
+                /************callback to activity**********/
+                Log.i("date in focus", store.getDateInFocus());
+                if (onDateClickListener != null) {
+                    onDateClickListener.onDateClicked(date);
                 }
+
                 for(WeightEntry x : store.getWeightEntries()){
                     if(x.getWeight_date().equals(store.getDateInFocus())){
                         if(onDateClickListener!=null){
                             onDateClickListener.onMatchFound(x);
                         }
                     }
-                }
-
-                /************callback to activity**********/
-                Log.i("date in focus", store.getDateInFocus());
-                if (onDateClickListener != null) {
-                    onDateClickListener.onDateClicked(date);
                 }
             }
         });

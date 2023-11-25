@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         adapter = new pagerAdapter(getSupportFragmentManager());
 
 
+
+
         //set up vPager
         vPager.setAdapter(adapter);
         tl.setupWithViewPager(vPager);

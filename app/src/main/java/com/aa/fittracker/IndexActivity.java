@@ -10,8 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.TrainingsIndex;
+import com.google.gson.Gson;
+
+import java.util.Calendar;
 
 import okhttp3.OkHttpClient;
 
@@ -19,6 +23,7 @@ public class IndexActivity extends AppCompatActivity {
 OkHttpClient client;
 
 TextView desiredWeightView;
+TextView weightTv;
 TextView welcomeTv;
 
 ImageView journalButton;
@@ -30,9 +35,8 @@ ImageView weightButton;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
-
-        Intent intent = new Intent(this,calendarActivity.class);
-
+        /******************UI initializations***********************/
+        weightTv=(TextView)findViewById(R.id.weightTv);
         desiredWeightView = (TextView)findViewById(R.id.desiredWeightTv);
         welcomeTv = (TextView)findViewById(R.id.welcomeTv);
 
@@ -41,7 +45,25 @@ ImageView weightButton;
         weightButton =    (ImageView) findViewById(R.id.button3);
         noutritionButton =(ImageView) findViewById(R.id.button4);
 
+        userWeightModeActivate();
+        Intent intent = new Intent(this,calendarActivity.class);
+
+        Calendar calendar = Calendar.getInstance();
+        int month = calendar.get(Calendar.MONTH) + 1;
+        String dateTodaycalendar = calendar.get(Calendar.YEAR) + "-" +month + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+        Log.i("Date today", dateTodaycalendar);
+        for(WeightEntry x : store.getWeightEntries()){
+            if(x.getWeight_date().contains(dateTodaycalendar)){
+                weightTv.setText(x.getWeight_value());
+            }
+        }
+
+
+
         ImageView[] buts = new ImageView[]{journalButton,weightButton,noutritionButton};
+
+
+
 
 
         client=new OkHttpClient();
@@ -84,5 +106,24 @@ ImageView weightButton;
             }
         });
 
+    }
+    public void userWeightModeActivate(){
+        /*************Fetch users weight logs****************/
+        OkHttpClient client = new OkHttpClient();
+        networkHelper.getWeightLog(client);
+        Gson gson = new Gson();
+        /**************Wait for network logic to finish*************/
+        while (store.getDateStrings().equals("")) {
+            Log.i("Fetching data", store.getDateStrings());
+        }
+        /************map from json*******************/
+        WeightEntry[] entryList = gson.fromJson(store.getDateStrings(), WeightEntry[].class);
+        for (WeightEntry x : entryList) {
+            store.addToDatesWithLogs(x.getWeight_date());
+            store.addToWeightEntries(x);
+        }
+        for (String x : store.getDatesWithLogs()) {
+            Log.i("DATE STRIING ", x);
+        }
     }
 }
