@@ -43,6 +43,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         WeightEntry[] entryList = gson.fromJson(store.getDateStrings(),WeightEntry[].class);
         for(WeightEntry x : entryList){
             store.addToDatesWithLogs(x.getWeight_date());
+            store.addToWeightEntries(x);
         }
         for(String x : store.getDatesWithLogs()){
             Log.i("DATE STRIING ", x);
@@ -59,7 +60,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     }
 
     @Override
-    public void onMatchFound(String date) {
-        Log.i("Match found in fragment",date);
+    public void onMatchFound(WeightEntry x) {
+        Log.i("Match found in fragment",x.getWeight_value() + " " + x.getWeight_date());
     }
 }

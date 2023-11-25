@@ -17,6 +17,7 @@ import com.aa.fittracker.OnDateClickListener;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.DateParser;
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.WeightEntry;
 import com.applandeo.materialcalendarview.CalendarDay;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
@@ -80,8 +81,13 @@ CalendarView calendarView;
 
                 if(store.getDatesWithLogs().contains(store.getDateInFocus())){
                     /*************Callback to activity****************/
-                    if(onDateClickListener!=null){
-                        onDateClickListener.onMatchFound(store.getDateInFocus());
+
+                }
+                for(WeightEntry x : store.getWeightEntries()){
+                    if(x.getWeight_date().equals(store.getDateInFocus())){
+                        if(onDateClickListener!=null){
+                            onDateClickListener.onMatchFound(x);
+                        }
                     }
                 }
 

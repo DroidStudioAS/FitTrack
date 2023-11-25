@@ -3,10 +3,12 @@ package com.aa.fittracker.logic;
 import android.util.Log;
 
 import com.aa.fittracker.models.Training;
+import com.aa.fittracker.models.WeightEntry;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,6 +46,19 @@ public class store {
     //WEIGHT SERVICE
     private static String DATE_STRINGS = "";
     private static ArrayList<String> DATES_WITH_LOGS = new ArrayList<>();
+
+    private static ArrayList<WeightEntry> WEIGHT_ENTRIES = new ArrayList<>();
+
+    public static ArrayList<WeightEntry> getWeightEntries() {
+        return WEIGHT_ENTRIES;
+    }
+
+    public static void setWeightEntries(ArrayList<WeightEntry> weightEntries) {
+        WEIGHT_ENTRIES = weightEntries;
+    }
+    public static void addToWeightEntries(WeightEntry value){
+        WEIGHT_ENTRIES.add(value);
+    }
 
     public static void addToDatesWithLogs(String value){
         DATES_WITH_LOGS.add(value);
