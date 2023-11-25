@@ -75,8 +75,17 @@ CalendarView calendarView;
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH)+1;
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
-                String date = year + " " + month + " "+ day;
+                String date = year + "-" + month + "-"+ day;
                 store.setDateInFocus(date);
+
+                if(store.getDatesWithLogs().contains(store.getDateInFocus())){
+                    /*************Callback to activity****************/
+                    if(onDateClickListener!=null){
+                        onDateClickListener.onMatchFound(store.getDateInFocus());
+                    }
+                }
+
+                /************callback to activity**********/
                 Log.i("date in focus", store.getDateInFocus());
                 if (onDateClickListener != null) {
                     onDateClickListener.onDateClicked(date);

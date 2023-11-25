@@ -43,6 +43,19 @@ public class store {
 
     //WEIGHT SERVICE
     private static String DATE_STRINGS = "";
+    private static ArrayList<String> DATES_WITH_LOGS = new ArrayList<>();
+
+    public static void addToDatesWithLogs(String value){
+        DATES_WITH_LOGS.add(value);
+    }
+
+    public static ArrayList<String> getDatesWithLogs() {
+        return DATES_WITH_LOGS;
+    }
+
+    public static void setDatesWithLogs(ArrayList<String> datesWithLogs) {
+        DATES_WITH_LOGS = datesWithLogs;
+    }
 
     public static String getDateStrings() {
         return DATE_STRINGS;
