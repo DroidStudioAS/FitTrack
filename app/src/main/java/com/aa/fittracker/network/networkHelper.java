@@ -74,7 +74,7 @@ public class networkHelper {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                store.setUserWeightKg(response.body().string());
+                store.setUserWeightKg(JsonParser.parsemsg(response.body().string()));
                 Log.i("ng getweight", store.getUserWeightKg());
             }
         });

@@ -26,6 +26,16 @@ public class store {
     private static String USER_WEIGHT_KG="";
     private static String DATE_IN_FOCUS = "";
 
+    public static String getUserMode() {
+        return USER_MODE;
+    }
+
+    public static void setUserMode(String userMode) {
+        USER_MODE = userMode;
+    }
+
+    private static String USER_MODE = "";
+
     public static String getDateInFocus() {
         return DATE_IN_FOCUS;
     }

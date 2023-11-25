@@ -3,19 +3,12 @@ package com.aa.fittracker;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.aa.fittracker.logic.JsonParser;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.TrainingsIndex;
@@ -38,6 +31,8 @@ ImageView weightButton;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
 
+        Intent intent = new Intent(this,calendarActivity.class);
+
         desiredWeightView = (TextView)findViewById(R.id.desiredWeightTv);
         welcomeTv = (TextView)findViewById(R.id.welcomeTv);
 
@@ -57,17 +52,30 @@ ImageView weightButton;
         }
 
         welcomeTv.setText("Welcome: " + store.getUSERNAME());
-        desiredWeightView.setText(JsonParser.parsemsg(store.getUserWeightKg()));
+        desiredWeightView.setText(store.getUserWeightKg());
+        journalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("key","journal");
+                startActivity(intent);
+            }
+        });
+       weightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("key","weight");
+                startActivity(intent);
+            }
+        });
+        noutritionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("key","cals");
+                startActivity(intent);
+            }
+        });
 
-        for(ImageView x : buts){
-            x.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(),calendarActivity.class);
-                    startActivity(intent);
-                }
-            });
-        }
+
         trainingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

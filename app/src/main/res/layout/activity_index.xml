@@ -83,7 +83,7 @@
       tools:layout_editor_absoluteY="60dp" />
 
   <ImageView
-      android:id="@+id/button3"
+      android:id="@+id/button4"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:background="@drawable/noutrition_service_drawable"
@@ -94,7 +94,7 @@
       tools:layout_editor_absoluteY="301dp" />
 
   <ImageView
-      android:id="@+id/button4"
+      android:id="@+id/button3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:background="@drawable/weight_service_drawable"
