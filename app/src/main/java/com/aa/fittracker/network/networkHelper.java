@@ -257,6 +257,24 @@ public class networkHelper {
             }
         });
     }
+    public static void getWeightLog(OkHttpClient client){
+       HttpUrl.Builder builder =  HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/weight_service/get_log").newBuilder();
+       builder.addQueryParameter("username",store.getUSERNAME());
+
+        String url = builder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+               store.setDateStrings(JsonParser.extractJsonArray(response.body().string()));
+            }
+        });
+    }
 
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");

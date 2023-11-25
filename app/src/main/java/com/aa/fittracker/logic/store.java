@@ -41,6 +41,17 @@ public class store {
     private static int ACTIVE_DIFFICULTY_FILTER=-1;
     private static boolean EDIT_MODE_ACTIVE=false;
 
+    //WEIGHT SERVICE
+    private static String DATE_STRINGS = "";
+
+    public static String getDateStrings() {
+        return DATE_STRINGS;
+    }
+
+    public static void setDateStrings(String date){
+        DATE_STRINGS=date;
+        Log.i("DATE ENTRIES", DATE_STRINGS);
+    }
 
 
 
