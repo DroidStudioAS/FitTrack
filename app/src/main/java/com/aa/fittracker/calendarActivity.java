@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.google.gson.Gson;
@@ -97,10 +98,18 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     @Override
     public void onMatchFound(WeightEntry x) {
         if(store.getUserMode().equals("weight")) {
-            Log.i("Match found in fragment", x.getWeight_value() + " " + x.getWeight_date());
+            Log.i("Weight Match Found", x.getWeight_value() + " " + x.getWeight_date());
             missingInfoButton.setVisibility(View.GONE);
             infoTv.setText(x.getWeight_value());
         }
     }
+
+    @Override
+    public void onTrainingMatchFound(TrainingEntry x) {
+        Log.i("Training Match Found", x.getTraining_name() + " " + x.getTraining_date());
+        missingInfoButton.setVisibility(View.GONE);
+        infoTv.setText(x.getTraining_name());
+    }
+
 
 }

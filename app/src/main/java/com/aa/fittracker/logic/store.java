@@ -3,6 +3,7 @@ package com.aa.fittracker.logic;
 import android.util.Log;
 
 import com.aa.fittracker.models.Training;
+import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.google.gson.Gson;
 
@@ -54,14 +55,31 @@ public class store {
     private static int ACTIVE_DIFFICULTY_FILTER=-1;
     private static boolean EDIT_MODE_ACTIVE=false;
 
-    private static String TRAINING_ENTRIES = "";
+    private static String TRAINING_ENTRIES_STRING = "";
+    private static List<TrainingEntry> TRAINING_ENTRIES = new ArrayList<>();
 
-    public static String getTrainingEntries() {
+    public static void setTrainingEntries(List<TrainingEntry> trainingEntries) {
+        TRAINING_ENTRIES = trainingEntries;
+    }
+
+    public static List<TrainingEntry> getTrainingEntries() {
         return TRAINING_ENTRIES;
     }
 
+    public static String getTrainingEntriesString() {
+        return TRAINING_ENTRIES_STRING;
+    }
+
     public static void setTrainingEntries(String trainingEntries) {
-        TRAINING_ENTRIES = trainingEntries;
+        TRAINING_ENTRIES_STRING = trainingEntries;
+        Gson gson = new Gson();
+        TrainingEntry[] trainingEntries1 = gson.fromJson(JsonParser.extractJsonArray(store.getTrainingEntriesString()),TrainingEntry[].class);
+        for(TrainingEntry x : trainingEntries1){
+          TRAINING_ENTRIES.add(x);
+        }
+
+
+
     }
 
     //WEIGHT SERVICE
