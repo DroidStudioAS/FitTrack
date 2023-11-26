@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import org.json.JSONObject;
 
+import com.aa.fittracker.R;
 import com.aa.fittracker.logic.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
@@ -48,11 +49,25 @@ public class networkHelper {
         urlBuilder.addQueryParameter("diff", String.valueOf(diff));
         urlBuilder.addQueryParameter("name",name);
         urlBuilder.addQueryParameter("desc",desc);
+    }
+    public static void getExcEntries(OkHttpClient client){
+        HttpUrl.Builder builder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/training_service/get_log").newBuilder();
+        builder.addQueryParameter("username",store.getUSERNAME());
+        String url = builder.build().toString();
 
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
 
+            }
 
-
-
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setTrainingEntries(response.body().string());
+                Log.i("response from nh",store.getTrainingEntries());
+            }
+        });
 
 
     }
@@ -272,6 +287,29 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                store.setDateStrings(JsonParser.extractJsonArray(response.body().string()));
+            }
+        });
+    }
+    public static void postExcEntry(OkHttpClient client, String training_name){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("username",store.getUSERNAME());
+        builder.add("training_name",training_name);
+        builder.add("date",store.getDateInFocus());
+
+        RequestBody body = builder.build();
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/training_service/add_entry")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    store.setServerResponseAdderTrainingEntry(response.body().string());
             }
         });
     }

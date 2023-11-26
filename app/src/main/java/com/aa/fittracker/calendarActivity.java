@@ -3,6 +3,7 @@ package com.aa.fittracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,10 +15,6 @@ import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 
@@ -31,6 +28,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
     Button missingInfoButton;
     Button missingOptimalButton;
+
+    Context context;
 
 
     OkHttpClient client;
@@ -54,12 +53,14 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         /**********************Neccesary**********************/
         client = new OkHttpClient();
         gson = new Gson();
+        context=getApplicationContext();
         /*********************User mode determiner**********************/
         Intent incoming = getIntent();
         store.setUserMode(incoming.getStringExtra("key"));
         switch (store.getUserMode()) {
             case "journal":
                 labelSeter("Trained:", "Rest Day:");
+                networkHelper.getExcEntries(client);
                 break;
             case "weight":
                 labelSeter("Weight:","Optimal:");
@@ -69,6 +70,14 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                 labelSeter("Intake:","Allowed:");
                 break;
         }
+        /************************OnClickListeners***************************/
+        missingInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(calendarActivity.this,InputInfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     /****************Helper functions begin*******************/
 

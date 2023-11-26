@@ -20,6 +20,7 @@ public class store {
     private static String SERVER_RESPONSE_ALL_EXC = "";
     private static String SERVER_RESPONSE_TRAINING_DELETED = "";
     private static String SERVER_RESPONSE_EXERCISE_PATCHED = "";
+    private static String SERVER_RESPONSE_ADDER_TRAINING_ENTRY = "";
 
     //USER DATA
     private static String USERNAME = "";
@@ -53,19 +54,23 @@ public class store {
     private static int ACTIVE_DIFFICULTY_FILTER=-1;
     private static boolean EDIT_MODE_ACTIVE=false;
 
+    private static String TRAINING_ENTRIES = "";
+
+    public static String getTrainingEntries() {
+        return TRAINING_ENTRIES;
+    }
+
+    public static void setTrainingEntries(String trainingEntries) {
+        TRAINING_ENTRIES = trainingEntries;
+    }
+
     //WEIGHT SERVICE
     private static String DATE_STRINGS = "";
     private static ArrayList<String> DATES_WITH_LOGS = new ArrayList<>();
 
     private static ArrayList<WeightEntry> WEIGHT_ENTRIES = new ArrayList<>();
 
-    public static ArrayList<WeightEntry> getWeightEntries() {
-        return WEIGHT_ENTRIES;
-    }
-
-    public static void setWeightEntries(ArrayList<WeightEntry> weightEntries) {
-        WEIGHT_ENTRIES = weightEntries;
-    }
+    /*******************CUSTOM FUNCTIONS***********************/
     public static void addToWeightEntries(WeightEntry value){
         WEIGHT_ENTRIES.add(value);
     }
@@ -73,30 +78,6 @@ public class store {
     public static void addToDatesWithLogs(String value){
         DATES_WITH_LOGS.add(value);
     }
-
-    public static ArrayList<String> getDatesWithLogs() {
-        return DATES_WITH_LOGS;
-    }
-
-    public static void setDatesWithLogs(ArrayList<String> datesWithLogs) {
-        DATES_WITH_LOGS = datesWithLogs;
-    }
-
-    public static String getDateStrings() {
-        return DATE_STRINGS;
-    }
-
-    public static void setDateStrings(String date){
-        DATE_STRINGS=date;
-        Log.i("DATE ENTRIES", DATE_STRINGS);
-    }
-
-
-
-
-
-
-    /*******************CUSTOM FUNCTIONS***********************/
     public static Training findInFocus(String name){
         Training toReturn = new Training();
         for(Training x : USER_TRAININGS){
@@ -143,6 +124,12 @@ public class store {
     public static String getServerResponseExercisePatched() {
         return SERVER_RESPONSE_EXERCISE_PATCHED;
     }
+    public static ArrayList<String> getDatesWithLogs() {
+        return DATES_WITH_LOGS;
+    }
+    public static ArrayList<WeightEntry> getWeightEntries() {
+        return WEIGHT_ENTRIES;
+    }
     public static int getActiveDifficultyFilter() {
         return ACTIVE_DIFFICULTY_FILTER;
     }
@@ -176,6 +163,13 @@ public class store {
     public static String getUSERNAME() {
         return USERNAME;
     }
+    public static String getServerResponseAdderTrainingEntry() {
+        return SERVER_RESPONSE_ADDER_TRAINING_ENTRY;
+    }
+    public static String getDateStrings() {
+        return DATE_STRINGS;
+    }
+
 
 
 
@@ -188,7 +182,9 @@ public class store {
     public static void setActiveDifficultyFilter(int activeDifficultyFilter) {
         ACTIVE_DIFFICULTY_FILTER = activeDifficultyFilter;
     }
-
+    public static void setWeightEntries(ArrayList<WeightEntry> weightEntries) {
+        WEIGHT_ENTRIES = weightEntries;
+    }
     public static void setServerResponseAllExc(String serverResponseAllExc) {
         //clear the list so it does not concat
         USER_TRAININGS.clear();
@@ -247,6 +243,19 @@ public class store {
 
     public static void setServerResponseExercisePatched(String serverResponseExercisePatched) {
         SERVER_RESPONSE_EXERCISE_PATCHED = serverResponseExercisePatched;
+    }
+    public static void setDatesWithLogs(ArrayList<String> datesWithLogs) {
+        DATES_WITH_LOGS = datesWithLogs;
+    }
+
+
+    public static void setDateStrings(String date){
+        DATE_STRINGS=date;
+        Log.i("DATE ENTRIES", DATE_STRINGS);
+    }
+
+    public static void setServerResponseAdderTrainingEntry(String serverResponseAdderTrainingEntry) {
+        SERVER_RESPONSE_ADDER_TRAINING_ENTRY = serverResponseAdderTrainingEntry;
     }
 
 }
