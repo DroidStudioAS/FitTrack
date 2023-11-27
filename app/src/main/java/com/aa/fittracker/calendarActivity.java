@@ -131,10 +131,14 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         //I=2 - WEIGHTSERVICE
         switch (i){
             case 1:
+                Log.i("size before",String.valueOf(store.getTrainingEntries().size()));
                 store.removeFromTrainingEntries(store.getDateInFocus());
+                Log.i("size after",String.valueOf(store.getTrainingEntries().size()));
                 break;
             case 2:
+                Log.i("size before",String.valueOf(store.getWeightEntries().size()));
                 store.removeFromWeightEntries(store.getDateInFocus());
+                Log.i("size after",String.valueOf(store.getWeightEntries().size()));
                 break;
         }
     }
