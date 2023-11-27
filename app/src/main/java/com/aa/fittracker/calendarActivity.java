@@ -55,6 +55,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         missingInfoButton=(Button)findViewById(R.id.missingInfoButton);
         missingOptimalButton=(Button)findViewById(R.id.missingOptimalButton);
         deleteEntryTrigger=(Button)findViewById(R.id.deleteEntryTrigger);
+        deleteEntryTrigger.setVisibility(View.INVISIBLE);
         /**********************Neccesary**********************/
         client = new OkHttpClient();
         gson = new Gson();
@@ -114,8 +115,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                             Toast.makeText(calendarActivity.this, "Deleted Weight Entry For: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
                             listRemover(2);
                         }
-                        /**********Result Validation***************/
+                       /**************clear the button so no malicous deletes happed*******************/
                 }
+                deleteEntryTrigger.setVisibility(View.INVISIBLE);
+
 
 
             }
@@ -147,6 +150,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         dateTV.setText(date);
         infoTv.setText("");
         missingInfoButton.setVisibility(View.VISIBLE);
+        deleteEntryTrigger.setVisibility(View.INVISIBLE);
     }
     /************** !very important this callback happens after onDateClicked! **************/
     @Override
@@ -155,6 +159,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             Log.i("Weight Match Found", x.getWeight_value() + " " + x.getWeight_date());
             missingInfoButton.setVisibility(View.GONE);
             infoTv.setText(x.getWeight_value());
+            deleteEntryTrigger.setVisibility(View.VISIBLE);
         }
     }
 
@@ -164,6 +169,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             Log.i("Training Match Found", x.getTraining_name() + " " + x.getTraining_date());
             missingInfoButton.setVisibility(View.GONE);
             infoTv.setText(x.getTraining_name());
+            deleteEntryTrigger.setVisibility(View.VISIBLE);
         }
     }
 
