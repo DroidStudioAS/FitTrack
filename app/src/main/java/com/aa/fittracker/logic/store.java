@@ -62,6 +62,35 @@ public class store {
 
 
     /*******************CUSTOM FUNCTIONS***********************/
+    public static void removeFromTrainingEntries(String date){
+        TrainingEntry toDelete = new TrainingEntry();
+        for(TrainingEntry x : TRAINING_ENTRIES){
+            if(x.getTraining_date().equals(date)){
+                toDelete=x;
+            }
+        }
+        if(!toDelete.getTraining_date().equals("")|| toDelete.getTraining_date()!=null) {
+            TRAINING_ENTRIES.remove(toDelete);
+        }else{
+            Log.i("Remove failed for: " , toDelete.toString());
+        }
+
+    }
+    public static void removeFromWeightEntries(String date){
+        WeightEntry toDelete = new WeightEntry();
+        for(WeightEntry x : WEIGHT_ENTRIES){
+            if(x.getWeight_date().equals(date)){
+                toDelete=x;
+                Log.i("removed", x.toString());
+            }
+        }
+        if(!toDelete.getWeight_date().equals("") || toDelete.getWeight_date()!=null) {
+            WEIGHT_ENTRIES.remove(toDelete);
+        }else{
+            Log.i("remove failed", toDelete.toString());
+        }
+
+    }
     public static void addToTrainingEntries(TrainingEntry value){
         TRAINING_ENTRIES.add(value);
     }

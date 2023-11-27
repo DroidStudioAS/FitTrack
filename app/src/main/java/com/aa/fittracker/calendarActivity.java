@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aa.fittracker.dialog.InputDialog;
 import com.aa.fittracker.logic.store;
@@ -30,6 +31,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
     Button missingInfoButton;
     Button missingOptimalButton;
+    Button deleteEntryTrigger;
 
     Context context;
 
@@ -52,6 +54,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
         missingInfoButton=(Button)findViewById(R.id.missingInfoButton);
         missingOptimalButton=(Button)findViewById(R.id.missingOptimalButton);
+        deleteEntryTrigger=(Button)findViewById(R.id.deleteEntryTrigger);
         /**********************Neccesary**********************/
         client = new OkHttpClient();
         gson = new Gson();
@@ -83,8 +86,55 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                 missingInfoButton.setVisibility(View.GONE);
             }
         });
+        deleteEntryTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /**********Param Validation**********/
+                /********Execution switch********/
+                switch (store.getUserMode()){
+                    case "journal":
+                        networkHelper.deleteExcEntry(client);
+                        /**********Result Validation***************/
+                        while (store.getServerResponseDeletedTrainingEntry().equals("")){
+                            Log.i("Waiting...","...");
+                        }
+                        if(store.getServerResponseDeletedTrainingEntry().contains("ok") &&
+                                !store.getServerResponseDeletedTrainingEntry().contains("!")){
+                            Toast.makeText(calendarActivity.this, "Deleted Training Entry For: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
+                            listRemover(1);
+                        }
+                        break;
+                    case "weight":
+                        networkHelper.deleteWeightEntry(client);
+                        while (store.getServerResponseDeletedWeightEntry().equals("")){
+                            Log.i("Waiting...","...");
+                        }
+                        if(store.getServerResponseDeletedWeightEntry().contains("ok") &&
+                                !store.getServerResponseDeletedTrainingEntry().contains("!")){
+                            Toast.makeText(calendarActivity.this, "Deleted Weight Entry For: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
+                            listRemover(2);
+                        }
+                        /**********Result Validation***************/
+                }
+
+
+            }
+        });
     }
     /****************Helper functions begin*******************/
+    //removes resutls from frontend list for instant refresh
+    public void listRemover(int i){
+        //i=1-TRAININGSERVICE
+        //I=2 - WEIGHTSERVICE
+        switch (i){
+            case 1:
+                store.removeFromTrainingEntries(store.getDateInFocus());
+                break;
+            case 2:
+                store.removeFromWeightEntries(store.getDateInFocus());
+                break;
+        }
+    }
 
     public void labelSeter(String infoString,String optimalString){
         infoLabel.setText(infoString);
