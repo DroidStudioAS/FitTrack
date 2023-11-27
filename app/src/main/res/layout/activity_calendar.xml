@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
     tools:context=".calendarActivity">
 
     <fragment
@@ -65,6 +64,7 @@
         android:id="@+id/infoTv"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:gravity="center"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -78,6 +78,7 @@
         android:id="@+id/optimalTv"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:gravity="center"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -143,6 +144,7 @@
         android:id="@+id/deleteEntryTrigger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:text="Delete"
         app:layout_constraintEnd_toStartOf="@+id/dateTv"
         app:layout_constraintStart_toStartOf="parent"
