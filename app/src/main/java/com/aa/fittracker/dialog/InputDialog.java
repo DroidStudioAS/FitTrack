@@ -3,10 +3,12 @@ package com.aa.fittracker.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +28,8 @@ public class InputDialog extends Dialog {
     EditText weightInputEt;
     EditText calorieInputEt;
 
+    TextView dialogLabel;
+
     Button confirmTrigger;
 
     OkHttpClient client;
@@ -44,6 +48,7 @@ public class InputDialog extends Dialog {
         spinner=(Spinner) findViewById(R.id.trainingSpinner);
         confirmTrigger=(Button) findViewById(R.id.inputTrigger);
 
+        dialogLabel=(TextView)findViewById(R.id.inputLabel);
 
         weightInputEt =(EditText)findViewById(R.id.weigthInputEt);
         calorieInputEt=(EditText)findViewById(R.id.calorieInputEt);
@@ -55,12 +60,34 @@ public class InputDialog extends Dialog {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,stringList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        /*************************Set the appropriate ET/SPINNERS*****************************/
+        inputDialogUserModeReaction();
 
+
+
+
+    }
+    public void inputDialogUserModeReaction(){
         switch (store.getUserMode()){
-
+            case "journal":
+                dialogLabel.setText("What Training You Do On This Date?");
+                spinner.setVisibility(View.VISIBLE);
+                weightInputEt.setVisibility(View.GONE);
+                calorieInputEt.setVisibility(View.GONE);
+                break;
+            case "weight":
+                dialogLabel.setText("How Much Did You Weigh On This Date?");
+                spinner.setVisibility(View.INVISIBLE);
+                weightInputEt.setVisibility(View.VISIBLE);
+                calorieInputEt.setVisibility(View.GONE);
+                break;
+            case "cals":
+                dialogLabel.setText("What Did You Eat On This Date");
+                spinner.setVisibility(View.INVISIBLE);
+                weightInputEt.setVisibility(View.GONE);
+                calorieInputEt.setVisibility(View.VISIBLE);
+                break;
         }
-
-
     }
 
     @Override

@@ -109,9 +109,11 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
     @Override
     public void onTrainingMatchFound(TrainingEntry x) {
-        Log.i("Training Match Found", x.getTraining_name() + " " + x.getTraining_date());
-        missingInfoButton.setVisibility(View.GONE);
-        infoTv.setText(x.getTraining_name());
+        if (store.getUserMode().equals("journal")) {
+            Log.i("Training Match Found", x.getTraining_name() + " " + x.getTraining_date());
+            missingInfoButton.setVisibility(View.GONE);
+            infoTv.setText(x.getTraining_name());
+        }
     }
 
 
