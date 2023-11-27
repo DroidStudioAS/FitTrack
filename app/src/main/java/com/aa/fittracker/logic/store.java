@@ -22,6 +22,15 @@ public class store {
     private static String SERVER_RESPONSE_TRAINING_DELETED = "";
     private static String SERVER_RESPONSE_EXERCISE_PATCHED = "";
     private static String SERVER_RESPONSE_ADDER_TRAINING_ENTRY = "";
+    private static String SERVER_RESPONSE_ADDER_WEIGHT_ENTRY = "";
+
+    public static String getServerResponseAdderWeightEntry() {
+        return SERVER_RESPONSE_ADDER_WEIGHT_ENTRY;
+    }
+
+    public static void setServerResponseAdderWeightEntry(String serverResponseAdderWeightEntry) {
+        SERVER_RESPONSE_ADDER_WEIGHT_ENTRY = serverResponseAdderWeightEntry;
+    }
 
     //USER DATA
     private static String USERNAME = "";
@@ -58,6 +67,11 @@ public class store {
     private static String TRAINING_ENTRIES_STRING = "";
     private static List<TrainingEntry> TRAINING_ENTRIES = new ArrayList<>();
 
+    //WEIGHT SERVICE
+    private static String DATE_STRINGS = "";
+    private static ArrayList<String> DATES_WITH_LOGS = new ArrayList<>();
+    private static ArrayList<WeightEntry> WEIGHT_ENTRIES = new ArrayList<>();
+
     public static void setTrainingEntries(List<TrainingEntry> trainingEntries) {
         TRAINING_ENTRIES = trainingEntries;
     }
@@ -82,11 +96,7 @@ public class store {
 
     }
 
-    //WEIGHT SERVICE
-    private static String DATE_STRINGS = "";
-    private static ArrayList<String> DATES_WITH_LOGS = new ArrayList<>();
 
-    private static ArrayList<WeightEntry> WEIGHT_ENTRIES = new ArrayList<>();
 
     /*******************CUSTOM FUNCTIONS***********************/
     public static void addToTrainingEntries(TrainingEntry value){

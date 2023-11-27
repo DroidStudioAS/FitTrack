@@ -80,6 +80,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                 startActivity(intent);*/
                 InputDialog inputDialog = new InputDialog(calendarActivity.this);
                 inputDialog.show();
+                missingInfoButton.setVisibility(View.GONE);
             }
         });
     }

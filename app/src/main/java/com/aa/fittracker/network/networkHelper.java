@@ -30,26 +30,16 @@ import com.aa.fittracker.models.Training;
 import com.google.gson.Gson;
 
 public class networkHelper {
-    public static String SERVER_RESPONSE;
-
     public interface NetworkCallback {
         void onSuccess(String response);
 
         void onFailure(IOException e);
     }
-    public static void addExcercise(int diff, String name, String desc, OkHttpClient cli){
-        if(store.getUSERNAME().equals("")){
-            Log.e("nh get weight","username not found");
-            return;
-        }
-        String username = store.getUSERNAME();
 
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/exc/addExercise").newBuilder();
-        urlBuilder.addQueryParameter("username",username);
-        urlBuilder.addQueryParameter("diff", String.valueOf(diff));
-        urlBuilder.addQueryParameter("name",name);
-        urlBuilder.addQueryParameter("desc",desc);
-    }
+    public static String SERVER_RESPONSE;
+
+
+    /**************Training Service***************/
     public static void getExcEntries(OkHttpClient client){
         HttpUrl.Builder builder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/training_service/get_log").newBuilder();
         builder.addQueryParameter("username",store.getUSERNAME());
@@ -70,29 +60,6 @@ public class networkHelper {
         });
 
 
-    }
-    public static void getWeight(OkHttpClient client){
-        if(store.getUSERNAME().equals("")){
-            Log.e("nh get weight","username not found");
-            return;
-        }
-        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/userinfo/getWeight").newBuilder();
-        urlBuilder.addQueryParameter("username",store.getUSERNAME());
-
-        String URL = urlBuilder.build().toString();
-        Request request = new Request.Builder().url(URL).build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                store.setUserWeightKg(JsonParser.parsemsg(response.body().string()));
-                Log.i("ng getweight", store.getUserWeightKg());
-            }
-        });
     }
     public static void getExc(OkHttpClient client, String url, Map<String,String> params) throws IOException{
         //initialize response;
@@ -127,6 +94,181 @@ public class networkHelper {
 
         //Request request = new Request.Builder().url(url)
     }
+    public static void postExc(OkHttpClient client, String url, Map<String, String> params) throws IOException {
+        // Create a FormBody.Builder to build the request body
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        // Add parameters to the request body
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            formBuilder.add(entry.getKey(), entry.getValue());
+        }
+        // Build the request body
+        RequestBody requestBody = formBuilder.build();
+        // Build the request with the POST method and request body
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+        // Enqueue the request
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                Log.i("IMPORTANT", "Failed to make POST request: " + e.getMessage());
+            }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    Log.i("response from nh", response.body().string());
+                } else {
+                    Log.i("IMPORTANT", "POST request failed with response code: " + response.code());
+                }
+            }
+        });
+    }
+    public static void postExcEntry(OkHttpClient client, String training_name){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("username",store.getUSERNAME());
+        builder.add("training_name",training_name);
+        builder.add("date",store.getDateInFocus());
+
+        RequestBody body = builder.build();
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/training_service/add_entry")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseAdderTrainingEntry(response.body().string());
+            }
+        });
+    }
+    public static void deleteExc(OkHttpClient client){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("username",store.getUSERNAME());
+        builder.add("training_name",store.getTrainingToDeleteName());
+
+        RequestBody body = builder.build();
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/userinfo/deleteUserTraining")
+                .delete(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseTrainingDeleted(response.body().string());
+                Log.i("response from nh", store.getServerResponseTrainingDeleted());
+            }
+        });
+
+    }
+    public static void patchExc(OkHttpClient client, Map<String,String> params){
+        //Build the request Body Data
+        FormBody.Builder builder = new FormBody.Builder();
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            builder.add(entry.getKey(), entry.getValue());
+        }
+        //Build the actual body
+        RequestBody body = builder.build();
+        //atqach the body to a new request
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/userinfo/changeExercise")
+                .patch(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseExercisePatched(response.body().string());
+                Log.i("RESPONSE FROM NH: ", store.getServerResponseExercisePatched());
+            }
+        });
+    }
+
+    /*******************Weight Service**********************/
+    public static void getWeight(OkHttpClient client){
+        if(store.getUSERNAME().equals("")){
+            Log.e("nh get weight","username not found");
+            return;
+        }
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/userinfo/getWeight").newBuilder();
+        urlBuilder.addQueryParameter("username",store.getUSERNAME());
+
+        String URL = urlBuilder.build().toString();
+        Request request = new Request.Builder().url(URL).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setUserWeightKg(JsonParser.parsemsg(response.body().string()));
+                Log.i("ng getweight", store.getUserWeightKg());
+            }
+        });
+    }
+    public static void getWeightLog(OkHttpClient client){
+        HttpUrl.Builder builder =  HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/weight_service/get_log").newBuilder();
+        builder.addQueryParameter("username",store.getUSERNAME());
+
+        String url = builder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setDateStrings(JsonParser.extractJsonArray(response.body().string()));
+            }
+        });
+    }
+    public static void postWeightTrackEntry(OkHttpClient client,String weight_value){
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        formBuilder.add("username",store.getUSERNAME());
+        formBuilder.add("weight_value",weight_value);
+        formBuilder.add("date",store.getDateInFocus());
+
+        RequestBody body = formBuilder.build();
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/weight_service/add_entry")
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+               store.setServerResponseAdderWeightEntry(response.body().string());
+               Log.i("Response from nh",store.getServerResponseAdderWeightEntry());
+
+            }
+        });
+
+    }
+
+    /***********************Refactoring for higher level of abstraction********************/
     public static void get(OkHttpClient client, String url, Map<String,String> params) throws IOException{
         //initialize response;
         String stringResponse = "";
@@ -191,128 +333,7 @@ public class networkHelper {
             }
         });
     }
-    public static void postExc(OkHttpClient client, String url, Map<String, String> params) throws IOException {
-        // Create a FormBody.Builder to build the request body
-        FormBody.Builder formBuilder = new FormBody.Builder();
-        // Add parameters to the request body
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            formBuilder.add(entry.getKey(), entry.getValue());
-        }
-        // Build the request body
-        RequestBody requestBody = formBuilder.build();
-        // Build the request with the POST method and request body
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        // Enqueue the request
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.i("IMPORTANT", "Failed to make POST request: " + e.getMessage());
-            }
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    Log.i("response from nh", response.body().string());
-                } else {
-                    Log.i("IMPORTANT", "POST request failed with response code: " + response.code());
-                }
-            }
-        });
-    }
-    public static void deleteExc(OkHttpClient client){
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("username",store.getUSERNAME());
-        builder.add("training_name",store.getTrainingToDeleteName());
 
-        RequestBody body = builder.build();
-        Request request = new Request.Builder()
-                .url("http://165g123.e2.mars-hosting.com/api/userinfo/deleteUserTraining")
-                .delete(body)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-               store.setServerResponseTrainingDeleted(response.body().string());
-                Log.i("response from nh", store.getServerResponseTrainingDeleted());
-            }
-        });
-
-    }
-
-    public static void patchExc(OkHttpClient client, Map<String,String> params){
-        //Build the request Body Data
-        FormBody.Builder builder = new FormBody.Builder();
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            builder.add(entry.getKey(), entry.getValue());
-        }
-        //Build the actual body
-        RequestBody body = builder.build();
-        //atqach the body to a new request
-        Request request = new Request.Builder()
-                .url("http://165g123.e2.mars-hosting.com/api/userinfo/changeExercise")
-                .patch(body)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                store.setServerResponseExercisePatched(response.body().string());
-                Log.i("RESPONSE FROM NH: ", store.getServerResponseExercisePatched());
-            }
-        });
-    }
-    public static void getWeightLog(OkHttpClient client){
-       HttpUrl.Builder builder =  HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/weight_service/get_log").newBuilder();
-       builder.addQueryParameter("username",store.getUSERNAME());
-
-        String url = builder.build().toString();
-        Request request = new Request.Builder().url(url).build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-               store.setDateStrings(JsonParser.extractJsonArray(response.body().string()));
-            }
-        });
-    }
-    public static void postExcEntry(OkHttpClient client, String training_name){
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("username",store.getUSERNAME());
-        builder.add("training_name",training_name);
-        builder.add("date",store.getDateInFocus());
-
-        RequestBody body = builder.build();
-        Request request = new Request.Builder()
-                .url("http://165g123.e2.mars-hosting.com/api/training_service/add_entry")
-                .post(body)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    store.setServerResponseAdderTrainingEntry(response.body().string());
-            }
-        });
-    }
 
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
