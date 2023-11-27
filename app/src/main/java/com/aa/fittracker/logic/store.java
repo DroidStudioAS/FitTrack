@@ -24,36 +24,21 @@ public class store {
     private static String SERVER_RESPONSE_ADDER_TRAINING_ENTRY = "";
     private static String SERVER_RESPONSE_ADDER_WEIGHT_ENTRY = "";
 
-    public static String getServerResponseAdderWeightEntry() {
-        return SERVER_RESPONSE_ADDER_WEIGHT_ENTRY;
-    }
 
-    public static void setServerResponseAdderWeightEntry(String serverResponseAdderWeightEntry) {
-        SERVER_RESPONSE_ADDER_WEIGHT_ENTRY = serverResponseAdderWeightEntry;
-    }
+
+    private static String SERVER_RESPONSE_DELETED_ENTRY="";
+    private static String SERVER_RESPONSE_DELETED_WEIGHT_ENTRY = "";
+    private static String SERVER_RESPONSE_DELETED_TRAINING_ENTRY = "";
+
 
     //USER DATA
     private static String USERNAME = "";
     private static String USER_WEIGHT_KG="";
     private static String DATE_IN_FOCUS = "";
-
-    public static String getUserMode() {
-        return USER_MODE;
-    }
-
-    public static void setUserMode(String userMode) {
-        USER_MODE = userMode;
-    }
-
     private static String USER_MODE = "";
 
-    public static String getDateInFocus() {
-        return DATE_IN_FOCUS;
-    }
 
-    public static void setDateInFocus(String dateInFocus) {
-        DATE_IN_FOCUS = dateInFocus;
-    }
+
 
     //TRAINING SERVICE
     private static List<Training> USER_TRAININGS = new ArrayList<>();
@@ -72,29 +57,7 @@ public class store {
     private static ArrayList<String> DATES_WITH_LOGS = new ArrayList<>();
     private static ArrayList<WeightEntry> WEIGHT_ENTRIES = new ArrayList<>();
 
-    public static void setTrainingEntries(List<TrainingEntry> trainingEntries) {
-        TRAINING_ENTRIES = trainingEntries;
-    }
 
-    public static List<TrainingEntry> getTrainingEntries() {
-        return TRAINING_ENTRIES;
-    }
-
-    public static String getTrainingEntriesString() {
-        return TRAINING_ENTRIES_STRING;
-    }
-
-    public static void setTrainingEntries(String trainingEntries) {
-        TRAINING_ENTRIES_STRING = trainingEntries;
-        Gson gson = new Gson();
-        TrainingEntry[] trainingEntries1 = gson.fromJson(JsonParser.extractJsonArray(store.getTrainingEntriesString()),TrainingEntry[].class);
-        for(TrainingEntry x : trainingEntries1){
-          TRAINING_ENTRIES.add(x);
-        }
-
-
-
-    }
 
 
 
@@ -137,10 +100,6 @@ public class store {
         USER_TRAININGS.add(training);
     }
 
-
-    public static String getServerResponseTrainingDeleted() {
-        return SERVER_RESPONSE_TRAINING_DELETED;
-    }
     public static void removeFromUserTrainings(Training toDelete){
         Training toRemove = new Training();
         for(Training x : USER_TRAININGS){
@@ -152,6 +111,29 @@ public class store {
     }
 
     /*******************GETTERS***********************/
+
+
+    public static String getServerResponseTrainingDeleted() {
+        return SERVER_RESPONSE_TRAINING_DELETED;
+    }
+    public static String getServerResponseDeletedEntry() {
+        return SERVER_RESPONSE_DELETED_ENTRY;
+    }
+    public static List<TrainingEntry> getTrainingEntries() {
+        return TRAINING_ENTRIES;
+    }
+
+    public static String getTrainingEntriesString() {
+        return TRAINING_ENTRIES_STRING;
+    }
+    public static String getServerResponseDeletedWeightEntry() {
+        return SERVER_RESPONSE_DELETED_WEIGHT_ENTRY;
+    }
+
+    public static String getServerResponseDeletedTrainingEntry() {
+        return SERVER_RESPONSE_DELETED_TRAINING_ENTRY;
+    }
+
     public static String getServerResponseExercisePatched() {
         return SERVER_RESPONSE_EXERCISE_PATCHED;
     }
@@ -200,6 +182,15 @@ public class store {
     public static String getDateStrings() {
         return DATE_STRINGS;
     }
+    public static String getServerResponseAdderWeightEntry() {
+        return SERVER_RESPONSE_ADDER_WEIGHT_ENTRY;
+    }
+    public static String getUserMode() {
+        return USER_MODE;
+    }
+    public static String getDateInFocus() {
+        return DATE_IN_FOCUS;
+    }
 
 
 
@@ -208,6 +199,10 @@ public class store {
     /*******************SETTERS***********************/
     public static void setServerResponseTrainingDeleted(String serverResponseTrainingDeleted) {
         SERVER_RESPONSE_TRAINING_DELETED = serverResponseTrainingDeleted;
+    }
+
+    public static void setServerResponseDeletedEntry(String serverResponseDeletedEntry) {
+        SERVER_RESPONSE_DELETED_ENTRY = serverResponseDeletedEntry;
     }
 
     public static void setActiveDifficultyFilter(int activeDifficultyFilter) {
@@ -287,6 +282,33 @@ public class store {
 
     public static void setServerResponseAdderTrainingEntry(String serverResponseAdderTrainingEntry) {
         SERVER_RESPONSE_ADDER_TRAINING_ENTRY = serverResponseAdderTrainingEntry;
+    }
+    public static void setServerResponseAdderWeightEntry(String serverResponseAdderWeightEntry) {
+        SERVER_RESPONSE_ADDER_WEIGHT_ENTRY = serverResponseAdderWeightEntry;
+    }
+    public static void setUserMode(String userMode) {
+        USER_MODE = userMode;
+    }
+    public static void setDateInFocus(String dateInFocus) {
+        DATE_IN_FOCUS = dateInFocus;
+    }
+    public static void setTrainingEntries(List<TrainingEntry> trainingEntries) {
+        TRAINING_ENTRIES = trainingEntries;
+    }
+    public static void setTrainingEntries(String trainingEntries) {
+        TRAINING_ENTRIES_STRING = trainingEntries;
+        Gson gson = new Gson();
+        TrainingEntry[] trainingEntries1 = gson.fromJson(JsonParser.extractJsonArray(store.getTrainingEntriesString()),TrainingEntry[].class);
+        for(TrainingEntry x : trainingEntries1){
+            TRAINING_ENTRIES.add(x);
+        }
+    }
+    public static void setServerResponseDeletedWeightEntry(String serverResponseDeletedWeightEntry) {
+        SERVER_RESPONSE_DELETED_WEIGHT_ENTRY = serverResponseDeletedWeightEntry;
+    }
+
+    public static void setServerResponseDeletedTrainingEntry(String serverResponseDeletedTrainingEntry) {
+        SERVER_RESPONSE_DELETED_TRAINING_ENTRY = serverResponseDeletedTrainingEntry;
     }
 
 }

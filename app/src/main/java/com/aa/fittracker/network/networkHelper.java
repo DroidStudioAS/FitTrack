@@ -124,29 +124,6 @@ public class networkHelper {
             }
         });
     }
-    public static void postExcEntry(OkHttpClient client, String training_name){
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("username",store.getUSERNAME());
-        builder.add("training_name",training_name);
-        builder.add("date",store.getDateInFocus());
-
-        RequestBody body = builder.build();
-        Request request = new Request.Builder()
-                .url("http://165g123.e2.mars-hosting.com/api/training_service/add_entry")
-                .post(body)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                store.setServerResponseAdderTrainingEntry(response.body().string());
-            }
-        });
-    }
     public static void deleteExc(OkHttpClient client){
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("username",store.getUSERNAME());
@@ -197,6 +174,56 @@ public class networkHelper {
             }
         });
     }
+    //tracking subservice
+    public static void postExcEntry(OkHttpClient client, String training_name){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("username",store.getUSERNAME());
+        builder.add("training_name",training_name);
+        builder.add("date",store.getDateInFocus());
+
+        RequestBody body = builder.build();
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/training_service/add_entry")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseAdderTrainingEntry(response.body().string());
+                Log.i("response from nh", store.getServerResponseAdderTrainingEntry());
+            }
+        });
+    }
+    public static void deleteExcEntry(OkHttpClient client){
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        formBuilder.add("username",store.getUSERNAME());
+        formBuilder.add("date", store.getDateInFocus());
+        RequestBody body = formBuilder.build();
+
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/training_service/delete_entry")
+                .delete(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseDeletedTrainingEntry(response.body().string());
+                Log.i("response from nh", store.getServerResponseDeletedEntry());
+
+            }
+        });
+    }
 
     /*******************Weight Service**********************/
     public static void getWeight(OkHttpClient client){
@@ -240,6 +267,7 @@ public class networkHelper {
             }
         });
     }
+    //tracking subservice
     public static void postWeightTrackEntry(OkHttpClient client,String weight_value){
         FormBody.Builder formBuilder = new FormBody.Builder();
         formBuilder.add("username",store.getUSERNAME());
@@ -266,6 +294,30 @@ public class networkHelper {
             }
         });
 
+    }
+    public static void deleteWeightEntry(OkHttpClient client){
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        formBuilder.add("username",store.getUSERNAME());
+        formBuilder.add("date", store.getDateInFocus());
+        RequestBody body = formBuilder.build();
+
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/weight_service/delete_entry")
+                .delete(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseDeletedWeightEntry(response.body().string());
+                Log.i("response from nh", store.getServerResponseDeletedEntry());
+            }
+        });
     }
 
     /***********************Refactoring for higher level of abstraction********************/
