@@ -89,6 +89,9 @@ public class store {
     private static ArrayList<WeightEntry> WEIGHT_ENTRIES = new ArrayList<>();
 
     /*******************CUSTOM FUNCTIONS***********************/
+    public static void addToTrainingEntries(TrainingEntry value){
+        TRAINING_ENTRIES.add(value);
+    }
     public static void addToWeightEntries(WeightEntry value){
         WEIGHT_ENTRIES.add(value);
     }

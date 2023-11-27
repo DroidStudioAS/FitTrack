@@ -15,12 +15,16 @@ import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.TrainingsIndex;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.OkHttpClient;
 
 public class IndexActivity extends AppCompatActivity {
 OkHttpClient client;
+OkHttpClient clientel;
 
 TextView desiredWeightView;
 TextView weightTv;
@@ -105,6 +109,15 @@ ImageView weightButton;
                 startActivity(intent);
             }
         });
+        clientel = new OkHttpClient();
+        Map<String, String> params = new HashMap<>();
+        params.put("username", store.getUSERNAME());
+
+        try {
+            networkHelper.getExc(clientel, "http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings", params);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
     public void userWeightModeActivate(){

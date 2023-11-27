@@ -90,14 +90,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
         //fetch user exercises
         clientel = new OkHttpClient();
-        Map<String, String> params = new HashMap<>();
-        params.put("username", store.getUSERNAME());
 
-        try {
-            networkHelper.getExc(clientel, "http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings", params);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         nameTv = (TextView) findViewById(R.id.showNameTv);
         descTv = (TextView) findViewById(R.id.descTV);
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.aa.fittracker.dialog.InputDialog;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
@@ -75,8 +76,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         missingInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(calendarActivity.this,InputInfoActivity.class);
-                startActivity(intent);
+               /* Intent intent = new Intent(calendarActivity.this,InputInfoActivity.class);
+                startActivity(intent);*/
+                InputDialog inputDialog = new InputDialog(calendarActivity.this);
+                inputDialog.show();
             }
         });
     }

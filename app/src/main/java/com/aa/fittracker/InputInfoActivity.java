@@ -2,6 +2,7 @@ package com.aa.fittracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Spinner;
 
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
+import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.network.networkHelper;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class InputInfoActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+
         confirmTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +53,7 @@ public class InputInfoActivity extends AppCompatActivity {
                 while(store.getServerResponseAdderTrainingEntry().equals("")){
                     Log.i("waiting",store.getServerResponseAdderTrainingEntry());
                 }
-
+                store.addToTrainingEntries(new TrainingEntry(trainingSelected,store.getDateInFocus()));
             }
         });
     }
