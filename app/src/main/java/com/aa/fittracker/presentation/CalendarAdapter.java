@@ -57,6 +57,8 @@ public class CalendarAdapter {
             case "weight":
                 for(WeightEntry x : store.getWeightEntries()){
 
+                    double weightOnDate = Double.parseDouble(x.getWeight_value());
+
                     Calendar calendar = Calendar.getInstance();
 
                     String[] parsed = x.getWeight_date().split("-");
@@ -73,7 +75,22 @@ public class CalendarAdapter {
                     Log.i("CAL MONTH", String.valueOf(calendar.get(Calendar.MONTH)));
                     Log.i("CAL DAY", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
 
-                    output.add(new EventDay(calendar,R.drawable.training_service_drawable));
+                    if(!store.getUserWeightKg().equals("")){
+                        if(Double.parseDouble(store.getUserWeightKg())==weightOnDate){
+                            output.add(new EventDay(calendar,R.drawable.icon_perfect_weight));
+                        }
+                        if(!store.getUserStartWeight().equals("")){
+                            double startWeight = Double.parseDouble(store.getUserStartWeight());
+                            if(startWeight>weightOnDate){
+                                output.add(new EventDay(calendar,R.drawable.icon_good_weight));
+                            }else if(weightOnDate>startWeight){
+                                output.add(new EventDay(calendar,R.drawable.icon_bad_weight));
+                            }
+                        }
+
+                    }
+
+
 
                 }
 

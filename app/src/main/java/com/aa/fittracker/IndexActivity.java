@@ -44,9 +44,9 @@ ImageView weightButton;
         desiredWeightView = (TextView)findViewById(R.id.desiredWeightTv);
         welcomeTv = (TextView)findViewById(R.id.welcomeTv);
 
-        journalButton =   (ImageView) findViewById(R.id.button);
-        trainingsButton = (ImageView) findViewById(R.id.button2);
-        weightButton =    (ImageView) findViewById(R.id.button3);
+        journalButton =(ImageView) findViewById(R.id.button);
+        trainingsButton =(ImageView) findViewById(R.id.button2);
+        weightButton =(ImageView) findViewById(R.id.button3);
         noutritionButton =(ImageView) findViewById(R.id.button4);
 
         /****************Network Block******************/
@@ -55,8 +55,9 @@ ImageView weightButton;
         //fetch user desiredWeight
         networkHelper.getWeight(client);
         networkHelper.getExcEntries(client);
-        while (store.getTrainingEntries().equals("") || store.getUserWeightKg().equals("")){
-            Log.i("Waiting",store.getUserWeightKg());
+        networkHelper.getStartWeight(client);
+        while (store.getTrainingEntries().equals("") || store.getUserWeightKg().equals("") || store.getUserStartWeight().equals("")){
+            Log.i("Fetching Data","...");
         }
         userWeightModeActivate(); //fetches weight log
 
@@ -69,7 +70,8 @@ ImageView weightButton;
         Log.i("Date today", dateTodaycalendar);
         for(WeightEntry x : store.getWeightEntries()){
             if(x.getWeight_date().contains(dateTodaycalendar)){
-                weightTv.setText(x.getWeight_value());
+                store.setCurrentUserWeight(x.getWeight_value());
+                weightTv.setText(store.getCurrentUserWeight() + " KG");
             }
         }
 
@@ -85,7 +87,7 @@ ImageView weightButton;
 
 
         welcomeTv.setText("Welcome: " + store.getUSERNAME());
-        desiredWeightView.setText(store.getUserWeightKg());
+        desiredWeightView.setText(store.getUserWeightKg() + " KG");
         journalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

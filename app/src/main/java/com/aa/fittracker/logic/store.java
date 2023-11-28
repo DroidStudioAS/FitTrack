@@ -34,6 +34,25 @@ public class store {
 
     //USER DATA
     private static String USERNAME = "";
+    private static String CURRENT_USER_WEIGHT="";
+    private static String USER_START_WEIGHT = "";
+
+    public static String getUserStartWeight() {
+        return USER_START_WEIGHT;
+    }
+
+    public static void setUserStartWeight(String userStartWeight) {
+        USER_START_WEIGHT = userStartWeight;
+    }
+
+    public static String getCurrentUserWeight() {
+        return CURRENT_USER_WEIGHT;
+    }
+
+    public static void setCurrentUserWeight(String currentUserWeight) {
+        CURRENT_USER_WEIGHT = currentUserWeight;
+    }
+
     private static String USER_WEIGHT_KG="";
     private static String DATE_IN_FOCUS = "";
     private static String USER_MODE = "";

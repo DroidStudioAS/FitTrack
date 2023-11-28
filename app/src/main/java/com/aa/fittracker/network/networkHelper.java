@@ -226,6 +226,27 @@ public class networkHelper {
     }
 
     /*******************Weight Service**********************/
+    public static void getStartWeight (OkHttpClient client){
+        HttpUrl.Builder builder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/userinfo/getStartWeight").newBuilder();
+        builder.addQueryParameter("username",store.getUSERNAME());
+
+        String url = builder.build().toString();
+        Request request = new Request.Builder().url(url).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setUserStartWeight(JsonParser.parsemsg(response.body().string()));
+                Log.i("Response from nh", store.getUserStartWeight());
+            }
+        });
+
+    }
     public static void getWeight(OkHttpClient client){
         if(store.getUSERNAME().equals("")){
             Log.e("nh get weight","username not found");
@@ -245,7 +266,7 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 store.setUserWeightKg(JsonParser.parsemsg(response.body().string()));
-                Log.i("ng getweight", store.getUserWeightKg());
+                Log.i("response from nh", store.getUserWeightKg());
             }
         });
     }
