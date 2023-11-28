@@ -3,12 +3,14 @@ package com.aa.fittracker.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +38,16 @@ import okhttp3.OkHttpClient;
 
 public class InputDialog extends Dialog {
     Spinner spinner;
+
     EditText weightInputEt;
     EditText calorieInputEt;
 
     TextView dialogLabel;
 
     Button confirmTrigger;
+
+    ImageView resfreshTrigger;
+
 
 
     OnInfoInputListener listener;
@@ -57,15 +63,24 @@ public class InputDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input_dialog);
-        client=new OkHttpClient();
+        /*********************Ui initializations***************************/
+        resfreshTrigger=(ImageView)findViewById(R.id.refreshTrigger);
 
         spinner=(Spinner) findViewById(R.id.trainingSpinner);
+
         confirmTrigger=(Button) findViewById(R.id.inputTrigger);
+        confirmTrigger.setVisibility(View.VISIBLE);
 
         dialogLabel=(TextView)findViewById(R.id.inputLabel);
 
         weightInputEt =(EditText)findViewById(R.id.weigthInputEt);
         calorieInputEt=(EditText)findViewById(R.id.calorieInputEt);
+
+        if(resfreshTrigger.getVisibility()==View.VISIBLE){
+            resfreshTrigger.setVisibility(View.GONE);
+        }
+
+        client=new OkHttpClient();
         /******************Populate Spinner**********************/
         List<String> stringList = new ArrayList<>();
         for(Training x : store.getUserTrainings()){
@@ -104,9 +119,19 @@ public class InputDialog extends Dialog {
                         //SUCCESS
                         if(store.getServerResponseAdderTrainingEntry().contains("ok") && !store.getServerResponseAdderTrainingEntry().contains("!")){
                             TrainingEntry toAdd = new TrainingEntry(store.getDateInFocus(),trainingToEnter);
+
                             store.addToTrainingEntries(toAdd);
-                            listener.onTrainingInput(toAdd);
+                            resfreshTrigger.setVisibility(View.VISIBLE);
+
                             Toast.makeText(getContext(),"Added: " + trainingToEnter + "To: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
+                            resetLayoutPreparation(trainingToEnter);
+
+                            resfreshTrigger.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    listener.onTrainingInput(toAdd);
+                                }
+                            });
                         }
 
 
@@ -126,10 +151,20 @@ public class InputDialog extends Dialog {
                             Log.i("resp", store.getServerResponseAdderWeightEntry());
 
                             if(store.getServerResponseAdderWeightEntry().contains("ok") && !store.getServerResponseAdderWeightEntry().contains("!")){
+
                                 WeightEntry toAdd = new WeightEntry(store.getDateInFocus(),weight_value);
                                 store.addToWeightEntries(toAdd);
-                                listener.onWeightInput(toAdd);
+
                                 Toast.makeText(getContext()," Added: " + weight_value + " To: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
+
+                                resetLayoutPreparation(weight_value);
+
+                                resfreshTrigger.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        listener.onWeightInput(toAdd);
+                                    }
+                                });
 
                             }
 
@@ -141,6 +176,7 @@ public class InputDialog extends Dialog {
                 }
             }
         });
+
 
 
 
@@ -167,6 +203,15 @@ public class InputDialog extends Dialog {
                 calorieInputEt.setVisibility(View.VISIBLE);
                 break;
         }
+    }
+    public void resetLayoutPreparation(String name){
+        this.setCancelable(false);
+        dialogLabel.setText("Added: " + name + " To: " + store.getDateInFocus() + "\n" + "Click to Refresh");
+        weightInputEt.setVisibility(View.INVISIBLE);
+        spinner.setVisibility(View.INVISIBLE);
+        calorieInputEt.setVisibility(View.INVISIBLE);
+        resfreshTrigger.setVisibility(View.VISIBLE);
+        confirmTrigger.setVisibility(View.INVISIBLE);
     }
 
     @Override

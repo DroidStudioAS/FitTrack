@@ -102,17 +102,21 @@ protected static CalendarView calendarView;
     public static void calendarRefresh(){
         eventDays=store.getUserEventDaysActive();
         calendarView.setEvents(eventDays);
+
+        calendarView.invalidate();
     }
 
     @Override
     public void onWeightInput(WeightEntry x) {
         Log.i("Weight Added", x.getWeight_value() + " on date: " + x.getWeight_date());
+        calendarRefresh();
 
     }
 
     @Override
     public void onTrainingInput(TrainingEntry x) {
         Log.i("Training Added", x.getTraining_name() +" on date " + x.getTraining_date());
+        calendarRefresh();
 
 
     }

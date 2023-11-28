@@ -47,8 +47,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
         /*******************Ui Initializations**********************/
         infoLabel = (TextView) findViewById(R.id.infoLabel);
         optimalLabel = (TextView) findViewById(R.id.optimalLabel);
@@ -182,6 +184,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     @Override
     public void onWeightInput(WeightEntry x) {
         Log.i("weignt input", x.getWeight_date() + x.getWeight_value());
+
+
         recreate();
     }
 
