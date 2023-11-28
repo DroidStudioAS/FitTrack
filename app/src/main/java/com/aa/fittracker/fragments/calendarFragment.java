@@ -67,10 +67,18 @@ protected static CalendarView calendarView;
             @Override
             public void onDayClick(@NonNull EventDay eventDay) {
                 Calendar calendar = eventDay.getCalendar();
+                String date = "";
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH)+1;
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
-                String date = year + "-" + month + "-"+ day;
+                /*************DateBuilder**************/
+                //If day <10 date calendar will return format "9" but for the server returns 09;
+                if(day<10){
+                    date = year + "-" + month + "-"+"0"+day;
+                }else{
+                   date = year + "-" + month + "-"+ day;
+                }
+
                 store.setDateInFocus(date);
 
                 /************callback to activity**********/

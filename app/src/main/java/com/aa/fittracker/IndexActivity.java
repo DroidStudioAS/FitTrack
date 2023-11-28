@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.TrainingsIndex;
@@ -54,7 +55,14 @@ ImageView weightButton;
 
         /****************Network Block******************/
         client=new OkHttpClient();
+        Map<String, String> params = new HashMap<>();
+        params.put("username", store.getUSERNAME());
 
+        try {
+            networkHelper.getExc(client, "http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings", params);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //fetch user desiredWeight
         networkHelper.getWeight(client);
         networkHelper.getExcEntries(client);
@@ -114,15 +122,8 @@ ImageView weightButton;
                 startActivity(intent);
             }
         });
-        clientel = new OkHttpClient();
-        Map<String, String> params = new HashMap<>();
-        params.put("username", store.getUSERNAME());
+        Logger();
 
-        try {
-            networkHelper.getExc(clientel, "http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings", params);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
     public void userWeightModeActivate(){
@@ -142,6 +143,16 @@ ImageView weightButton;
         }
         for (String x : store.getDatesWithLogs()) {
             Log.i("DATE STRIING ", x);
+        }
+    }
+    public static void Logger(){
+        for(TrainingEntry x : store.getTrainingEntries()){
+            Log.i("Entry Date", x.getTraining_date());
+            Log.i("Entry Value", x.getTraining_name());
+        }
+        for(WeightEntry x : store.getWeightEntries()){
+            Log.i("Entry Date", x.getWeight_date());
+            Log.i("Entry Value", x.getWeight_value());
         }
     }
 }

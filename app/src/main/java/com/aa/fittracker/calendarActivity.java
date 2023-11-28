@@ -23,6 +23,8 @@ import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.google.gson.Gson;
 
+import java.util.logging.Logger;
+
 import okhttp3.OkHttpClient;
 
 public class calendarActivity extends AppCompatActivity implements OnDateClickListener, OnInfoInputListener {
@@ -134,6 +136,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         infoTv.setText("");
         missingInfoButton.setVisibility(View.VISIBLE);
         deleteEntryTrigger.setVisibility(View.INVISIBLE);
+        Log.i("ONDATECLICKED","...");
+        IndexActivity.Logger();
     }
     /************** !very important this callback happens after onDateClicked! **************/
     @Override
@@ -143,6 +147,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             missingInfoButton.setVisibility(View.GONE);
             infoTv.setText(x.getWeight_value());
             deleteEntryTrigger.setVisibility(View.VISIBLE);
+            IndexActivity.Logger();
         }
     }
 
@@ -153,6 +158,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             missingInfoButton.setVisibility(View.GONE);
             infoTv.setText(x.getTraining_name());
             deleteEntryTrigger.setVisibility(View.VISIBLE);
+            IndexActivity.Logger();
         }
     }
 
