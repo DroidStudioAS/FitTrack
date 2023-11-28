@@ -73,7 +73,9 @@ ImageView weightButton;
         client=new OkHttpClient();
         //fetch user desiredWeight
         networkHelper.getWeight(client);
-        while (store.getUserWeightKg().equals("")){
+
+        networkHelper.getExcEntries(client);
+        while (store.getTrainingEntries().equals("")){
             Log.i("Waiting",store.getUserWeightKg());
         }
 
@@ -82,6 +84,7 @@ ImageView weightButton;
         journalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                store.setUserMode("journal");
                 intent.putExtra("key","journal");
                 startActivity(intent);
             }
@@ -89,6 +92,7 @@ ImageView weightButton;
        weightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                store.setUserMode("weight");
                 intent.putExtra("key","weight");
                 startActivity(intent);
             }
@@ -96,6 +100,7 @@ ImageView weightButton;
         noutritionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                store.setUserMode("cals");
                 intent.putExtra("key","cals");
                 startActivity(intent);
             }

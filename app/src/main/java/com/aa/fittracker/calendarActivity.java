@@ -62,11 +62,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         context=getApplicationContext();
         /*********************User mode determiner**********************/
         Intent incoming = getIntent();
-        store.setUserMode(incoming.getStringExtra("key"));
         switch (store.getUserMode()) {
             case "journal":
                 labelSeter("Trained:", "Rest Day:");
-                networkHelper.getExcEntries(client);
+
                 break;
             case "weight":
                 labelSeter("Weight:","Optimal:");

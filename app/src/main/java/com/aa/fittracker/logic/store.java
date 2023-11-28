@@ -5,6 +5,7 @@ import android.util.Log;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
+import com.applandeo.materialcalendarview.EventDay;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class store {
     private static String USER_WEIGHT_KG="";
     private static String DATE_IN_FOCUS = "";
     private static String USER_MODE = "";
+    private static List<EventDay> USER_EVENT_DAYS_ACTIVE=new ArrayList<>();
+
 
 
 
@@ -165,6 +168,9 @@ public class store {
 
     public static String getServerResponseExercisePatched() {
         return SERVER_RESPONSE_EXERCISE_PATCHED;
+    }
+    public static List<EventDay> getUserEventDaysActive() {
+        return USER_EVENT_DAYS_ACTIVE;
     }
     public static ArrayList<String> getDatesWithLogs() {
         return DATES_WITH_LOGS;
@@ -323,6 +329,9 @@ public class store {
     }
     public static void setTrainingEntries(List<TrainingEntry> trainingEntries) {
         TRAINING_ENTRIES = trainingEntries;
+    }
+    public static void setUserEventDaysActive(List<EventDay> userEventDaysActive) {
+        USER_EVENT_DAYS_ACTIVE = userEventDaysActive;
     }
     public static void setTrainingEntries(String trainingEntries) {
         TRAINING_ENTRIES_STRING = trainingEntries;

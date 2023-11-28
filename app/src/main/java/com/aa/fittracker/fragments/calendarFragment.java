@@ -53,6 +53,11 @@ CalendarView calendarView;
         //fragment logic start
         List<EventDay> list = new ArrayList<>();
 
+        //in u want to set the 11. month, u have to set 10.
+        //december is 11
+        //january is 0
+        //must adjust with -1
+
         //store.setDateStrings("2023 10 10");
         //store.setDateStrings("2023 11 11");
         //store.setDateStrings("2023 12 12");
@@ -105,6 +110,53 @@ CalendarView calendarView;
             }
         });
        //fragment logic end
+        while (store.getTrainingEntries().isEmpty()){
+            Log.i("NO ENTRIES FETCHED YER","...");
+        }
+        switch (store.getUserMode()){
+            case "journal":
+                list.clear();
+                for(TrainingEntry x : store.getTrainingEntries()){
+                    Log.i("ACTIVE","ACTIVE");
+                    Calendar calToSet = Calendar.getInstance();
+                    String [] dateBits = x.getTraining_date().split("-");
+
+                    int monthWithoutCorrection = Integer.parseInt(dateBits[1]);
+                    int month = monthWithoutCorrection-1;
+
+                    calToSet.set(Calendar.YEAR, Integer.parseInt(dateBits[0]));
+                    calToSet.set(Calendar.MONTH, month);
+                    calToSet.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dateBits[2]));
+
+                    list.add(new EventDay(calToSet,R.drawable.training_service_drawable));
+                    Log.i("event day size",String.valueOf(list.size()));
+
+                }
+                break;
+            case "weight":
+                for(WeightEntry x : store.getWeightEntries()){
+                    list.clear();
+                    Log.i("ACTIVE","ACTIVE");
+                    Calendar calToSet = Calendar.getInstance();
+                    String [] dateBits = x.getWeight_date().split("-");
+
+                    int monthWithoutCorrection = Integer.parseInt(dateBits[1]);
+                    int month = monthWithoutCorrection-1;
+
+                    calToSet.set(Calendar.YEAR, Integer.parseInt(dateBits[0]));
+                    calToSet.set(Calendar.MONTH, month);
+                    calToSet.set(Calendar.DAY_OF_MONTH,Integer.parseInt(dateBits[2]));
+
+                    list.add(new EventDay(calToSet,R.drawable.weight_service_drawable));
+                    Log.i("event day size",String.valueOf(list.size()));
+
+                }
+
+                break;
+        }
+
+
+        calendarView.setEvents(list);
         return view;
     }
 }
