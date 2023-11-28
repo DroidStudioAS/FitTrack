@@ -2,6 +2,7 @@ package com.aa.fittracker;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.logic.JsonParser;
@@ -27,6 +29,8 @@ import okhttp3.OkHttpClient;
 
 public class loginFragment extends Fragment implements networkHelper.NetworkCallback {
 
+
+    TextView failedTv;
     EditText usernameEt;
     EditText passwordEt;
     Button trigger;
@@ -49,6 +53,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        failedTv=(TextView)view.findViewById(R.id.FailedTv);
         usernameEt=(EditText) view.findViewById(R.id.usernameEt);
         passwordEt =(EditText) view.findViewById(R.id.passwordEt);
         trigger = (Button) view.findViewById(R.id.trigger);
@@ -79,10 +84,13 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                     }
                     Log.i("Finally broken", store.getServerResponseLogin());
                     //check if all is ok
-                    if(store.getServerResponseLogin().contains("ok")){
+                    if(store.getServerResponseLogin().contains("ok") && !store.getServerResponseLogin().contains("!")){
                         store.setUSERNAME(username);
                         Intent intent =  new Intent(requireContext(),IndexActivity.class);
                         startActivity(intent);
+                    }else{
+                        failedTv.setVisibility(View.VISIBLE);
+                        usernameEt.setTextColor(Color.RED);
                     }
                 }
             }

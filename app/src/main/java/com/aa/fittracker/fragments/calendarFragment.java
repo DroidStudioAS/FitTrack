@@ -86,7 +86,6 @@ protected static CalendarView calendarView;
                 if (onDateClickListener != null) {
                     onDateClickListener.onDateClicked(date);
                 }
-
                 for(WeightEntry x : store.getWeightEntries()){
                     if(x.getWeight_date().equals(store.getDateInFocus())){
                         if(onDateClickListener!=null){
