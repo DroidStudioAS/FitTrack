@@ -55,11 +55,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:text="Button"
+        android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trainingSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/planedRest" />
 
     <ImageView
         android:id="@+id/refreshTrigger"
@@ -71,4 +71,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputLabel"
         app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    <TextView
+        android:id="@+id/restDayLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:text="Rest day? (Leave Empty If Not)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/trainingSpinner" />
+
+    <Button
+        android:id="@+id/unplanedRest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.35"
+        android:backgroundTint="#CD5050"
+        android:textColor="@color/third"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/planedRest"
+        app:layout_constraintTop_toBottomOf="@+id/restDayLabel" />
+
+    <Button
+        android:id="@+id/planedRest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.35"
+        android:backgroundTint="#009688"
+        app:layout_constraintEnd_toStartOf="@+id/unplanedRest"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restDayLabel" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

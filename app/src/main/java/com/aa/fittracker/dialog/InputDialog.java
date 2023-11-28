@@ -43,15 +43,61 @@ public class InputDialog extends Dialog {
     EditText calorieInputEt;
 
     TextView dialogLabel;
+    TextView restDayLabel;
 
     Button confirmTrigger;
 
+    Button plannedRestSwitch;
+    Button unplannedRestSwitch;
+
+    int plannedClickCounter, unplannedClickCounter = 1;
+
     ImageView resfreshTrigger;
-
-
 
     OnInfoInputListener listener;
     OkHttpClient client;
+
+
+    boolean planedRest,unplannedRest = false;
+
+    String REST_DAY_PLANNED = "REST DAY";
+    String REST_DAY_UNPLANNED = "SKIPPED DAY";
+
+    View.OnClickListener buttonToggle = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(v.equals(plannedRestSwitch)){
+                if(plannedClickCounter%2==0){
+                    planedRest=false;
+                    plannedRestSwitch.setAlpha((float) 0.35);
+                }else{
+                    planedRest=true;
+                    plannedRestSwitch.setAlpha(1);
+                }
+                unplannedRest=false;
+                unplannedRestSwitch.setAlpha((float) 0.35);
+
+                plannedClickCounter++;
+            }
+            if(v.equals(unplannedRestSwitch)){
+                if(unplannedClickCounter%2==0){
+                    unplannedRest=false;
+                    unplannedRestSwitch.setAlpha((float) 0.35);
+                }else{
+                    unplannedRest=true;
+                    unplannedRestSwitch.setAlpha(1);
+                }
+                planedRest=false;
+                plannedRestSwitch.setAlpha((float) 0.35);
+
+                unplannedClickCounter++;
+
+            }
+            Log.i("Planned rest: ", String.valueOf(planedRest));
+            Log.i("Unplanned rest: ", String.valueOf(unplannedRest));
+        }
+    };
+
 
     public InputDialog(@NonNull Context context, OnInfoInputListener listener) {
         super(context);
@@ -70,8 +116,11 @@ public class InputDialog extends Dialog {
 
         confirmTrigger=(Button) findViewById(R.id.inputTrigger);
         confirmTrigger.setVisibility(View.VISIBLE);
+        plannedRestSwitch=(Button)findViewById(R.id.planedRest);
+        unplannedRestSwitch=(Button)findViewById(R.id.unplanedRest);
 
         dialogLabel=(TextView)findViewById(R.id.inputLabel);
+        restDayLabel=(TextView)findViewById(R.id.restDayLabel);
 
         weightInputEt =(EditText)findViewById(R.id.weigthInputEt);
         calorieInputEt=(EditText)findViewById(R.id.calorieInputEt);
@@ -89,8 +138,12 @@ public class InputDialog extends Dialog {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,stringList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
         /*************************Set the appropriate ET/SPINNERS*****************************/
         inputDialogUserModeReaction();
+
+        plannedRestSwitch.setOnClickListener(buttonToggle);
+        unplannedRestSwitch.setOnClickListener(buttonToggle);
 
         confirmTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +151,11 @@ public class InputDialog extends Dialog {
                 switch (store.getUserMode()){
                     case "journal":
                         String trainingToEnter = spinner.getSelectedItem().toString();
+                        if(planedRest==true){
+                            trainingToEnter=REST_DAY_PLANNED;
+                        }else if(unplannedRest==true) {
+                            trainingToEnter=REST_DAY_UNPLANNED;
+                        }
                         /**********Validation***********/
                         if(trainingToEnter.equals("") || spinner.getCount()==0){
                            Snackbar noTrainingsSb = Snackbar.make(v,"You Currently Do Not Have Any Trainings? Want To Add Some?", Snackbar.LENGTH_INDEFINITE);
@@ -189,18 +247,31 @@ public class InputDialog extends Dialog {
                 spinner.setVisibility(View.VISIBLE);
                 weightInputEt.setVisibility(View.GONE);
                 calorieInputEt.setVisibility(View.GONE);
+
+                restDayLabel.setVisibility(View.VISIBLE);
+                plannedRestSwitch.setVisibility(View.VISIBLE);
+                unplannedRestSwitch.setVisibility(View.VISIBLE);
+
                 break;
             case "weight":
                 dialogLabel.setText("How Much Did You Weigh On This Date?");
                 spinner.setVisibility(View.INVISIBLE);
                 weightInputEt.setVisibility(View.VISIBLE);
                 calorieInputEt.setVisibility(View.GONE);
+
+                restDayLabel.setVisibility(View.INVISIBLE);
+                plannedRestSwitch.setVisibility(View.INVISIBLE);
+                unplannedRestSwitch.setVisibility(View.INVISIBLE);
                 break;
             case "cals":
                 dialogLabel.setText("What Did You Eat On This Date");
                 spinner.setVisibility(View.INVISIBLE);
                 weightInputEt.setVisibility(View.GONE);
                 calorieInputEt.setVisibility(View.VISIBLE);
+
+                restDayLabel.setVisibility(View.INVISIBLE);
+                plannedRestSwitch.setVisibility(View.INVISIBLE);
+                unplannedRestSwitch.setVisibility(View.INVISIBLE);
                 break;
         }
     }
@@ -212,6 +283,9 @@ public class InputDialog extends Dialog {
         calorieInputEt.setVisibility(View.INVISIBLE);
         resfreshTrigger.setVisibility(View.VISIBLE);
         confirmTrigger.setVisibility(View.INVISIBLE);
+        restDayLabel.setVisibility(View.INVISIBLE);
+        plannedRestSwitch.setVisibility(View.INVISIBLE);
+        unplannedRestSwitch.setVisibility(View.INVISIBLE);
     }
 
     @Override

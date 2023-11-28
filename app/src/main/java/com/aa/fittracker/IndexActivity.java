@@ -49,7 +49,18 @@ ImageView weightButton;
         weightButton =    (ImageView) findViewById(R.id.button3);
         noutritionButton =(ImageView) findViewById(R.id.button4);
 
-        userWeightModeActivate();
+        /****************Network Block******************/
+        client=new OkHttpClient();
+
+        //fetch user desiredWeight
+        networkHelper.getWeight(client);
+        networkHelper.getExcEntries(client);
+        while (store.getTrainingEntries().equals("") || store.getUserWeightKg().equals("")){
+            Log.i("Waiting",store.getUserWeightKg());
+        }
+        userWeightModeActivate(); //fetches weight log
+
+
         Intent intent = new Intent(this,calendarActivity.class);
 
         Calendar calendar = Calendar.getInstance();
@@ -70,14 +81,8 @@ ImageView weightButton;
 
 
 
-        client=new OkHttpClient();
-        //fetch user desiredWeight
-        networkHelper.getWeight(client);
 
-        networkHelper.getExcEntries(client);
-        while (store.getTrainingEntries().equals("")){
-            Log.i("Waiting",store.getUserWeightKg());
-        }
+
 
         welcomeTv.setText("Welcome: " + store.getUSERNAME());
         desiredWeightView.setText(store.getUserWeightKg());

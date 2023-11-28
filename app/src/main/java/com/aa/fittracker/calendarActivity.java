@@ -71,7 +71,6 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         switch (store.getUserMode()) {
             case "journal":
                 labelSeter("Trained:", "Rest Day:");
-
                 break;
             case "weight":
                 labelSeter("Weight:","Optimal:");

@@ -15,8 +15,7 @@ import java.util.List;
 public class CalendarAdapter {
     public static void listReturner(){
         Log.i("EVENT-DAY BEFORE CLR :", String.valueOf(store.getUserEventDaysActive().size()));
-        store.getUserEventDaysActive().clear();
-        Log.i("EVENT-DAY AFTER CLR :", String.valueOf(store.getUserEventDaysActive().size()));
+           Log.i("EVENT-DAY AFTER CLR :", String.valueOf(store.getUserEventDaysActive().size()));
 
         List<EventDay> output = new ArrayList<>();
 
@@ -40,7 +39,14 @@ public class CalendarAdapter {
                     Log.i("CAL MONTH", String.valueOf(calendar.get(Calendar.MONTH)));
                     Log.i("CAL DAY", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
 
-                    output.add(new EventDay(calendar,R.drawable.training_service_drawable));
+                    if(x.getTraining_name().equals("REST DAY")){
+                        output.add(new EventDay(calendar,R.drawable.icon_good_rest));
+                    }else if(x.getTraining_name().equals("SKIPPED DAY")){
+                        output.add(new EventDay(calendar,R.drawable.icon_bad_rest));
+
+                    }else{
+                        output.add(new EventDay(calendar,R.drawable.icon_weight));
+                    }
 
                 }
                 for(EventDay x : output){
