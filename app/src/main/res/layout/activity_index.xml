@@ -7,6 +7,18 @@
     tools:context=".IndexActivity">
 
   <TextView
+      android:id="@+id/label4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Current Weight"
+      android:textAlignment="center"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/guideline2"
+      app:layout_constraintStart_toStartOf="@+id/guideline"
+      app:layout_constraintTop_toBottomOf="@+id/desiredWeightTv"
+      app:layout_constraintVertical_bias="0.16000003" />
+
+  <TextView
       android:id="@+id/desiredWeightTv3"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -35,7 +47,7 @@
       android:layout_height="wrap_content"
       android:textSize="20sp"
       android:visibility="invisible"
-      app:layout_constraintEnd_toStartOf="@+id/weightTv"
+      app:layout_constraintEnd_toStartOf="@+id/startWeightTv"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
@@ -111,14 +123,14 @@
       android:id="@+id/textView7"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Current Weight"
+      android:text="Start Weight"
       android:textAlignment="center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/welcomeTv" />
 
   <TextView
-      android:id="@+id/weightTv"
+      android:id="@+id/startWeightTv"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:textAlignment="center"
@@ -150,7 +162,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/guideline2"
       app:layout_constraintStart_toStartOf="@+id/guideline"
-      app:layout_constraintTop_toBottomOf="@+id/weightTv"
+      app:layout_constraintTop_toBottomOf="@+id/startWeightTv"
       app:layout_constraintVertical_bias="0.16000003" />
 
   <TextView
@@ -175,6 +187,16 @@
       app:layout_constraintEnd_toStartOf="@+id/guideline2"
       app:layout_constraintStart_toStartOf="@+id/guideline"
       app:layout_constraintTop_toBottomOf="@+id/label" />
+
+  <TextView
+      android:id="@+id/CurrentWeightTv"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:textAlignment="center"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toStartOf="@+id/guideline2"
+      app:layout_constraintStart_toStartOf="@+id/guideline"
+      app:layout_constraintTop_toBottomOf="@+id/label4" />
 
   <TextView
       android:id="@+id/desiredWeightTv2"

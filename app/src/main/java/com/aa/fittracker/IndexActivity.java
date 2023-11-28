@@ -26,9 +26,11 @@ public class IndexActivity extends AppCompatActivity {
 OkHttpClient client;
 OkHttpClient clientel;
 
-TextView desiredWeightView;
-TextView weightTv;
+TextView desiredWeightTv;
+TextView currentWeightTv;
+TextView startWeightTv;
 TextView welcomeTv;
+
 
 ImageView journalButton;
 ImageView trainingsButton;
@@ -40,8 +42,9 @@ ImageView weightButton;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
         /******************UI initializations***********************/
-        weightTv=(TextView)findViewById(R.id.weightTv);
-        desiredWeightView = (TextView)findViewById(R.id.desiredWeightTv);
+        currentWeightTv=(TextView)findViewById(R.id.CurrentWeightTv);
+        desiredWeightTv = (TextView)findViewById(R.id.desiredWeightTv);
+        startWeightTv = (TextView)findViewById(R.id.startWeightTv);
         welcomeTv = (TextView)findViewById(R.id.welcomeTv);
 
         journalButton =(ImageView) findViewById(R.id.button);
@@ -71,23 +74,13 @@ ImageView weightButton;
         for(WeightEntry x : store.getWeightEntries()){
             if(x.getWeight_date().contains(dateTodaycalendar)){
                 store.setCurrentUserWeight(x.getWeight_value());
-                weightTv.setText(store.getCurrentUserWeight() + " KG");
+                currentWeightTv.setText(store.getCurrentUserWeight() + " KG");
             }
         }
 
-
-
-        ImageView[] buts = new ImageView[]{journalButton,weightButton,noutritionButton};
-
-
-
-
-
-
-
-
         welcomeTv.setText("Welcome: " + store.getUSERNAME());
-        desiredWeightView.setText(store.getUserWeightKg() + " KG");
+        startWeightTv.setText(store.getUserStartWeight() + "KG");
+        desiredWeightTv.setText(store.getUserWeightKg() + " KG");
         journalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
