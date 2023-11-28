@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aa.fittracker.dialog.DeleteDialog;
 import com.aa.fittracker.dialog.InputDialog;
 import com.aa.fittracker.fragments.calendarFragment;
 import com.aa.fittracker.logic.store;
@@ -92,34 +93,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         deleteEntryTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**********Param Validation**********/
                 /********Execution switch********/
-                switch (store.getUserMode()){
-                    case "journal":
-                        networkHelper.deleteExcEntry(client);
-                        /**********Result Validation***************/
-                        while (store.getServerResponseDeletedTrainingEntry().equals("")){
-                            Log.i("Waiting...","...");
-                        }
-                        if(store.getServerResponseDeletedTrainingEntry().contains("ok") &&
-                                !store.getServerResponseDeletedTrainingEntry().contains("!")){
-                            Toast.makeText(calendarActivity.this, "Deleted Training Entry For: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
-                            listRemover(1);
-                        }
-                        break;
-                    case "weight":
-                        networkHelper.deleteWeightEntry(client);
-                        while (store.getServerResponseDeletedWeightEntry().equals("")){
-                            Log.i("Waiting...","...");
-                        }
-                        if(store.getServerResponseDeletedWeightEntry().contains("ok") &&
-                                !store.getServerResponseDeletedTrainingEntry().contains("!")){
-                            Toast.makeText(calendarActivity.this, "Deleted Weight Entry For: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
-                            listRemover(2);
-                        }
-                       /**************clear the button so no malicous deletes happed*******************/
-                }
-                deleteEntryTrigger.setVisibility(View.INVISIBLE);
+                DeleteDialog deleteDialog = new DeleteDialog(calendarActivity.this);
+                deleteDialog.show();
+
 
 
 
@@ -128,7 +105,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     }
     /****************Helper functions begin*******************/
     //removes resutls from frontend list for instant refresh
-    public void listRemover(int i){
+    public static void listRemover(int i){
         //i=1-TRAININGSERVICE
         //I=2 - WEIGHTSERVICE
         switch (i){
@@ -193,6 +170,11 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         Log.i("training input", x.getTraining_date() + x.getTraining_name());
 
 
+        recreate();
+    }
+
+    @Override
+    public void onDeleted() {
         recreate();
     }
 }

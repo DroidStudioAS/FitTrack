@@ -120,4 +120,9 @@ protected static CalendarView calendarView;
 
 
     }
+
+    @Override
+    public void onDeleted() {
+
+    }
 }
