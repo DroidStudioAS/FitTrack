@@ -16,12 +16,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.aa.fittracker.OnInfoInputListener;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.CalendarAdapter;
 import com.aa.fittracker.trainingservice.AddTrainingActivity;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -41,10 +43,13 @@ public class InputDialog extends Dialog {
 
     Button confirmTrigger;
 
+
+    OnInfoInputListener listener;
     OkHttpClient client;
 
-    public InputDialog(@NonNull Context context) {
+    public InputDialog(@NonNull Context context, OnInfoInputListener listener) {
         super(context);
+        this.listener = (OnInfoInputListener) context;
 
     }
 
@@ -96,14 +101,16 @@ public class InputDialog extends Dialog {
                         while(store.getServerResponseAdderTrainingEntry().equals("")){
                             Log.i("waiting",store.getServerResponseAdderTrainingEntry());
                         }
-                        store.addToTrainingEntries(new TrainingEntry(store.getDateInFocus(),trainingToEnter));
-                        for(TrainingEntry x : store.getTrainingEntries()){
-                            Log.i("TE", x.getTraining_name() +" "+x.getTraining_date());
-                        }
                         //SUCCESS
                         if(store.getServerResponseAdderTrainingEntry().contains("ok") && !store.getServerResponseAdderTrainingEntry().contains("!")){
+                            TrainingEntry toAdd = new TrainingEntry(store.getDateInFocus(),trainingToEnter);
+                            store.addToTrainingEntries(toAdd);
+                            listener.onTrainingInput(toAdd);
                             Toast.makeText(getContext(),"Added: " + trainingToEnter + "To: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
                         }
+
+
+
                         break;
 
                         case "weight" :
@@ -117,10 +124,13 @@ public class InputDialog extends Dialog {
                                 Log.i("Waiting","...");
                             }
                             Log.i("resp", store.getServerResponseAdderWeightEntry());
-                            store.addToWeightEntries(new WeightEntry(store.getDateInFocus(),weight_value));
 
                             if(store.getServerResponseAdderWeightEntry().contains("ok") && !store.getServerResponseAdderWeightEntry().contains("!")){
+                                WeightEntry toAdd = new WeightEntry(store.getDateInFocus(),weight_value);
+                                store.addToWeightEntries(toAdd);
+                                listener.onWeightInput(toAdd);
                                 Toast.makeText(getContext()," Added: " + weight_value + " To: " + store.getDateInFocus(),Toast.LENGTH_SHORT).show();
+
                             }
 
                         break;

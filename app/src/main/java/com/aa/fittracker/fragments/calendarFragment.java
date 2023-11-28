@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aa.fittracker.OnDateClickListener;
+import com.aa.fittracker.OnInfoInputListener;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.DateParser;
 import com.aa.fittracker.logic.store;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class calendarFragment extends Fragment {
+public class calendarFragment extends Fragment implements OnInfoInputListener {
 OnDateClickListener onDateClickListener;
 List<String> dates;
 
@@ -96,5 +97,15 @@ CalendarView calendarView;
        //fragment logic end
         calendarView.setEvents(store.getUserEventDaysActive());
         return view;
+    }
+
+    @Override
+    public void onWeightInput(WeightEntry x) {
+        Log.i("Weight Added", x.getWeight_value() + " on date: " + x.getWeight_date());
+    }
+
+    @Override
+    public void onTrainingInput(TrainingEntry x) {
+        Log.i("Training Added", x.getTraining_name() +" on date " + x.getTraining_date());
     }
 }

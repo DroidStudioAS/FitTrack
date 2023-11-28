@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 
 import okhttp3.OkHttpClient;
 
-public class calendarActivity extends AppCompatActivity implements OnDateClickListener {
+public class calendarActivity extends AppCompatActivity implements OnDateClickListener, OnInfoInputListener {
 
     TextView dateTV;
     TextView infoLabel;
@@ -79,9 +79,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         missingInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* Intent intent = new Intent(calendarActivity.this,InputInfoActivity.class);
-                startActivity(intent);*/
-                InputDialog inputDialog = new InputDialog(calendarActivity.this);
+                InputDialog inputDialog = new InputDialog(calendarActivity.this,calendarActivity.this);
                 inputDialog.show();
                 missingInfoButton.setVisibility(View.GONE);
             }
@@ -177,4 +175,14 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     }
 
 
+    @Override
+    public void onWeightInput(WeightEntry x) {
+        Log.i("weignt input", x.getWeight_date() + x.getWeight_value());
+    }
+
+    @Override
+    public void onTrainingInput(TrainingEntry x) {
+        Log.i("training input", x.getTraining_date() + x.getTraining_name());
+
+    }
 }
