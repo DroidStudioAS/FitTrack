@@ -34,7 +34,9 @@ public class calendarFragment extends Fragment implements OnInfoInputListener {
 OnDateClickListener onDateClickListener;
 List<String> dates;
 
-CalendarView calendarView;
+public static List<EventDay> eventDays = new ArrayList<>();
+
+protected static CalendarView calendarView;
     public calendarFragment() {
         // Required empty public constructor
     }
@@ -55,12 +57,11 @@ CalendarView calendarView;
         //fragment logic start
         // Set the list of CalendarDay objects to your calendarView
         calendarView=(CalendarView)view.findViewById(R.id.calendarView);
-
         if (store.getTrainingEntries().isEmpty()){
             Log.i("NO ENTRIES FETCHED YER","...");
         }
-
         CalendarAdapter.listReturner();
+        eventDays=store.getUserEventDaysActive();
 
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
@@ -95,17 +96,24 @@ CalendarView calendarView;
             }
         });
        //fragment logic end
-        calendarView.setEvents(store.getUserEventDaysActive());
+        calendarView.setEvents(eventDays);
         return view;
+    }
+    public static void calendarRefresh(){
+        eventDays=store.getUserEventDaysActive();
+        calendarView.setEvents(eventDays);
     }
 
     @Override
     public void onWeightInput(WeightEntry x) {
         Log.i("Weight Added", x.getWeight_value() + " on date: " + x.getWeight_date());
+
     }
 
     @Override
     public void onTrainingInput(TrainingEntry x) {
         Log.i("Training Added", x.getTraining_name() +" on date " + x.getTraining_date());
+
+
     }
 }

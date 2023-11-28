@@ -3,6 +3,8 @@ package com.aa.fittracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.dialog.InputDialog;
+import com.aa.fittracker.fragments.calendarFragment;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
@@ -39,12 +42,13 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     OkHttpClient client;
     Gson gson;
 
+    Dialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-
         /*******************Ui Initializations**********************/
         infoLabel = (TextView) findViewById(R.id.infoLabel);
         optimalLabel = (TextView) findViewById(R.id.optimalLabel);
@@ -178,11 +182,14 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     @Override
     public void onWeightInput(WeightEntry x) {
         Log.i("weignt input", x.getWeight_date() + x.getWeight_value());
+        recreate();
     }
 
     @Override
     public void onTrainingInput(TrainingEntry x) {
         Log.i("training input", x.getTraining_date() + x.getTraining_name());
 
+
+        recreate();
     }
 }
