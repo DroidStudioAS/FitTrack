@@ -31,10 +31,7 @@ public class Training {
 
     @Override
     public String toString() {
-        return "Training{" +
-                "training_difficulty=" + training_difficulty +
-                ", training_name='" + training_name + '\'' +
-                ", training_desc='" + training_desc + '\'' +
-                '}';
+        return "Name: " + training_name + "\n"
+                + "Difficulty: " + training_difficulty + "\n";
     }
 }
