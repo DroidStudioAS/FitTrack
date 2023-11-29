@@ -57,8 +57,8 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
             // Create a shape drawable with rounded corners and black stroke
             GradientDrawable shapeDrawable = new GradientDrawable();
             shapeDrawable.setShape(GradientDrawable.RECTANGLE);
-            shapeDrawable.setCornerRadius(8); // 8dp corners
-            shapeDrawable.setStroke(2, Color.BLACK); // Black stroke
+            shapeDrawable.setCornerRadius(10); // 8dp corners
+            shapeDrawable.setStroke(12, Color.BLACK); // Black stroke
 
             // Get the index for current TextView in the loop
             int index = startIndex + java.util.Arrays.asList(tv).indexOf(x);
@@ -72,6 +72,7 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
                 int difficulty = currentItem.getTraining_difficulty();
                 int backgroundColor = getColor(difficulty); // Use your getColor method
                 shapeDrawable.setColor(backgroundColor);
+
 
                 // Apply the shape drawable as the background for the TextView
                 x.setBackground(shapeDrawable);
@@ -97,11 +98,11 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
     public int getColor(int difficulty) {
         switch (difficulty) {
             case 1:
-                return Color.GREEN;
+                return Color.rgb(0, 150, 136);
             case 2:
-                return Color.YELLOW;
+                return Color.rgb(255, 235, 59);
             case 3:
-                return Color.RED;
+                return Color.rgb(244, 67, 54);
             default:
                 return Color.WHITE;
         }

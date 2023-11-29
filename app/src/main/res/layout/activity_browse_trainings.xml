@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.62" />
+        app:layout_constraintGuide_percent="0.67" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trainingList"
@@ -112,7 +112,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="4dp"
-        android:background="@android:drawable/ic_menu_search"
+        android:background="@drawable/icon_action_search"
+        android:foreground="@drawable/icon_action_search"
         app:layout_constraintBottom_toBottomOf="@+id/searchET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -125,7 +126,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="3dp"
         android:background="@android:drawable/ic_menu_revert"
-        android:foreground="@android:drawable/ic_menu_revert"
+        android:foreground="@drawable/icon_action_reset"
         app:layout_constraintBottom_toBottomOf="@+id/searchET"
         app:layout_constraintEnd_toStartOf="@+id/searchET"
         app:layout_constraintHorizontal_bias="0.5"
@@ -134,10 +135,10 @@
 
     <Button
         android:id="@+id/easyFilter"
-        android:layout_width="50dp"
-        android:layout_height="43dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:alpha="0.5"
-        android:backgroundTint="#009688"
+        android:backgroundTint="@color/easy_green"
         app:layout_constraintEnd_toStartOf="@+id/mediumFilter"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/reset"
@@ -145,10 +146,10 @@
 
     <Button
         android:id="@+id/mediumFilter"
-        android:layout_width="50dp"
-        android:layout_height="43dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:alpha="0.5"
-        android:backgroundTint="#FFEB3B"
+        android:backgroundTint="@color/mid_yellow"
         app:layout_constraintEnd_toStartOf="@+id/hardFilter"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/easyFilter"
@@ -156,10 +157,10 @@
 
     <Button
         android:id="@+id/hardFilter"
-        android:layout_width="50dp"
-        android:layout_height="43dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:alpha="0.5"
-        android:backgroundTint="#F44336"
+        android:backgroundTint="@color/hard_red"
         app:layout_constraintEnd_toStartOf="@+id/filter"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/mediumFilter"
@@ -170,13 +171,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <Button
         android:id="@+id/deleteTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/ic_delete"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/icon_action_delete"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/showNameTv"
         app:layout_constraintStart_toStartOf="parent"
@@ -184,9 +185,9 @@
 
     <Button
         android:id="@+id/editTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/ic_menu_edit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/icon_action_edit"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/showNameTv"
         app:layout_constraintEnd_toEndOf="parent"
@@ -195,8 +196,8 @@
     <Button
         android:id="@+id/patchTrigger"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:background="@android:drawable/ic_menu_add"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_action_add"
         android:textSize="12sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

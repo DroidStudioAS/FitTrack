@@ -11,5 +11,9 @@
     <color name="primary">#FFFFFF</color>
     <color name="secondary">#8e8c94</color>
     <color name="third">#1c1c1d</color>
+
+    <color name="easy_green">#009688</color>
+    <color name="mid_yellow">#FFEB3B</color>
+      <color name="hard_red">#F44336</color>
 </resources>
 <!--primary  secondary higliht #1c1c1d-->
