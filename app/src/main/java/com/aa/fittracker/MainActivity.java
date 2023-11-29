@@ -3,6 +3,8 @@ package com.aa.fittracker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -27,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         //initializing
         vPager = (ViewPager) findViewById(R.id.vPager);
         tl=(TabLayout)findViewById(R.id.tabs);
+        tl.setTabTextColors(ColorStateList.valueOf(Color.BLACK));
+        tl.setSelectedTabIndicatorColor(Color.BLACK);
+
         adapter = new pagerAdapter(getSupportFragmentManager());
 
 

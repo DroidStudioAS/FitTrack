@@ -44,6 +44,8 @@ public class InputDialog extends Dialog {
 
     TextView dialogLabel;
     TextView restDayLabel;
+    TextView plannedLabel;
+    TextView unplannedLabel ;
 
     Button confirmTrigger;
 
@@ -121,6 +123,8 @@ public class InputDialog extends Dialog {
 
         dialogLabel=(TextView)findViewById(R.id.inputLabel);
         restDayLabel=(TextView)findViewById(R.id.restDayLabel);
+        plannedLabel  =(TextView)findViewById(R.id.plannedLabel);
+        unplannedLabel=(TextView)findViewById(R.id.unplannedLabel);
 
         weightInputEt =(EditText)findViewById(R.id.weigthInputEt);
         calorieInputEt=(EditText)findViewById(R.id.calorieInputEt);
@@ -254,6 +258,8 @@ public class InputDialog extends Dialog {
                 calorieInputEt.setVisibility(View.GONE);
 
                 restDayLabel.setVisibility(View.VISIBLE);
+                plannedLabel.setVisibility(View.VISIBLE);
+                unplannedLabel.setVisibility(View.VISIBLE);
                 plannedRestSwitch.setVisibility(View.VISIBLE);
                 unplannedRestSwitch.setVisibility(View.VISIBLE);
 
@@ -265,6 +271,8 @@ public class InputDialog extends Dialog {
                 calorieInputEt.setVisibility(View.GONE);
 
                 restDayLabel.setVisibility(View.INVISIBLE);
+                plannedLabel.setVisibility(View.INVISIBLE);
+                unplannedLabel.setVisibility(View.INVISIBLE);
                 plannedRestSwitch.setVisibility(View.INVISIBLE);
                 unplannedRestSwitch.setVisibility(View.INVISIBLE);
                 break;
@@ -275,6 +283,8 @@ public class InputDialog extends Dialog {
                 calorieInputEt.setVisibility(View.VISIBLE);
 
                 restDayLabel.setVisibility(View.INVISIBLE);
+                plannedLabel.setVisibility(View.INVISIBLE);
+                unplannedLabel.setVisibility(View.INVISIBLE);
                 plannedRestSwitch.setVisibility(View.INVISIBLE);
                 unplannedRestSwitch.setVisibility(View.INVISIBLE);
                 break;

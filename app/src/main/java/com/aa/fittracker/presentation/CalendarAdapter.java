@@ -42,21 +42,21 @@ public class CalendarAdapter {
                     /***************Icon Determiner****************/
                     /***************Rest Days****************/
                     if(x.getTraining_name().equals("REST DAY")){
-                        output.add(new EventDay(calendar,R.drawable.icon_good_rest));
+                        output.add(new EventDay(calendar,R.drawable.icon_good_restt));
                     }else if(x.getTraining_name().equals("SKIPPED DAY")){
-                        output.add(new EventDay(calendar,R.drawable.icon_bad_rest));
+                        output.add(new EventDay(calendar,R.drawable.icon_bad_restt));
                     }
                     /***************Active Days****************/
                     Log.i("DIFFICULTY FOUND:", String.valueOf(trainingDifficultyfFinder(x.getTraining_name())));
                     switch (trainingDifficultyfFinder(x.getTraining_name())){
                         case 1:
-                            output.add(new EventDay(calendar,R.drawable.icon_easy_training));
+                            output.add(new EventDay(calendar,R.drawable.icon_easy_tr));
                             break;
                         case 2:
-                            output.add(new EventDay(calendar,R.drawable.icon_mid_training));
+                            output.add(new EventDay(calendar,R.drawable.icon_medium_tr));
                             break;
                         case 3:
-                            output.add(new EventDay(calendar,R.drawable.icon_exp_hard_training));
+                            output.add(new EventDay(calendar,R.drawable.icon_hard_tr));
                             break;
                     }
                 }
@@ -103,16 +103,16 @@ public class CalendarAdapter {
                     switch (store.getUserWeightGoal()){
                         case "+":
                             if(weightOnActiveDate>startWeight){
-                                output.add(new EventDay(calendar,R.drawable.icon_good_weight));
+                                output.add(new EventDay(calendar,R.drawable.icon_good_sc));
                             }else{
-                                output.add(new EventDay(calendar,R.drawable.icon_bad_weight));
+                                output.add(new EventDay(calendar,R.drawable.icon_bad_sc));
                             }
                             break;
                         case "-":  //opposite logic to +
                             if(weightOnActiveDate<startWeight){
-                                output.add(new EventDay(calendar,R.drawable.icon_good_weight));
+                                output.add(new EventDay(calendar,R.drawable.icon_good_sc));
                             }else{
-                                output.add(new EventDay(calendar,R.drawable.icon_bad_weight));
+                                output.add(new EventDay(calendar,R.drawable.icon_bad_sc));
                             }
                             break;
                     }

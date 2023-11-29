@@ -7,6 +7,15 @@
     android:layout_margin="32dp">
 
     <TextView
+        android:id="@+id/unplannedLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unplanned:"
+        app:layout_constraintBottom_toTopOf="@+id/unplanedRest"
+        app:layout_constraintEnd_toEndOf="@+id/unplanedRest"
+        app:layout_constraintStart_toStartOf="@+id/unplanedRest" />
+
+    <TextView
         android:id="@+id/inputLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,10 +61,10 @@
 
     <Button
         android:id="@+id/inputTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_margin="32dp"
-        android:text="Confirm"
+        android:foreground="@drawable/icon_action_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,16 +85,18 @@
         android:id="@+id/restDayLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:text="Rest day? (Leave Empty If Not)"
+        android:layout_marginTop="14dp"
+        android:gravity="center"
+        android:text="Rest Day? (Leave Empty If Not)"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/trainingSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/trainingSpinner" />
 
     <Button
         android:id="@+id/unplanedRest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="36dp"
         android:alpha="0.35"
         android:backgroundTint="#CD5050"
         android:textColor="@color/third"
@@ -96,13 +107,23 @@
 
     <Button
         android:id="@+id/planedRest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="36dp"
         android:alpha="0.35"
         android:backgroundTint="#009688"
         app:layout_constraintEnd_toStartOf="@+id/unplanedRest"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restDayLabel" />
+
+    <TextView
+        android:id="@+id/plannedLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Planned:"
+        app:layout_constraintBottom_toTopOf="@+id/planedRest"
+        app:layout_constraintEnd_toEndOf="@+id/planedRest"
+        app:layout_constraintStart_toStartOf="@+id/planedRest" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
