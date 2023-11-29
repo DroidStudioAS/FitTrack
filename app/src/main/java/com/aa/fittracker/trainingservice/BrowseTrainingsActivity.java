@@ -101,10 +101,7 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
 
         localList = store.getUserTrainings();
         if (localList.isEmpty()) {
-                while (store.getServerResponseAllExc().equals("")) {
-                    localList = store.getUserTrainings();
-                    Log.i("Fetching data: ", localList.toString());
-                }
+               Snackbar sb = Snackbar.make(browseView,"You Have No Trainings Entered. Want to Add some?", Snackbar.LENGTH_INDEFINITE);
             }
         /**************RV Configuration*******************/
         adapter = new trainingAdapter(localList, this);

@@ -57,20 +57,26 @@ ImageView weightButton;
         client=new OkHttpClient();
         Map<String, String> params = new HashMap<>();
         params.put("username", store.getUSERNAME());
-
-        try {
-            networkHelper.getExc(client, "http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings", params);
-        } catch (IOException e) {
-            e.printStackTrace();
+        boolean new_user = getIntent().getBooleanExtra("new_user",false);
+        if(!new_user) {
+            try {
+                networkHelper.getExc(client, "http://165g123.e2.mars-hosting.com/api/userinfo/getUserTrainings", params);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //fetch user desiredWeight
+            networkHelper.getWeight(client);
+            networkHelper.getExcEntries(client);
+            networkHelper.getStartWeight(client);
+            while (store.getTrainingEntries().equals("") || store.getUserWeightKg().equals("") || store.getUserStartWeight().equals("")) {
+                Log.i("Fetching Data", "...");
+            }
+            //fetches weight log
+        }else{
+            currentWeightTv.setText(store.getCurrentUserWeight() + "KG");
+            desiredWeightTv.setText(store.getUserWeightKg());
         }
-        //fetch user desiredWeight
-        networkHelper.getWeight(client);
-        networkHelper.getExcEntries(client);
-        networkHelper.getStartWeight(client);
-        while (store.getTrainingEntries().equals("") || store.getUserWeightKg().equals("") || store.getUserStartWeight().equals("")){
-            Log.i("Fetching Data","...");
-        }
-        userWeightModeActivate(); //fetches weight log
+        userWeightModeActivate();
 
 
         Intent intent = new Intent(this,calendarActivity.class);
@@ -147,12 +153,12 @@ ImageView weightButton;
     }
     public static void Logger(){
         for(TrainingEntry x : store.getTrainingEntries()){
-            Log.i("Entry Date", x.getTraining_date());
-            Log.i("Entry Value", x.getTraining_name());
+            Log.i("Training Entry Date", x.getTraining_date());
+            Log.i("Training Entry Value", x.getTraining_name());
         }
         for(WeightEntry x : store.getWeightEntries()){
-            Log.i("Entry Date", x.getWeight_date());
-            Log.i("Entry Value", x.getWeight_value());
+            Log.i("Weight Entry Date", x.getWeight_date());
+            Log.i("Weight Entry Value", x.getWeight_value());
         }
     }
 }

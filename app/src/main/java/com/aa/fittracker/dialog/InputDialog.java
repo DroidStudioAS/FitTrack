@@ -135,9 +135,11 @@ public class InputDialog extends Dialog {
         for(Training x : store.getUserTrainings()){
             stringList.add(x.getTraining_name());
         }
+        if(stringList.size()!=0){
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,stringList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        }
 
         /*************************Set the appropriate ET/SPINNERS*****************************/
         inputDialogUserModeReaction();
@@ -150,25 +152,28 @@ public class InputDialog extends Dialog {
             public void onClick(View v) {
                 switch (store.getUserMode()){
                     case "journal":
-                        String trainingToEnter = spinner.getSelectedItem().toString();
+                        /**********Validation***********/
+                        if(stringList.size()==0 && !planedRest && !unplannedRest){
+                            Snackbar.make(v,"You Have No Trainings... Add Some?",Snackbar.LENGTH_INDEFINITE).setAction("Go", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    getContext().startActivity(new Intent(getContext(),AddTrainingActivity.class));
+                                }
+                            }).show();
+                            return;
+                        }
+                        /*****Fetch parameter******/
+                        String trainingToEnter = "";
+                        if(spinner.getCount()!=0) {
+                            trainingToEnter = spinner.getSelectedItem().toString();
+                        }
                         if(planedRest==true){
                             trainingToEnter=REST_DAY_PLANNED;
                         }else if(unplannedRest==true) {
                             trainingToEnter=REST_DAY_UNPLANNED;
                         }
-                        /**********Validation***********/
-                        if(trainingToEnter.equals("") || spinner.getCount()==0){
-                           Snackbar noTrainingsSb = Snackbar.make(v,"You Currently Do Not Have Any Trainings? Want To Add Some?", Snackbar.LENGTH_INDEFINITE);
-                            noTrainingsSb.setAction("Yes!", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(getContext(), AddTrainingActivity.class);
-                                   getContext().startActivity(intent);
-                                }
-                            });
-                            noTrainingsSb.show();
-                            return;
-                        }
+
+
                         /**************Add Entry***************/
                         networkHelper.postExcEntry(client,trainingToEnter);
                         while(store.getServerResponseAdderTrainingEntry().equals("")){
@@ -202,7 +207,7 @@ public class InputDialog extends Dialog {
                                 Toast.makeText(getContext(),"fail",Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                            networkHelper.postWeightTrackEntry(client,weight_value);
+                            networkHelper.postWeightTrackEntry(client,weight_value,"");
                             while(store.getServerResponseAdderWeightEntry().equals("")){
                                 Log.i("Waiting","...");
                             }

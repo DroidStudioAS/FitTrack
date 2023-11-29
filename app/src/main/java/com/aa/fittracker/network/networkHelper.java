@@ -285,15 +285,20 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 store.setDateStrings(JsonParser.extractJsonArray(response.body().string()));
+                Log.i("IMP RESPONSE FROM NH", store.getDateStrings());
             }
         });
     }
     //tracking subservice
-    public static void postWeightTrackEntry(OkHttpClient client,String weight_value){
+    public static void postWeightTrackEntry(OkHttpClient client,String weight_value,String date){
         FormBody.Builder formBuilder = new FormBody.Builder();
         formBuilder.add("username",store.getUSERNAME());
         formBuilder.add("weight_value",weight_value);
-        formBuilder.add("date",store.getDateInFocus());
+        if(date.equals("")) {
+            formBuilder.add("date", store.getDateInFocus());
+        }else{
+            formBuilder.add("date",date);
+        }
 
         RequestBody body = formBuilder.build();
         Request request = new Request.Builder()
@@ -403,6 +408,26 @@ public class networkHelper {
                 } else {
                     Log.i("IMPORTANT", "POST request failed with response code: " + response.code());
                 }
+            }
+        });
+    }
+    public static void registerUser(OkHttpClient client, Map<String,String> params){
+        FormBody.Builder urlBuilder = new FormBody.Builder();
+        for(Map.Entry<String,String> param : params.entrySet()){
+            urlBuilder.add(param.getKey(),param.getValue());
+        }
+        RequestBody body = urlBuilder.build();
+        Request request = new Request.Builder().url("http://165g123.e2.mars-hosting.com/api/login_register/reg_user").post(body).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseRegister(response.body().string());
+                Log.i("RESPONSE FROM NH", store.getServerResponseRegister());
             }
         });
     }

@@ -62,7 +62,6 @@ protected static CalendarView calendarView;
         }
         CalendarAdapter.listReturner();
         eventDays=store.getUserEventDaysActive();
-
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(@NonNull EventDay eventDay) {

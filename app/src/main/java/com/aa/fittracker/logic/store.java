@@ -37,6 +37,16 @@ public class store {
     private static String CURRENT_USER_WEIGHT="";
     private static String USER_START_WEIGHT = "";
 
+    public static String getUserWeightGoal() {
+        return USER_WEIGHT_GOAL;
+    }
+
+    public static void setUserWeightGoal(String userWeightGoal) {
+        USER_WEIGHT_GOAL = userWeightGoal;
+    }
+
+    private static String USER_WEIGHT_GOAL = "";
+
     public static String getUserStartWeight() {
         return USER_START_WEIGHT;
     }
@@ -277,7 +287,7 @@ public class store {
 
         Gson gson = new Gson();
         Training[] trainings = gson.fromJson(parsed,Training[].class);
-        if(trainings.length!=0) {
+        if(trainings!=null) {
             USER_TRAININGS.addAll(Arrays.asList(trainings));
         }
         Log.i("Final",USER_TRAININGS.toString());
@@ -356,8 +366,10 @@ public class store {
         TRAINING_ENTRIES_STRING = trainingEntries;
         Gson gson = new Gson();
         TrainingEntry[] trainingEntries1 = gson.fromJson(JsonParser.extractJsonArray(store.getTrainingEntriesString()),TrainingEntry[].class);
-        for(TrainingEntry x : trainingEntries1){
-            TRAINING_ENTRIES.add(x);
+        if(trainingEntries1!=null) {
+            for (TrainingEntry x : trainingEntries1) {
+                TRAINING_ENTRIES.add(x);
+            }
         }
     }
     public static void setServerResponseDeletedWeightEntry(String serverResponseDeletedWeightEntry) {

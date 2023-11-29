@@ -15,9 +15,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.CalendarAdapter;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +31,7 @@ public class RegisterFragment extends Fragment {
     EditText UsernameET;
     EditText PasswordET;
     EditText KgET;
+    EditText currentKgEt;
 
     Button trigger;
 
@@ -49,54 +53,66 @@ public class RegisterFragment extends Fragment {
         UsernameET=view.findViewById(R.id.UsernameET);
         PasswordET = view.findViewById(R.id.PasswordET);
         KgET=view.findViewById(R.id.KgET);
+        currentKgEt=view.findViewById(R.id.kgET2);
+
         trigger = view.findViewById(R.id.registerTrigger);
 
+
         client=new OkHttpClient();
+
+        Calendar calendar = Calendar.getInstance();
+        String correctedMonth = String.valueOf(calendar.get(Calendar.MONTH)+1);
+        String date = calendar.get(Calendar.YEAR) + "-" + correctedMonth + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+        Log.i("date",date);
+
         trigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //get values
-                String username = UsernameET.getText().toString();
-                String pass = PasswordET.getText().toString();
-                String Kg = KgET.getText().toString();
-                //FRONT END CHECK TO NOT SEND EMPTY PARAMETERS
-                if(username.equals("")||pass.equals("")||Kg.equals("")){
-                    //MISSING REGISTRATION INFO
-                    Toast.makeText(getContext(),"Missing info",Toast.LENGTH_SHORT).show();
+                String username = UsernameET.getText().toString().trim();
+                String password = PasswordET.getText().toString().trim();
+                String userKg = KgET.getText().toString().trim();
+                String currentKg = currentKgEt.getText().toString().trim();
+
+                if(username.equals("") || password.equals("") || userKg.equals("") || currentKg.equals("")){
+                    Toast.makeText(getContext(),"Missing Necessary Fields",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(Double.parseDouble(Kg)<=30){
-                    Toast.makeText(getContext(),"U must be 18 to use app", Toast.LENGTH_SHORT).show();
+                if(password.length()<6){
+                    Toast.makeText(getContext(),"Password Must Be At Least Then 6 Characters",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //map post parameters
                 Map<String,String> params = new HashMap<>();
-                params.put("username",username);
-                params.put("password",pass);
-                params.put("kg",Kg);
-                //add post parameters
-                for(Map.Entry<String,String> x : params.entrySet()){
-                    Log.i("DATA", x.getKey() + " " + x.getValue());
+                params.put("user_kg",userKg);
+                params.put("user_username",username);
+                params.put("user_start_weight",currentKg);
+                params.put("password",password);
+                networkHelper.registerUser(client,params);
+
+                while (store.getServerResponseRegister().equals("")){
+                    Log.i("Sending Data", "...");
                 }
-                //
-                try {
-                    networkHelper.post(client,"http://165g123.e2.mars-hosting.com/api/login_register/register",params);
-                    Log.i("store server resp" , store.getServerResponseRegister());
-                }catch (IOException exc){
-                    exc.printStackTrace();
-                }finally {
-                    while (store.getServerResponseRegister().length()==0){
-                        Log.i("Waiting",store.getServerResponseRegister());
-                    }
+                if(store.getServerResponseRegister().contains("!ok")){
+                    //Fail
+                    Toast.makeText(getContext(),"500",Toast.LENGTH_SHORT);
+                    return;
+                }
+                if(store.getServerResponseRegister().contains("ok") && !store.getServerResponseRegister().contains("!")){
+                    store.setUSERNAME(username);
+                    store.setUserWeightKg(userKg);
+                    store.setUserStartWeight(currentKg);
+                    store.setCurrentUserWeight(currentKg);
+
+
+                    networkHelper.postWeightTrackEntry(client,store.getUserStartWeight(),date);
+                    store.addToWeightEntries(new WeightEntry(date,store.getCurrentUserWeight()));
+
+                    CalendarAdapter.listReturner();
+
+                    startActivity(new Intent(getActivity(),IndexActivity.class).putExtra("new_user",true));
                 }
 
-                Log.i("Finally broken" , store.getServerResponseRegister());
-                //check if all is ok
-                if(store.getServerResponseRegister().contains("ok")){
-                    store.setUSERNAME(username);
-                    Intent intent = new Intent(getActivity(),IndexActivity.class);
-                    startActivity(intent);
-                }
+
             }
         });
 

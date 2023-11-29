@@ -55,12 +55,19 @@ public class CalendarAdapter {
                 }
                 break;
             case "weight":
+                double startWeight = Double.parseDouble(store.getUserStartWeight());
+                double optimalWeight = Double.parseDouble(store.getUserWeightKg());
+                /***************Does the user want to lose or gain weight***************/
+                if(startWeight-optimalWeight>0){
+                    store.setUserWeightGoal("-");
+                }else {
+                    store.setUserWeightGoal("+");
+                }
+
                 for(WeightEntry x : store.getWeightEntries()){
-
-                    double weightOnDate = Double.parseDouble(x.getWeight_value());
-
+                    /*************Make the calendar object*****************/
+                    double weightOnActiveDate = Double.parseDouble(x.getWeight_value());
                     Calendar calendar = Calendar.getInstance();
-
                     String[] parsed = x.getWeight_date().split("-");
                     int year=Integer.parseInt(parsed[0]);
                     int monthWithoutCorrection = Integer.parseInt(parsed[1]);
@@ -75,23 +82,32 @@ public class CalendarAdapter {
                     Log.i("CAL MONTH", String.valueOf(calendar.get(Calendar.MONTH)));
                     Log.i("CAL DAY", String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
 
-                    if(!store.getUserWeightKg().equals("")){
-                        if(Double.parseDouble(store.getUserWeightKg())==weightOnDate){
-                            output.add(new EventDay(calendar,R.drawable.icon_perfect_weight));
-                        }
-                        if(!store.getUserStartWeight().equals("")){
-                            double startWeight = Double.parseDouble(store.getUserStartWeight());
-                            if(startWeight>weightOnDate){
+                    //DOES USER WANT TO GAIN OR LOSE WEIGHT
+                    /***********User Achieved Weight Goal On This Date*************/
+                    if(optimalWeight==weightOnActiveDate){
+                        output.add(new EventDay(calendar,R.drawable.icon_perfect_weight));
+                    }
+                    Log.i("Optimal Weight",String.valueOf(optimalWeight));
+                    Log.i("Weight on Active Date",String.valueOf(weightOnActiveDate));
+                    Log.i("Start Weight", String.valueOf(startWeight));
+                    Log.i("User weight goal", String.valueOf(startWeight));
+                    /******************Does user want to gain (+) or lose(-) name****************/
+                    switch (store.getUserWeightGoal()){
+                        case "+":
+                            if(weightOnActiveDate>startWeight){
                                 output.add(new EventDay(calendar,R.drawable.icon_good_weight));
-                            }else if(weightOnDate>startWeight){
+                            }else{
                                 output.add(new EventDay(calendar,R.drawable.icon_bad_weight));
                             }
-                        }
-
+                            break;
+                        case "-":  //opposite logic to +
+                            if(weightOnActiveDate<startWeight){
+                                output.add(new EventDay(calendar,R.drawable.icon_good_weight));
+                            }else{
+                                output.add(new EventDay(calendar,R.drawable.icon_bad_weight));
+                            }
+                            break;
                     }
-
-
-
                 }
 
                 for(EventDay x : output){
