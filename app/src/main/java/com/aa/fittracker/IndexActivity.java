@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
@@ -114,9 +115,10 @@ ImageView weightButton;
         noutritionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                store.setUserMode("cals");
+                Toast.makeText(getApplicationContext(),"Currently Not Supported...",Toast.LENGTH_SHORT).show();
+                /*store.setUserMode("cals");
                 intent.putExtra("key","cals");
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
