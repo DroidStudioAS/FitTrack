@@ -233,12 +233,15 @@ public class BrowseTrainingsActivity extends Activity implements onItemClickList
                 Log.i("TrainingInFocusDesc", store.getTrainingInFocus().getTraining_desc());
                 Log.i("TrainingInFocusDiff", String.valueOf(store.getTrainingInFocus().getTraining_difficulty()));
                 Log.i("Contains name", String.valueOf(store.containsName(newName)));
-                if((newName.toLowerCase(Locale.ROOT).equals(store.getTrainingInFocus().getTraining_name().toLowerCase(Locale.ROOT))
+                if(     //Check if any changes are made
+                        (newName.toLowerCase(Locale.ROOT).equals(store.getTrainingInFocus().getTraining_name().toLowerCase(Locale.ROOT))
                         && newDesc.toLowerCase(Locale.ROOT).equals(store.getTrainingInFocus().getTraining_desc().toLowerCase(Locale.ROOT))
                         && newDiff.equals(String.valueOf(store.getTrainingInFocus().getTraining_difficulty())))
                         ||
-                   store.containsName(newName)
+                        //Check If training name is already in use by other trainings
+                        store.containsName(newName) && !newName.equals(store.getTrainingInFocus().getTraining_name())
                         ||
+                        //Check for empty strings
                         (newDesc.equals("") && newName.equals("")))
                 {
                     /*********Notify user of mistake************/
