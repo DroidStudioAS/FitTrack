@@ -6,6 +6,7 @@ import com.aa.fittracker.models.TrainingEntry;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class DateParser {
@@ -98,30 +99,25 @@ public class DateParser {
 
 
 
-    public static int getDaysInMonth(int year, int month) {
-        switch (month) {
-            case 1: // January
-            case 3: // March
-            case 5: // May
-            case 7: // July
-            case 8: // August
-            case 10: // October
-            case 12: // December
-                return 31;
-            case 4: // April
-            case 6: // June
-            case 9: // September
-            case 11: // November
-                return 30;
-            case 2: // February
-                // Check for leap year
-                if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-                    return 29; // Leap year
-                } else {
-                    return 28; // Non-leap year
-                }
-            default:
-                return -1; // Invalid month
+    public static ArrayList<String> dateSorter(ArrayList<String> unsorted) {
+        // Create a list to store parsed dates
+        ArrayList<LocalDate> parsedDates = new ArrayList<>();
+
+        // Parse strings into LocalDate objects
+        for (String dateString : unsorted) {
+            LocalDate date = LocalDate.parse(dateString);
+            parsedDates.add(date);
         }
+
+        // Sort the dates
+        parsedDates.sort(Comparator.naturalOrder());
+
+        // Convert sorted dates back to strings in the original format
+        ArrayList<String> sorted = new ArrayList<>();
+        for (LocalDate date : parsedDates) {
+            sorted.add(date.toString());
+        }
+
+        return sorted;
     }
 }
