@@ -50,14 +50,15 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     Gson gson;
 
     BottomFragment bf;
-    Dialog progressDialog;
-
+    FragmentCommunicator fc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+
 
         /*******************Ui Initializations**********************/
         infoLabel = (TextView) findViewById(R.id.infoLabel);
@@ -72,6 +73,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         expandTrigger=(ImageView)findViewById(R.id.expandTrigger);
         deleteEntryTrigger.setVisibility(View.INVISIBLE);
         bf=(BottomFragment)getSupportFragmentManager().findFragmentById(R.id.bf);
+        fc=bf;
 
         /**********************Neccesary**********************/
         client = new OkHttpClient();
@@ -152,6 +154,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         deleteEntryTrigger.setVisibility(View.INVISIBLE);
         Log.i("ONDATECLICKED","...");
         IndexActivity.Logger();
+
+        fc.onDateClicked(date);
     }
     /************** !very important this callback happens after onDateClicked! **************/
     @Override
@@ -162,6 +166,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             infoTv.setText(x.getWeight_value());
             deleteEntryTrigger.setVisibility(View.VISIBLE);
             IndexActivity.Logger();
+
+            fc.onMatchFound(x);
         }
     }
 
@@ -173,6 +179,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             infoTv.setText(x.getTraining_name());
             deleteEntryTrigger.setVisibility(View.VISIBLE);
             IndexActivity.Logger();
+
+            fc.onTrainingMatchFound(x);
         }
     }
 

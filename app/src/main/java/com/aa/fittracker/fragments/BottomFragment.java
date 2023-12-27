@@ -1,6 +1,7 @@
 package com.aa.fittracker.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.aa.fittracker.FragmentCommunicator;
+import com.aa.fittracker.OnDateClickListener;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.TrainingEntry;
+import com.aa.fittracker.models.WeightEntry;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BottomFragment extends Fragment {
+public class BottomFragment extends Fragment implements FragmentCommunicator {
 
     TextView contentTv;
 
@@ -63,6 +68,7 @@ public class BottomFragment extends Fragment {
         expanded = -1;
         /***********Ui Initializations************/
         extraLabel = (TextView) view.findViewById(R.id.extraLabel);
+        contentTv=(TextView)view.findViewById(R.id.bfContentTv);
         dayOneLabel = (TextView) view.findViewById(R.id.dayOneLabel);
         dayTwoLabel = (TextView) view.findViewById(R.id.dayTwoLabel);
         dayThreeLabel = (TextView) view.findViewById(R.id.dayThreeLabel);
@@ -142,6 +148,7 @@ public class BottomFragment extends Fragment {
         }
     }
 
+
     public static void setDateTvText(String txt) {
         //DateTv.setText(txt);
     }
@@ -150,4 +157,20 @@ public class BottomFragment extends Fragment {
         // DataTv.setText(txt);
     }
 
+    /**********Callbacks************/
+    @Override
+    public void onDateClicked(String date) {
+        Log.i("Fragment Callback: ", date);
+    }
+
+    @Override
+    public void onMatchFound(WeightEntry x) {
+      Log.i("Fragment Callback: ", x.toString());
+    }
+
+    @Override
+    public void onTrainingMatchFound(TrainingEntry x) {
+     Log.i("Fragment Callback: ", x.toString());
+
+    }
 }
