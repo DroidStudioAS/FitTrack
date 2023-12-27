@@ -54,7 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="TextView" />
+            android:text="No Data Found For This Date"
+            android:textColor="@color/primary" />
     </ScrollView>
 
     <androidx.constraintlayout.widget.Guideline
@@ -70,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="1."
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="@+id/dayOneIv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/dayOneIv"
@@ -81,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="1."
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="@+id/dayTwoIv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/dayTwoIv"
@@ -92,6 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="1."
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="@+id/dayThreeIv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/dayThreeIv"
@@ -103,6 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="1."
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="@+id/dayFourIv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/dayFourIv"
@@ -114,6 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="1."
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="@+id/dayFiveIv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/dayFiveIv"
@@ -125,6 +131,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="1."
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="@+id/daySixIv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/daySixIv"
@@ -136,6 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="1."
+        android:textColor="@color/primary"
         app:layout_constraintEnd_toEndOf="@+id/todayIv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/todayIv"

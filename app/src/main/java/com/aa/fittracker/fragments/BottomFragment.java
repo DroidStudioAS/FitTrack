@@ -16,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.aa.fittracker.FragmentCommunicator;
 import com.aa.fittracker.OnDateClickListener;
 import com.aa.fittracker.R;
+import com.aa.fittracker.logic.DateParser;
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.Training;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -24,6 +26,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class BottomFragment extends Fragment implements FragmentCommunicator {
 
@@ -160,17 +163,42 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     /**********Callbacks************/
     @Override
     public void onDateClicked(String date) {
+        ArrayList<TextView> labelList = new ArrayList<>(Arrays.asList(dayOneLabel, dayTwoLabel, dayThreeLabel, dayFourLabel, dayFiveLabel, daySixLabel, todayLabel));
+        ArrayList<ImageView> imageViewList = new ArrayList<>(Arrays.asList(dayOneIv, dayTwoIv, dayThreeIv, dayFourIv, dayFiveIv, daySixIv, todayIv));
         Log.i("Fragment Callback: ", date);
+        contentTv.setText("No Data For This Date");
+        ArrayList<Integer> ta = DateParser.dateFinder();
+        if(ta.size()>1){
+        int EndIndex = 6;
+        for(TextView x : labelList) {
+            x.setText(String.valueOf(ta.get(EndIndex)) + ".");
+            EndIndex--;
+        }
+        }
+
+
     }
 
     @Override
     public void onMatchFound(WeightEntry x) {
       Log.i("Fragment Callback: ", x.toString());
+
     }
 
     @Override
     public void onTrainingMatchFound(TrainingEntry x) {
-     Log.i("Fragment Callback: ", x.toString());
-
+     Log.i("Fragment Callback: ", x.getTraining_name());
+     for(Training y : store.getUserTrainings()){
+         if(y.getTraining_name().equals(x.getTraining_name())){
+            contentTv.setText(y.getTraining_desc());
+         }
+     }
+     if(x.getTraining_name().toLowerCase(Locale.ROOT).equals("rest day")){
+         contentTv.setText("Rest Day");
+     }else if(x.getTraining_name().toLowerCase(Locale.ROOT).equals("skipped day")){
+         contentTv.setText("Skipped Day");
+     }
     }
+
+
 }
