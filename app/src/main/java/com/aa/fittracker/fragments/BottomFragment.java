@@ -17,22 +17,32 @@ import com.aa.fittracker.logic.store;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class BottomFragment extends Fragment {
 
-    ImageView expandTrigger;
+    TextView contentTv;
 
-    static TextView valueTv;
-    static TextView DateTv;
-    TextView optimalValueTv;
+    TextView extraLabel;
+    TextView dayOneLabel;
+    TextView dayTwoLabel;
+    TextView dayThreeLabel;
+    TextView dayFourLabel;
+    TextView dayFiveLabel;
+    TextView daySixLabel;
+    TextView todayLabel;
 
-
-    TextView firstLabel;
-    TextView secondLabel;
-
+    ImageView dayOneIv;
+    ImageView dayTwoIv;
+    ImageView dayThreeIv;
+    ImageView dayFourIv;
+    ImageView dayFiveIv;
+    ImageView daySixIv;
+    ImageView todayIv;
 
 
     private View view;
-    private BottomSheetBehavior bottomSheetBehavior;
 
     private int expanded;
 
@@ -50,87 +60,94 @@ public class BottomFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_bottom, container, false);
         //move the view Out of sight
         view.animate().translationY(1100);
-        expanded=-1;
+        expanded = -1;
         /***********Ui Initializations************/
-       // DateTv=(TextView)view.findViewById(R.id.dateTVf);
-       // valueTv=(TextView)view.findViewById(R.id.dataTv);
-       // optimalValueTv=(TextView)view.findViewById(R.id.optimalDataTv);
-       // firstLabel=(TextView)view.findViewById(R.id.firstLabel);
-       // secondLabel=(TextView)view.findViewById(R.id.secondLabel);
+        extraLabel = (TextView) view.findViewById(R.id.extraLabel);
+        dayOneLabel = (TextView) view.findViewById(R.id.dayOneLabel);
+        dayTwoLabel = (TextView) view.findViewById(R.id.dayTwoLabel);
+        dayThreeLabel = (TextView) view.findViewById(R.id.dayThreeLabel);
+        dayFourLabel = (TextView) view.findViewById(R.id.dayFourLabel);
+        dayFiveLabel = (TextView) view.findViewById(R.id.dayFiveLabel);
+        daySixLabel = (TextView) view.findViewById(R.id.daySixLabel);
+        todayLabel = (TextView) view.findViewById(R.id.todayLabel);
+        ArrayList<TextView> labelList = new ArrayList<>(Arrays.asList(extraLabel, dayOneLabel, dayTwoLabel, dayThreeLabel, dayFourLabel, dayFiveLabel, daySixLabel, todayLabel));
 
+        //
+        dayOneIv = (ImageView) view.findViewById(R.id.dayOneIv);
+        dayTwoIv = (ImageView) view.findViewById(R.id.dayTwoIv);
+        dayThreeIv = (ImageView) view.findViewById(R.id.dayThreeIv);
+        dayFourIv = (ImageView) view.findViewById(R.id.dayFourIv);
+        dayFiveIv = (ImageView) view.findViewById(R.id.dayFiveIv);
+        daySixIv = (ImageView) view.findViewById(R.id.daySixIv);
+        todayIv = (ImageView) view.findViewById(R.id.todayIv);
+        ArrayList<ImageView> imageViewList = new ArrayList<>(Arrays.asList(dayOneIv, dayTwoIv, dayThreeIv, dayFourIv, dayFiveIv, daySixIv, todayIv));
+
+      /*  for(TextView x : labelList){
+            x.setText("");
+        }
+        for(ImageView x : imageViewList){
+            x.setImageDrawable(null);
+        }   */
+
+        
+
+        // DateTv=(TextView)view.findViewById(R.id.dateTVf);
+        // valueTv=(TextView)view.findViewById(R.id.dataTv);
+        // optimalValueTv=(TextView)view.findViewById(R.id.optimalDataTv);
+        // firstLabel=(TextView)view.findViewById(R.id.firstLabel);
+        // secondLabel=(TextView)view.findViewById(R.id.secondLabel);
 
 
         /***************onClicklisteners***************/
-
-
-
-
-
-
-
-        //set the labels
-       /* switch (store.getUserMode()) {
-            case "journal":
-                labelSeter("Trained:", "Rest Day:");
-                break;
-            case "weight":
-                labelSeter("Weight:","Optimal:");
-                //optimalTv.setText(store.getUserWeightKg());
-                break;
-            case "cals":
-                labelSeter("Intake:","Allowed:");
-                break;
-        }       */
+        labelSeter(store.getUserMode());
 
         return view;
     }
 
 
+    public void labelSeter(String infoString) {
+        extraLabel.setText(infoString);
+    }
 
-
-    /*public void labelSeter(String infoString,String optimalString){
-        firstLabel.setText(infoString);
-        secondLabel.setText(optimalString);
-    }  */
-
-    public void translate(){
+    public void translate() {
         //Close
-        if(getExpanded()==1) {
+        if (getExpanded() == 1) {
             view.animate().translationY(1100);
             switchExpanded();
-        }
-        else{    //Open
+        } else {    //Open
             view.animate().translationY(0);
             switchExpanded();
 
         }
     }
-    public void UiEnabler(int status){
-     switch (status){
-         //disable
-         case -1:
-             
-             break;
-          //enable
-         case 1:
 
-             break;
-     }
+    public void UiEnabler(int status) {
+        switch (status) {
+            //disable
+            case -1:
+
+                break;
+            //enable
+            case 1:
+
+                break;
+        }
     }
 
-    public void switchExpanded(){
-       if(getExpanded()==1){
-           setExpanded(-1);
-       }else if(getExpanded()==-1){
-           setExpanded(1);
-       }
+    public void switchExpanded() {
+        if (getExpanded() == 1) {
+            setExpanded(-1);
+        } else if (getExpanded() == -1) {
+            setExpanded(1);
+        }
     }
 
-    public static void setDateTvText(String txt){
+    public static void setDateTvText(String txt) {
         //DateTv.setText(txt);
     }
-    public static void setDataTvText(String txt){
-       // DataTv.setText(txt);
+
+    public static void setDataTvText(String txt) {
+        // DataTv.setText(txt);
     }
 
 }
