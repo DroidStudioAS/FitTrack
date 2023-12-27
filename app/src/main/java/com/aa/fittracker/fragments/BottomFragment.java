@@ -167,21 +167,28 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     /**********Callbacks************/
     @Override
     public void onDateClicked(String date) {
+
+        String dayInFocus = date.split("-")[2];
+
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<TextView> labelList = new ArrayList<>(Arrays.asList(dayOneLabel, dayTwoLabel, dayThreeLabel, dayFourLabel, dayFiveLabel, daySixLabel, todayLabel));
         ArrayList<ImageView> imageViewList = new ArrayList<>(Arrays.asList(dayOneIv, dayTwoIv, dayThreeIv, dayFourIv, dayFiveIv, daySixIv, todayIv));
         Log.i("Fragment Callback: ", date);
         contentTv.setText("No Data For This Date");
         ArrayList<Integer> ta = DateParser.dateFinder();
+        //Get Dates
         HashMap<String,String> dtf = DateParser.last7DaysTraining();
         for(Map.Entry x : dtf.entrySet()){
           Log.i("map:", x.getKey() +""+ x.getValue()) ;
           dates.add((String) x.getKey());
         }
+        //sort dates in ascending order;
         ArrayList<String> sortedDates = DateParser.dateSorter(dates);
-        for(String x : sortedDates){
+
+
+        /*for(String x : sortedDates){
             Log.i("sorted", x);
-        }
+        }  */
         Log.i("oy size", String.valueOf(dtf.size())) ;
         if(ta.size()>1){
         int EndIndex = 6;

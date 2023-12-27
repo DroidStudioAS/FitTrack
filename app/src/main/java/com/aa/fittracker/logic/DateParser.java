@@ -120,4 +120,10 @@ public class DateParser {
 
         return sorted;
     }
+    public static ArrayList<String> listMaker (ArrayList<String> sorted, String day){
+        int dayInt = Integer.parseInt(day);
+        ArrayList<String> finalSorted = new ArrayList<>();
+
+        return finalSorted;
+    }
 }

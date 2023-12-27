@@ -31,6 +31,7 @@ import okhttp3.OkHttpClient;
 
 public class calendarActivity extends AppCompatActivity implements OnDateClickListener, OnInfoInputListener {
 
+    int clickCount;
     TextView dateTV;
     TextView infoLabel;
     TextView optimalLabel;
@@ -58,6 +59,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        clickCount=0;
 
 
         /*******************Ui Initializations**********************/
@@ -98,6 +100,13 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             @Override
             public void onClick(View v) {
                 bf.translate();
+                if(clickCount%2==0){
+                    expandTrigger.animate().rotation(180);
+                }else{
+                    expandTrigger.animate().rotation(0);
+                }
+
+                clickCount++;
             }
         });
         missingInfoButton.setOnClickListener(new View.OnClickListener() {
