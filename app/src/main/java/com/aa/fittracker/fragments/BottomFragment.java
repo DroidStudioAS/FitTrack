@@ -21,10 +21,15 @@ public class BottomFragment extends Fragment {
 
     ImageView expandTrigger;
 
-   // static TextView DataTv;
-   // static TextView DateTv;
-   // TextView firstLabel;
-   // TextView secondLabel;
+    static TextView valueTv;
+    static TextView DateTv;
+    TextView optimalValueTv;
+
+
+    TextView firstLabel;
+    TextView secondLabel;
+
+
 
     private View view;
     private BottomSheetBehavior bottomSheetBehavior;
@@ -44,21 +49,25 @@ public class BottomFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_bottom, container, false);
         //move the view Out of sight
-        //view.animate().translationY(300);
-      //  DateTv=(TextView)view.findViewById(R.id.dateTvF);
+        view.animate().translationY(1100);
         expanded=-1;
         /***********Ui Initializations************/
-        expandTrigger=(ImageView) view.findViewById(R.id.expandTrigger);
-        expandTrigger.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                translate();
-            }
-        });
+       // DateTv=(TextView)view.findViewById(R.id.dateTVf);
+       // valueTv=(TextView)view.findViewById(R.id.dataTv);
+       // optimalValueTv=(TextView)view.findViewById(R.id.optimalDataTv);
+       // firstLabel=(TextView)view.findViewById(R.id.firstLabel);
+       // secondLabel=(TextView)view.findViewById(R.id.secondLabel);
 
-     //   firstLabel=(TextView)view.findViewById(R.id.firstLabel);
-      //  secondLabel=(TextView)view.findViewById(R.id.secondLabel);
-      //  DataTv=(TextView)view.findViewById(R.id.dataTv);
+
+
+        /***************onClicklisteners***************/
+
+
+
+
+
+
+
         //set the labels
        /* switch (store.getUserMode()) {
             case "journal":
@@ -85,14 +94,28 @@ public class BottomFragment extends Fragment {
     }  */
 
     public void translate(){
+        //Close
         if(getExpanded()==1) {
-            view.animate().translationY(0);
+            view.animate().translationY(1100);
             switchExpanded();
-        }else{
-            view.animate().translationY(-600);
+        }
+        else{    //Open
+            view.animate().translationY(0);
             switchExpanded();
 
         }
+    }
+    public void UiEnabler(int status){
+     switch (status){
+         //disable
+         case -1:
+             
+             break;
+          //enable
+         case 1:
+
+             break;
+     }
     }
 
     public void switchExpanded(){

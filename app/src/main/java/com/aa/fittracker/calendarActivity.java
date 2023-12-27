@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.dialog.DeleteDialog;
 import com.aa.fittracker.dialog.InputDialog;
+import com.aa.fittracker.fragments.BottomFragment;
 import com.aa.fittracker.fragments.calendarFragment;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
@@ -35,6 +37,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     TextView infoTv;
     TextView optimalTv;
 
+    ImageView expandTrigger;
+
     Button missingInfoButton;
     Button missingOptimalButton;
     Button deleteEntryTrigger;
@@ -45,6 +49,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     OkHttpClient client;
     Gson gson;
 
+    BottomFragment bf;
     Dialog progressDialog;
 
 
@@ -64,7 +69,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         missingInfoButton=(Button)findViewById(R.id.missingInfoButton);
         missingOptimalButton=(Button)findViewById(R.id.missingOptimalButton);
         deleteEntryTrigger=(Button)findViewById(R.id.deleteEntryTrigger);
+        expandTrigger=(ImageView)findViewById(R.id.expandTrigger);
         deleteEntryTrigger.setVisibility(View.INVISIBLE);
+        bf=(BottomFragment)getSupportFragmentManager().findFragmentById(R.id.bf);
+
         /**********************Neccesary**********************/
         client = new OkHttpClient();
         gson = new Gson();
@@ -84,6 +92,12 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                 break;
         }
         /************************OnClickListeners***************************/
+        expandTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bf.translate();
+            }
+        });
         missingInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
