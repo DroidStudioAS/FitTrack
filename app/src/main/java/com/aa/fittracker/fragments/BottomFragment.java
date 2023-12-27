@@ -1,5 +1,7 @@
 package com.aa.fittracker.fragments;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +28,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class BottomFragment extends Fragment implements FragmentCommunicator {
 
@@ -168,12 +172,24 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         Log.i("Fragment Callback: ", date);
         contentTv.setText("No Data For This Date");
         ArrayList<Integer> ta = DateParser.dateFinder();
+        HashMap<String,String> dtf = DateParser.last7DaysTraining();
+        for(Map.Entry x : dtf.entrySet()){
+          Log.i(":", x.getKey() +""+ x.getValue()) ;
+        }
+        Log.i("oy size", String.valueOf(dtf.size())) ;
         if(ta.size()>1){
         int EndIndex = 6;
+
         for(TextView x : labelList) {
             x.setText(String.valueOf(ta.get(EndIndex)) + ".");
             EndIndex--;
         }
+
+
+
+
+
+
         }
 
 
