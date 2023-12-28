@@ -87,8 +87,9 @@
                 android:layout_marginTop="4dp"
                 android:text="1."
                 android:textColor="@color/primary"
-                app:layout_constraintTop_toBottomOf="@id/breakdownLabel"
-                tools:layout_editor_absoluteX="200dp" />
+                app:layout_constraintEnd_toEndOf="@+id/dayFourIv"
+                app:layout_constraintStart_toStartOf="@+id/dayFourIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
 
             <TextView
                 android:id="@+id/dayFiveLabel"
@@ -97,8 +98,9 @@
                 android:layout_marginTop="4dp"
                 android:text="1."
                 android:textColor="@color/primary"
-                app:layout_constraintTop_toBottomOf="@id/breakdownLabel"
-                tools:layout_editor_absoluteX="256dp" />
+                app:layout_constraintEnd_toEndOf="@+id/dayFiveIv"
+                app:layout_constraintStart_toStartOf="@+id/dayFiveIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
 
             <TextView
                 android:id="@+id/todayLabel"
@@ -107,8 +109,9 @@
                 android:layout_marginTop="4dp"
                 android:text="1."
                 android:textColor="@color/primary"
-                app:layout_constraintTop_toBottomOf="@id/breakdownLabel"
-                tools:layout_editor_absoluteX="369dp" />
+                app:layout_constraintEnd_toEndOf="@+id/todayIv"
+                app:layout_constraintStart_toStartOf="@+id/todayIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
 
             <TextView
                 android:id="@+id/dayThreeLabel"
@@ -117,8 +120,9 @@
                 android:layout_marginTop="4dp"
                 android:text="1."
                 android:textColor="@color/primary"
-                app:layout_constraintTop_toBottomOf="@id/breakdownLabel"
-                tools:layout_editor_absoluteX="143dp" />
+                app:layout_constraintEnd_toEndOf="@+id/dayThreeIv"
+                app:layout_constraintStart_toStartOf="@+id/dayThreeIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
 
             <ImageView
                 android:id="@+id/dayFourIv"
@@ -126,8 +130,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/icon_good_restt"
-                app:layout_constraintTop_toBottomOf="@+id/dayFourLabel"
-                tools:layout_editor_absoluteX="186dp" />
+                app:layout_constraintEnd_toStartOf="@+id/dayFiveIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayThreeIv"
+                app:layout_constraintTop_toBottomOf="@+id/dayFourLabel" />
 
             <ImageView
                 android:id="@+id/dayTwoIv"
@@ -135,8 +141,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/icon_good_restt"
-                app:layout_constraintTop_toBottomOf="@+id/dayTwoLabel"
-                tools:layout_editor_absoluteX="73dp" />
+                app:layout_constraintEnd_toStartOf="@+id/dayThreeIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayOneIv"
+                app:layout_constraintTop_toBottomOf="@+id/dayTwoLabel" />
 
             <ImageView
                 android:id="@+id/todayIv"
@@ -144,8 +152,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/icon_good_restt"
-                app:layout_constraintTop_toBottomOf="@+id/todayLabel"
-                tools:layout_editor_absoluteX="355dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/daySixIv"
+                app:layout_constraintTop_toBottomOf="@+id/todayLabel" />
 
             <ImageView
                 android:id="@+id/dayFiveIv"
@@ -153,8 +163,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/icon_good_restt"
-                app:layout_constraintTop_toBottomOf="@+id/dayFiveLabel"
-                tools:layout_editor_absoluteX="242dp" />
+                app:layout_constraintEnd_toStartOf="@+id/daySixIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayFourIv"
+                app:layout_constraintTop_toBottomOf="@+id/dayFiveLabel" />
 
             <ImageView
                 android:id="@+id/dayOneIv"
@@ -163,6 +175,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/icon_good_restt"
+                app:layout_constraintEnd_toStartOf="@+id/dayTwoIv"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
 
@@ -172,8 +186,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/icon_good_restt"
-                app:layout_constraintTop_toBottomOf="@+id/dayThreeLabel"
-                tools:layout_editor_absoluteX="129dp" />
+                app:layout_constraintEnd_toStartOf="@+id/dayFourIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayTwoIv"
+                app:layout_constraintTop_toBottomOf="@+id/dayThreeLabel" />
 
             <ImageView
                 android:id="@+id/daySixIv"
@@ -181,8 +197,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:src="@drawable/icon_good_restt"
-                app:layout_constraintTop_toBottomOf="@+id/daySixLabel"
-                tools:layout_editor_absoluteX="299dp" />
+                app:layout_constraintEnd_toStartOf="@+id/todayIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayFiveIv"
+                app:layout_constraintTop_toBottomOf="@+id/daySixLabel" />
 
             <TextView
                 android:id="@+id/daySixLabel"
@@ -191,8 +209,9 @@
                 android:layout_marginTop="4dp"
                 android:text="1."
                 android:textColor="@color/primary"
-                app:layout_constraintTop_toBottomOf="@id/breakdownLabel"
-                tools:layout_editor_absoluteX="313dp" />
+                app:layout_constraintEnd_toEndOf="@+id/daySixIv"
+                app:layout_constraintStart_toStartOf="@+id/daySixIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
 
             <TextView
                 android:id="@+id/dayOneLabel"
@@ -201,8 +220,9 @@
                 android:layout_marginTop="4dp"
                 android:text="1."
                 android:textColor="@color/primary"
-                app:layout_constraintTop_toBottomOf="@id/breakdownLabel"
-                tools:layout_editor_absoluteX="30dp" />
+                app:layout_constraintEnd_toEndOf="@+id/dayOneIv"
+                app:layout_constraintStart_toStartOf="@+id/dayOneIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
 
             <TextView
                 android:id="@+id/dayTwoLabel"
@@ -211,8 +231,9 @@
                 android:layout_marginTop="4dp"
                 android:text="1."
                 android:textColor="@color/primary"
-                app:layout_constraintTop_toBottomOf="@id/breakdownLabel"
-                tools:layout_editor_absoluteX="87dp" />
+                app:layout_constraintEnd_toEndOf="@+id/dayTwoIv"
+                app:layout_constraintStart_toStartOf="@+id/dayTwoIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
 
             <TextView
                 android:id="@+id/breakdownLabel"
