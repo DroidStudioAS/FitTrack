@@ -185,7 +185,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         //sort dates in ascending order;
         ArrayList<String> sortedDates = DateParser.dateSorter(dates);
 
-        for(int x : ta){
+      /*  for(int x : ta){
             Log.i("Sorted day", String.valueOf(x));
         }
         Log.i("Sorted Start", "---");
@@ -194,7 +194,19 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         }
         Log.i("Sorted End", "---");
         Log.i("Sorted Size", String.valueOf(dtf.size())) ;
+
+       */
         ArrayList<String> last7 = DateParser.listMaker(sortedDates,store.getDateInFocus());
+
+        for(String x : last7){
+            int index = last7.indexOf(x);
+            if(x.contains("?")){
+                Log.i("index", String.valueOf(index));
+                imageViewList.get(index).setImageResource(R.drawable.icon_question);
+            }else{
+                imageViewList.get(index).setImageResource(R.drawable.icon_good_rest);
+            }
+        }
         if(ta.size()>1){
         int EndIndex = 6;
 

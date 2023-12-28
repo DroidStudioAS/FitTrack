@@ -6,6 +6,7 @@ import com.aa.fittracker.models.TrainingEntry;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -189,7 +190,7 @@ public class DateParser {
             Log.i("sorted in dp", finalSorted.get(i));
         }
 
-
+        Collections.reverse(finalSorted);
 
         return finalSorted;
     }
