@@ -34,6 +34,8 @@ import java.util.Map;
 
 public class BottomFragment extends Fragment implements FragmentCommunicator {
 
+    int totalRestCount, goodRestCount, trainingCount, missingDataCount = 0;
+
 
     TextView extraLabel;
     TextView dayOneLabel;
@@ -47,6 +49,10 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
     TextView contentTv;
     TextView breakdownTv;
+    TextView trainingCountTv;
+    TextView totalRestCountTv;
+    TextView goodRestTv;
+    TextView missingDataTv;
 
 
 
@@ -91,7 +97,11 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         ArrayList<TextView> labelList = new ArrayList<>(Arrays.asList(extraLabel, dayOneLabel, dayTwoLabel, dayThreeLabel, dayFourLabel, dayFiveLabel, daySixLabel, todayLabel));
         breakdownLabel = (TextView) view.findViewById(R.id.breakdownLabel);
         breakdownTv=(TextView) view.findViewById(R.id.breakdownTv);
-                //
+        trainingCountTv=(TextView) view.findViewById(R.id.trainingCountTv);
+        totalRestCountTv=(TextView)view.findViewById(R.id.totalRestCountTv);
+        goodRestTv=(TextView)view.findViewById(R.id.plannedRestTv);
+        missingDataTv=(TextView)view.findViewById(R.id.missingDataCountTv);
+
         dayOneIv = (ImageView) view.findViewById(R.id.dayOneIv);
         dayTwoIv = (ImageView) view.findViewById(R.id.dayTwoIv);
         dayThreeIv = (ImageView) view.findViewById(R.id.dayThreeIv);
@@ -170,11 +180,17 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             }
 
         } else {
-            Log.i("difficulty: ", "No matching training name found for the given date");
+            Log.i("difficulty: ", "No matching training name found for the given date" + trainingName);
         }
 
         Log.i("difficulty: ", String.valueOf(toReturn));
         return toReturn;
+    }
+    public void countReseter(){
+        totalRestCount=0;
+        goodRestCount=0;
+        trainingCount=0;
+        missingDataCount=0;
     }
 
 
@@ -227,51 +243,60 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         Log.i("Sorted Size", String.valueOf(dtf.size())) ;
 
        */
-        breakdownLabel.setText("From: " +sortedDates.get(0) +" To: "+sortedDates.get(6));
+        breakdownLabel.setText("From: " +sortedDates.get(0) +" To: "+store.getDateInFocus());
         ArrayList<String> last7 = DateParser.listMaker(sortedDates,store.getDateInFocus());
 
+        //Parse Icons And Make Count;
         for(String x : last7){
             int index = last7.indexOf(x);
             if(x.contains("?")){
                 Log.i("index", String.valueOf(index));
                 imageViewList.get(index).setImageResource(R.drawable.icon_question);
+                missingDataCount+=1;
             }else{
-                imageViewList.get(index).setImageResource(R.drawable.icon_good_rest);
                 int diff = diffFinder(x);
                 switch (diff){
                     case 1:
                         imageViewList.get(index).setImageResource(R.drawable.icon_easy_training);
+                        trainingCount++;
                         break;
                     case 2:
                         imageViewList.get(index).setImageResource(R.drawable.icon_mid_training);
+                        trainingCount++;
                         break;
                     case 3:
                         imageViewList.get(index).setImageResource(R.drawable.icon_hard_tr);
+                        trainingCount++;
                         break;
                     case 4:
                         imageViewList.get(index).setImageResource(R.drawable.icon_good_restt);
+                        totalRestCount++;
+                        goodRestCount++;
                         break;
                     case 5:
                         imageViewList.get(index).setImageResource(R.drawable.icon_bad_restt);
+                        totalRestCount++;
                         break;
                 }
             }
         }
+        //set breakdwon text
+        trainingCountTv.setText("Trained: " + trainingCount + " Times.");
+        totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
+        goodRestTv.setText(goodRestCount + " Of Which Were Planned");
+        missingDataTv.setText(missingDataCount + " Days.");
+
+        //set label text
         if(ta.size()>1){
         int EndIndex = 6;
-
         for(TextView x : labelList) {
             x.setText(String.valueOf(ta.get(EndIndex)) + ".");
             EndIndex--;
         }
-
-
-
-
-
-
         }
 
+        //reset the week counters
+        countReseter();
 
     }
 
