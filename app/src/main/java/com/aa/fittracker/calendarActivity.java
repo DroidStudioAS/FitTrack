@@ -53,6 +53,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     BottomFragment bf;
     FragmentCommunicator fc;
 
+    boolean isDeleteVisible, isMissingVisible = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -101,9 +103,34 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             public void onClick(View v) {
                 bf.translate();
                 if(clickCount%2==0){
+                    //open
                     expandTrigger.animate().rotation(180);
+                    if(deleteEntryTrigger.getVisibility()==View.VISIBLE){
+                        isDeleteVisible=true;
+                    }
+                    if(missingInfoButton.getVisibility()==View.VISIBLE){
+                        isMissingVisible=true;
+                    }
+
+                    if(isDeleteVisible){
+                        deleteEntryTrigger.setVisibility(View.INVISIBLE);
+                    }
+                    if(isMissingVisible){
+                        missingInfoButton.setVisibility(View.INVISIBLE);
+                    }
+
                 }else{
+                    //close
                     expandTrigger.animate().rotation(0);
+
+                    if(isDeleteVisible){
+                        deleteEntryTrigger.setVisibility(View.VISIBLE);
+                        isDeleteVisible=false;
+                    }
+                    if(isMissingVisible){
+                        missingInfoButton.setVisibility(View.VISIBLE);
+                        isMissingVisible=false;
+                    }
                 }
 
                 clickCount++;
