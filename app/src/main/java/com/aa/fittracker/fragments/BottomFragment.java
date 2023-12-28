@@ -227,6 +227,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         Log.i("Sorted Size", String.valueOf(dtf.size())) ;
 
        */
+        breakdownLabel.setText("From: " +sortedDates.get(0) +" To: "+sortedDates.get(6));
         ArrayList<String> last7 = DateParser.listMaker(sortedDates,store.getDateInFocus());
 
         for(String x : last7){
