@@ -34,7 +34,6 @@ import java.util.Map;
 
 public class BottomFragment extends Fragment implements FragmentCommunicator {
 
-    TextView contentTv;
 
     TextView extraLabel;
     TextView dayOneLabel;
@@ -44,6 +43,12 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     TextView dayFiveLabel;
     TextView daySixLabel;
     TextView todayLabel;
+    TextView breakdownLabel;
+
+    TextView contentTv;
+    TextView breakdownTv;
+
+
 
     ImageView dayOneIv;
     ImageView dayTwoIv;
@@ -84,8 +89,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         daySixLabel = (TextView) view.findViewById(R.id.daySixLabel);
         todayLabel = (TextView) view.findViewById(R.id.todayLabel);
         ArrayList<TextView> labelList = new ArrayList<>(Arrays.asList(extraLabel, dayOneLabel, dayTwoLabel, dayThreeLabel, dayFourLabel, dayFiveLabel, daySixLabel, todayLabel));
-
-        //
+        breakdownLabel = (TextView) view.findViewById(R.id.breakdownLabel);
+        breakdownTv=(TextView) view.findViewById(R.id.breakdownTv);
+                //
         dayOneIv = (ImageView) view.findViewById(R.id.dayOneIv);
         dayTwoIv = (ImageView) view.findViewById(R.id.dayTwoIv);
         dayThreeIv = (ImageView) view.findViewById(R.id.dayThreeIv);
