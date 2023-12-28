@@ -53,7 +53,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     BottomFragment bf;
     FragmentCommunicator fc;
 
+
+    boolean isExpanded = false;
     boolean isDeleteVisible, isMissingVisible = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                         missingInfoButton.setVisibility(View.INVISIBLE);
                     }
 
+                    isExpanded=true;
+
                 }else{
                     //close
                     expandTrigger.animate().rotation(0);
@@ -131,6 +136,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                         missingInfoButton.setVisibility(View.VISIBLE);
                         isMissingVisible=false;
                     }
+                    isExpanded=false;
                 }
 
                 clickCount++;
@@ -186,8 +192,13 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     public void onDateClicked(String date) {
         dateTV.setText(date);
         infoTv.setText("");
-        missingInfoButton.setVisibility(View.VISIBLE);
-        deleteEntryTrigger.setVisibility(View.INVISIBLE);
+        if(!isExpanded) {
+            missingInfoButton.setVisibility(View.VISIBLE);
+            deleteEntryTrigger.setVisibility(View.INVISIBLE);
+        }else{
+            isDeleteVisible=false;
+            isMissingVisible=true;
+        }
         Log.i("ONDATECLICKED","...");
         IndexActivity.Logger();
 
@@ -198,9 +209,16 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     public void onMatchFound(WeightEntry x) {
         if(store.getUserMode().equals("weight")) {
             Log.i("Weight Match Found", x.getWeight_value() + " " + x.getWeight_date());
-            missingInfoButton.setVisibility(View.GONE);
+            if(!isExpanded) {
+                missingInfoButton.setVisibility(View.GONE);
+                deleteEntryTrigger.setVisibility(View.VISIBLE);
+            }else{
+                isDeleteVisible=true;
+                isMissingVisible=false;
+            }
+
             infoTv.setText(x.getWeight_value());
-            deleteEntryTrigger.setVisibility(View.VISIBLE);
+
             IndexActivity.Logger();
 
             fc.onMatchFound(x);
@@ -211,9 +229,15 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     public void onTrainingMatchFound(TrainingEntry x) {
         if (store.getUserMode().equals("journal")) {
             Log.i("Training Match Found", x.getTraining_name() + " " + x.getTraining_date());
-            missingInfoButton.setVisibility(View.GONE);
+            if(!isExpanded) {
+                missingInfoButton.setVisibility(View.GONE);
+                deleteEntryTrigger.setVisibility(View.VISIBLE);
+            }else{
+                isDeleteVisible=true;
+                isMissingVisible=false;
+            }
+
             infoTv.setText(x.getTraining_name());
-            deleteEntryTrigger.setVisibility(View.VISIBLE);
             IndexActivity.Logger();
 
             fc.onTrainingMatchFound(x);
