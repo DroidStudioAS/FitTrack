@@ -134,18 +134,43 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         }
     }
 
-    public void UiEnabler(int status) {
-        switch (status) {
-            //disable
-            case -1:
+    public int diffFinder(String date) {
+        int toReturn = -1;
+        String trainingName = "";
 
-                break;
-            //enable
-            case 1:
+        // Search for the training date
+        for (TrainingEntry entry : store.getTrainingEntries()) {
+            if (entry.getTraining_date().equals(date)) {
+                trainingName = entry.getTraining_name(); // Assuming the date corresponds to the training name
 
+                if(trainingName.toLowerCase(Locale.ROOT).equals("skipped day")){
+                    return 5;
+                }
+                if(trainingName.toLowerCase(Locale.ROOT).equals("rest day")){
+                    return 4;
+                }
                 break;
+            }
         }
+
+        if (!trainingName.isEmpty()) {
+            // If trainingName is not empty, search for the difficulty in user trainings
+            for (Training userTraining : store.getUserTrainings()) {
+                Log.i("name", trainingName);
+                if (userTraining.getTraining_name().equals(trainingName)) {
+                    toReturn = userTraining.getTraining_difficulty();
+                    break; // Once the difficulty is found, exit the loop
+                }
+            }
+
+        } else {
+            Log.i("difficulty: ", "No matching training name found for the given date");
+        }
+
+        Log.i("difficulty: ", String.valueOf(toReturn));
+        return toReturn;
     }
+
 
     public void switchExpanded() {
         if (getExpanded() == 1) {
@@ -205,6 +230,24 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 imageViewList.get(index).setImageResource(R.drawable.icon_question);
             }else{
                 imageViewList.get(index).setImageResource(R.drawable.icon_good_rest);
+                int diff = diffFinder(x);
+                switch (diff){
+                    case 1:
+                        imageViewList.get(index).setImageResource(R.drawable.icon_easy_training);
+                        break;
+                    case 2:
+                        imageViewList.get(index).setImageResource(R.drawable.icon_mid_training);
+                        break;
+                    case 3:
+                        imageViewList.get(index).setImageResource(R.drawable.icon_hard_tr);
+                        break;
+                    case 4:
+                        imageViewList.get(index).setImageResource(R.drawable.icon_good_restt);
+                        break;
+                    case 5:
+                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_restt);
+                        break;
+                }
             }
         }
         if(ta.size()>1){
