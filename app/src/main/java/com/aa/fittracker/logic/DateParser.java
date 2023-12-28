@@ -121,71 +121,38 @@ public class DateParser {
 
         return sorted;
     }
-    public static ArrayList<String> listMaker (ArrayList<String> sorted, String date){
-        //get day dates from sorted
+    public static ArrayList<String> listMaker(ArrayList<String> sorted, String date) {
         ArrayList<String> checkList = new ArrayList<>();
-        for(String x : sorted){
+        for (String x : sorted) {
             checkList.add(x.split("-")[2]);
         }
 
-        int yearInt = Integer.parseInt(date.split("-")[0]);
         int dayInt = Integer.parseInt(date.split("-")[2]);
         int monthInt = Integer.parseInt(date.split("-")[1]);
-        int lastmonth;
-        if(monthInt!=1){
-            lastmonth = monthInt-1;
-        }else{
-            lastmonth=12;
-        }
+        int yearInt = Integer.parseInt(date.split("-")[0]);
 
         ArrayList<String> finalSorted = new ArrayList<>();
 
-        if(dayInt>9) {
-            finalSorted.add(String.valueOf(dayInt));
-        }else{
-            finalSorted.add("0" + String.valueOf(dayInt));
-        }
-
-        if(dayInt>=7){
-            for(int i =1; i <7; i++){
-                if(dayInt-i>9) {
-                    finalSorted.add(String.valueOf(dayInt - i));
-                }else{
-                    finalSorted.add("0" + String.valueOf(dayInt - i));
+        for (int i = 0; i < 7; i++) {
+            int day = dayInt - i;
+            if (day > 0) {
+                if (day > 9) {
+                    finalSorted.add(String.format("%04d-%02d-%02d", yearInt, monthInt, day));
+                } else {
+                    finalSorted.add(String.format("%04d-%02d-0%d", yearInt, monthInt, day));
                 }
-            }
-        }else{
-            int daysInLastMonth = getDaysInMonth(lastmonth,yearInt);
-            int toSubtract = -1;
-            for(int i =1; i <7; i++){
-                if(dayInt-i>0){
-                    finalSorted.add("0"+String.valueOf(dayInt-i));
-                }else{
-                    toSubtract=Math.abs(dayInt-i);
-                }
-            }
-            finalSorted.add(String.valueOf(daysInLastMonth));
-            for(int i = 1; i<=toSubtract;i++){
-                finalSorted.add(String.valueOf(daysInLastMonth-i));
+            } else {
+                int lastMonth = (monthInt != 1) ? monthInt - 1 : 12;
+                int daysInLastMonth = getDaysInMonth(lastMonth, yearInt); // Replace with appropriate year
+                finalSorted.add(String.format("%04d-%02d-%02d", yearInt, lastMonth, daysInLastMonth + day));
             }
         }
 
         for (int i = 0; i < finalSorted.size(); i++) {
             String dayString = finalSorted.get(i);
 
-            int day = Integer.parseInt(dayString);
-
-            int year = yearInt;
-            int month = monthInt;
-
-            if (day > 9) {
-                finalSorted.set(i, String.format("%04d-%02d-%02d", year, month, day));
-            } else {
-                finalSorted.set(i, String.format("%04d-%02d-0%d", year, month, day));
-            }
-
-            if (!checkList.contains(dayString)) {
-                finalSorted.set(i, "?" + finalSorted.get(i) + "?");
+            if (!checkList.contains(dayString.split("-")[2])) {
+                finalSorted.set(i, "?" + dayString + "?");
             }
             Log.i("sorted in dp", finalSorted.get(i));
         }
@@ -194,6 +161,8 @@ public class DateParser {
 
         return finalSorted;
     }
+
+
     public static int getDaysInMonth(int month, int year) {
         int days;
 

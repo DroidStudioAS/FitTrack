@@ -248,6 +248,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
         //Parse Icons And Make Count;
         for(String x : last7){
+            Log.i("x", x);
             int index = last7.indexOf(x);
             if(x.contains("?")){
                 Log.i("index", String.valueOf(index));
