@@ -196,6 +196,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     public int weightFinder(String date) {
         int toReturn = -1;
         String weightValue= "";
+        Log.i("switch date", date);
 
         // Search for the training date
         for (WeightEntry entry : store.getWeightEntries()) {
@@ -203,8 +204,8 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 int weight = Integer.parseInt(entry.getWeight_value()); // Assuming the date corresponds to the training name
                 return weight;
             }
-            return -1;
         }
+
 
        /* if (!trainingName.isEmpty()) {
             // If trainingName is not empty, search for the difficulty in user trainings
@@ -329,8 +330,45 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                         missingDataTv.setText(missingDataCount + " Days.");
                         break;
                     case "weight":
-                        int weight = weightFinder(x);
-                        imageViewList.get(index).setImageResource(R.drawable.icon_good_restt);
+                        double weight = weightFinder(x);
+                        Log.i("Weight on date: ", x + " : " + weight);
+                        double idealWeight = Double.parseDouble(store.getUserWeightKg());
+                        double startWeight = Double.parseDouble(store.getUserStartWeight());
+
+                        boolean isIdealWeight=  weight==idealWeight;
+                        boolean lostWeight = weight-startWeight<=0;
+                        boolean gainedWeight = weight-startWeight>=0;
+
+
+
+                        /* Log.i("switch weightandideal", weight + " " + idealWeight);
+                        Log.i("switch weight>startwright",  String.valueOf(weight>startWeight));
+                        Log.i("switch weight<startweight",  String.valueOf(weight>startWeight));
+                        Log.i("switch weightgoal", store.getUserWeightGoal());*/
+
+
+
+                        if(isIdealWeight){
+                            imageViewList.get(index).setImageResource(R.drawable.icon_perfect_weight);
+                        }else{
+                            Log.i("switch activated: ", "x");
+                            switch (store.getUserWeightGoal()){
+                                case "+":
+                                    if(gainedWeight){
+                                        imageViewList.get(index).setImageResource(R.drawable.icon_good_weight);
+                                    }else if (lostWeight){
+                                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight);
+                                    }
+                                    break;
+                                case "-":
+                                    if(gainedWeight){
+                                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight);
+                                    }else if (lostWeight){
+                                        imageViewList.get(index).setImageResource(R.drawable.icon_good_weight);
+                                    }
+                                    break;
+                            }
+                        }
 
 
                 }
