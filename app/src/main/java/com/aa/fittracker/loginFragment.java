@@ -40,6 +40,8 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
 
     Vibrator vibrator;
 
+    boolean failed = false;
+
     /********************BACKEND PARAMETER TITLES*********************/
     private final String USERNAME_PARAMETER = "username";
     private final String PASSWORD_PARAMETER = "password";
@@ -70,17 +72,19 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
             public void onClick(View v) {
                 String username = usernameEt.getText().toString();
                 String password = passwordEt.getText().toString();
+
+
+                Map<String,String> params = new HashMap<>();
+                params.put("username",username);
+                params.put("password",password);
+
                 if(username.equals("")||password.equals("")){
                     Toast.makeText(getContext(),"Missing info",Toast.LENGTH_SHORT).show();
                 }else{
-                    //parameters object
-                    Map<String,String> params = new HashMap<>();
-                    params.put("username",username);
-                    params.put("password",password);
                     //API GET REQUEST (LOGIN)
                     try {
                         networkHelper.get(client,"http://165g123.e2.mars-hosting.com/api/login_register/login",params);
-                        Log.i("response from login try", store.getServerResponseRegister());
+                        Log.i("response from login try", store.getServerResponseLogin());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }finally {
@@ -91,6 +95,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                     }
                     Log.i("Finally broken", store.getServerResponseLogin());
                     //check if all is ok
+
                     if(store.getServerResponseLogin().contains("ok") && !store.getServerResponseLogin().contains("!")){
                         store.setUSERNAME(username);
                         Intent intent =  new Intent(requireContext(),IndexActivity.class);
@@ -100,6 +105,11 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                         failedTv.setVisibility(View.VISIBLE);
                         usernameEt.setTextColor(Color.RED);
                     }
+                }
+                //IMPORTANT
+                //Reset server response after failed attempt for next authentication
+                if(store.getServerResponseLogin().contains("!") || store.getServerResponseLogin().contains("No")) {
+                    store.setServerResponseLogin("");
                 }
             }
         });
