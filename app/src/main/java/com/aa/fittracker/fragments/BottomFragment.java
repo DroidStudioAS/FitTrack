@@ -128,14 +128,21 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
 
         /***************onClicklisteners***************/
-        labelSeter(store.getUserMode());
+        labelSeter();
 
         return view;
     }
 
 
-    public void labelSeter(String infoString) {
-        extraLabel.setText(infoString);
+    public void labelSeter() {
+        switch (store.getUserMode()){
+            case "journal":
+                extraLabel.setText("Fitness Journal");
+                break;
+            case "weight":
+                extraLabel.setText("Weight Journal");
+                break;
+        }
     }
 
     public void translate() {
@@ -262,11 +269,11 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                         trainingCount++;
                         break;
                     case 2:
-                        imageViewList.get(index).setImageResource(R.drawable.icon_mid_training);
+                        imageViewList.get(index).setImageResource(R.drawable.icon_medium_training);
                         trainingCount++;
                         break;
                     case 3:
-                        imageViewList.get(index).setImageResource(R.drawable.icon_hard_tr);
+                        imageViewList.get(index).setImageResource(R.drawable.icon_hard_training);
                         trainingCount++;
                         break;
                     case 4:

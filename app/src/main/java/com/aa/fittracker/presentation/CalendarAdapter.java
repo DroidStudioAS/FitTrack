@@ -42,9 +42,9 @@ public class CalendarAdapter {
                     /***************Icon Determiner****************/
                     /***************Rest Days****************/
                     if(x.getTraining_name().equals("REST DAY")){
-                        output.add(new EventDay(calendar,R.drawable.icon_good_rest));
+                        output.add(new EventDay(calendar,R.drawable.icon_good_restt));
                     }else if(x.getTraining_name().equals("SKIPPED DAY")){
-                        output.add(new EventDay(calendar,R.drawable.icon_bad_rest));
+                        output.add(new EventDay(calendar,R.drawable.icon_bad_restt));
                     }
                     /***************Active Days****************/
                     Log.i("DIFFICULTY FOUND:", String.valueOf(trainingDifficultyfFinder(x.getTraining_name())));
@@ -53,10 +53,10 @@ public class CalendarAdapter {
                             output.add(new EventDay(calendar,R.drawable.icon_easy_training));
                             break;
                         case 2:
-                            output.add(new EventDay(calendar,R.drawable.icon_mid_training));
+                            output.add(new EventDay(calendar,R.drawable.icon_medium_training));
                             break;
                         case 3:
-                            output.add(new EventDay(calendar,R.drawable.icon_exp_hard_training));
+                            output.add(new EventDay(calendar,R.drawable.icon_hard_training));
                             break;
                     }
                 }
