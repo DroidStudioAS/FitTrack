@@ -82,7 +82,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_bottom, container, false);
         //move the view Out of sight
-        view.animate().translationY(1500);
+        view.animate().translationY(1600);
         expanded = -1;
         /***********Ui Initializations************/
         extraLabel = (TextView) view.findViewById(R.id.extraLabel);
