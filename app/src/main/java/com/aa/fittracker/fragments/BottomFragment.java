@@ -285,17 +285,18 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         ArrayList<String> sortedDates = DateParser.dateSorter(dates);
         ArrayList<String> last7 = DateParser.listMaker(sortedDates,store.getDateInFocus());
 
-        breakdownLabel.setText("From: " +sortedDates.get(0) +" To: "+store.getDateInFocus());
+        breakdownLabel.setText("From: " +sortedDates.get(0).replace("?","") +" To: "+store.getDateInFocus());
 
 
         //Parse Icons And Make Count;
         for(String x : last7){
             Log.i("x", x);
             int index = last7.indexOf(x);
-            if(x.contains("?")){
+            if(x.contains("?") || x.contains("dtf")){
                 Log.i("index", String.valueOf(index));
                 imageViewList.get(index).setImageResource(R.drawable.icon_question);
                 missingDataCount+=1;
+
             }else{
                 switch (store.getUserMode()){
                     case "journal":

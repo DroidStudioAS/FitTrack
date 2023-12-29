@@ -95,7 +95,7 @@ public class DateParser {
 
             if (!matchFound && i==6){
                 //dummy date to prevent crashing
-                last7Days.put("1977-12-23","");
+                last7Days.put(dateToFind,"");
             }
         }
         return last7Days;
@@ -109,6 +109,9 @@ public class DateParser {
 
         // Parse strings into LocalDate objects
         for (String dateString : unsorted) {
+            if(dateString.contains("?")){
+                dateString = dateString;
+            }
             LocalDate date = LocalDate.parse(dateString);
             parsedDates.add(date);
         }
@@ -125,6 +128,12 @@ public class DateParser {
         return sorted;
     }
     public static ArrayList<String> listMaker(ArrayList<String> sorted, String date) {
+        if(sorted.size()==1){
+            sorted.set(0, "?"+sorted.get(0)+"?");
+        }
+        for(String x : sorted){
+            Log.i("x in sorted", x);
+        }
         ArrayList<String> checkList = new ArrayList<>();
         for (String x : sorted) {
             checkList.add(x.split("-")[2]);
@@ -161,6 +170,8 @@ public class DateParser {
         }
 
         Collections.reverse(finalSorted);
+
+
 
         return finalSorted;
     }
@@ -248,7 +259,7 @@ public class DateParser {
             }
             if (!matchFound && i==6){
                 //dummy date to prevent crashing
-                last7Days.put("1977-12-23","");
+                last7Days.put(dateToFind,"dtf");
             }
         }
 
