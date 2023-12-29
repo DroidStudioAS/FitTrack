@@ -1,5 +1,7 @@
 package com.aa.fittracker;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +42,8 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
 
     Vibrator vibrator;
 
+    View view;
+
     boolean failed = false;
 
     /********************BACKEND PARAMETER TITLES*********************/
@@ -58,7 +62,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        view = inflater.inflate(R.layout.fragment_login, container, false);
 
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -101,6 +105,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                         Intent intent =  new Intent(requireContext(),IndexActivity.class);
                         startActivity(intent);
                     }else{
+                        shakeView(view);
                         vibrateDevice();
                         failedTv.setVisibility(View.VISIBLE);
                         usernameEt.setTextColor(Color.RED);
@@ -131,6 +136,22 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
         if(vibrator!=null){
             vibrator.vibrate(500);
         }
+    }
+    public static void shakeView(View view) {
+        // Create ObjectAnimators for translationX
+        ObjectAnimator anim1 = ObjectAnimator.ofFloat(view, "translationX", -20);
+        anim1.setDuration(100);
+
+        ObjectAnimator anim2 = ObjectAnimator.ofFloat(view, "translationX", 20);
+        anim2.setDuration(100);
+
+        ObjectAnimator anim3 = ObjectAnimator.ofFloat(view, "translationX", -10);
+        anim3.setDuration(100);
+
+        // Create an AnimatorSet to play the animations sequentially
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playSequentially(anim1, anim2, anim3);
+        animatorSet.start();
     }
 
 }
