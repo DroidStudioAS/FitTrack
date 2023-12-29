@@ -193,6 +193,38 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         Log.i("difficulty: ", String.valueOf(toReturn));
         return toReturn;
     }
+    public int weightFinder(String date) {
+        int toReturn = -1;
+        String weightValue= "";
+
+        // Search for the training date
+        for (WeightEntry entry : store.getWeightEntries()) {
+            if (entry.getWeight_date().equals(date)) {
+                int weight = Integer.parseInt(entry.getWeight_value()); // Assuming the date corresponds to the training name
+                return weight;
+            }
+            return -1;
+        }
+
+       /* if (!trainingName.isEmpty()) {
+            // If trainingName is not empty, search for the difficulty in user trainings
+            for (Training userTraining : store.getUserTrainings()) {
+                Log.i("name", trainingName);
+                if (userTraining.getTraining_name().equals(trainingName)) {
+                    toReturn = userTraining.getTraining_difficulty();
+                    break; // Once the difficulty is found, exit the loop
+                }
+            }
+
+        } else {
+            Log.i("difficulty: ", "No matching training name found for the given date" + trainingName);
+        }*/
+
+        Log.i("difficulty: ", String.valueOf(toReturn));
+        return toReturn;
+    }
+
+
     public void countReseter(){
         totalRestCount=0;
         goodRestCount=0;
@@ -229,29 +261,31 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         ArrayList<ImageView> imageViewList = new ArrayList<>(Arrays.asList(dayOneIv, dayTwoIv, dayThreeIv, dayFourIv, dayFiveIv, daySixIv, todayIv));
         Log.i("Fragment Callback: ", date);
         contentTv.setText("No Data For This Date");
-        ArrayList<Integer> ta = DateParser.dateFinder();
-        //Get Dates
-        HashMap<String,String> dtf = DateParser.last7DaysTraining();
-        for(Map.Entry x : dtf.entrySet()){
-          Log.i("map:", x.getKey() +""+ x.getValue()) ;
-          dates.add((String) x.getKey());
+
+
+
+        HashMap<String,String> dtf = new HashMap<>();
+        switch (store.getUserMode()){
+            case "journal":
+                dtf = DateParser.last7DaysTraining();
+                break;
+            case "weight":
+                dtf = DateParser.last7DaysWeight();
+                break;
         }
+        for(Map.Entry x : dtf.entrySet()){
+            Log.i("map:", x.getKey() +""+ x.getValue()) ;
+            dates.add((String)x.getKey());
+        }
+
+        //Get Dates
+        ArrayList<Integer> ta = DateParser.dateFinder();
         //sort dates in ascending order;
         ArrayList<String> sortedDates = DateParser.dateSorter(dates);
-
-      /*  for(int x : ta){
-            Log.i("Sorted day", String.valueOf(x));
-        }
-        Log.i("Sorted Start", "---");
-        for(String x : sortedDates){
-            Log.i("sorted", x);
-        }
-        Log.i("Sorted End", "---");
-        Log.i("Sorted Size", String.valueOf(dtf.size())) ;
-
-       */
-        breakdownLabel.setText("From: " +sortedDates.get(0) +" To: "+store.getDateInFocus());
         ArrayList<String> last7 = DateParser.listMaker(sortedDates,store.getDateInFocus());
+
+        breakdownLabel.setText("From: " +sortedDates.get(0) +" To: "+store.getDateInFocus());
+
 
         //Parse Icons And Make Count;
         for(String x : last7){
@@ -262,37 +296,48 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 imageViewList.get(index).setImageResource(R.drawable.icon_question);
                 missingDataCount+=1;
             }else{
-                int diff = diffFinder(x);
-                switch (diff){
-                    case 1:
-                        imageViewList.get(index).setImageResource(R.drawable.icon_easy_training);
-                        trainingCount++;
+                switch (store.getUserMode()){
+                    case "journal":
+                        int diff = diffFinder(x);
+                        switch (diff){
+                            case 1:
+                                imageViewList.get(index).setImageResource(R.drawable.icon_easy_training);
+                                trainingCount++;
+                                break;
+                            case 2:
+                                imageViewList.get(index).setImageResource(R.drawable.icon_medium_training);
+                                trainingCount++;
+                                break;
+                            case 3:
+                                imageViewList.get(index).setImageResource(R.drawable.icon_hard_training);
+                                trainingCount++;
+                                break;
+                            case 4:
+                                imageViewList.get(index).setImageResource(R.drawable.icon_good_restt);
+                                totalRestCount++;
+                                goodRestCount++;
+                                break;
+                            case 5:
+                                imageViewList.get(index).setImageResource(R.drawable.icon_bad_restt);
+                                totalRestCount++;
+                                break;
+                        }
+                        //set breakdwon text
+                        trainingCountTv.setText("Trained: " + trainingCount + " Times.");
+                        totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
+                        goodRestTv.setText(goodRestCount + " Of Which Were Planned");
+                        missingDataTv.setText(missingDataCount + " Days.");
                         break;
-                    case 2:
-                        imageViewList.get(index).setImageResource(R.drawable.icon_medium_training);
-                        trainingCount++;
-                        break;
-                    case 3:
-                        imageViewList.get(index).setImageResource(R.drawable.icon_hard_training);
-                        trainingCount++;
-                        break;
-                    case 4:
+                    case "weight":
+                        int weight = weightFinder(x);
                         imageViewList.get(index).setImageResource(R.drawable.icon_good_restt);
-                        totalRestCount++;
-                        goodRestCount++;
-                        break;
-                    case 5:
-                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_restt);
-                        totalRestCount++;
-                        break;
+
+
                 }
-            }
+                }
+
         }
-        //set breakdwon text
-        trainingCountTv.setText("Trained: " + trainingCount + " Times.");
-        totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
-        goodRestTv.setText(goodRestCount + " Of Which Were Planned");
-        missingDataTv.setText(missingDataCount + " Days.");
+
 
         //set label text
         if(ta.size()>1){

@@ -3,6 +3,7 @@ package com.aa.fittracker.logic;
 import android.util.Log;
 
 import com.aa.fittracker.models.TrainingEntry;
+import com.aa.fittracker.models.WeightEntry;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -92,9 +93,11 @@ public class DateParser {
                 }
             }
 
-
+            if (!matchFound && i==6){
+                //dummy date to prevent crashing
+                last7Days.put("1977-12-23","");
+            }
         }
-
         return last7Days;
     }
 
@@ -197,4 +200,60 @@ public class DateParser {
 
         return days;
     }
+    public static HashMap<String,String> last7DaysWeight() {
+        HashMap<String,String> last7Days = new HashMap<>();
+        String date = store.getDateInFocus();
+        String[] parts = date.split("-");
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int day = Integer.parseInt(parts[2]);
+
+
+
+        for (int i = 0; i < 7; i++) {
+            String dateToFind = "";
+            int dayToFind = day - i;
+
+            if (dayToFind > 0) {
+                // Construct the date normally
+                dateToFind = year + "-" + (month > 9 ? month : "0" + month) + "-" + (dayToFind > 9 ? dayToFind : "0" + dayToFind);
+            } else {
+                // Adjust the date for the previous month
+                int lastDayOfPrevMonth = LocalDate.of(year, month, 1).minusDays(1).getDayOfMonth();
+                int remainingDays = Math.abs(dayToFind); // Remaining days needed from the previous month
+
+                // Construct the date for the previous month, including the last day if necessary
+                if (lastDayOfPrevMonth - remainingDays + 1 == 1) {
+                    dateToFind = year + "-" + (month > 1 ? month - 1 : 12) + "-" + (lastDayOfPrevMonth - remainingDays + 1);
+
+                } else {
+                    dateToFind = year + "-" + (month > 1 ? month - 1 : 12) + "-" + (lastDayOfPrevMonth - remainingDays);
+                }
+
+
+            }
+
+            boolean matchFound = false;
+
+            Log.i("dtf", dateToFind);
+            for (WeightEntry x : store.getWeightEntries()) {
+                Log.i("dtw", x.getWeight_date());
+
+                if (x.getWeight_date().equals(dateToFind)) {
+                    Log.i("dtw: ", dateToFind + "-" + x.getWeight_date());
+                    last7Days.put(x.getWeight_date(),x.getWeight_value());
+                    matchFound = true;
+                    break;
+                }
+            }
+            if (!matchFound && i==6){
+                //dummy date to prevent crashing
+                last7Days.put("1977-12-23","");
+            }
+        }
+
+
+        return last7Days;
+    }
+
 }
