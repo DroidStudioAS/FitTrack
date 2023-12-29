@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.dialog.DeleteDialog;
 import com.aa.fittracker.dialog.InputDialog;
+import com.aa.fittracker.fragments.BottomFragment;
 import com.aa.fittracker.fragments.calendarFragment;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
@@ -29,11 +31,14 @@ import okhttp3.OkHttpClient;
 
 public class calendarActivity extends AppCompatActivity implements OnDateClickListener, OnInfoInputListener {
 
+    int clickCount;
     TextView dateTV;
     TextView infoLabel;
     TextView optimalLabel;
     TextView infoTv;
     TextView optimalTv;
+
+    ImageView expandTrigger;
 
     Button missingInfoButton;
     Button missingOptimalButton;
@@ -45,7 +50,12 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     OkHttpClient client;
     Gson gson;
 
-    Dialog progressDialog;
+    BottomFragment bf;
+    FragmentCommunicator fc;
+
+
+    boolean isExpanded = false;
+    boolean isDeleteVisible, isMissingVisible = false;
 
 
     @Override
@@ -53,6 +63,9 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        clickCount=0;
+
 
         /*******************Ui Initializations**********************/
         infoLabel = (TextView) findViewById(R.id.infoLabel);
@@ -64,7 +77,11 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         missingInfoButton=(Button)findViewById(R.id.missingInfoButton);
         missingOptimalButton=(Button)findViewById(R.id.missingOptimalButton);
         deleteEntryTrigger=(Button)findViewById(R.id.deleteEntryTrigger);
+        expandTrigger=(ImageView)findViewById(R.id.expandTrigger);
         deleteEntryTrigger.setVisibility(View.INVISIBLE);
+        bf=(BottomFragment)getSupportFragmentManager().findFragmentById(R.id.bf);
+        fc=bf;
+
         /**********************Neccesary**********************/
         client = new OkHttpClient();
         gson = new Gson();
@@ -84,6 +101,47 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                 break;
         }
         /************************OnClickListeners***************************/
+        expandTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bf.translate();
+                if(clickCount%2==0){
+                    //open
+                    expandTrigger.animate().rotation(180);
+                    if(deleteEntryTrigger.getVisibility()==View.VISIBLE){
+                        isDeleteVisible=true;
+                    }
+                    if(missingInfoButton.getVisibility()==View.VISIBLE){
+                        isMissingVisible=true;
+                    }
+
+                    if(isDeleteVisible){
+                        deleteEntryTrigger.setVisibility(View.INVISIBLE);
+                    }
+                    if(isMissingVisible){
+                        missingInfoButton.setVisibility(View.INVISIBLE);
+                    }
+
+                    isExpanded=true;
+
+                }else{
+                    //close
+                    expandTrigger.animate().rotation(0);
+
+                    if(isDeleteVisible){
+                        deleteEntryTrigger.setVisibility(View.VISIBLE);
+                        isDeleteVisible=false;
+                    }
+                    if(isMissingVisible){
+                        missingInfoButton.setVisibility(View.VISIBLE);
+                        isMissingVisible=false;
+                    }
+                    isExpanded=false;
+                }
+
+                clickCount++;
+            }
+        });
         missingInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,20 +192,36 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     public void onDateClicked(String date) {
         dateTV.setText(date);
         infoTv.setText("");
-        missingInfoButton.setVisibility(View.VISIBLE);
-        deleteEntryTrigger.setVisibility(View.INVISIBLE);
+        if(!isExpanded) {
+            missingInfoButton.setVisibility(View.VISIBLE);
+            deleteEntryTrigger.setVisibility(View.INVISIBLE);
+        }else{
+            isDeleteVisible=false;
+            isMissingVisible=true;
+        }
         Log.i("ONDATECLICKED","...");
         IndexActivity.Logger();
+
+        fc.onDateClicked(date);
     }
     /************** !very important this callback happens after onDateClicked! **************/
     @Override
     public void onMatchFound(WeightEntry x) {
         if(store.getUserMode().equals("weight")) {
             Log.i("Weight Match Found", x.getWeight_value() + " " + x.getWeight_date());
-            missingInfoButton.setVisibility(View.GONE);
+            if(!isExpanded) {
+                missingInfoButton.setVisibility(View.GONE);
+                deleteEntryTrigger.setVisibility(View.VISIBLE);
+            }else{
+                isDeleteVisible=true;
+                isMissingVisible=false;
+            }
+
             infoTv.setText(x.getWeight_value());
-            deleteEntryTrigger.setVisibility(View.VISIBLE);
+
             IndexActivity.Logger();
+
+            fc.onMatchFound(x);
         }
     }
 
@@ -155,10 +229,18 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     public void onTrainingMatchFound(TrainingEntry x) {
         if (store.getUserMode().equals("journal")) {
             Log.i("Training Match Found", x.getTraining_name() + " " + x.getTraining_date());
-            missingInfoButton.setVisibility(View.GONE);
+            if(!isExpanded) {
+                missingInfoButton.setVisibility(View.GONE);
+                deleteEntryTrigger.setVisibility(View.VISIBLE);
+            }else{
+                isDeleteVisible=true;
+                isMissingVisible=false;
+            }
+
             infoTv.setText(x.getTraining_name());
-            deleteEntryTrigger.setVisibility(View.VISIBLE);
             IndexActivity.Logger();
+
+            fc.onTrainingMatchFound(x);
         }
     }
 

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomIndicator"
+    android:layout_width="match_parent"
+    android:layout_height="550dp"
+    android:background="@color/secondary"
+    tools:context=".fragments.BottomFragment">
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello From Bottom"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Less Data"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/extraLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="Label"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="12dp"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/extraLabel">
+
+        <TextView
+            android:id="@+id/bfContentTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="No Data Found For This Date"
+            android:textColor="@color/primary" />
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView26"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline14"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/trainingCountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Trained:"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/breakdownTv" />
+
+            <TextView
+                android:id="@+id/dayFourLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1."
+                android:textColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/dayFourIv"
+                app:layout_constraintStart_toStartOf="@+id/dayFourIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
+
+            <TextView
+                android:id="@+id/dayFiveLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1."
+                android:textColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/dayFiveIv"
+                app:layout_constraintStart_toStartOf="@+id/dayFiveIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
+
+            <TextView
+                android:id="@+id/todayLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1."
+                android:textColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/todayIv"
+                app:layout_constraintStart_toStartOf="@+id/todayIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
+
+            <TextView
+                android:id="@+id/dayThreeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1."
+                android:textColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/dayThreeIv"
+                app:layout_constraintStart_toStartOf="@+id/dayThreeIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
+
+            <ImageView
+                android:id="@+id/dayFourIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_good_restt"
+                app:layout_constraintEnd_toStartOf="@+id/dayFiveIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayThreeIv"
+                app:layout_constraintTop_toBottomOf="@+id/dayFourLabel" />
+
+            <ImageView
+                android:id="@+id/dayTwoIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_good_restt"
+                app:layout_constraintEnd_toStartOf="@+id/dayThreeIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayOneIv"
+                app:layout_constraintTop_toBottomOf="@+id/dayTwoLabel" />
+
+            <ImageView
+                android:id="@+id/todayIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_good_restt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/daySixIv"
+                app:layout_constraintTop_toBottomOf="@+id/todayLabel" />
+
+            <ImageView
+                android:id="@+id/dayFiveIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_good_restt"
+                app:layout_constraintEnd_toStartOf="@+id/daySixIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayFourIv"
+                app:layout_constraintTop_toBottomOf="@+id/dayFiveLabel" />
+
+            <ImageView
+                android:id="@+id/dayOneIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_good_restt"
+                app:layout_constraintEnd_toStartOf="@+id/dayTwoIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
+
+            <ImageView
+                android:id="@+id/dayThreeIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_good_restt"
+                app:layout_constraintEnd_toStartOf="@+id/dayFourIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayTwoIv"
+                app:layout_constraintTop_toBottomOf="@+id/dayThreeLabel" />
+
+            <ImageView
+                android:id="@+id/daySixIv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/icon_good_restt"
+                app:layout_constraintEnd_toStartOf="@+id/todayIv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayFiveIv"
+                app:layout_constraintTop_toBottomOf="@+id/daySixLabel" />
+
+            <TextView
+                android:id="@+id/daySixLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1."
+                android:textColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/daySixIv"
+                app:layout_constraintStart_toStartOf="@+id/daySixIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
+
+            <TextView
+                android:id="@+id/dayOneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1."
+                android:textColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/dayOneIv"
+                app:layout_constraintStart_toStartOf="@+id/dayOneIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
+
+            <TextView
+                android:id="@+id/dayTwoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="1."
+                android:textColor="@color/primary"
+                app:layout_constraintEnd_toEndOf="@+id/dayTwoIv"
+                app:layout_constraintStart_toStartOf="@+id/dayTwoIv"
+                app:layout_constraintTop_toBottomOf="@id/breakdownLabel" />
+
+            <TextView
+                android:id="@+id/breakdownLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Week Breakdown:"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/breakdownTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="This Week You:"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dayFourIv" />
+
+            <TextView
+                android:id="@+id/totalRestCountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Rested:"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trainingCountTv" />
+
+            <TextView
+                android:id="@+id/plannedRestTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="TextView"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/totalRestCountTv" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="We Are Missing Data For: "
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plannedRestTv" />
+
+            <TextView
+                android:id="@+id/missingDataCountTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

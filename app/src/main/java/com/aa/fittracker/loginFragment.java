@@ -1,12 +1,14 @@
 package com.aa.fittracker;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +38,8 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
     Button trigger;
     OkHttpClient client;
 
+    Vibrator vibrator;
+
     /********************BACKEND PARAMETER TITLES*********************/
     private final String USERNAME_PARAMETER = "username";
     private final String PASSWORD_PARAMETER = "password";
@@ -53,6 +57,9 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
         failedTv=(TextView)view.findViewById(R.id.FailedTv);
         usernameEt=(EditText) view.findViewById(R.id.usernameEt);
         passwordEt =(EditText) view.findViewById(R.id.passwordEt);
@@ -89,6 +96,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                         Intent intent =  new Intent(requireContext(),IndexActivity.class);
                         startActivity(intent);
                     }else{
+                        vibrateDevice();
                         failedTv.setVisibility(View.VISIBLE);
                         usernameEt.setTextColor(Color.RED);
                     }
@@ -109,4 +117,10 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
     public void onFailure(IOException e) {
 
     }
+    public void vibrateDevice(){
+        if(vibrator!=null){
+            vibrator.vibrate(500);
+        }
+    }
+
 }

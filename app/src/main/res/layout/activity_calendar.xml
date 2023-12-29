@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".calendarActivity">
 
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More Data"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <fragment
         android:id="@+id/fragment"
         android:name="com.aa.fittracker.fragments.calendarFragment"
@@ -145,10 +155,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:elevation="0dp"
         android:text="Delete"
         app:layout_constraintEnd_toStartOf="@+id/dateTv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline11"
         tools:visibility="invisible" />
+
+    <fragment
+        android:id="@+id/bf"
+        android:name="com.aa.fittracker.fragments.BottomFragment"
+        android:layout_width="0dp"
+        android:layout_height="550dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_bottom" />
+
+    <ImageView
+        android:id="@+id/expandTrigger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icon_up" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

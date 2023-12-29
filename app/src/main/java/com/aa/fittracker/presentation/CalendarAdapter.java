@@ -53,10 +53,10 @@ public class CalendarAdapter {
                             output.add(new EventDay(calendar,R.drawable.icon_easy_tr));
                             break;
                         case 2:
-                            output.add(new EventDay(calendar,R.drawable.icon_medium_tr));
+                            output.add(new EventDay(calendar,R.drawable.icon_medium_training));
                             break;
                         case 3:
-                            output.add(new EventDay(calendar,R.drawable.icon_hard_tr));
+                            output.add(new EventDay(calendar,R.drawable.icon_hard_training));
                             break;
                     }
                 }
