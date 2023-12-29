@@ -50,7 +50,7 @@ public class CalendarAdapter {
                     Log.i("DIFFICULTY FOUND:", String.valueOf(trainingDifficultyfFinder(x.getTraining_name())));
                     switch (trainingDifficultyfFinder(x.getTraining_name())){
                         case 1:
-                            output.add(new EventDay(calendar,R.drawable.icon_easy_tr));
+                            output.add(new EventDay(calendar,R.drawable.icon_easy_training));
                             break;
                         case 2:
                             output.add(new EventDay(calendar,R.drawable.icon_medium_training));
