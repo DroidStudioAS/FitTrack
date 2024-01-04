@@ -301,6 +301,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 Log.i("index", String.valueOf(index));
                 imageViewList.get(index).setImageResource(R.drawable.icon_question);
                 missingDataCount+=1;
+                Debuger.dateLog("missingDataCount", String.valueOf(missingDataCount));
 
             }else{
                 switch (store.getUserMode()){
@@ -310,30 +311,34 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                             case 1:
                                 imageViewList.get(index).setImageResource(R.drawable.icon_easy_training);
                                 trainingCount++;
+                                Debuger.dateLog("trainingCount", String.valueOf(trainingCount));
                                 break;
                             case 2:
                                 imageViewList.get(index).setImageResource(R.drawable.icon_medium_training);
                                 trainingCount++;
+                                Debuger.dateLog("trainingCount", String.valueOf(trainingCount));
                                 break;
                             case 3:
                                 imageViewList.get(index).setImageResource(R.drawable.icon_hard_training);
                                 trainingCount++;
+                                Debuger.dateLog("trainingCount", String.valueOf(trainingCount));
                                 break;
                             case 4:
                                 imageViewList.get(index).setImageResource(R.drawable.icon_good_restt);
                                 totalRestCount++;
                                 goodRestCount++;
+                                Debuger.dateLog("totalRestCount", String.valueOf(totalRestCount));
+                                Debuger.dateLog("goodRestCount", String.valueOf(goodRestCount));
                                 break;
                             case 5:
                                 imageViewList.get(index).setImageResource(R.drawable.icon_bad_restt);
                                 totalRestCount++;
+                                Debuger.dateLog("totalRestCount", String.valueOf(totalRestCount));
+
                                 break;
                         }
-                        //set breakdwon text
-                        trainingCountTv.setText("Trained: " + trainingCount + " Times.");
-                        totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
-                        goodRestTv.setText(goodRestCount + " Of Which Were Planned");
-                        missingDataTv.setText(missingDataCount + " Days.");
+
+
                         break;
                     case "weight":
                         double weight = weightFinder(x);
@@ -391,9 +396,13 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             EndIndex--;
         }
         }
+        if(store.getUserMode().equals("journal")) {
+            //set the ui elements to the coutner values
+            breakdownSetter();
+            //reset the week counters
+            countReseter();
+        }
 
-        //reset the week counters
-        countReseter();
 
     }
 
@@ -418,5 +427,12 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
      }
     }
 
+    public void breakdownSetter(){
+        //set breakdown text
+        trainingCountTv.setText("Trained: " + trainingCount + " Times.");
+        totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
+        goodRestTv.setText(goodRestCount + " Of Which Were Planned");
+        missingDataTv.setText(missingDataCount + " Days.");
+    }
 
 }
