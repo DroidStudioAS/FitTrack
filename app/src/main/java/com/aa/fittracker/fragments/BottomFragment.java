@@ -55,6 +55,13 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     TextView goodRestTv;
     TextView missingDataTv;
 
+    TextView day1WeightDeltaTv;
+    TextView day2WeightDeltaTv;
+    TextView day3WeightDeltaTv;
+    TextView day4WeightDeltaTv;
+    TextView day5WeightDeltaTv;
+    TextView day6WeightDeltaTv;
+    TextView todayWeightDeltaTv;
 
 
     ImageView dayOneIv;
@@ -87,7 +94,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         expanded = -1;
         /***********Ui Initializations************/
         extraLabel = (TextView) view.findViewById(R.id.extraLabel);
-        contentTv=(TextView)view.findViewById(R.id.bfContentTv);
+        contentTv = (TextView) view.findViewById(R.id.bfContentTv);
         dayOneLabel = (TextView) view.findViewById(R.id.dayOneLabel);
         dayTwoLabel = (TextView) view.findViewById(R.id.dayTwoLabel);
         dayThreeLabel = (TextView) view.findViewById(R.id.dayThreeLabel);
@@ -97,11 +104,19 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         todayLabel = (TextView) view.findViewById(R.id.todayLabel);
         ArrayList<TextView> labelList = new ArrayList<>(Arrays.asList(extraLabel, dayOneLabel, dayTwoLabel, dayThreeLabel, dayFourLabel, dayFiveLabel, daySixLabel, todayLabel));
         breakdownLabel = (TextView) view.findViewById(R.id.breakdownLabel);
-        breakdownTv=(TextView) view.findViewById(R.id.breakdownTv);
-        trainingCountTv=(TextView) view.findViewById(R.id.trainingCountTv);
-        totalRestCountTv=(TextView)view.findViewById(R.id.totalRestCountTv);
-        goodRestTv=(TextView)view.findViewById(R.id.plannedRestTv);
-        missingDataTv=(TextView)view.findViewById(R.id.missingDataCountTv);
+        breakdownTv = (TextView) view.findViewById(R.id.breakdownTv);
+        trainingCountTv = (TextView) view.findViewById(R.id.trainingCountTv);
+        totalRestCountTv = (TextView) view.findViewById(R.id.totalRestCountTv);
+        goodRestTv = (TextView) view.findViewById(R.id.plannedRestTv);
+        missingDataTv = (TextView) view.findViewById(R.id.missingDataCountTv);
+
+        day1WeightDeltaTv = (TextView) view.findViewById(R.id.dayOneWeightDeltaTv);
+        day2WeightDeltaTv = (TextView) view.findViewById(R.id.dayTwoWeightDeltaTv);
+        day3WeightDeltaTv = (TextView) view.findViewById(R.id.dayThreeWeightDeltaTv);
+        day4WeightDeltaTv = (TextView) view.findViewById(R.id.dayFourWeightDeltaTv);
+        day5WeightDeltaTv = (TextView) view.findViewById(R.id.dayFiveWeightDeltaTv);
+        day6WeightDeltaTv = (TextView) view.findViewById(R.id.daySixWeightDeltaTv);
+        todayWeightDeltaTv = (TextView) view.findViewById(R.id.todayWeightDeltaTv);
 
         dayOneIv = (ImageView) view.findViewById(R.id.dayOneIv);
         dayTwoIv = (ImageView) view.findViewById(R.id.dayTwoIv);
@@ -119,7 +134,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             x.setImageDrawable(null);
         }   */
 
-        
 
         // DateTv=(TextView)view.findViewById(R.id.dateTVf);
         // valueTv=(TextView)view.findViewById(R.id.dataTv);
@@ -130,13 +144,14 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
         /***************onClicklisteners***************/
         labelSeter();
+        uiToggle();
 
         return view;
     }
 
 
     public void labelSeter() {
-        switch (store.getUserMode()){
+        switch (store.getUserMode()) {
             case "journal":
                 extraLabel.setText("Fitness Journal");
                 break;
@@ -167,10 +182,10 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             if (entry.getTraining_date().equals(date)) {
                 trainingName = entry.getTraining_name(); // Assuming the date corresponds to the training name
 
-                if(trainingName.toLowerCase(Locale.ROOT).equals("skipped day")){
+                if (trainingName.toLowerCase(Locale.ROOT).equals("skipped day")) {
                     return 5;
                 }
-                if(trainingName.toLowerCase(Locale.ROOT).equals("rest day")){
+                if (trainingName.toLowerCase(Locale.ROOT).equals("rest day")) {
                     return 4;
                 }
                 break;
@@ -194,9 +209,10 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         Log.i("difficulty: ", String.valueOf(toReturn));
         return toReturn;
     }
+
     public int weightFinder(String date) {
         int toReturn = -1;
-        String weightValue= "";
+        String weightValue = "";
         Log.i("switch date", date);
 
         // Search for the training date
@@ -227,11 +243,11 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     }
 
 
-    public void countReseter(){
-        totalRestCount=0;
-        goodRestCount=0;
-        trainingCount=0;
-        missingDataCount=0;
+    public void countReseter() {
+        totalRestCount = 0;
+        goodRestCount = 0;
+        trainingCount = 0;
+        missingDataCount = 0;
     }
 
 
@@ -266,9 +282,8 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         contentTv.setText("No Data For This Date");
 
 
-
-        HashMap<String,String> dtf = new HashMap<>();
-        switch (store.getUserMode()){
+        HashMap<String, String> dtf = new HashMap<>();
+        switch (store.getUserMode()) {
             case "journal":
                 dtf = DateParser.last7DaysTraining();
                 break;
@@ -276,9 +291,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 dtf = DateParser.last7DaysWeight();
                 break;
         }
-        for(Map.Entry x : dtf.entrySet()){
-            Debuger.dateLog("dtf key (adding to dates)", (String)x.getKey());
-            dates.add((String)x.getKey());
+        for (Map.Entry x : dtf.entrySet()) {
+            Debuger.dateLog("dtf key (adding to dates)", (String) x.getKey());
+            dates.add((String) x.getKey());
         }
 
         //Get Dates
@@ -286,28 +301,28 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         ArrayList<Integer> ta = DateParser.dateFinder();
         //sort dates in ascending order;
         ArrayList<String> sortedDates = DateParser.dateSorter(dates);
-        Debuger.dateListLogger(sortedDates,"sorted dates");
-        ArrayList<String> last7 = DateParser.listMaker(sortedDates,store.getDateInFocus());
-        Debuger.dateListLogger(last7,"last 7");
+        Debuger.dateListLogger(sortedDates, "sorted dates");
+        ArrayList<String> last7 = DateParser.listMaker(sortedDates, store.getDateInFocus());
+        Debuger.dateListLogger(last7, "last 7");
 
-        breakdownLabel.setText("From: " +sortedDates.get(0).replace("?","") +" To: "+store.getDateInFocus());
+        breakdownLabel.setText("From: " + sortedDates.get(0).replace("?", "") + " To: " + store.getDateInFocus());
 
 
         //Parse Icons And Make Count;
-        for(String x : last7){
+        for (String x : last7) {
             Log.i("x", x);
             int index = last7.indexOf(x);
-            if(x.contains("?") || x.contains("dtf")){
+            if (x.contains("?") || x.contains("dtf")) {
                 Log.i("index", String.valueOf(index));
                 imageViewList.get(index).setImageResource(R.drawable.icon_question);
-                missingDataCount+=1;
+                missingDataCount += 1;
                 Debuger.dateLog("missingDataCount", String.valueOf(missingDataCount));
 
-            }else{
-                switch (store.getUserMode()){
+            } else {
+                switch (store.getUserMode()) {
                     case "journal":
                         int diff = diffFinder(x);
-                        switch (diff){
+                        switch (diff) {
                             case 1:
                                 imageViewList.get(index).setImageResource(R.drawable.icon_easy_training);
                                 trainingCount++;
@@ -346,9 +361,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                         double idealWeight = Double.parseDouble(store.getUserWeightKg());
                         double startWeight = Double.parseDouble(store.getUserStartWeight());
 
-                        boolean isIdealWeight=  weight==idealWeight;
-                        boolean lostWeight = weight-startWeight<=0;
-                        boolean gainedWeight = weight-startWeight>=0;
+                        boolean isIdealWeight = weight == idealWeight;
+                        boolean lostWeight = weight - startWeight <= 0;
+                        boolean gainedWeight = weight - startWeight >= 0;
 
 
 
@@ -358,23 +373,22 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                         Log.i("switch weightgoal", store.getUserWeightGoal());*/
 
 
-
-                        if(isIdealWeight){
+                        if (isIdealWeight) {
                             imageViewList.get(index).setImageResource(R.drawable.icon_optimal_weight);
-                        }else{
+                        } else {
                             Log.i("switch activated: ", "x");
-                            switch (store.getUserWeightGoal()){
+                            switch (store.getUserWeightGoal()) {
                                 case "+":
-                                    if(gainedWeight){
+                                    if (gainedWeight) {
                                         imageViewList.get(index).setImageResource(R.drawable.icon_good_weight_change);
-                                    }else if (lostWeight){
+                                    } else if (lostWeight) {
                                         imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight_change);
                                     }
                                     break;
                                 case "-":
-                                    if(gainedWeight){
+                                    if (gainedWeight) {
                                         imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight_change);
-                                    }else if (lostWeight){
+                                    } else if (lostWeight) {
                                         imageViewList.get(index).setImageResource(R.drawable.icon_good_weight_change);
                                     }
                                     break;
@@ -383,20 +397,20 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
 
                 }
-                }
+            }
 
         }
 
 
         //set label text
-        if(ta.size()>1){
-        int EndIndex = 6;
-        for(TextView x : labelList) {
-            x.setText(String.valueOf(ta.get(EndIndex)) + ".");
-            EndIndex--;
+        if (ta.size() > 1) {
+            int EndIndex = 6;
+            for (TextView x : labelList) {
+                x.setText(String.valueOf(ta.get(EndIndex)) + ".");
+                EndIndex--;
+            }
         }
-        }
-        if(store.getUserMode().equals("journal")) {
+        if (store.getUserMode().equals("journal")) {
             //set the ui elements to the coutner values
             breakdownSetter();
             //reset the week counters
@@ -408,31 +422,81 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
     @Override
     public void onMatchFound(WeightEntry x) {
-      Log.i("Fragment Callback: ", x.toString());
+        Log.i("Fragment Callback: ", x.toString());
 
     }
 
     @Override
     public void onTrainingMatchFound(TrainingEntry x) {
-     Log.i("Fragment Callback: ", x.getTraining_name());
-     for(Training y : store.getUserTrainings()){
-         if(y.getTraining_name().equals(x.getTraining_name())){
-            contentTv.setText(y.getTraining_desc());
-         }
-     }
-     if(x.getTraining_name().toLowerCase(Locale.ROOT).equals("rest day")){
-         contentTv.setText("Rest Day");
-     }else if(x.getTraining_name().toLowerCase(Locale.ROOT).equals("skipped day")){
-         contentTv.setText("Skipped Day");
-     }
+        Log.i("Fragment Callback: ", x.getTraining_name());
+        for (Training y : store.getUserTrainings()) {
+            if (y.getTraining_name().equals(x.getTraining_name())) {
+                contentTv.setText(y.getTraining_desc());
+            }
+        }
+        if (x.getTraining_name().toLowerCase(Locale.ROOT).equals("rest day")) {
+            contentTv.setText("Rest Day");
+        } else if (x.getTraining_name().toLowerCase(Locale.ROOT).equals("skipped day")) {
+            contentTv.setText("Skipped Day");
+        }
     }
 
-    public void breakdownSetter(){
-        //set breakdown text
-        trainingCountTv.setText("Trained: " + trainingCount + " Times.");
-        totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
-        goodRestTv.setText(goodRestCount + " Of Which Were Planned");
-        missingDataTv.setText(missingDataCount + " Days.");
+    public void breakdownSetter() {
+        if (store.getUserMode().equals("journal")) {
+            trainingCountTv.setText("Trained: " + trainingCount + " Times.");
+            totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
+            goodRestTv.setText(goodRestCount + " Of Which Were Planned");
+            missingDataTv.setText(missingDataCount + " Days.");
+        }
+    }
+
+    public void uiToggle() {
+        switch (store.getUserMode()) {
+            case "journal":
+                //toggle visibility
+                dayOneIv.setVisibility(View.VISIBLE);
+                dayTwoIv.setVisibility(View.VISIBLE);
+                dayThreeIv.setVisibility(View.VISIBLE);
+                dayFourIv.setVisibility(View.VISIBLE);
+                dayFiveIv.setVisibility(View.VISIBLE);
+                daySixIv.setVisibility(View.VISIBLE);
+                todayIv.setVisibility(View.VISIBLE);
+
+                day1WeightDeltaTv.setVisibility(View.GONE);
+                day2WeightDeltaTv.setVisibility(View.GONE);
+                day3WeightDeltaTv.setVisibility(View.GONE);
+                day4WeightDeltaTv.setVisibility(View.GONE);
+                day5WeightDeltaTv.setVisibility(View.GONE);
+                day6WeightDeltaTv.setVisibility(View.GONE);
+                todayWeightDeltaTv.setVisibility(View.GONE);
+
+                //set the text
+                trainingCountTv.setText("Trained: " + trainingCount + " Times.");
+                totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
+                goodRestTv.setText(goodRestCount + " Of Which Were Planned");
+                missingDataTv.setText(missingDataCount + " Days.");
+                break;
+            case "weight":
+                //toggle visibility
+                dayOneIv.setVisibility(View.INVISIBLE);
+                dayTwoIv.setVisibility(View.INVISIBLE);
+                dayThreeIv.setVisibility(View.INVISIBLE);
+                dayFourIv.setVisibility(View.INVISIBLE);
+                dayFiveIv.setVisibility(View.INVISIBLE);
+                daySixIv.setVisibility(View.INVISIBLE);
+                todayIv.setVisibility(View.INVISIBLE);
+
+                day1WeightDeltaTv.setVisibility(View.VISIBLE);
+                day2WeightDeltaTv.setVisibility(View.VISIBLE);
+                day3WeightDeltaTv.setVisibility(View.VISIBLE);
+                day4WeightDeltaTv.setVisibility(View.VISIBLE);
+                day5WeightDeltaTv.setVisibility(View.VISIBLE);
+                day6WeightDeltaTv.setVisibility(View.VISIBLE);
+                todayWeightDeltaTv.setVisibility(View.VISIBLE);
+
+
+                break;
+        }
     }
 
 }

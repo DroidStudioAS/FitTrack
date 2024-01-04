@@ -74,10 +74,10 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textView26"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline14"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -318,6 +318,97 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+            <TextView
+                android:id="@+id/dayOneWeightDeltaTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="@+id/dayOneLabel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/dayOneLabel"
+                app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
+
+            <TextView
+                android:id="@+id/dayTwoWeightDeltaTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="@+id/dayThreeWeightDeltaTv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayOneWeightDeltaTv"
+                app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
+
+            <TextView
+                android:id="@+id/dayThreeWeightDeltaTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="@+id/dayFourWeightDeltaTv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayTwoWeightDeltaTv"
+                app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
+
+            <TextView
+                android:id="@+id/dayFourWeightDeltaTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="@+id/dayFiveWeightDeltaTv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayThreeWeightDeltaTv"
+                app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
+
+            <TextView
+                android:id="@+id/dayFiveWeightDeltaTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="@+id/daySixWeightDeltaTv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayFourWeightDeltaTv"
+                app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
+
+            <TextView
+                android:id="@+id/daySixWeightDeltaTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toStartOf="@+id/todayWeightDeltaTv"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/dayFiveWeightDeltaTv"
+                app:layout_constraintTop_toBottomOf="@+id/daySixLabel" />
+
+            <TextView
+                android:id="@+id/todayWeightDeltaTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="+1"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/daySixWeightDeltaTv"
+                app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
