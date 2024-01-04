@@ -97,22 +97,22 @@ public class CalendarAdapter {
 
                     /***************User Achieved Weight Goal On This Date****************/
                     if(optimalWeight==weightOnActiveDate){
-                        output.add(new EventDay(calendar,R.drawable.icon_perfect_weight));
+                        output.add(new EventDay(calendar,R.drawable.icon_optimal_weight));
                     }
                     /******************Does user want to gain (+) or lose(-) name****************/
                     switch (store.getUserWeightGoal()){
                         case "+":
                             if(weightOnActiveDate>startWeight){
-                                output.add(new EventDay(calendar,R.drawable.icon_good_sc));
+                                output.add(new EventDay(calendar,R.drawable.icon_good_weight_change));
                             }else{
-                                output.add(new EventDay(calendar,R.drawable.icon_bad_sc));
+                                output.add(new EventDay(calendar,R.drawable.icon_bad_weight_change));
                             }
                             break;
                         case "-":  //opposite logic to +
                             if(weightOnActiveDate<startWeight){
-                                output.add(new EventDay(calendar,R.drawable.icon_good_sc));
+                                output.add(new EventDay(calendar,R.drawable.icon_good_weight_change));
                             }else{
-                                output.add(new EventDay(calendar,R.drawable.icon_bad_sc));
+                                output.add(new EventDay(calendar,R.drawable.icon_bad_weight_change));
                             }
                             break;
                     }

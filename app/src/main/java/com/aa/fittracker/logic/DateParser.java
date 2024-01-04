@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DateParser {
     public static String[] parseDate(String date){
@@ -81,7 +83,7 @@ public class DateParser {
 
             boolean matchFound = false;
 
-            Log.i("dtf", dateToFind);
+            Debuger.dateLog("dtf in l7dt", dateToFind);
             for (TrainingEntry x : store.getTrainingEntries()) {
                 Log.i("dtm", x.getTraining_date());
 
@@ -98,6 +100,11 @@ public class DateParser {
                 last7Days.put(dateToFind,"");
             }
         }
+
+        for(Map.Entry x : last7Days.entrySet()){
+            Log.i("EXCDATE", "Map keys in end of l7dt" + x.getKey() + " : " + x.getValue());
+        }
+
         return last7Days;
     }
 
@@ -246,7 +253,7 @@ public class DateParser {
 
             boolean matchFound = false;
 
-            Log.i("dtf", dateToFind);
+            Debuger.dateLog("dtf in l7dw", dateToFind);
             for (WeightEntry x : store.getWeightEntries()) {
                 Log.i("dtw", x.getWeight_date());
 
@@ -261,6 +268,9 @@ public class DateParser {
                 //dummy date to prevent crashing
                 last7Days.put(dateToFind,"dtf");
             }
+        }
+        for(Map.Entry x : last7Days.entrySet()){
+            Log.i("EXCDATE", "Map keys in end of l7dw" + x.getKey() + " : " + x.getValue());
         }
 
 

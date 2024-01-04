@@ -19,6 +19,7 @@ import com.aa.fittracker.FragmentCommunicator;
 import com.aa.fittracker.OnDateClickListener;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.DateParser;
+import com.aa.fittracker.logic.Debuger;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.models.TrainingEntry;
@@ -257,6 +258,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
         String dayInFocus = date.split("-")[2];
 
+
         ArrayList<String> dates = new ArrayList<>();
         ArrayList<TextView> labelList = new ArrayList<>(Arrays.asList(dayOneLabel, dayTwoLabel, dayThreeLabel, dayFourLabel, dayFiveLabel, daySixLabel, todayLabel));
         ArrayList<ImageView> imageViewList = new ArrayList<>(Arrays.asList(dayOneIv, dayTwoIv, dayThreeIv, dayFourIv, dayFiveIv, daySixIv, todayIv));
@@ -275,15 +277,18 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 break;
         }
         for(Map.Entry x : dtf.entrySet()){
-            Log.i("map:", x.getKey() +""+ x.getValue()) ;
+            Debuger.dateLog("dtf key (adding to dates)", (String)x.getKey());
             dates.add((String)x.getKey());
         }
 
         //Get Dates
+        //dateFinder() gets the integer values of the last 7 days for the labels
         ArrayList<Integer> ta = DateParser.dateFinder();
         //sort dates in ascending order;
         ArrayList<String> sortedDates = DateParser.dateSorter(dates);
+        Debuger.dateListLogger(sortedDates,"sorted dates");
         ArrayList<String> last7 = DateParser.listMaker(sortedDates,store.getDateInFocus());
+        Debuger.dateListLogger(last7,"last 7");
 
         breakdownLabel.setText("From: " +sortedDates.get(0).replace("?","") +" To: "+store.getDateInFocus());
 
@@ -350,22 +355,22 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
 
                         if(isIdealWeight){
-                            imageViewList.get(index).setImageResource(R.drawable.icon_perfect_weight);
+                            imageViewList.get(index).setImageResource(R.drawable.icon_optimal_weight);
                         }else{
                             Log.i("switch activated: ", "x");
                             switch (store.getUserWeightGoal()){
                                 case "+":
                                     if(gainedWeight){
-                                        imageViewList.get(index).setImageResource(R.drawable.icon_good_weight);
+                                        imageViewList.get(index).setImageResource(R.drawable.icon_good_weight_change);
                                     }else if (lostWeight){
-                                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight);
+                                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight_change);
                                     }
                                     break;
                                 case "-":
                                     if(gainedWeight){
-                                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight);
+                                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight_change);
                                     }else if (lostWeight){
-                                        imageViewList.get(index).setImageResource(R.drawable.icon_good_weight);
+                                        imageViewList.get(index).setImageResource(R.drawable.icon_good_weight_change);
                                     }
                                     break;
                             }
