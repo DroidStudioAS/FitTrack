@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.aa.fittracker.FragmentCommunicator;
@@ -62,7 +63,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     TextView day5WeightDeltaTv;
     TextView day6WeightDeltaTv;
     TextView todayWeightDeltaTv;
-
 
     ImageView dayOneIv;
     ImageView dayTwoIv;
@@ -117,6 +117,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         day5WeightDeltaTv = (TextView) view.findViewById(R.id.dayFiveWeightDeltaTv);
         day6WeightDeltaTv = (TextView) view.findViewById(R.id.daySixWeightDeltaTv);
         todayWeightDeltaTv = (TextView) view.findViewById(R.id.todayWeightDeltaTv);
+        ArrayList<TextView> deltas = new ArrayList<>(Arrays.asList(day1WeightDeltaTv,day2WeightDeltaTv,day3WeightDeltaTv,day4WeightDeltaTv,day5WeightDeltaTv,day6WeightDeltaTv,todayWeightDeltaTv));
+
+        
 
         dayOneIv = (ImageView) view.findViewById(R.id.dayOneIv);
         dayTwoIv = (ImageView) view.findViewById(R.id.dayTwoIv);
@@ -271,11 +274,13 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     /**********Callbacks************/
     @Override
     public void onDateClicked(String date) {
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.icon_question);
 
         String dayInFocus = date.split("-")[2];
 
 
         ArrayList<String> dates = new ArrayList<>();
+        ArrayList<TextView> deltas = new ArrayList<>(Arrays.asList(day1WeightDeltaTv,day2WeightDeltaTv,day3WeightDeltaTv,day4WeightDeltaTv,day5WeightDeltaTv,day6WeightDeltaTv,todayWeightDeltaTv));
         ArrayList<TextView> labelList = new ArrayList<>(Arrays.asList(dayOneLabel, dayTwoLabel, dayThreeLabel, dayFourLabel, dayFiveLabel, daySixLabel, todayLabel));
         ArrayList<ImageView> imageViewList = new ArrayList<>(Arrays.asList(dayOneIv, dayTwoIv, dayThreeIv, dayFourIv, dayFiveIv, daySixIv, todayIv));
         Log.i("Fragment Callback: ", date);
@@ -315,6 +320,8 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             if (x.contains("?") || x.contains("dtf")) {
                 Log.i("index", String.valueOf(index));
                 imageViewList.get(index).setImageResource(R.drawable.icon_question);
+                deltas.get(index).setBackgroundResource(R.drawable.icon_question);
+                deltas.get(index).setText("");
                 missingDataCount += 1;
                 Debuger.dateLog("missingDataCount", String.valueOf(missingDataCount));
 
@@ -361,9 +368,13 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                         double idealWeight = Double.parseDouble(store.getUserWeightKg());
                         double startWeight = Double.parseDouble(store.getUserStartWeight());
 
+                        double delta = startWeight-weight;
+
                         boolean isIdealWeight = weight == idealWeight;
                         boolean lostWeight = weight - startWeight <= 0;
                         boolean gainedWeight = weight - startWeight >= 0;
+
+
 
 
 
@@ -374,22 +385,48 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
 
                         if (isIdealWeight) {
-                            imageViewList.get(index).setImageResource(R.drawable.icon_optimal_weight);
+                        deltas.get(index).setText("$") ;
+                        deltas.get(index).setBackgroundResource(0);
+                        deltas.get(index).setTextColor(getResources().getColor(R.color.mid_yellow));
                         } else {
                             Log.i("switch activated: ", "x");
                             switch (store.getUserWeightGoal()) {
                                 case "+":
                                     if (gainedWeight) {
-                                        imageViewList.get(index).setImageResource(R.drawable.icon_good_weight_change);
+                                        if(delta<0){
+                                           deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                        }else {
+                                            deltas.get(index).setText("-"+String.format("%.1f", delta));
+                                        }
+                                        deltas.get(index).setBackgroundResource(0);
+                                        deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
                                     } else if (lostWeight) {
-                                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight_change);
+                                        if(delta<0){
+                                            deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                        }else {
+                                            deltas.get(index).setText("-"+String.format("%.1f", delta));
+                                        }
+                                        deltas.get(index).setBackgroundResource(0);
+                                        deltas.get(index).setTextColor(getResources().getColor(R.color.hard_red));
                                     }
                                     break;
                                 case "-":
                                     if (gainedWeight) {
-                                        imageViewList.get(index).setImageResource(R.drawable.icon_bad_weight_change);
+                                        if(delta<0){
+                                            deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                        }else {
+                                            deltas.get(index).setText("-"+String.format("%.1f", delta));
+                                        }
+                                        deltas.get(index).setBackgroundResource(0);
+                                        deltas.get(index).setTextColor(getResources().getColor(R.color.hard_red));
                                     } else if (lostWeight) {
-                                        imageViewList.get(index).setImageResource(R.drawable.icon_good_weight_change);
+                                        if(delta<0){
+                                            deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                        }else {
+                                            deltas.get(index).setText("-"+String.format("%.1f", delta));
+                                        }
+                                        deltas.get(index).setBackgroundResource(0);
+                                        deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
                                     }
                                     break;
                             }

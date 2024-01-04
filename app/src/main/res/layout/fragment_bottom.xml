@@ -326,7 +326,7 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="+1"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@+id/dayOneLabel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/dayOneLabel"
@@ -339,10 +339,10 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="+1"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toStartOf="@+id/dayThreeWeightDeltaTv"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/dayTwoLabel"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/dayOneWeightDeltaTv"
+                app:layout_constraintStart_toStartOf="@+id/dayTwoLabel"
                 app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
 
             <TextView
@@ -352,10 +352,10 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="+1"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toStartOf="@+id/dayFourWeightDeltaTv"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/dayThreeLabel"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/dayTwoWeightDeltaTv"
+                app:layout_constraintStart_toStartOf="@+id/dayThreeLabel"
                 app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
 
             <TextView
@@ -365,10 +365,10 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="+1"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toStartOf="@+id/dayFiveWeightDeltaTv"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/dayFourLabel"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/dayThreeWeightDeltaTv"
+                app:layout_constraintStart_toStartOf="@+id/dayFourLabel"
                 app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
 
             <TextView
@@ -378,10 +378,10 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="+1"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toStartOf="@+id/daySixWeightDeltaTv"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/dayFiveLabel"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/dayFourWeightDeltaTv"
+                app:layout_constraintStart_toStartOf="@+id/dayFiveLabel"
                 app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
 
             <TextView
@@ -391,10 +391,10 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="+1"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toStartOf="@+id/todayWeightDeltaTv"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/daySixLabel"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/dayFiveWeightDeltaTv"
+                app:layout_constraintStart_toStartOf="@+id/daySixLabel"
                 app:layout_constraintTop_toBottomOf="@+id/daySixLabel" />
 
             <TextView
@@ -404,10 +404,10 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="+1"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/todayLabel"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/daySixWeightDeltaTv"
+                app:layout_constraintStart_toStartOf="@+id/todayLabel"
                 app:layout_constraintTop_toBottomOf="@+id/dayOneLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
