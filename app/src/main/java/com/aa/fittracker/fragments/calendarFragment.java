@@ -82,7 +82,6 @@ protected static CalendarView calendarView;
                         date = year + "-" + "0"+month + "-"+"0"+day;
                     }else{
                         date = year + "-" + "0"+month + "-" + day;
-
                     }
                 }
 

@@ -39,6 +39,10 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     int totalRestCount, goodRestCount, trainingCount, missingDataCount = 0;
     double firstWeightOfWeek = -1;
     boolean firstWeightFound = false;
+    float goodCount = 0;
+    float badCount = 0;
+    float sameCount = 0;
+    float idealCount = 0;
 
 
     TextView extraLabel;
@@ -254,6 +258,11 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         trainingCount = 0;
         missingDataCount = 0;
 
+
+        idealCount=0;
+        goodCount=0;
+        badCount=0;
+        sameCount=0;
         firstWeightFound=false;
     }
 
@@ -385,9 +394,10 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
                         boolean isIdealWeight = weight == idealWeight;
                         boolean lostWeight = weight - startWeight <= 0;
-                        boolean gainedWeight = weight - startWeight >= 0;
+                        boolean gainedWeight = weight - startWeight > 0;
 
                         if (isIdealWeight) {
+                            idealCount+=1;
                         deltas.get(index).setText("$") ;
                         deltas.get(index).setBackgroundResource(0);
                         deltas.get(index).setTextColor(getResources().getColor(R.color.mid_yellow));
@@ -396,10 +406,12 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                             switch (store.getUserWeightGoal()) {
                                 case "+":
                                     if (gainedWeight) {
+                                        goodCount+=1;
                                         if(delta<=0){
                                            deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
                                         }else if(delta==0){
                                             deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
+                                            sameCount+=1;
 
                                         }else {
                                             deltas.get(index).setText("-"+String.format("%.1f", delta));
@@ -407,6 +419,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
                                     } else if (lostWeight) {
+                                        badCount+=1;
                                         if(delta<=0){
                                             deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
                                         }else if(delta==0){
@@ -421,6 +434,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                     break;
                                 case "-":
                                     if (gainedWeight) {
+                                        badCount+=1;
                                         if(delta<0){
                                             deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
                                         }else if(delta==0){
@@ -432,6 +446,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.hard_red));
                                     } else if (lostWeight) {
+                                        goodCount+=1;
                                         if(delta<0){
                                             deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
                                         }else if(delta==0){
@@ -443,6 +458,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
                                     }
+                                    Log.i("Count", String.valueOf(goodCount + " " + badCount + " " + idealCount));
                                     break;
                             }
                         }
@@ -462,9 +478,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 EndIndex--;
             }
         }
+        breakdownSetter();
         if (store.getUserMode().equals("journal")) {
             //set the ui elements to the coutner values
-            breakdownSetter();
             //reset the week counters
             countReseter();
         }else{
@@ -503,6 +519,11 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             trainingCountTv.setText("Trained: " + trainingCount + " Times.");
             totalRestCountTv.setText("Rested: " + totalRestCount + " Times");
             goodRestTv.setText(goodRestCount + " Of Which Were Planned");
+            missingDataTv.setText(missingDataCount + " Days.");
+        }else if(store.getUserMode().equals("weight")){
+            trainingCountTv.setText("Made Good Weight Changes: " + goodCount + " Times.");
+            totalRestCountTv.setText("Made Good Weight Changes: " + badCount + " Times");
+            goodRestTv.setText("Maintained Optimal Weight For: " + idealCount + " Days.");
             missingDataTv.setText(missingDataCount + " Days.");
         }
     }
