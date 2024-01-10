@@ -1,10 +1,14 @@
 package com.aa.fittracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +22,7 @@ import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.MenuItem;
 import com.aa.fittracker.trainingservice.TrainingsIndex;
 import com.google.gson.Gson;
 
@@ -43,11 +48,14 @@ ImageView trainingsButton;
 ImageView noutritionButton;
 ImageView weightButton;
 
+ConstraintLayout root;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
         /******************UI initializations***********************/
+        root=(ConstraintLayout)findViewById(R.id.root);
         currentWeightTv=(TextView)findViewById(R.id.CurrentWeightTv);
         desiredWeightTv = (TextView)findViewById(R.id.desiredWeightTv);
         startWeightTv = (TextView)findViewById(R.id.startWeightTv);
@@ -98,10 +106,20 @@ ImageView weightButton;
         }
 
 
+       /* MenuItem menuItem = new MenuItem(this);
+        menuItem.setImage(BitmapFactory.decodeResource(getResources(),R.drawable.noutrition_service_drawable));
+        Point initialPosition = new Point(200, 200);
+        menuItem.setPosition(initialPosition);
+        root.addView(menuItem);*/
+
 
         welcomeTv.setText("Welcome: " + store.getUSERNAME());
         startWeightTv.setText(store.getUserStartWeight() + "KG");
         desiredWeightTv.setText(store.getUserWeightKg() + " KG");
+       /* journalButton.setVisibility(View.GONE);
+        weightButton.setVisibility(View.GONE);
+        trainingsButton.setVisibility(View.GONE);*/
+
         journalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
