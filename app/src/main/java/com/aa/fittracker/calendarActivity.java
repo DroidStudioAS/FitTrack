@@ -173,25 +173,6 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         infoLabel.setText(infoString);
         optimalLabel.setText(optimalString);
     }
-    /****************Helper functions end*******************/
-    /*******************Callbacks received********************/
-    @Override
-    public void onDateClicked(String date) {
-        dateTV.setText(date);
-        infoTv.setText("");
-        if (!isExpanded) {
-            missingInfoButton.setVisibility(View.VISIBLE);
-            deleteEntryTrigger.setVisibility(View.INVISIBLE);
-        } else {
-            isDeleteVisible = false;
-            isMissingVisible = true;
-        }
-        Log.i("ONDATECLICKED", "...");
-        IndexActivity.Logger();
-
-        fc.onDateClicked(date);
-    }
-
     public void expandLogic() {
         bf.translate();
         if (clickCount % 2 == 0) {
@@ -230,6 +211,30 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
         clickCount++;
     }
+    /****************Helper functions end*******************/
+    /*******************Callbacks received********************/
+    @Override
+    public void onDateClicked(String date) {
+        dateTV.setText(date);
+        infoTv.setText("");
+        if (!isExpanded) {
+            missingInfoButton.setVisibility(View.VISIBLE);
+            deleteEntryTrigger.setVisibility(View.INVISIBLE);
+        } else {
+            isDeleteVisible = false;
+            isMissingVisible = true;
+        }
+        Log.i("ONDATECLICKED", "...");
+        IndexActivity.Logger();
+
+        fc.onDateClicked(date);
+
+        store.setCurrentUserWeight("-1");
+        Log.i("current: " , store.getCurrentUserWeight());
+        Log.i("dif",store.getDateInFocus());
+    }
+
+
 
     /************** !very important this callback happens after onDateClicked! **************/
     @Override
@@ -245,6 +250,9 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
             }
 
             infoTv.setText(x.getWeight_value());
+            store.setCurrentUserWeight(x.getWeight_value());
+            Log.i("current: " , store.getCurrentUserWeight());
+
 
             IndexActivity.Logger();
 

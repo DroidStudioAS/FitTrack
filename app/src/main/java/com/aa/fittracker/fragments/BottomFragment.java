@@ -37,6 +37,8 @@ import java.util.Map;
 public class BottomFragment extends Fragment implements FragmentCommunicator {
 
     int totalRestCount, goodRestCount, trainingCount, missingDataCount = 0;
+    double firstWeightOfWeek = -1;
+    boolean firstWeightFound = false;
 
 
     TextView extraLabel;
@@ -251,6 +253,8 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         goodRestCount = 0;
         trainingCount = 0;
         missingDataCount = 0;
+
+        firstWeightFound=false;
     }
 
 
@@ -363,7 +367,16 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
                         break;
                     case "weight":
+
+                        double weekDelta = 0;
+
                         double weight = weightFinder(x);
+                        //find the first weight of this week
+                        if(!firstWeightFound){
+                            firstWeightOfWeek=weight;
+                            firstWeightFound=true;
+                            Log.i("first weight of week: " , String.valueOf(firstWeightOfWeek));
+                        }
                         Log.i("Weight on date: ", x + " : " + weight);
                         double idealWeight = Double.parseDouble(store.getUserWeightKg());
                         double startWeight = Double.parseDouble(store.getUserStartWeight());
@@ -373,16 +386,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                         boolean isIdealWeight = weight == idealWeight;
                         boolean lostWeight = weight - startWeight <= 0;
                         boolean gainedWeight = weight - startWeight >= 0;
-
-
-
-
-
-                        /* Log.i("switch weightandideal", weight + " " + idealWeight);
-                        Log.i("switch weight>startwright",  String.valueOf(weight>startWeight));
-                        Log.i("switch weight<startweight",  String.valueOf(weight>startWeight));
-                        Log.i("switch weightgoal", store.getUserWeightGoal());*/
-
 
                         if (isIdealWeight) {
                         deltas.get(index).setText("$") ;
@@ -464,7 +467,11 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             breakdownSetter();
             //reset the week counters
             countReseter();
+        }else{
+            double currentWeight = store.findWeightOnCurrentDate();
+            weightBreakdownSetter(firstWeightOfWeek,currentWeight);
         }
+        countReseter();
 
 
     }
@@ -478,6 +485,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     @Override
     public void onTrainingMatchFound(TrainingEntry x) {
         Log.i("Fragment Callback: ", x.getTraining_name());
+
         for (Training y : store.getUserTrainings()) {
             if (y.getTraining_name().equals(x.getTraining_name())) {
                 contentTv.setText(y.getTraining_desc());
@@ -497,6 +505,51 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             goodRestTv.setText(goodRestCount + " Of Which Were Planned");
             missingDataTv.setText(missingDataCount + " Days.");
         }
+    }
+    public void weightBreakdownSetter(double weekStartWeight,double currentWeight){
+        //NO DATA FOR THE WEEK
+        boolean isDelta0 = false;
+        if(weekStartWeight==-1 || currentWeight==-1){
+            contentTv.setText("We Do Not Have Enough Data For This Week To Calculate Your Weight Loss. Log At Least 1 Day In The Week, And Todays Weight");
+            return;
+        }
+        //data present
+        double weekDelta = weekStartWeight - currentWeight;
+
+        StringBuilder sb =  new StringBuilder();
+        //build the info string for the user
+        if(weekDelta>0){
+            //lost weight
+            if(store.getUserWeightGoal().equals("+")){
+                sb.append("Thats Not Good.. ");
+            }else if (store.getUserWeightGoal().equals("-")){
+                sb.append("Good Job! ");
+            }
+            sb.append("This Week You Lost: ");
+        }else if (weekDelta<0){
+            //gained weight
+            if(store.getUserWeightGoal().equals("+")){
+                sb.append("Good Job! ");
+            }else if (store.getUserWeightGoal().equals("-")){
+                sb.append("Thats Not Good.. ");
+            }
+            sb.append("This Week You Gained: ");
+            //get rid of the -
+            weekDelta=Math.abs(weekDelta);
+        }else{
+            sb.append("This Week Your Weight Did Not Change");
+            isDelta0=true;
+        }
+        if(!isDelta0) {
+            sb.append(weekDelta + " KG");
+        }
+
+        sb.append("\n\n The Screen Below Shows You How Much Weight You Lost/Gained, Compared To Your Start Weight: " +store.getUserStartWeight()+ " KG");
+
+        contentTv.setText(sb.toString());
+
+
+
     }
 
     public void uiToggle() {
@@ -542,8 +595,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 day5WeightDeltaTv.setVisibility(View.VISIBLE);
                 day6WeightDeltaTv.setVisibility(View.VISIBLE);
                 todayWeightDeltaTv.setVisibility(View.VISIBLE);
-
-
                 break;
         }
     }

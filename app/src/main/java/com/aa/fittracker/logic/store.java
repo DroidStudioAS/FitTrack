@@ -170,6 +170,15 @@ public class store {
         }
         USER_TRAININGS.remove(toRemove);
     }
+    public static double findWeightOnCurrentDate(){
+        double weight = -1;
+        for(WeightEntry x : store.getWeightEntries()){
+            if(x.getWeight_date().equals(store.getDateInFocus())){
+                weight=Double.parseDouble(x.getWeight_value());
+            }
+        }
+        return weight;
+    }
 
     /*******************GETTERS***********************/
 

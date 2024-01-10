@@ -77,6 +77,14 @@ protected static CalendarView calendarView;
                 }else{
                    date = year + "-" + month + "-"+ day;
                 }
+                if(month<10){
+                    if(day<10){
+                        date = year + "-" + "0"+month + "-"+"0"+day;
+                    }else{
+                        date = year + "-" + "0"+month + "-" + day;
+
+                    }
+                }
 
                 store.setDateInFocus(date);
 
@@ -89,6 +97,7 @@ protected static CalendarView calendarView;
                     if(x.getWeight_date().equals(store.getDateInFocus())){
                         if(onDateClickListener!=null){
                             onDateClickListener.onMatchFound(x);
+                            store.setCurrentUserWeight(x.getWeight_value());
                         }
                     }
                 }
