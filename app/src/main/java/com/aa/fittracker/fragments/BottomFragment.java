@@ -213,7 +213,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         return toReturn;
     }
 
-    public int weightFinder(String date) {
+    public double weightFinder(String date) {
         int toReturn = -1;
         String weightValue = "";
         Log.i("switch date", date);
@@ -221,7 +221,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         // Search for the training date
         for (WeightEntry entry : store.getWeightEntries()) {
             if (entry.getWeight_date().equals(date)) {
-                int weight = Integer.parseInt(entry.getWeight_value()); // Assuming the date corresponds to the training name
+                double weight = Double.parseDouble(entry.getWeight_value()); // Assuming the date corresponds to the training name
                 return weight;
             }
         }
@@ -393,16 +393,22 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                             switch (store.getUserWeightGoal()) {
                                 case "+":
                                     if (gainedWeight) {
-                                        if(delta<0){
+                                        if(delta<=0){
                                            deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                        }else if(delta==0){
+                                            deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
+
                                         }else {
                                             deltas.get(index).setText("-"+String.format("%.1f", delta));
                                         }
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
                                     } else if (lostWeight) {
-                                        if(delta<0){
+                                        if(delta<=0){
                                             deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                        }else if(delta==0){
+                                            deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
+
                                         }else {
                                             deltas.get(index).setText("-"+String.format("%.1f", delta));
                                         }
@@ -414,6 +420,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                     if (gainedWeight) {
                                         if(delta<0){
                                             deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                        }else if(delta==0){
+                                            deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
+
                                         }else {
                                             deltas.get(index).setText("-"+String.format("%.1f", delta));
                                         }
@@ -422,6 +431,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                     } else if (lostWeight) {
                                         if(delta<0){
                                             deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                        }else if(delta==0){
+                                            deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
+
                                         }else {
                                             deltas.get(index).setText("-"+String.format("%.1f", delta));
                                         }

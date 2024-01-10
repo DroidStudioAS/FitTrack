@@ -102,6 +102,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:background="@drawable/noutrition_service_drawable"
+      android:visibility="gone"
       app:layout_constraintCircle="@id/imageView2"
       app:layout_constraintCircleAngle="135"
       app:layout_constraintCircleRadius="170dp"
@@ -114,7 +115,7 @@
       android:layout_height="wrap_content"
       android:background="@drawable/weight_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
-      app:layout_constraintCircleAngle="225"
+      app:layout_constraintCircleAngle="180"
       app:layout_constraintCircleRadius="170dp"
       tools:layout_editor_absoluteX="11dp"
       tools:layout_editor_absoluteY="301dp" />
@@ -213,7 +214,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.63" />
+      app:layout_constraintGuide_percent="0.69" />
 
   <TextView
       android:id="@+id/welcomeTv"
