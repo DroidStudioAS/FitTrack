@@ -2,10 +2,14 @@ package com.aa.fittracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,6 +97,8 @@ ImageView weightButton;
             }
         }
 
+
+
         welcomeTv.setText("Welcome: " + store.getUSERNAME());
         startWeightTv.setText(store.getUserStartWeight() + "KG");
         desiredWeightTv.setText(store.getUserWeightKg() + " KG");
@@ -163,4 +169,5 @@ ImageView weightButton;
             Log.i("Weight Entry Value", x.getWeight_value());
         }
     }
+
 }
