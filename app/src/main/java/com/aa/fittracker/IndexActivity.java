@@ -23,6 +23,7 @@ import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.presentation.MenuItem;
+import com.aa.fittracker.trainingservice.TrainingActivity;
 import com.aa.fittracker.trainingservice.TrainingsIndex;
 import com.google.gson.Gson;
 
@@ -150,7 +151,7 @@ ConstraintLayout root;
         trainingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), TrainingsIndex.class);
+                Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
                 startActivity(intent);
             }
         });
