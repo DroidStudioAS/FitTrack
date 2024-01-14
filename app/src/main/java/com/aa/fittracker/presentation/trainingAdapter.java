@@ -98,11 +98,11 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
     public int getColor(int difficulty) {
         switch (difficulty) {
             case 1:
-                return Color.rgb(0, 150, 136);
+                return Color.parseColor("#43C3DD"); // easy_green
             case 2:
-                return Color.rgb(255, 235, 59);
+                return Color.parseColor("#FFD230"); // mid_yellow
             case 3:
-                return Color.rgb(244, 67, 54);
+                return Color.parseColor("#800080"); // hard_red
             default:
                 return Color.WHITE;
         }

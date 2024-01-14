@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.67" />
+        app:layout_constraintGuide_percent="0.7" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trainingList"
@@ -173,17 +173,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
 
-    <Button
-        android:id="@+id/deleteTrigger"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/icon_action_delete"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/showNameTv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/showNameTv" />
-
-    <Button
+    <ImageView
         android:id="@+id/editTrigger"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -193,12 +183,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/showNameTv" />
 
-    <Button
+    <ImageView
         android:id="@+id/patchTrigger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/icon_action_add"
-        android:textSize="12sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -212,5 +201,14 @@
         app:layout_constraintEnd_toEndOf="@+id/searchET"
         app:layout_constraintStart_toStartOf="@+id/searchET"
         app:layout_constraintTop_toBottomOf="@+id/searchET" />
+
+    <ImageView
+        android:id="@+id/deleteTrigger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:src="@drawable/icon_action_delete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

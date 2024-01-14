@@ -26,7 +26,8 @@ import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.presentation.CalendarAdapter;
-import com.aa.fittracker.trainingservice.AddTrainingActivity;
+//import com.aa.fittracker.trainingservice.AddTrainingActivity;
+import com.aa.fittracker.trainingservice.TrainingActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -161,7 +162,7 @@ public class InputDialog extends Dialog {
                             Snackbar.make(v,"You Have No Trainings... Add Some?",Snackbar.LENGTH_INDEFINITE).setAction("Go", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    getContext().startActivity(new Intent(getContext(),AddTrainingActivity.class));
+                                    getContext().startActivity(new Intent(getContext(), TrainingActivity.class));
                                 }
                             }).show();
                             return;

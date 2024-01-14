@@ -3,17 +3,10 @@ package com.aa.fittracker;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,9 +15,7 @@ import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
-import com.aa.fittracker.presentation.MenuItem;
 import com.aa.fittracker.trainingservice.TrainingActivity;
-import com.aa.fittracker.trainingservice.TrainingsIndex;
 import com.google.gson.Gson;
 
 import java.io.IOException;

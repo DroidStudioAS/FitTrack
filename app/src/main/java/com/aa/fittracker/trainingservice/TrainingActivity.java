@@ -34,4 +34,7 @@ public class TrainingActivity extends AppCompatActivity {
         vPager.setAdapter(adapter);
         tl.setupWithViewPager(vPager);
     }
+    public void setCurrentPosition(int pos){
+        vPager.setCurrentItem(pos);
+    }
 }
