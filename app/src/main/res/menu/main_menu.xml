@@ -2,7 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item android:title="Breakdown"
-    app:showAsAction="always"></item>
+    app:showAsAction="always"
+    android:icon="@drawable/icon_menu_mb"></item>
     <item android:title="Help"
+        android:icon="@drawable/icon_menu_help"
         app:showAsAction="always"/>
 </menu>
