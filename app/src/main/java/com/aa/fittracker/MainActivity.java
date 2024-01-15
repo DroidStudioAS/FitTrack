@@ -1,5 +1,6 @@
 package com.aa.fittracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -8,8 +9,10 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
+import com.aa.fittracker.dialog.InfoDialog;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.presentation.pagerAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -20,6 +23,19 @@ public class MainActivity extends AppCompatActivity {
    private pagerAdapter adapter;
    private TabLayout tl;
    private Button trigger;
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.infor:
+                InfoDialog infoDialog = new InfoDialog(this);
+                infoDialog.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

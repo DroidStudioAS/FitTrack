@@ -1,5 +1,6 @@
 package com.aa.fittracker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -8,11 +9,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aa.fittracker.dialog.InfoDialog;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
@@ -43,6 +46,19 @@ ImageView noutritionButton;
 ImageView weightButton;
 
 ConstraintLayout root;
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.infor:
+                InfoDialog dialogInfo = new InfoDialog(this);
+                dialogInfo.show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

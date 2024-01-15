@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.dialog.DeleteDialog;
+import com.aa.fittracker.dialog.InfoDialog;
 import com.aa.fittracker.dialog.InputDialog;
 import com.aa.fittracker.dialog.MonthlyBreakdownDialog;
 import com.aa.fittracker.fragments.BottomFragment;
@@ -108,6 +109,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
                 return true;
             case R.id.help:
+                InfoDialog infoDialog = new InfoDialog(this);
+                infoDialog.show();
                 return true;
 
             default:
