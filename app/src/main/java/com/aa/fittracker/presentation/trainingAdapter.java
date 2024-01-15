@@ -54,6 +54,7 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
         TextView[] tv = new TextView[]{tv1, tv2, tv3};
 
         for (TextView x : tv) {
+            x.setTextColor(Color.WHITE);
             // Create a shape drawable with rounded corners and black stroke
             GradientDrawable shapeDrawable = new GradientDrawable();
             shapeDrawable.setShape(GradientDrawable.RECTANGLE);

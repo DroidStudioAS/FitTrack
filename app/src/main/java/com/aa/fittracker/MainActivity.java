@@ -1,11 +1,13 @@
 package com.aa.fittracker;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 
 import com.aa.fittracker.network.networkHelper;
@@ -18,7 +20,16 @@ public class MainActivity extends AppCompatActivity {
    private pagerAdapter adapter;
    private TabLayout tl;
    private Button trigger;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     /*************UI ELEMENTS DECLERATION*************/
+
+
 
 
     @Override
@@ -39,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
         vPager.setAdapter(adapter);
         tl.setupWithViewPager(vPager);
 
+
+        // Set up ActionBar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Fit Tracker");
+        }
 
     }
 }

@@ -1,11 +1,13 @@
 package com.aa.fittracker;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +45,12 @@ ImageView weightButton;
 ConstraintLayout root;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
@@ -57,6 +65,12 @@ ConstraintLayout root;
         trainingsButton =(ImageView) findViewById(R.id.button2);
         weightButton =(ImageView) findViewById(R.id.button3);
         noutritionButton =(ImageView) findViewById(R.id.button4);
+        /***********ActionBar*************/
+        ActionBar ab = getSupportActionBar();
+        if(ab!=null){
+            ab.setDisplayShowHomeEnabled(true);
+            ab.setTitle("Fit Tracker");
+        }
 
         /****************Network Block******************/
         client=new OkHttpClient();

@@ -302,6 +302,8 @@ public class InputDialog extends Dialog {
         restDayLabel.setVisibility(View.INVISIBLE);
         plannedRestSwitch.setVisibility(View.INVISIBLE);
         unplannedRestSwitch.setVisibility(View.INVISIBLE);
+        plannedLabel.setVisibility(View.INVISIBLE);
+        unplannedLabel.setVisibility(View.INVISIBLE);
     }
 
     @Override
