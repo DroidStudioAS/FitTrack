@@ -52,6 +52,7 @@ ConstraintLayout root;
         switch (item.getItemId()){
             case R.id.infor:
                 InfoDialog dialogInfo = new InfoDialog(this);
+                dialogInfo.setOpenedFrom("index");
                 dialogInfo.show();
                 return true;
             default:

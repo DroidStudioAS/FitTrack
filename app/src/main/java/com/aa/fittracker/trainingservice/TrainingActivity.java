@@ -28,6 +28,7 @@ public class TrainingActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.infor:
                 InfoDialog infoDialog = new InfoDialog(this);
+                infoDialog.setOpenedFrom("TA");
                 infoDialog.show();
                 return true;
             default:

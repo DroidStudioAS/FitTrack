@@ -110,6 +110,13 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                 return true;
             case R.id.help:
                 InfoDialog infoDialog = new InfoDialog(this);
+                switch (store.getUserMode()){
+                    case "journal":
+                        infoDialog.setOpenedFrom("journal");
+                        break;
+                    case "weight":
+                        infoDialog.setOpenedFrom("weight");
+                }
                 infoDialog.show();
                 return true;
 
