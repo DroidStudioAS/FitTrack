@@ -48,7 +48,7 @@ public class InputDialog extends Dialog {
     TextView plannedLabel;
     TextView unplannedLabel ;
 
-    Button confirmTrigger;
+    ImageView confirmTrigger;
 
     Button plannedRestSwitch;
     Button unplannedRestSwitch;
@@ -117,7 +117,7 @@ public class InputDialog extends Dialog {
 
         spinner=(Spinner) findViewById(R.id.trainingSpinner);
 
-        confirmTrigger=(Button) findViewById(R.id.inputTrigger);
+        confirmTrigger=(ImageView) findViewById(R.id.inputTrigger);
         confirmTrigger.setVisibility(View.VISIBLE);
         plannedRestSwitch=(Button)findViewById(R.id.planedRest);
         unplannedRestSwitch=(Button)findViewById(R.id.unplanedRest);
