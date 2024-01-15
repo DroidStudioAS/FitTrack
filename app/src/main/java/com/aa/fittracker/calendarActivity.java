@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.aa.fittracker.dialog.DeleteDialog;
 import com.aa.fittracker.dialog.InputDialog;
+import com.aa.fittracker.dialog.MonthlyBreakdownDialog;
 import com.aa.fittracker.fragments.BottomFragment;
 import com.aa.fittracker.fragments.calendarFragment;
 import com.aa.fittracker.logic.DateParser;
@@ -93,6 +94,11 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                  for(Map.Entry<String,String> entry : monthCount.entrySet()){
                      Log.i("mbCount",entry.getKey() + entry.getValue());
                  }
+                MonthlyBreakdownDialog mbd = new MonthlyBreakdownDialog(this);
+                 mbd.setCancelable(false);
+                 mbd.setToSet(monthCount);
+                 mbd.show();
+
                  if(monthBreakdown.size()==0){
                      //no date in focus
                  }
