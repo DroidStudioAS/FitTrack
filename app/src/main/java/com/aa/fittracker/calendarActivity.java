@@ -3,6 +3,7 @@ package com.aa.fittracker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.service.autofill.FillEventHistory;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -71,6 +73,12 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -78,6 +86,11 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
         clickCount = 0;
 
+        /*****Action Bar*******/
+        ActionBar ab = getSupportActionBar();
+        if(ab!=null){
+            ab.setTitle("Fit Journal");
+        }
 
         /*******************Ui Initializations**********************/
         infoLabel = (TextView) findViewById(R.id.infoLabel);
