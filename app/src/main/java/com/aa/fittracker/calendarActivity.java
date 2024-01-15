@@ -94,10 +94,12 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                  for(Map.Entry<String,String> entry : monthCount.entrySet()){
                      Log.i("mbCount",entry.getKey() + entry.getValue());
                  }
-                MonthlyBreakdownDialog mbd = new MonthlyBreakdownDialog(this);
-                 mbd.setCancelable(false);
-                 mbd.setToSet(monthCount);
-                 mbd.show();
+                 if(monthCount.size()!=0) {
+                     MonthlyBreakdownDialog mbd = new MonthlyBreakdownDialog(this);
+                     mbd.setCancelable(false);
+                     mbd.setToSet(monthCount);
+                     mbd.show();
+                 }
 
                  if(monthBreakdown.size()==0){
                      //no date in focus

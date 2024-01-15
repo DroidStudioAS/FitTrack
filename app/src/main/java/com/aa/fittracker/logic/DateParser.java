@@ -353,6 +353,10 @@ public class DateParser {
         int perfectCount=0;
 
         HashMap<String, String> toReturn = new HashMap<>();
+        if(store.getDateInFocus().equals("")){
+            return toReturn;
+        }
+
         int daysInMonth = getDaysInMonth(Integer.parseInt(store.getDateInFocus().split("-")[1]), Integer.parseInt(store.getDateInFocus().split("-")[0]));
         int missingDays = daysInMonth-listToCount.size();
         Log.i("Missing data for", String.valueOf(missingDays));
