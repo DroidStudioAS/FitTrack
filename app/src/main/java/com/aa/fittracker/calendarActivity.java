@@ -17,6 +17,7 @@ import android.service.autofill.FillEventHistory;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -28,12 +29,16 @@ import com.aa.fittracker.dialog.DeleteDialog;
 import com.aa.fittracker.dialog.InputDialog;
 import com.aa.fittracker.fragments.BottomFragment;
 import com.aa.fittracker.fragments.calendarFragment;
+import com.aa.fittracker.logic.DateParser;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import kotlin.reflect.KFunction;
@@ -76,6 +81,32 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mb:
+                //LIST TO COUNT:
+                 ArrayList<String> monthBreakdown = DateParser.monthBreakdown();
+                 HashMap<String,String> monthCount = DateParser.monthBreakdownCounter(monthBreakdown);
+                 for(Map.Entry<String,String> entry : monthCount.entrySet()){
+                     Log.i("mbCount",entry.getKey() + entry.getValue());
+                 }
+                 if(monthBreakdown.size()==0){
+                     //no date in focus
+                 }
+                 //
+
+                return true;
+            case R.id.help:
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+
+        }
     }
 
     @Override

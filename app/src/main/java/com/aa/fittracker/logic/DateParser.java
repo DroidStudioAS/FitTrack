@@ -2,6 +2,7 @@ package com.aa.fittracker.logic;
 
 import android.util.Log;
 
+import com.aa.fittracker.models.Training;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 
@@ -296,6 +297,139 @@ public class DateParser {
         }
 
         return last7Days;
+    }
+    public static ArrayList<String> monthBreakdown(){
+        ArrayList<String> toReturn = new ArrayList<>();
+        String lookingFor = "";
+        if(!store.getDateInFocus().equals("")) {
+            String yearInFocus = store.getDateInFocus().split("-")[0];
+            String monthInFocus = store.getDateInFocus().split("-")[1];
+            Log.i("Month In Focus: ", monthInFocus);
+            Log.i("Year In Focus", yearInFocus);
+
+            switch (store.getUserMode()){
+                case "journal":
+                    lookingFor=("j");
+                    break;
+                case "weight":
+                    lookingFor="w";
+            }
+            if(lookingFor.equals("j")){
+                for(TrainingEntry trainingEntry : store.getTrainingEntries()){
+                   String [] splitDate = trainingEntry.getTraining_date().split("-");
+                   if(splitDate[0].equals(yearInFocus) && splitDate[1].equals(monthInFocus)){
+                       //FOUND
+                       toReturn.add(trainingEntry.getTraining_date() + " : " + trainingEntry.getTraining_name());
+                       }
+
+                   }
+                } else if(lookingFor.equals("w")){
+                for(WeightEntry weightEntry : store.getWeightEntries()){
+                    String [] splitDate = weightEntry.getWeight_date().split("-");
+                    if(splitDate[0].equals(yearInFocus) && splitDate[1].equals(monthInFocus)){
+                        //FOUND
+                        toReturn.add(weightEntry.getWeight_date() + " : " + weightEntry.getWeight_value());
+                    }
+                }
+            }
+
+        }
+
+        for(String x : toReturn){
+            Log.i("mb : " , x);
+        }
+        return toReturn;
+    }
+    public static HashMap<String, String> monthBreakdownCounter(ArrayList<String> listToCount){
+        /*******Training vars*****/
+        int eazyCount = 0;
+        int midCount = 0;
+        int hardCount = 0;
+        int totalRestCount = 0;
+        int plannedRestCount = 0;
+        /*******Weight Vars********/
+        int goodChangeCount = 0;
+        int badChangeCount =0;
+        int perfectCount=0;
+
+        HashMap<String, String> toReturn = new HashMap<>();
+        int daysInMonth = getDaysInMonth(Integer.parseInt(store.getDateInFocus().split("-")[1]), Integer.parseInt(store.getDateInFocus().split("-")[0]));
+        int missingDays = daysInMonth-listToCount.size();
+        Log.i("Missing data for", String.valueOf(missingDays));
+        toReturn.put("missing: " , String.valueOf(missingDays));
+        switch (store.getUserMode()){
+            case "journal":
+                //get num of missing days
+
+                //Count Out The Monthly Preformance
+                for(String x : listToCount){
+                    if(x.contains("REST DAY") || x.contains("SKIPPED DAY")){
+                        totalRestCount+=1;
+                        if(x.contains("REST DAY")){
+                            plannedRestCount+=1;
+                        }
+                    }
+                    for(Training y : store.getUserTrainings()){
+                        if(x.contains(y.getTraining_name())){
+                            if(y.getTraining_difficulty()==1){
+                                eazyCount+=1;
+                            }else if(y.getTraining_difficulty()==2){
+                                midCount+=1;
+                            }else if(y.getTraining_difficulty()==3){
+                                hardCount+=1;
+                            }
+                        }
+                    }
+                }
+                toReturn.put("eazy: " , String.valueOf(eazyCount));
+                toReturn.put("mid: " , String.valueOf(midCount));
+                toReturn.put("hard: " , String.valueOf(hardCount));
+                toReturn.put("totalR: ", String.valueOf(totalRestCount));
+                toReturn.put("plannedR: ", String.valueOf(plannedRestCount));
+
+                break;
+            case "weight":
+                int startWeight = Integer.parseInt(store.getUserStartWeight());
+                for(String x : listToCount) {
+                    Double weightOnDate = Double.parseDouble(x.split(":")[1]);
+                    for (WeightEntry z : store.getWeightEntries()) {
+                        if (x.contains(z.getWeight_date())) {
+                            double delta = weightOnDate - startWeight;
+                            switch (store.getUserWeightGoal()) {
+                                case "+":
+                                    if (weightOnDate == Double.parseDouble(store.getUserWeightKg())) {
+                                        perfectCount += 1;
+                                    } else if (delta > 0) {
+                                        goodChangeCount += 1;
+                                    } else if (delta <= 0) {
+                                        badChangeCount += 1;
+                                    }
+                                    break;
+                                case "-":
+                                    if (weightOnDate == Double.parseDouble(store.getUserWeightKg())) {
+                                        perfectCount += 1;
+                                    } else if (delta >= 0) {
+                                        badChangeCount += 1;
+                                    } else if (delta < 0) {
+                                        goodChangeCount += 1;
+                                    }
+                                    break;
+                            }
+
+                        }
+                    }
+                }
+                toReturn.put("perfect", String.valueOf(perfectCount));
+                toReturn.put("good", String.valueOf(goodChangeCount));
+                toReturn.put("bad", String.valueOf(badChangeCount));
+
+
+
+
+                break;
+        }
+
+        return toReturn;
     }
 
 }
