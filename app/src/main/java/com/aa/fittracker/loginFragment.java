@@ -11,11 +11,14 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Vibrator;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +44,8 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
     OkHttpClient client;
 
     Vibrator vibrator;
+
+    CheckBox showPass;
 
     View view;
 
@@ -70,7 +75,18 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
         usernameEt=(EditText) view.findViewById(R.id.usernameEt);
         passwordEt =(EditText) view.findViewById(R.id.passwordEt);
         trigger = (Button) view.findViewById(R.id.trigger);
+        showPass = (CheckBox)view.findViewById(R.id.showPassword);
         client = new OkHttpClient();
+        showPass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    passwordEt.setTransformationMethod(null);
+                }else{
+                    passwordEt.setTransformationMethod(new PasswordTransformationMethod());
+                }
+            }
+        });
         trigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
