@@ -6,11 +6,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -37,6 +40,8 @@ public class RegisterFragment extends Fragment {
 
     OkHttpClient client;
 
+    CheckBox showPass;
+
 
 
     public RegisterFragment() {
@@ -56,6 +61,17 @@ public class RegisterFragment extends Fragment {
         currentKgEt=view.findViewById(R.id.kgET2);
 
         trigger = view.findViewById(R.id.registerTrigger);
+        showPass=(CheckBox)view.findViewById(R.id.showPass);
+        showPass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    PasswordET.setTransformationMethod(null);
+                }else {
+                    PasswordET.setTransformationMethod(new PasswordTransformationMethod());
+                }
+            }
+        });
 
 
         client=new OkHttpClient();
