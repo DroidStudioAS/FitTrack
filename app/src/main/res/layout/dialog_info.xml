@@ -26,7 +26,7 @@
         android:id="@+id/trainingJournalExpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="14dp"
+        android:layout_margin="20dp"
         android:text="•Training Journal"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -38,7 +38,7 @@
         android:id="@+id/weightJournalExpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="14dp"
+        android:layout_margin="20dp"
         android:text="•Weight Journal"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -50,7 +50,7 @@
         android:id="@+id/trainingsExpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="14dp"
+        android:layout_margin="20dp"
         android:text="•Trainings"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -477,4 +477,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_dialog" />
+
+    <ImageView
+        android:id="@+id/imageView34"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/trainingsExpButton"
+        app:layout_constraintStart_toEndOf="@+id/trainingsExpButton"
+        app:layout_constraintTop_toTopOf="@+id/trainingsExpButton"
+        app:srcCompat="@drawable/training_service_drawable" />
+
+    <ImageView
+        android:id="@+id/imageView35"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/weightJournalExpButton"
+        app:layout_constraintStart_toEndOf="@+id/weightJournalExpButton"
+        app:layout_constraintTop_toTopOf="@+id/weightJournalExpButton"
+        app:srcCompat="@drawable/weight_service_drawable" />
+
+    <ImageView
+        android:id="@+id/imageView36"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/trainingJournalExpButton"
+        app:layout_constraintStart_toEndOf="@+id/trainingJournalExpButton"
+        app:layout_constraintTop_toTopOf="@+id/trainingJournalExpButton"
+        app:srcCompat="@drawable/journal_service_drawable" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
