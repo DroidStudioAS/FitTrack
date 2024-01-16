@@ -145,14 +145,14 @@
         android:id="@+id/trainingGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:constraint_referenced_ids="textView27,textView29,textView30,imageView4,imageView5,imageView6,trainingPageExp" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/tjGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:constraint_referenced_ids="imageView7,imageView8,textView33,textView32,textView34,textView35,imageView9,imageView13,imageView10,imageView12,textView36,textView39,textView40,textView38,imageView14,scrollView4,textView37,scrollView5" />
 
     <ScrollView
@@ -405,7 +405,7 @@
         android:id="@+id/wjGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:constraint_referenced_ids="textView61,textView60,imageView30,imageView29,imageView31,textView59,textView52,imageView25,imageView24,textView57,textView53,textView55" />
 
     <ImageView

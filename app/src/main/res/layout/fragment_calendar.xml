@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:eventsEnabled="true"
-        app:headerColor="#676767"
+        app:headerColor="@color/third"
         app:headerLabelColor="#fff"
-        app:selectionColor="#676767"
+        app:selectionColor="@color/third"
         app:type="one_day_picker" />
 
 
