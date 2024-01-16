@@ -5,12 +5,19 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.animation.PropertyValuesHolder;
+import android.graphics.Path;
+
+
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +31,7 @@ import com.aa.fittracker.trainingservice.TrainingActivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,9 +51,14 @@ TextView welcomeTv;
 ImageView journalButton;
 ImageView trainingsButton;
 ImageView noutritionButton;
-ImageView weightButton;
+    ImageView weightButton;
+    ImageView[] imageViews = {journalButton, trainingsButton, weightButton};
+ImageView imageView2;
 
 ConstraintLayout root;
+
+float beginingx;
+float beginingy;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -82,6 +95,7 @@ ConstraintLayout root;
         trainingsButton =(ImageView) findViewById(R.id.button2);
         weightButton =(ImageView) findViewById(R.id.button3);
         noutritionButton =(ImageView) findViewById(R.id.button4);
+        imageView2=(ImageView)findViewById(R.id.imageView2);
         /***********ActionBar*************/
         ActionBar ab = getSupportActionBar();
         if(ab!=null){
@@ -117,6 +131,7 @@ ConstraintLayout root;
 
         Intent intent = new Intent(this,calendarActivity.class);
 
+
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH) + 1;
         String dateTodaycalendar = calendar.get(Calendar.YEAR) + "-" +month + "-" + calendar.get(Calendar.DAY_OF_MONTH);
@@ -142,6 +157,9 @@ ConstraintLayout root;
        /* journalButton.setVisibility(View.GONE);
         weightButton.setVisibility(View.GONE);
         trainingsButton.setVisibility(View.GONE);*/
+
+        beginingx=journalButton.getX();
+        beginingy=journalButton.getY();
 
         journalButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +198,12 @@ ConstraintLayout root;
         Logger();
 
 
+            fadeUsername();
+            fadeIn(journalButton);
+            fadeIn(weightButton);
+            fadeIn(trainingsButton);
+
+
     }
     public void userWeightModeActivate(){
         /*************Fetch users weight logs****************/
@@ -210,5 +234,56 @@ ConstraintLayout root;
             Log.i("Weight Entry Value", x.getWeight_value());
         }
     }
+    private float angle = 0.0f; // Initialize the angle
+    private ObjectAnimator orbitAnimator;
 
+   /*
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_UP:
+                float centerX = imageView2.getX() + imageView2.getWidth() / 2;
+                float centerY = imageView2.getY() + imageView2.getHeight() / 2;
+
+                float x = event.getX();
+                float y = event.getY();
+
+                float distanceX = x - centerX;
+                float distanceY = y - centerY;
+
+                float radius = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+                float startAngle = (float) Math.toDegrees(Math.atan2(distanceY, distanceX));
+                float endAngle = startAngle + 360; // One full rotation
+
+                orbitAnimator = ObjectAnimator.ofFloat(journalButton, "translationX", "translationY", getPathMotionPath(centerX, centerY, radius, startAngle, endAngle));
+                orbitAnimator.setDuration(2000); // Set the duration of the animation in milliseconds
+                orbitAnimator.setInterpolator(new LinearInterpolator());
+                orbitAnimator.start();
+
+                return true;
+            default:
+                return super.onTouchEvent(event);
+        }
+    }
+    private Path getPathMotionPath(float centerX, float centerY, float radius, float startAngle, float endAngle) {
+        Path path = new Path();
+        float startX = beginingx;
+        float startY = beginingy;
+
+        path.moveTo(startX, startY);
+        path.addArc(centerX - radius, centerY - radius, centerX + radius, centerY + radius, startAngle, endAngle - startAngle);
+        return path;
+    }*/
+    public void fadeIn(ImageView element){
+        ObjectAnimator fadeAnimator = ObjectAnimator.ofFloat(element,View.ALPHA,0f,1f);
+        fadeAnimator.setDuration(1500);
+        fadeAnimator.setStartDelay(500);
+        fadeAnimator.start();
+    }
+    public void fadeUsername(){
+        ObjectAnimator fadeAnimator = ObjectAnimator.ofFloat(welcomeTv,View.ALPHA,0f,1f);
+        fadeAnimator.setDuration(1000);
+        fadeAnimator.start();
+    }
 }

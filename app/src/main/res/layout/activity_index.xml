@@ -78,8 +78,9 @@
       android:id="@+id/button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@drawable/journal_service_drawable"
+      android:alpha="0"
 
+      android:background="@drawable/journal_service_drawable"
       app:layout_constraintBottom_toTopOf="@+id/imageView2"
       app:layout_constraintCircle="@id/imageView2"
       app:layout_constraintCircleAngle="315"
@@ -92,6 +93,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
 
+      android:alpha="0"
       android:background="@drawable/training_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
       app:layout_constraintCircleAngle="45"
@@ -115,6 +117,7 @@
       android:id="@+id/button3"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:alpha="0"
       android:background="@drawable/weight_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
       app:layout_constraintCircleAngle="180"
