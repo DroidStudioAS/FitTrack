@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.dialog.InfoDialog;
+import com.aa.fittracker.logic.NotificationReceiver;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
@@ -41,6 +42,7 @@ import okhttp3.OkHttpClient;
 public class IndexActivity extends AppCompatActivity {
 OkHttpClient client;
 OkHttpClient clientel;
+NotificationReceiver notificationReceiver;
 
 TextView desiredWeightTv;
 TextView currentWeightTv;
@@ -84,6 +86,7 @@ float beginingy;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+        notificationReceiver = new NotificationReceiver();
         /******************UI initializations***********************/
         root=(ConstraintLayout)findViewById(R.id.root);
         currentWeightTv=(TextView)findViewById(R.id.CurrentWeightTv);
@@ -198,12 +201,12 @@ float beginingy;
         Logger();
 
 
-            fadeUsername();
-            fadeIn(journalButton);
-            fadeIn(weightButton);
-            fadeIn(trainingsButton);
+        fadeUsername();
+        fadeIn(journalButton);
+        fadeIn(weightButton);
+        fadeIn(trainingsButton);
 
-
+        notificationReceiver.sendCustomNotification(this,"Help Us Grow","This App Is Developed And Maintained By A Single Developer. Donate On Paypal To Allow Us To Create A Better User Expirience!", "Donate");
     }
     public void userWeightModeActivate(){
         /*************Fetch users weight logs****************/
@@ -237,44 +240,7 @@ float beginingy;
     private float angle = 0.0f; // Initialize the angle
     private ObjectAnimator orbitAnimator;
 
-   /*
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_UP:
-                float centerX = imageView2.getX() + imageView2.getWidth() / 2;
-                float centerY = imageView2.getY() + imageView2.getHeight() / 2;
 
-                float x = event.getX();
-                float y = event.getY();
-
-                float distanceX = x - centerX;
-                float distanceY = y - centerY;
-
-                float radius = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-
-                float startAngle = (float) Math.toDegrees(Math.atan2(distanceY, distanceX));
-                float endAngle = startAngle + 360; // One full rotation
-
-                orbitAnimator = ObjectAnimator.ofFloat(journalButton, "translationX", "translationY", getPathMotionPath(centerX, centerY, radius, startAngle, endAngle));
-                orbitAnimator.setDuration(2000); // Set the duration of the animation in milliseconds
-                orbitAnimator.setInterpolator(new LinearInterpolator());
-                orbitAnimator.start();
-
-                return true;
-            default:
-                return super.onTouchEvent(event);
-        }
-    }
-    private Path getPathMotionPath(float centerX, float centerY, float radius, float startAngle, float endAngle) {
-        Path path = new Path();
-        float startX = beginingx;
-        float startY = beginingy;
-
-        path.moveTo(startX, startY);
-        path.addArc(centerX - radius, centerY - radius, centerX + radius, centerY + radius, startAngle, endAngle - startAngle);
-        return path;
-    }*/
     public void fadeIn(ImageView element){
         ObjectAnimator fadeAnimator = ObjectAnimator.ofFloat(element,View.ALPHA,0f,1f);
         fadeAnimator.setDuration(1500);
