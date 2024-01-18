@@ -89,6 +89,7 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         Intent incoming= getActivity().getIntent();
 
 
+
         browseRoot=(ConstraintLayout)view.findViewById(R.id.browseRoot);
         searchEt = (EditText)view.findViewById(R.id.searchET);
         editDescET=(EditText)view.findViewById(R.id.editDescET);
@@ -117,11 +118,12 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         localList = store.getUserTrainings();
         //CAUSES RUNTIME ERRORS
         if (localList.isEmpty()) {
-            if(!incoming.getStringExtra("status").equals("1")){
-                promptDialog pd = new promptDialog(ta);
-                pd.show();
-                pd.noTrainingsPrompt(0);
-            }
+                if (!incoming.hasExtra("status")) {
+                    promptDialog pd = new promptDialog(ta);
+                    pd.show();
+                    pd.noTrainingsPrompt(0);
+                }
+
         }
         /**************RV Configuration*******************/
         adapter = new trainingAdapter(localList, getContext());
@@ -259,17 +261,17 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
                  3) IS USER SURE HE WANTS TO MAKE CHANGES? **/
 
                 /*******************Check if any data has been changed or if name is in use**********************/
-                Log.i("Validation", "Validation failed, returning...");
-                Log.i("Validation, newName", newName);
-                Log.i("Validation, oldName", store.getTrainingInFocus().getTraining_name());
-                Log.i("Validation, newDesc", newDesc);
-                Log.i("Validation, oldDesc", store.getTrainingInFocus().getTraining_desc());
-                Log.i("Validation, newDiff", newDiff);
-                Log.i("Validation, oldDiff", String.valueOf(store.getTrainingInFocus().getTraining_difficulty()));
-                Log.i("Validation, TrainingInFocusName", store.getTrainingInFocus().getTraining_name());
-                Log.i("Validation, TrainingInFocusDesc", store.getTrainingInFocus().getTraining_desc());
-                Log.i("Validation, TrainingInFocusDiff", String.valueOf(store.getTrainingInFocus().getTraining_difficulty()));
-                Log.i("Validation, Contains name", String.valueOf(store.containsName(newName)));
+             //  Log.i("Validation", "Validation failed, returning...");
+             //  Log.i("Validation, newName", newName);
+             //  Log.i("Validation, oldName", store.getTrainingInFocus().getTraining_name());
+             //  Log.i("Validation, newDesc", newDesc);
+             //  Log.i("Validation, oldDesc", store.getTrainingInFocus().getTraining_desc());
+             //  Log.i("Validation, newDiff", newDiff);
+             //  Log.i("Validation, oldDiff", String.valueOf(store.getTrainingInFocus().getTraining_difficulty()));
+             //  Log.i("Validation, TrainingInFocusName", store.getTrainingInFocus().getTraining_name());
+             //  Log.i("Validation, TrainingInFocusDesc", store.getTrainingInFocus().getTraining_desc());
+             //  Log.i("Validation, TrainingInFocusDiff", String.valueOf(store.getTrainingInFocus().getTraining_difficulty()));
+             //  Log.i("Validation, Contains name", String.valueOf(store.containsName(newName)));
                 if(     //Check if any changes are made
                         (newName.toLowerCase(Locale.ROOT).equals(store.getTrainingInFocus().getTraining_name().toLowerCase(Locale.ROOT))
                                 && newDesc.toLowerCase(Locale.ROOT).equals(store.getTrainingInFocus().getTraining_desc().toLowerCase(Locale.ROOT))

@@ -59,4 +59,20 @@ public class promptDialog extends Dialog {
             }
         });
     }
+    public void trainingAddedPrompt(){
+        userPromptTv.setText("Success. Check Trainings?");
+        yesBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TrainingActivity.setCurrentPosition(1);
+                dismiss();
+            }
+        });
+        noBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+    }
 }

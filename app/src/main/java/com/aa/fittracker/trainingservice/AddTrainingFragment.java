@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.aa.fittracker.R;
+import com.aa.fittracker.dialog.promptDialog;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.network.networkHelper;
@@ -135,16 +136,10 @@ public class AddTrainingFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Snackbar snackbar = Snackbar.make(v,"Success. Check Trainings?",Snackbar.LENGTH_LONG);
-                snackbar.setAction("Go", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ta.setCurrentPosition(1);
-                    }
 
-                });
-
-                snackbar.show();
+                promptDialog pd = new promptDialog(getContext());
+                pd.show();
+                pd.trainingAddedPrompt();
 
                 Log.i("desc", trainingDesc.trim());
 
