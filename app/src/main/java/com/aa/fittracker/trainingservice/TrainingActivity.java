@@ -19,7 +19,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class TrainingActivity extends AppCompatActivity {
 
-    private ViewPager vPager;
+    private static ViewPager vPager;
     private taAdapter adapter;
     private TabLayout tl;
 
@@ -64,7 +64,7 @@ public class TrainingActivity extends AppCompatActivity {
             ab.setTitle("FitTracker");
         }
     }
-    public void setCurrentPosition(int pos){
+    public static void setCurrentPosition(int pos){
         vPager.setCurrentItem(pos);
     }
 }

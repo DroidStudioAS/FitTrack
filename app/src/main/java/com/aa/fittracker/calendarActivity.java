@@ -29,6 +29,7 @@ import com.aa.fittracker.dialog.DeleteDialog;
 import com.aa.fittracker.dialog.InfoDialog;
 import com.aa.fittracker.dialog.InputDialog;
 import com.aa.fittracker.dialog.MonthlyBreakdownDialog;
+import com.aa.fittracker.dialog.promptDialog;
 import com.aa.fittracker.fragments.BottomFragment;
 import com.aa.fittracker.fragments.calendarFragment;
 import com.aa.fittracker.logic.DateParser;
@@ -189,9 +190,18 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         missingInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputDialog inputDialog = new InputDialog(calendarActivity.this, calendarActivity.this);
-                inputDialog.show();
-                missingInfoButton.setVisibility(View.GONE);
+                if(!store.getUserTrainings().isEmpty()) {
+                    InputDialog inputDialog = new InputDialog(calendarActivity.this, calendarActivity.this);
+                    inputDialog.show();
+                    missingInfoButton.setVisibility(View.GONE);
+                }
+                else{
+                    promptDialog pd = new promptDialog(calendarActivity.this);
+                    pd.show();
+                    pd.noTrainingsPrompt(1);
+
+
+                }
             }
         });
         deleteEntryTrigger.setOnClickListener(new View.OnClickListener() {

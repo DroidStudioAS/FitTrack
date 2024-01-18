@@ -1,8 +1,10 @@
 package com.aa.fittracker.trainingservice;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.R;
+import com.aa.fittracker.dialog.promptDialog;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.network.networkHelper;
@@ -39,9 +42,12 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
     trainingAdapter adapter;
     RecyclerView rv;
 
+    ConstraintLayout browseRoot;
 
     TextView nameTv;
     TextView descTv;
+
+    TextView sb;
 
 
     EditText searchEt;
@@ -80,6 +86,10 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         View view = inflater.inflate(R.layout.fragment_browse_trainings, container, false);
         TrainingActivity ta = (TrainingActivity)getActivity();
         /******UI Ref's******/
+        Intent incoming= getActivity().getIntent();
+
+
+        browseRoot=(ConstraintLayout)view.findViewById(R.id.browseRoot);
         searchEt = (EditText)view.findViewById(R.id.searchET);
         editDescET=(EditText)view.findViewById(R.id.editDescET);
         editNameET=(EditText)view.findViewById(R.id.editTitleET);
@@ -105,9 +115,13 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         //fetch user exercises
         clientel = new OkHttpClient();
         localList = store.getUserTrainings();
+        //CAUSES RUNTIME ERRORS
         if (localList.isEmpty()) {
-            Snackbar sb = Snackbar.make(browseView,"You Have No Trainings Entered. Want to Add some?", Snackbar.LENGTH_INDEFINITE);
-            sb.show();
+            if(!incoming.getStringExtra("status").equals("1")){
+                promptDialog pd = new promptDialog(ta);
+                pd.show();
+                pd.noTrainingsPrompt(0);
+            }
         }
         /**************RV Configuration*******************/
         adapter = new trainingAdapter(localList, getContext());
