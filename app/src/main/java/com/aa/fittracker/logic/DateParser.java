@@ -61,20 +61,33 @@ public class DateParser {
 
         // Parse strings into LocalDate objects
         for (String dateString : unsorted) {
-            if(dateString.contains("?")){
-                dateString = dateString;
+            if (dateString.contains("?")) {
+                // Handle the case where the date contains "?"
+                parsedDates.add(null);
+            } else {
+                // Manually parse the date string
+                String[] dateComponents = dateString.split("-");
+                int year = Integer.parseInt(dateComponents[0]);
+                int month = Integer.parseInt(dateComponents[1]);
+                int day = Integer.parseInt(dateComponents[2]);
+
+                // Create a LocalDate object and add it to the list
+                LocalDate date = LocalDate.of(year, month, day);
+                parsedDates.add(date);
             }
-            LocalDate date = LocalDate.parse(dateString);
-            parsedDates.add(date);
         }
 
-        // Sort the dates
-        parsedDates.sort(Comparator.naturalOrder());
+        // Sort the dates (null values will be placed at the beginning)
+        parsedDates.sort(Comparator.nullsFirst(Comparator.naturalOrder()));
 
         // Convert sorted dates back to strings in the original format
         ArrayList<String> sorted = new ArrayList<>();
         for (LocalDate date : parsedDates) {
-            sorted.add(date.toString());
+            if (date == null) {
+                sorted.add("?");
+            } else {
+                sorted.add(date.toString());
+            }
         }
 
         return sorted;
