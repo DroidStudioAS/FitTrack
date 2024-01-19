@@ -37,6 +37,7 @@ public class MonthlyBreakdownDialog extends Dialog {
     }
 
     TextView breakdownTitleTv;
+    TextView yearTv;
     TextView breakdownTv0;
     TextView breakdownTv1;
     TextView breakdownTv2;
@@ -56,6 +57,7 @@ public class MonthlyBreakdownDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_mb);
 
+        yearTv=(TextView)findViewById(R.id.Year);
         breakdownTitleTv = (TextView) findViewById(R.id.breakdownTitleTv);
         breakdownTv0 = (TextView) findViewById(R.id.breakdownTv0);
         breakdownTv1 =(TextView) findViewById(R.id.breakdwonTv1);
@@ -76,11 +78,13 @@ public class MonthlyBreakdownDialog extends Dialog {
         });
     }
     public void setDialog(){
+        String year = store.getDateInFocus().split("-")[0];
         Month month = Month.of(Integer.parseInt(store.getDateInFocus().split("-")[1]));
         Character toCap = Character.toUpperCase(month.toString().charAt(0));
         String title = toCap + month.toString().substring(1,month.toString().length()).toLowerCase(Locale.ROOT) +" " + "Breakdown";
         Log.i("title", title);
         Log.i("target", String.valueOf(breakdownTitleTv));
+        yearTv.setText(year);
         breakdownTitleTv.setText(title);
         for(Map.Entry<String,String> map : toSet.entrySet()){
             CharSequence value = map.getValue();
@@ -89,7 +93,7 @@ public class MonthlyBreakdownDialog extends Dialog {
             // Apply UnderlineSpan
             spannable.setSpan(new UnderlineSpan(), 0, value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-            // Apply ForegroundColorSpan
+            //Set the data for the user
             if (map.getKey().contains("missing")) {
                 breakdownTv0.setText("Missing info for: ");
                 breakdownTv0.append(spannable);
