@@ -3,7 +3,15 @@ package com.aa.fittracker.dialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -75,24 +83,48 @@ public class MonthlyBreakdownDialog extends Dialog {
         Log.i("target", String.valueOf(breakdownTitleTv));
         breakdownTitleTv.setText(title);
         for(Map.Entry<String,String> map : toSet.entrySet()){
-            if(map.getKey().contains("missing")){
-                breakdownTv0.setText("Missing info for : " + map.getValue() + " days");
-            }else if(map.getKey().contains("eazy")){
-                breakdownTv1.setText("Did " + map.getValue() + " Easy Trainings");
-            }else if(map.getKey().contains("mid")){
-                breakdownTv2.setText("Did " + map.getValue() + " Medium Trainings");
-            }else if(map.getKey().contains("hard")){
-                breakdownTv3.setText("Did " + map.getValue() + " Hard Trainings");
-            }else if(map.getKey().contains("total")){
-                breakdownTv4.setText("Rested A Total Of "+ map.getValue() +  " Days");
-            }else if(map.getKey().contains("planned")){
-                breakdownTv5.setText(map.getValue() + " Of Which Were Planned");
-            }else if(map.getKey().contains("perfect")){
-                breakdownTv1.setText("You Were At Your Optimal Weight For " + map.getValue() + " Days");
-            }else if(map.getKey().contains("good")){
-                breakdownTv2.setText("You Made Good Weight Changes " + map.getValue() + " Times");
-            }else if(map.getKey().contains("bad")){
-                breakdownTv3.setText("You Made Bad Weight Changes " + map.getValue() + " Times");
+            CharSequence value = map.getValue();
+            Spannable spannable = new SpannableString(value);
+
+            // Apply UnderlineSpan
+            spannable.setSpan(new UnderlineSpan(), 0, value.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            // Apply ForegroundColorSpan
+            if (map.getKey().contains("missing")) {
+                breakdownTv0.setText("Missing info for: ");
+                breakdownTv0.append(spannable);
+                breakdownTv0.append(" days");
+            } else if (map.getKey().contains("eazy")) {
+                breakdownTv1.setText("Did: ");
+                breakdownTv1.append(spannable);
+                breakdownTv1.append(" Easy Trainings");
+            } else if (map.getKey().contains("mid")) {
+                breakdownTv2.setText("Did: ");
+                breakdownTv2.append(spannable);
+                breakdownTv2.append(" Medium Trainings");
+            } else if (map.getKey().contains("hard")) {
+                breakdownTv3.setText("Did: ");
+                breakdownTv3.append(spannable);
+                breakdownTv3.append(" Hard Trainings");
+            } else if (map.getKey().contains("total")) {
+                breakdownTv4.setText("Rested A Total Of: ");
+                breakdownTv4.append(spannable);
+                breakdownTv4.append(" Days");
+            } else if (map.getKey().contains("planned")) {
+                breakdownTv5.setText(spannable);
+                breakdownTv5.append(" Of Which Were Planned");
+            } else if (map.getKey().contains("perfect")) {
+                breakdownTv1.setText("You Were At Your Optimal Weight For ");
+                breakdownTv1.append(spannable);
+                breakdownTv1.append(" Days");
+            } else if (map.getKey().contains("good")) {
+                breakdownTv2.setText("You Made Good Weight Changes: ");
+                breakdownTv2.append(spannable);
+                breakdownTv2.append(" Times");
+            } else if (map.getKey().contains("bad")) {
+                breakdownTv3.setText("You Made Bad Weight Changes: ");
+                breakdownTv3.append(spannable);
+                breakdownTv3.append(" Times");
             }
         }
 
