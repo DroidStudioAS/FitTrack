@@ -20,12 +20,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.logic.JsonParser;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.AnimationHelper;
+import com.aa.fittracker.presentation.SfxHelper;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -48,6 +51,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
     CheckBox showPass;
 
     View view;
+    ImageView centerpiece;
 
     boolean failed = false;
 
@@ -71,12 +75,14 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
 
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
+        centerpiece=(ImageView)view.findViewById(R.id.imageView);
         failedTv=(TextView)view.findViewById(R.id.FailedTv);
         usernameEt=(EditText) view.findViewById(R.id.usernameEt);
         passwordEt =(EditText) view.findViewById(R.id.passwordEt);
         trigger = (Button) view.findViewById(R.id.trigger);
         showPass = (CheckBox)view.findViewById(R.id.showPassword);
         client = new OkHttpClient();
+
         showPass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -121,7 +127,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                         Intent intent =  new Intent(requireContext(),IndexActivity.class);
                         startActivity(intent);
                     }else{
-                        shakeView(view);
+                        AnimationHelper.shakeView(view);
                         vibrateDevice();
                         failedTv.setVisibility(View.VISIBLE);
                         usernameEt.setTextColor(Color.RED);
@@ -132,6 +138,13 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                 if(store.getServerResponseLogin().contains("!") || store.getServerResponseLogin().contains("No")) {
                     store.setServerResponseLogin("");
                 }
+            }
+        });
+        centerpiece.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationHelper.centerpieceClick(centerpiece);
+                SfxHelper.playBloop(getContext());
             }
         });
         return view;
@@ -153,21 +166,7 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
             vibrator.vibrate(500);
         }
     }
-    public static void shakeView(View view) {
-        // Create ObjectAnimators for translationX
-        ObjectAnimator anim1 = ObjectAnimator.ofFloat(view, "translationX", -20);
-        anim1.setDuration(100);
 
-        ObjectAnimator anim2 = ObjectAnimator.ofFloat(view, "translationX", 20);
-        anim2.setDuration(100);
 
-        ObjectAnimator anim3 = ObjectAnimator.ofFloat(view, "translationX", -10);
-        anim3.setDuration(100);
-
-        // Create an AnimatorSet to play the animations sequentially
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(anim1, anim2, anim3);
-        animatorSet.start();
-    }
 
 }

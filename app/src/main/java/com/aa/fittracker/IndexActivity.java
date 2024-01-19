@@ -1,5 +1,7 @@
 package com.aa.fittracker;
 
+import static com.aa.fittracker.presentation.AnimationHelper.*;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +33,8 @@ import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.AnimationHelper;
+import com.aa.fittracker.presentation.SfxHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
 import com.google.gson.Gson;
 
@@ -207,8 +211,8 @@ float beginingy;
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                centerpieceClick(imageView2);
-                playBloop();
+                AnimationHelper.centerpieceClick(imageView2);
+                SfxHelper.playBloop(getApplicationContext());
             }
         });
 
@@ -216,10 +220,10 @@ float beginingy;
         Logger();
 
 
-        fadeUsername();
-        fadeIn(journalButton);
-        fadeIn(weightButton);
-        fadeIn(trainingsButton);
+        AnimationHelper.fadeUsername(welcomeTv);
+        AnimationHelper.fadeIn(journalButton);
+        AnimationHelper.fadeIn(weightButton);
+        AnimationHelper.fadeIn(trainingsButton);
 
         notificationReceiver.sendCustomNotification(this,"Help Us Grow","This App Is Developed And Maintained By A Single Developer. Donate On Paypal To Allow Us To Create A Better User Expirience!", "Donate");
     }
@@ -252,56 +256,11 @@ float beginingy;
             Log.i("Weight Entry Value", x.getWeight_value());
         }
     }
-    private float angle = 0.0f; // Initialize the angle
-    private ObjectAnimator orbitAnimator;
 
 
-    public void fadeIn(ImageView element){
-        ObjectAnimator fadeAnimator = ObjectAnimator.ofFloat(element,View.ALPHA,0f,1f);
-        fadeAnimator.setDuration(1500);
-        fadeAnimator.setStartDelay(500);
-        fadeAnimator.start();
-    }
-    public void fadeUsername(){
-        ObjectAnimator fadeAnimator = ObjectAnimator.ofFloat(welcomeTv,View.ALPHA,0f,1f);
-        fadeAnimator.setDuration(1000);
-        fadeAnimator.start();
-    }
-    public void centerpieceClick(ImageView view){
-        //size values
-        float startScale = 1.0f;
-        float endScale = 0.95f;
-        int animationDuration = 500;
-        //ObjectAnimators
-        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(view,"scaleX",startScale,endScale);
-        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(view,"scaleY",startScale,endScale);
-        //interpolation's
-        scaleDownX.setInterpolator(new DecelerateInterpolator());
-        scaleDownY.setInterpolator(new DecelerateInterpolator());
-        //set duration
-        scaleDownX.setDuration(animationDuration);
-        scaleDownY.setDuration(animationDuration);
-        //COMBINE INTO 1 ANIMATOR
-        AnimatorSet scale = new AnimatorSet();
-        scale.play(scaleDownX).with(scaleDownY);
-        //scaled down
-        scale.start();
-        //SCALE BACK UP
-        ObjectAnimator scaleUpX = ObjectAnimator.ofFloat(view,"scaleX",endScale,startScale);
-        ObjectAnimator scaleUpY =ObjectAnimator.ofFloat(view,"scaleY",endScale,startScale);
 
-        scaleUpX.setInterpolator(new DecelerateInterpolator());
-        scaleUpX.setDuration(animationDuration);
-        scaleUpY.setInterpolator(new DecelerateInterpolator());
-        scaleUpY.setDuration(animationDuration);
-        AnimatorSet up = new AnimatorSet();
-        up.play(scaleUpX).with(scaleUpY);
-        up.start();
-    }
-    public void playBloop(){
-        if(mp.isPlaying()){
-            mp.stop();
-        }
-        mp.start();
-    }
+
+
+
+
 }

@@ -15,12 +15,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.AnimationHelper;
 import com.aa.fittracker.presentation.CalendarAdapter;
+import com.aa.fittracker.presentation.SfxHelper;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -41,6 +44,7 @@ public class RegisterFragment extends Fragment {
     OkHttpClient client;
 
     CheckBox showPass;
+    ImageView centerpiece;
 
 
 
@@ -59,6 +63,7 @@ public class RegisterFragment extends Fragment {
         PasswordET = view.findViewById(R.id.PasswordET);
         KgET=view.findViewById(R.id.KgET);
         currentKgEt=view.findViewById(R.id.kgET2);
+        centerpiece=view.findViewById(R.id.imageView3);
 
         trigger = view.findViewById(R.id.registerTrigger);
         showPass=(CheckBox)view.findViewById(R.id.showPass);
@@ -132,6 +137,13 @@ public class RegisterFragment extends Fragment {
             }
         });
 
+        centerpiece.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationHelper.centerpieceClick(centerpiece);
+                SfxHelper.playBloop(getContext());
+            }
+        });
 
         return view;
 
