@@ -5,18 +5,21 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.animation.AnimatorSet;
 import android.animation.PropertyValuesHolder;
 import android.graphics.Path;
 
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,11 +56,13 @@ TextView welcomeTv;
 ImageView journalButton;
 ImageView trainingsButton;
 ImageView noutritionButton;
-    ImageView weightButton;
-    ImageView[] imageViews = {journalButton, trainingsButton, weightButton};
+ImageView weightButton;
+ImageView[] imageViews = {journalButton, trainingsButton, weightButton};
 ImageView imageView2;
 
 ConstraintLayout root;
+
+MediaPlayer mp;
 
 float beginingx;
 float beginingy;
@@ -87,6 +92,7 @@ float beginingy;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
         notificationReceiver = new NotificationReceiver();
+        mp = MediaPlayer.create(this,R.raw.bloop);
         /******************UI initializations***********************/
         root=(ConstraintLayout)findViewById(R.id.root);
         currentWeightTv=(TextView)findViewById(R.id.CurrentWeightTv);
@@ -198,6 +204,15 @@ float beginingy;
                 startActivity(intent);
             }
         });
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                centerpieceClick(imageView2);
+                playBloop();
+            }
+        });
+
+
         Logger();
 
 
@@ -251,5 +266,42 @@ float beginingy;
         ObjectAnimator fadeAnimator = ObjectAnimator.ofFloat(welcomeTv,View.ALPHA,0f,1f);
         fadeAnimator.setDuration(1000);
         fadeAnimator.start();
+    }
+    public void centerpieceClick(ImageView view){
+        //size values
+        float startScale = 1.0f;
+        float endScale = 0.95f;
+        int animationDuration = 500;
+        //ObjectAnimators
+        ObjectAnimator scaleDownX = ObjectAnimator.ofFloat(view,"scaleX",startScale,endScale);
+        ObjectAnimator scaleDownY = ObjectAnimator.ofFloat(view,"scaleY",startScale,endScale);
+        //interpolation's
+        scaleDownX.setInterpolator(new DecelerateInterpolator());
+        scaleDownY.setInterpolator(new DecelerateInterpolator());
+        //set duration
+        scaleDownX.setDuration(animationDuration);
+        scaleDownY.setDuration(animationDuration);
+        //COMBINE INTO 1 ANIMATOR
+        AnimatorSet scale = new AnimatorSet();
+        scale.play(scaleDownX).with(scaleDownY);
+        //scaled down
+        scale.start();
+        //SCALE BACK UP
+        ObjectAnimator scaleUpX = ObjectAnimator.ofFloat(view,"scaleX",endScale,startScale);
+        ObjectAnimator scaleUpY =ObjectAnimator.ofFloat(view,"scaleY",endScale,startScale);
+
+        scaleUpX.setInterpolator(new DecelerateInterpolator());
+        scaleUpX.setDuration(animationDuration);
+        scaleUpY.setInterpolator(new DecelerateInterpolator());
+        scaleUpY.setDuration(animationDuration);
+        AnimatorSet up = new AnimatorSet();
+        up.play(scaleUpX).with(scaleUpY);
+        up.start();
+    }
+    public void playBloop(){
+        if(mp.isPlaying()){
+            mp.stop();
+        }
+        mp.start();
     }
 }
