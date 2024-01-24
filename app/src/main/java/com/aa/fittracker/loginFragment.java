@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Vibrator;
 import android.text.method.PasswordTransformationMethod;
@@ -121,11 +122,13 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
                     }
                     Log.i("Finally broken", store.getServerResponseLogin());
                     //check if all is ok
-
+                    //login success
                     if(store.getServerResponseLogin().contains("ok") && !store.getServerResponseLogin().contains("!")){
                         store.setUSERNAME(username);
                         Intent intent =  new Intent(requireContext(),IndexActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+                        requireActivity().finish();
                     }else{
                         AnimationHelper.shakeView(view);
                         vibrateDevice();

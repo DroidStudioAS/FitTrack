@@ -118,6 +118,7 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getContext(),"500",Toast.LENGTH_SHORT);
                     return;
                 }
+                //REGISTER SUCCESS
                 if(store.getServerResponseRegister().contains("ok") && !store.getServerResponseRegister().contains("!")){
                     store.setUSERNAME(username);
                     store.setUserWeightKg(userKg);
@@ -130,7 +131,8 @@ public class RegisterFragment extends Fragment {
 
                     CalendarAdapter.listReturner();
 
-                    startActivity(new Intent(getActivity(),IndexActivity.class).putExtra("new_user",true));
+                    startActivity(new Intent(getActivity(),IndexActivity.class).putExtra("new_user",true).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                    requireActivity().finish();
                 }
 
 
