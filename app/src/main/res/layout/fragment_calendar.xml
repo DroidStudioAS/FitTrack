@@ -16,7 +16,8 @@
         app:headerColor="@color/third"
         app:headerLabelColor="#fff"
         app:selectionColor="@color/third"
-        app:type="one_day_picker" />
+        app:type="one_day_picker"
+        android:fadeScrollbars="false"/>
 
 
 </FrameLayout>

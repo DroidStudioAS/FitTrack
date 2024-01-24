@@ -20,12 +20,14 @@
         android:id="@+id/inputLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
         android:text="Training:"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView16" />
 
     <Spinner
         android:id="@+id/trainingSpinner"
@@ -129,5 +131,14 @@
         app:layout_constraintBottom_toTopOf="@+id/planedRest"
         app:layout_constraintEnd_toEndOf="@+id/planedRest"
         app:layout_constraintStart_toStartOf="@+id/planedRest" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/centerpiece_fixed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

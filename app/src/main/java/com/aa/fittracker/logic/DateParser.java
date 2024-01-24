@@ -236,10 +236,7 @@ public class DateParser {
                     break;
                 }
             }
-            if (!matchFound && i==6){
-                //dummy date to prevent crashing
-                last7Days.put(dateToFind,"dtf");
-            }
+
         }
         for(Map.Entry x : last7Days.entrySet()){
             Log.i("EXCDATE", "Map keys in end of l7dw" + x.getKey() + " : " + x.getValue());
