@@ -5,5 +5,15 @@
     <item name="textFillColor">@color/black</item>
 
     </style>
+    <style name="customScrollView">
+
+        <!-- Customize scroll track color -->
+        <item name="android:scrollbarTrackVertical">@color/white</item>
+        <item name="android:fadeScrollbars">false</item>
+        <item name="android:scrollbarSize">4dp</item>
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar</item>
+
+
+    </style>
 
 </resources>
