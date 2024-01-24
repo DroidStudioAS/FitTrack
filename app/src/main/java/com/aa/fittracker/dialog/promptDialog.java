@@ -27,10 +27,14 @@ public class promptDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prompt_dialog);
 
+
         userPromptTv=(TextView) findViewById(R.id.userPromptTv);
         yesBut=(Button) findViewById(R.id.yesBut);
         noBut=(Button) findViewById(R.id.noBut);
 
+        if(noBut.getVisibility()== View.GONE){
+            noBut.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -69,6 +73,16 @@ public class promptDialog extends Dialog {
             }
         });
         noBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+    }
+    public void noDateInFoucsPrompt(){
+        userPromptTv.setText("You Need To Have A Date Selected To See More Data!");
+        noBut.setVisibility(View.GONE);
+        yesBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();

@@ -116,6 +116,7 @@ float beginingy;
             ab.setTitle("Fit Tracker");
         }
 
+
         /****************Network Block******************/
         client=new OkHttpClient();
         Map<String, String> params = new HashMap<>();
@@ -226,6 +227,9 @@ float beginingy;
         AnimationHelper.fadeIn(trainingsButton);
 
         notificationReceiver.sendCustomNotification(this,"Help Us Grow","This App Is Developed And Maintained By A Single Developer. Donate On Paypal To Allow Us To Create A Better User Expirience!", "Donate");
+
+
+
     }
     public void userWeightModeActivate(){
         /*************Fetch users weight logs****************/
@@ -257,10 +261,14 @@ float beginingy;
         }
     }
 
-
-
-
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //if date in focus is not null here, reset it to prevent showing the
+        //bottom fragment with no date selected
+        if(!store.getDateInFocus().equals("")){
+            store.setDateInFocus("");
+            Log.i("Date in focus: ", store.getDateInFocus());
+        }
+    }
 }

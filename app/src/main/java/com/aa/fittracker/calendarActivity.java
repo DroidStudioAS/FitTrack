@@ -226,7 +226,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     //removes resutls from frontend list for instant refresh
     public static void listRemover(int i) {
         //i=1-TRAININGSERVICE
-        //I=2 - WEIGHTSERVICE
+        //I=2-WEIGHTSERVICE
         switch (i) {
             case 1:
                 Log.i("size before", String.valueOf(store.getTrainingEntries().size()));
@@ -246,6 +246,12 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         optimalLabel.setText(optimalString);
     }
     public void expandLogic() {
+        if(store.getDateInFocus().equals("")){
+           promptDialog pd = new promptDialog(this);
+           pd.show();
+           pd.noDateInFoucsPrompt();
+           return;
+        }
         bf.translate();
         if (clickCount % 2 == 0) {
             //open

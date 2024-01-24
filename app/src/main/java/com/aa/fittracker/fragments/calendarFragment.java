@@ -46,6 +46,7 @@ protected static CalendarView calendarView;
         super.onAttach(context);
         onDateClickListener = (OnDateClickListener)context;
 
+
     }
 
 
