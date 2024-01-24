@@ -244,6 +244,11 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     public void labelSeter(String infoString, String optimalString) {
         infoLabel.setText(infoString);
         optimalLabel.setText(optimalString);
+        if(store.getUserMode().equals("journal")){
+            optimalLabel.setVisibility(View.GONE);
+        }else{
+            optimalLabel.setVisibility(View.VISIBLE);
+        }
     }
     public void expandLogic() {
         if(store.getDateInFocus().equals("")){
@@ -425,4 +430,4 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 }
 
 
-    /**********Gesture Functions**********/
+
