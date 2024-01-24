@@ -322,8 +322,11 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         Debuger.dateListLogger(sortedDates, "sorted dates");
         ArrayList<String> last7 = DateParser.listMaker(sortedDates, store.getDateInFocus());
         Debuger.dateListLogger(last7, "last 7");
-
-        breakdownLabel.setText("From: " + sortedDates.get(0).replace("?", "") + " To: " + store.getDateInFocus());
+       if(sortedDates.size()>0) {
+           breakdownLabel.setText("From: " + sortedDates.get(0).replace("?", "") + " To: " + store.getDateInFocus());
+       }else{
+           breakdownLabel.setText("From: " + DateParser.getSevenDaysBefore(store.getDateInFocus()) + " To: " + store.getDateInFocus());
+       }
 
 
         //Parse Icons And Make Count;

@@ -7,6 +7,7 @@ import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -299,15 +300,20 @@ public class DateParser {
                 }
             }
 
-            if (!matchFound && i==6){
+           /* if (!matchFound && i==6){
                 //dummy date to prevent crashing
                 last7Days.put(dateToFind,"");
+            }*/
+            if(i==6 && !matchFound){
+                return last7Days;
             }
+
         }
 
         for(Map.Entry x : last7Days.entrySet()){
             Log.i("EXCDATE", "Map keys in end of l7dt" + x.getKey() + " : " + x.getValue());
         }
+
 
         return last7Days;
     }
@@ -447,6 +453,17 @@ public class DateParser {
         }
 
         return toReturn;
+    }
+    public static String getSevenDaysBefore(String inputDate) {
+        // Parse the input date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(inputDate, formatter);
+
+        // Subtract 7 days
+        LocalDate sevenDaysBefore = date.minusDays(6);
+
+        // Format the result back to the input format
+        return sevenDaysBefore.format(formatter);
     }
 
 }
