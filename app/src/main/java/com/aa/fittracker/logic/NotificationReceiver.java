@@ -80,7 +80,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         //grab the notification manager
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // Replace "https://www.paypal.com" with the PayPal URL you want to open
-        String paypalUrl = "https://www.paypal.com";
+        String paypalUrl = "https://paypal.me/softwaredevelopmentA?country.x=RS&locale.x=en_US";
         // Create an implicit intent to open the PayPal URL
         Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalUrl));
         // Create a PendingIntent
