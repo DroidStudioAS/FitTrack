@@ -17,7 +17,7 @@
         <TextView
             android:id="@+id/targetTv1"
             android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_margin="12dp"
             android:background="#07FB27"
             android:gravity="center"
@@ -33,7 +33,7 @@
         <TextView
             android:id="@+id/targetTv2"
             android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_margin="12dp"
             android:background="#07FB27"
             android:gravity="center"
@@ -49,7 +49,7 @@
         <TextView
             android:id="@+id/targetTv3"
             android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:layout_margin="12dp"
             android:background="#07FB27"
             android:gravity="center"

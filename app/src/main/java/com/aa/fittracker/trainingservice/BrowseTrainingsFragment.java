@@ -158,6 +158,7 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
                 easyFilter.setAlpha((float)0.4);
                 mediumFilter.setAlpha((float)0.4);
                 hardFilter.setAlpha((float)0.4);
+                store.setActiveDifficultyFilter(-1);
                 refreshList();
 
             }
