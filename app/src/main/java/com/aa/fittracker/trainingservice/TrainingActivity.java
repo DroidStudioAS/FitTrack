@@ -8,10 +8,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.aa.fittracker.R;
+import com.aa.fittracker.TrainingDeletedCallback;
 import com.aa.fittracker.dialog.InfoDialog;
 import com.aa.fittracker.presentation.pagerAdapter;
 import com.aa.fittracker.presentation.taAdapter;
@@ -22,6 +24,7 @@ public class TrainingActivity extends AppCompatActivity {
     private static ViewPager vPager;
     private taAdapter adapter;
     private TabLayout tl;
+    TrainingDeletedCallback callback;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -55,6 +58,8 @@ public class TrainingActivity extends AppCompatActivity {
 
         adapter = new taAdapter(getSupportFragmentManager());
 
+
+
         //set up vPager
         vPager.setAdapter(adapter);
         tl.setupWithViewPager(vPager);
@@ -67,4 +72,6 @@ public class TrainingActivity extends AppCompatActivity {
     public static void setCurrentPosition(int pos){
         vPager.setCurrentItem(pos);
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.aa.fittracker.trainingservice;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aa.fittracker.R;
+import com.aa.fittracker.TrainingDeletedCallback;
+import com.aa.fittracker.dialog.DeleteTrainingDialog;
 import com.aa.fittracker.dialog.promptDialog;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
@@ -38,7 +41,7 @@ import java.util.Timer;
 
 import okhttp3.OkHttpClient;
 
-public class BrowseTrainingsFragment extends Fragment implements onItemClickListener {
+public class BrowseTrainingsFragment extends Fragment implements onItemClickListener, DeleteTrainingDialog.DeleteTrainingCallback {
     trainingAdapter adapter;
     RecyclerView rv;
 
@@ -68,10 +71,10 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
 
     Timer timer;
     ScrollView browseView;
+    DeleteTrainingDialog dtd;
 
 
-
-    TrainingActivity ta;
+    Context context;
 
     public BrowseTrainingsFragment() {
         // Required empty public constructor
@@ -87,6 +90,7 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         TrainingActivity ta = (TrainingActivity)getActivity();
         /******UI Ref's******/
         Intent incoming= getActivity().getIntent();
+
 
 
 
@@ -112,6 +116,11 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         rv = (RecyclerView) view.findViewById(R.id.trainingList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rv.setLayoutManager(layoutManager);
+        context=getContext();
+        //Communication mechanism between fragment and dialog
+        dtd=new DeleteTrainingDialog(context);
+        dtd.setDeleteTrainingCallback(this);
+
 
         //fetch user exercises
         clientel = new OkHttpClient();
@@ -187,6 +196,11 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
                 if(store.getTrainingToDeleteName().equals("")){
                     Toast.makeText(getContext(),"No training selected",Toast.LENGTH_SHORT).show();
                 }else{
+                    dtd.setCancelable(false);
+                    dtd.show();
+
+
+                    /*
                     Snackbar deleteWarning = Snackbar.make(v,"Are you sure you want to delete "+store.getTrainingToDeleteName()+" ?",Snackbar.LENGTH_INDEFINITE);
                     deleteWarning.setAction("Yes", new View.OnClickListener() {
                         @Override
@@ -202,7 +216,11 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
                             refreshList();
                         }
                     });
+
                     deleteWarning.show();
+
+                     */
+
                 }
 
             }
@@ -441,11 +459,19 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
     /*********Callbacks*********/
     @Override
     public void onTrainingFocus(Training training) {
-        nameTv.setText(training.getTraining_name());
-        descTv.setText(training.getTraining_desc());
-        deleteBut.setVisibility(View.VISIBLE);
-        editBut.setVisibility(View.VISIBLE);
-        //store the name of the training in focus as a parameter in case user wants to delete
-        store.setTrainingToDeleteName(training.getTraining_name());
+            nameTv.setText(training.getTraining_name());
+            descTv.setText(training.getTraining_desc());
+            deleteBut.setVisibility(View.VISIBLE);
+            editBut.setVisibility(View.VISIBLE);
+            //store the name of the training in focus as a parameter in case user wants to delete
+            store.setTrainingToDeleteName(training.getTraining_name());
+
+    }
+
+
+    @Override
+    public void onDeleteTraining() {
+        Log.i("callback successful", "YES");
+        refreshList();
     }
 }
