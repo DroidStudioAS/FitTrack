@@ -380,7 +380,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                         break;
                     case "weight":
 
-                        double weekDelta = 0;
 
                         double weight = weightFinder(x);
                         //find the first weight of this week

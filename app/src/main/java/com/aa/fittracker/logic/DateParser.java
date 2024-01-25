@@ -95,9 +95,7 @@ public class DateParser {
     }
 
     public static ArrayList<String> listMaker(ArrayList<String> sorted, String date) {
-        if(sorted.size()==1){
-            sorted.set(0, "?"+sorted.get(0)+"?");
-        }
+
         for(String x : sorted){
             Log.i("x in sorted", x);
         }
