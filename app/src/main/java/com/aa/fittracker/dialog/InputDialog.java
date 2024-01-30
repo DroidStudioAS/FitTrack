@@ -62,6 +62,7 @@ public class InputDialog extends Dialog {
 
 
     boolean planedRest,unplannedRest = false;
+    boolean clickedMaybeLater=false;
 
     String REST_DAY_PLANNED = "REST DAY";
     String REST_DAY_UNPLANNED = "SKIPPED DAY";
@@ -140,6 +141,7 @@ public class InputDialog extends Dialog {
         for(Training x : store.getUserTrainings()){
             stringList.add(x.getTraining_name());
         }
+        stringList.add("FREESTYLE");
         if(stringList.size()!=0){
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,stringList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -159,13 +161,13 @@ public class InputDialog extends Dialog {
                     case "journal":
                         /**********Validation***********/
                         if(stringList.size()==0 && !planedRest && !unplannedRest){
-                            Snackbar.make(v,"You Have No Trainings... Add Some?",Snackbar.LENGTH_INDEFINITE).setAction("Go", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    getContext().startActivity(new Intent(getContext(), TrainingActivity.class));
-                                }
-                            }).show();
-                            return;
+                            if(!clickedMaybeLater) {
+                                promptDialog pd = new promptDialog(getContext());
+                                pd.show();
+                                pd.noTrainingsPrompt(1);
+                                clickedMaybeLater=true;
+                                return;
+                            }
                         }
                         /*****Fetch parameter******/
                         String trainingToEnter = "";

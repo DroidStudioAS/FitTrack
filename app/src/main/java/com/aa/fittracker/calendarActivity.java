@@ -78,6 +78,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
     boolean isExpanded = false;
     boolean isDeleteVisible, isMissingVisible = false;
+    boolean clickedMaybeLater = false;
 
 
     @Override
@@ -190,18 +191,23 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         missingInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!store.getUserTrainings().isEmpty()) {
-                    InputDialog inputDialog = new InputDialog(calendarActivity.this, calendarActivity.this);
-                    inputDialog.show();
-                    missingInfoButton.setVisibility(View.GONE);
-                }
-                else{
+                if(!clickedMaybeLater && store.getUserTrainings().isEmpty()) {
                     promptDialog pd = new promptDialog(calendarActivity.this);
                     pd.show();
                     pd.noTrainingsPrompt(1);
-
-
+                    clickedMaybeLater=true;
+                    return;
                 }
+
+                    InputDialog inputDialog = new InputDialog(calendarActivity.this, calendarActivity.this);
+                    inputDialog.show();
+                    missingInfoButton.setVisibility(View.GONE);
+
+
+
+
+
+
             }
         });
         deleteEntryTrigger.setOnClickListener(new View.OnClickListener() {
