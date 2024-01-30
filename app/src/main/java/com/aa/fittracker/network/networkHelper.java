@@ -30,16 +30,9 @@ import com.aa.fittracker.models.Training;
 import com.google.gson.Gson;
 
 public class networkHelper {
-    public interface NetworkCallback {
-        void onSuccess(String response);
-
-        void onFailure(IOException e);
-    }
-
-    public static String SERVER_RESPONSE;
-
 
     /**************Training Service***************/
+
     public static void getExcEntries(OkHttpClient client){
         HttpUrl.Builder builder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/training_service/get_log").newBuilder();
         builder.addQueryParameter("username",store.getUSERNAME());
@@ -174,6 +167,7 @@ public class networkHelper {
             }
         });
     }
+
     //tracking subservice
     public static void postExcEntry(OkHttpClient client, String training_name){
         FormBody.Builder builder = new FormBody.Builder();
@@ -289,6 +283,31 @@ public class networkHelper {
             }
         });
     }
+    public static void patchWeightGoal(OkHttpClient client,String newWeight){
+        //Build the request Body Data
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("username",store.getUSERNAME());
+        builder.add("weight", newWeight);
+        //Build the actual body
+        RequestBody body = builder.build();
+        //atqach the body to a new request
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/userinfo/patchUserWeightGoal")
+                .patch(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseWeightGoalPatched(response.body().string());
+                Log.i("RESPONSE FROM NH: ", store.getServerResponseWeightGoalPatched());
+            }
+        });
+    }
     //tracking subservice
     public static void postWeightTrackEntry(OkHttpClient client,String weight_value,String date){
         FormBody.Builder formBuilder = new FormBody.Builder();
@@ -379,37 +398,6 @@ public class networkHelper {
 
 
     //Request request = new Request.Builder().url(url)
-    }
-    public static void post(OkHttpClient client, String url, Map<String, String> params) throws IOException {
-        // Create a FormBody.Builder to build the request body
-        FormBody.Builder formBuilder = new FormBody.Builder();
-        // Add parameters to the request body
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            formBuilder.add(entry.getKey(), entry.getValue());
-        }
-        // Build the request body
-        RequestBody requestBody = formBuilder.build();
-        // Build the request with the POST method and request body
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .build();
-        // Enqueue the request
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.i("IMPORTANT", "Failed to make POST request: " + e.getMessage());
-            }
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    store.setServerResponseRegister(response.body().string());
-                    Log.i("response from nh", store.getServerResponseRegister());
-                } else {
-                    Log.i("IMPORTANT", "POST request failed with response code: " + response.code());
-                }
-            }
-        });
     }
     public static void registerUser(OkHttpClient client, Map<String,String> params){
         FormBody.Builder urlBuilder = new FormBody.Builder();

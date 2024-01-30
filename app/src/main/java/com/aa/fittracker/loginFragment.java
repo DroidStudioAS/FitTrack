@@ -38,7 +38,7 @@ import java.util.Map;
 import okhttp3.OkHttpClient;
 
 
-public class loginFragment extends Fragment implements networkHelper.NetworkCallback {
+public class loginFragment extends Fragment  {
 
 
     TextView failedTv;
@@ -154,16 +154,8 @@ public class loginFragment extends Fragment implements networkHelper.NetworkCall
     }
 
 
-    @Override
-    public void onSuccess(String response) {
-        SERVER_RESPONSE = response;
-        Log.i("SERVER SAYS", SERVER_RESPONSE);
-    }
 
-    @Override
-    public void onFailure(IOException e) {
 
-    }
     public void vibrateDevice(){
         if(vibrator!=null){
             vibrator.vibrate(500);

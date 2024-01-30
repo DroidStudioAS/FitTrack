@@ -25,11 +25,14 @@ public class store {
     private static String SERVER_RESPONSE_ADDER_TRAINING_ENTRY = "";
     private static String SERVER_RESPONSE_ADDER_WEIGHT_ENTRY = "";
 
-
-
     private static String SERVER_RESPONSE_DELETED_ENTRY="";
     private static String SERVER_RESPONSE_DELETED_WEIGHT_ENTRY = "";
     private static String SERVER_RESPONSE_DELETED_TRAINING_ENTRY = "";
+
+    private static String SERVER_RESPONSE_WEIGHT_GOAL_PATCHED = "";
+
+
+
 
 
     //USER DATA
@@ -182,7 +185,9 @@ public class store {
 
     /*******************GETTERS***********************/
 
-
+    public static String getServerResponseWeightGoalPatched() {
+        return SERVER_RESPONSE_WEIGHT_GOAL_PATCHED;
+    }
     public static String getServerResponseTrainingDeleted() {
         return SERVER_RESPONSE_TRAINING_DELETED;
     }
@@ -270,6 +275,9 @@ public class store {
 
 
     /*******************SETTERS***********************/
+    public static void setServerResponseWeightGoalPatched(String serverResponseWeightGoalPatched) {
+        SERVER_RESPONSE_WEIGHT_GOAL_PATCHED = serverResponseWeightGoalPatched;
+    }
     public static void setServerResponseTrainingDeleted(String serverResponseTrainingDeleted) {
         SERVER_RESPONSE_TRAINING_DELETED = serverResponseTrainingDeleted;
     }
