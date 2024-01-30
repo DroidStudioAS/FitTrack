@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aa.fittracker.dialog.EditGoalsDialog;
 import com.aa.fittracker.dialog.InfoDialog;
 import com.aa.fittracker.logic.NotificationReceiver;
 import com.aa.fittracker.logic.store;
@@ -165,19 +166,15 @@ float beginingy;
         }
 
 
-       /* MenuItem menuItem = new MenuItem(this);
-        menuItem.setImage(BitmapFactory.decodeResource(getResources(),R.drawable.noutrition_service_drawable));
-        Point initialPosition = new Point(200, 200);
-        menuItem.setPosition(initialPosition);
-        root.addView(menuItem);*/
+
 
 
         welcomeTv.setText("Welcome: " + store.getUSERNAME());
         startWeightTv.setText(store.getUserStartWeight() + "KG");
         desiredWeightTv.setText(store.getUserWeightKg() + " KG");
-       /* journalButton.setVisibility(View.GONE);
-        weightButton.setVisibility(View.GONE);
-        trainingsButton.setVisibility(View.GONE);*/
+
+        weightGoalTv.setText(store.getUserWeightKg()+" KG");
+
 
         beginingx=journalButton.getX();
         beginingy=journalButton.getY();
@@ -221,6 +218,15 @@ float beginingy;
             public void onClick(View v) {
                 AnimationHelper.centerpieceClick(imageView2);
                 SfxHelper.playBloop(getApplicationContext());
+            }
+        });
+        editWeightGoalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditGoalsDialog goalsDialog = new EditGoalsDialog(IndexActivity.this);
+                goalsDialog.setCancelable(false);
+                goalsDialog.show();
+
             }
         });
 
