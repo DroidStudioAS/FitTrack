@@ -32,6 +32,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 
@@ -178,6 +179,15 @@ public class InputDialog extends Dialog {
                             trainingToEnter=REST_DAY_PLANNED;
                         }else if(unplannedRest==true) {
                             trainingToEnter=REST_DAY_UNPLANNED;
+                        }
+
+                        if(trainingToEnter.toLowerCase(Locale.ROOT).equals("freestyle")){
+                            //Show the FreestyleInputDialog
+                            FreestyleInputDialog fid = new FreestyleInputDialog(getContext());
+                            fid.show();
+                            fid.setCancelable(false);
+                            dismiss();
+                            return;
                         }
 
 
