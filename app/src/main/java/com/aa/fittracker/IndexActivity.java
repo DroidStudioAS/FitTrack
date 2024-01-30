@@ -23,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +56,7 @@ TextView desiredWeightTv;
 TextView currentWeightTv;
 TextView startWeightTv;
 TextView welcomeTv;
+TextView weightGoalTv;
 
 
 ImageView journalButton;
@@ -63,6 +65,8 @@ ImageView noutritionButton;
 ImageView weightButton;
 ImageView[] imageViews = {journalButton, trainingsButton, weightButton};
 ImageView imageView2;
+
+Button editWeightGoalButton;
 
 ConstraintLayout root;
 
@@ -103,7 +107,10 @@ float beginingy;
         desiredWeightTv = (TextView)findViewById(R.id.desiredWeightTv);
         startWeightTv = (TextView)findViewById(R.id.startWeightTv);
         welcomeTv = (TextView)findViewById(R.id.welcomeTv);
+        weightGoalTv=(TextView)findViewById(R.id.weightGoalTv);
 
+
+        editWeightGoalButton=(Button)findViewById(R.id.editWeightGoalButton);
         journalButton =(ImageView) findViewById(R.id.button);
         trainingsButton =(ImageView) findViewById(R.id.button2);
         weightButton =(ImageView) findViewById(R.id.button3);
