@@ -3,18 +3,22 @@ package com.aa.fittracker.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.media.Image;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.aa.fittracker.R;
-
+import com.aa.fittracker.logic.store;
 
 
 public class FreestyleInputDialog extends Dialog {
+
+    final String trainingName = "FREESTYLE";
 
     ImageView closeFid;
     ImageView fiConfirmTrigger;
@@ -24,6 +28,9 @@ public class FreestyleInputDialog extends Dialog {
     Button fiHardBut;
 
     EditText fiTrainingDescriptionEt;
+
+    int diff = -1;
+
 
     public FreestyleInputDialog(@NonNull Context context) {
         super(context);
@@ -38,11 +45,6 @@ public class FreestyleInputDialog extends Dialog {
         fiHardBut=(Button)findViewById(R.id.fiHardBut);
 
         fiTrainingDescriptionEt=(EditText)findViewById(R.id.fiTrainingDescEt);
-
-
-
-
-
         /*********End Of Ui Initializations**********/
 
 
@@ -53,7 +55,60 @@ public class FreestyleInputDialog extends Dialog {
                 dismiss();
             }
         });
+        fiEazyBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fiDifficultyChangeReaction(0);
+            }
+        });
+        fiMediumBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fiDifficultyChangeReaction(1);
+            }
+        });
+        fiHardBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fiDifficultyChangeReaction(2);
+            }
+        });
+        fiConfirmTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(diff==-1 || fiTrainingDescriptionEt.getText().toString().equals("")){
+                    Toast.makeText(getContext(), "You Must Enter A Difficulty And Description", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String trainingDescription = fiTrainingDescriptionEt.getText().toString();
+                String difficulty = String.valueOf(diff);
+                Log.i("desc and diff" , store.getUSERNAME()+" "+ trainingDescription  + " " + difficulty + " " + store.getDateInFocus());
+            }
+        });
 
 
+    }
+    public void fiDifficultyChangeReaction(int index){
+        switch (index){
+            case 0:
+                fiEazyBut.setAlpha(1);
+                fiMediumBut.setAlpha((float) 0.4);
+                fiHardBut.setAlpha((float) 0.4);
+                diff=1;
+                break;
+            case 1:
+                fiEazyBut.setAlpha((float) 0.4);
+                fiMediumBut.setAlpha(1);
+                fiHardBut.setAlpha((float) 0.4);
+                diff=2;
+                break;
+            case 2:
+                fiEazyBut.setAlpha((float) 0.4);
+                fiMediumBut.setAlpha((float) 0.4);
+                fiHardBut.setAlpha(1);
+                diff=3;
+                break;
+        }
+        Log.i("diff from fid", String.valueOf(diff));
     }
 }
