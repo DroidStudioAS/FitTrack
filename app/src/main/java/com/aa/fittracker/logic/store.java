@@ -23,6 +23,16 @@ public class store {
     private static String SERVER_RESPONSE_TRAINING_DELETED = "";
     private static String SERVER_RESPONSE_EXERCISE_PATCHED = "";
     private static String SERVER_RESPONSE_ADDER_TRAINING_ENTRY = "";
+    private static String SERVER_RESPONSE_ADDED_FREESTYLE_TRAINING_ENTRY = "";
+
+    public static String getServerResponseAddedFreestyleTrainingEntry() {
+        return SERVER_RESPONSE_ADDED_FREESTYLE_TRAINING_ENTRY;
+    }
+
+    public static void setServerResponseAddedFreestyleTrainingEntry(String serverResponseAddedFreestyleTrainingEntry) {
+        SERVER_RESPONSE_ADDED_FREESTYLE_TRAINING_ENTRY = serverResponseAddedFreestyleTrainingEntry;
+    }
+
     private static String SERVER_RESPONSE_ADDER_WEIGHT_ENTRY = "";
 
     private static String SERVER_RESPONSE_DELETED_ENTRY="";

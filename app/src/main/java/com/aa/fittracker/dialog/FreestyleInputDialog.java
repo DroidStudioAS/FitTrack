@@ -14,11 +14,16 @@ import androidx.annotation.NonNull;
 
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.TrainingEntry;
+import com.aa.fittracker.network.networkHelper;
+
+import okhttp3.OkHttpClient;
 
 
 public class FreestyleInputDialog extends Dialog {
 
     final String trainingName = "FREESTYLE";
+    OkHttpClient client;
 
     ImageView closeFid;
     ImageView fiConfirmTrigger;
@@ -45,6 +50,8 @@ public class FreestyleInputDialog extends Dialog {
         fiHardBut=(Button)findViewById(R.id.fiHardBut);
 
         fiTrainingDescriptionEt=(EditText)findViewById(R.id.fiTrainingDescEt);
+
+        client=new OkHttpClient();
         /*********End Of Ui Initializations**********/
 
 
@@ -83,6 +90,20 @@ public class FreestyleInputDialog extends Dialog {
                 String trainingDescription = fiTrainingDescriptionEt.getText().toString();
                 String difficulty = String.valueOf(diff);
                 Log.i("desc and diff" , store.getUSERNAME()+" "+ trainingDescription  + " " + difficulty + " " + store.getDateInFocus());
+
+                TrainingEntry toAdd = new TrainingEntry(store.getDateInFocus(),trainingName,difficulty,trainingDescription);
+
+                networkHelper.postFreestyleEntry(client,toAdd);
+                while (store.getServerResponseAddedFreestyleTrainingEntry().equals("")){
+                    Log.i("Waiting for response","...");
+                }
+                if(store.getServerResponseAddedFreestyleTrainingEntry().contains("!") && store.getServerResponseAddedFreestyleTrainingEntry().contains("ok")){
+                    Toast.makeText(getContext(),"fail",Toast.LENGTH_SHORT).show();
+                }else if(store.getServerResponseAddedFreestyleTrainingEntry().contains("ok") && !store.getServerResponseAddedFreestyleTrainingEntry().contains("!")){
+                    Toast.makeText(getContext(),"added freestyle entry", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
+
             }
         });
 

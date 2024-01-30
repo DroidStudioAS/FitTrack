@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.JsonParser;
+import com.aa.fittracker.models.TrainingEntry;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -169,6 +170,32 @@ public class networkHelper {
     }
 
     //tracking subservice
+    public static void postFreestyleEntry(OkHttpClient client, TrainingEntry entry){
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("username",store.getUSERNAME());
+        builder.add("training_name",entry.getTraining_name());
+        builder.add("training_desc",entry.getTraining_description());
+        builder.add("training_diff",entry.getDiff());
+        builder.add("date",store.getDateInFocus());
+
+        RequestBody body = builder.build();
+        Request request = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/training_service/add_freestyle_entry")
+                .post(body)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseAddedFreestyleTrainingEntry(response.body().string());
+                Log.i("response from server: ", store.getServerResponseAddedFreestyleTrainingEntry());
+            }
+        });
+    }
     public static void postExcEntry(OkHttpClient client, String training_name){
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("username",store.getUSERNAME());
@@ -193,6 +220,7 @@ public class networkHelper {
             }
         });
     }
+
     public static void deleteExcEntry(OkHttpClient client){
         FormBody.Builder formBuilder = new FormBody.Builder();
         formBuilder.add("username",store.getUSERNAME());
