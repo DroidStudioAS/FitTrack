@@ -36,7 +36,7 @@
         <activity
             android:name=".trainingservice.TrainingActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustNothing"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.lib_name"
