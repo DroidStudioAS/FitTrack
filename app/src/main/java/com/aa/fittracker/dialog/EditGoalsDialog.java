@@ -21,6 +21,10 @@ import okhttp3.OkHttpClient;
 
 public class EditGoalsDialog extends Dialog {
 
+    public interface CallbackToIndex{
+        void onPatch();
+    }
+
     TextView usernameTvEgd;
 
     EditText newWeightGoalEt;
@@ -30,8 +34,11 @@ public class EditGoalsDialog extends Dialog {
     Button confirmPatch;
     OkHttpClient client;
 
+    CallbackToIndex callbackToIndex;
+
     public EditGoalsDialog(@NonNull Context context) {
         super(context);
+        this.callbackToIndex=(CallbackToIndex) context;
     }
 
     @Override
@@ -76,6 +83,7 @@ public class EditGoalsDialog extends Dialog {
                     //ok
                     store.setUserWeightKg(newWeightGoalEt.getText().toString());
                     Toast.makeText(getContext(),"Weight Goal Edited!", Toast.LENGTH_SHORT).show();
+                    callbackToIndex.onPatch();
                     dismiss();
                 }
             }

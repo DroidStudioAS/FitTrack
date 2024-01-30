@@ -48,7 +48,7 @@ import java.util.Map;
 
 import okhttp3.OkHttpClient;
 
-public class IndexActivity extends AppCompatActivity {
+public class IndexActivity extends AppCompatActivity implements EditGoalsDialog.CallbackToIndex {
 OkHttpClient client;
 OkHttpClient clientel;
 NotificationReceiver notificationReceiver;
@@ -240,9 +240,6 @@ float beginingy;
         AnimationHelper.fadeIn(trainingsButton);
 
         notificationReceiver.sendCustomNotification(this,"Help Us Grow","This App Is Developed And Maintained By A Single Developer. Donate On Paypal To Allow Us To Create A Better User Expirience!", "Donate");
-
-
-
     }
     public void userWeightModeActivate(){
         /*************Fetch users weight logs****************/
@@ -283,5 +280,11 @@ float beginingy;
             store.setDateInFocus("");
             Log.i("Date in focus: ", store.getDateInFocus());
         }
+    }
+
+    @Override
+    public void onPatch() {
+        Log.i("SUCESS", "INDEX");
+        weightGoalTv.setText(store.getUserWeightKg());
     }
 }
