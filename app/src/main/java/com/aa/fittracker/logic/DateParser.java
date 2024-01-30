@@ -16,13 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DateParser {
-    public static String[] parseDate(String date){
-        String[] parsed = date.split(" ");
-        Log.i("year", parsed[0]);
-        Log.i("Month", parsed[1]);
-        Log.i("Day", parsed[2]);
-        return parsed;
-    }
 
     public static ArrayList<Integer> dateFinder() {
             ArrayList<Integer> last7Days = new ArrayList<>();
@@ -312,6 +305,7 @@ public class DateParser {
 
         return last7Days;
     }
+
     public static ArrayList<String> monthBreakdown(){
         ArrayList<String> toReturn = new ArrayList<>();
         String lookingFor = "";
@@ -354,6 +348,7 @@ public class DateParser {
         }
         return toReturn;
     }
+
     public static HashMap<String, String> monthBreakdownCounter(ArrayList<String> listToCount){
         /*******Training vars*****/
         int eazyCount = 0;
@@ -449,6 +444,7 @@ public class DateParser {
 
         return toReturn;
     }
+
     public static String getSevenDaysBefore(String inputDate) {
         // Parse the input date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
