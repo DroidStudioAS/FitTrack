@@ -58,10 +58,10 @@
             android:id="@+id/bfContentTv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
             android:gravity="center"
             android:text="No Data Found For This Date"
-            android:textColor="@color/primary" />
+            android:textColor="@color/primary"
+            android:textSize="20sp" />
     </ScrollView>
 
     <androidx.constraintlayout.widget.Guideline
