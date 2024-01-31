@@ -93,7 +93,8 @@ public class promptDialog extends Dialog {
         });
     }
     public void cantDeleteTrainingPrompt(){
-        userPromptTv.setText("You Can Not Delete A Training You Have Logged In Your Calendar! Please Delete The Training From Your Log First!");
+        userPromptTv.setText("You Can Not Delete A Training You Have Logged In Your Calendar! " +
+                                "Please Delete The Training From Your Log First! It A");
         noBut.setVisibility(View.GONE);
         yesBut.setText("Ok!");
         yesBut.setOnClickListener(new View.OnClickListener() {

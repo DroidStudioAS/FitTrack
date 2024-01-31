@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -52,6 +53,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     int clickCount;
 
     ConstraintLayout root;
+
+    ConstraintSet cs;
+
+
 
     TextView dateTV;
     TextView infoLabel;
@@ -137,6 +142,17 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
         clickCount = 0;
 
+        root=(ConstraintLayout)findViewById(R.id.root);
+        cs=new ConstraintSet();
+
+
+        cs.clone(root);
+
+
+        cs.connect(R.id.infoTv,ConstraintSet.END,ConstraintSet.PARENT_ID,ConstraintSet.END,0);
+
+
+
         /*****Action Bar*******/
         ActionBar ab = getSupportActionBar();
         if(ab!=null){
@@ -158,7 +174,6 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         bf = (BottomFragment) getSupportFragmentManager().findFragmentById(R.id.bf);
         fc = bf;
 
-        root=(ConstraintLayout)findViewById(R.id.root);
 
 
         /**********************Neccesary**********************/
@@ -170,6 +185,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         Intent incoming = getIntent();
         switch (store.getUserMode()) {
             case "journal":
+                cs.applyTo(root);
                 labelSeter("Trained:", "Rest Day:");
                 break;
             case "weight":
