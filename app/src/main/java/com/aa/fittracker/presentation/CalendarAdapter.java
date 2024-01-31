@@ -46,7 +46,22 @@ public class CalendarAdapter {
                     }else if(x.getTraining_name().equals("SKIPPED DAY")){
                         output.add(new EventDay(calendar,R.drawable.icon_bad_restt));
                     }
-                    /***************Active Days****************/
+                    /***************Active DaysFREESTYLE****************/
+                    if(x.getTraining_name().equals("FREESTYLE")){
+                        switch (x.getDiff()){
+                            case "1":
+                                output.add(new EventDay(calendar,R.drawable.icon_easy_training));
+                                break;
+                            case "2":
+                                output.add(new EventDay(calendar,R.drawable.icon_medium_training));
+                                break;
+                            case "3":
+                                output.add(new EventDay(calendar,R.drawable.icon_hard_training));
+                                break;
+                        }
+                    }
+
+                    /***************Active Days NOT FREESTYLE****************/
                     Log.i("DIFFICULTY FOUND:", String.valueOf(trainingDifficultyfFinder(x.getTraining_name())));
                     switch (trainingDifficultyfFinder(x.getTraining_name())){
                         case 1:
