@@ -60,5 +60,14 @@ public class TrainingEntry {
         isFreestyle = freestyle;
     }
 
-
+    @Override
+    public String toString() {
+        return "TrainingEntry{" +
+                "training_date='" + training_date + '\'' +
+                ", training_name='" + training_name + '\'' +
+                ", training_diff='" + training_diff + '\'' +
+                ", training_desc='" + training_desc + '\'' +
+                ", isFreestyle=" + isFreestyle +
+                '}';
+    }
 }

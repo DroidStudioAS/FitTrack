@@ -48,6 +48,7 @@ public class CalendarAdapter {
                     }
                     /***************Active DaysFREESTYLE****************/
                     if(x.getTraining_name().equals("FREESTYLE")){
+                        Log.i("critical from ca", x.toString());
                         switch (x.getDiff()){
                             case "1":
                                 output.add(new EventDay(calendar,R.drawable.icon_easy_training));

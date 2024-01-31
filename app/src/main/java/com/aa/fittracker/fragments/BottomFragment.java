@@ -188,6 +188,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
         // Search for the training date
         for (TrainingEntry entry : store.getTrainingEntries()) {
+            if(entry.getTraining_name().equals("FREESTYLE") && entry.getTraining_date().equals(date)){
+                return Integer.parseInt(entry.getDiff());
+            }
             if (entry.getTraining_date().equals(date)) {
                 trainingName = entry.getTraining_name(); // Assuming the date corresponds to the training name
 
@@ -205,7 +208,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             // If trainingName is not empty, search for the difficulty in user trainings
             for (Training userTraining : store.getUserTrainings()) {
                 Log.i("name", trainingName);
-                if (userTraining.getTraining_name().equals(trainingName)) {
+                if (userTraining.getTraining_name().equals(trainingName) && !trainingName.equals("FREESTYLE")) {
                     toReturn = userTraining.getTraining_difficulty();
                     break; // Once the difficulty is found, exit the loop
                 }
@@ -345,6 +348,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                 switch (store.getUserMode()) {
                     case "journal":
                         int diff = diffFinder(x);
+                        Debuger.entryLog(1);
                         switch (diff) {
                             case 1:
                                 imageViewList.get(index).setImageResource(R.drawable.icon_easy_training);
@@ -372,7 +376,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                 imageViewList.get(index).setImageResource(R.drawable.icon_bad_restt);
                                 totalRestCount++;
                                 Debuger.dateLog("totalRestCount", String.valueOf(totalRestCount));
-
                                 break;
                         }
 
