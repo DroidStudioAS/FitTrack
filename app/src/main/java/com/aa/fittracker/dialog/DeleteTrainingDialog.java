@@ -14,6 +14,7 @@ import com.aa.fittracker.R;
 import com.aa.fittracker.TrainingDeletedCallback;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
+import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.BrowseTrainingsFragment;
 import com.aa.fittracker.trainingservice.onItemClickListener;
@@ -63,6 +64,16 @@ public class DeleteTrainingDialog extends Dialog {
         confirmDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //check if training is in logs
+                for(TrainingEntry x : store.getTrainingEntries()){
+                    if(x.getTraining_name().equals(store.getTrainingToDeleteName())){
+                        promptDialog pd = new promptDialog(getContext());
+                        pd.show();
+                        pd.cantDeleteTrainingPrompt();
+                        pd.setCancelable(false);
+                        return;
+                    }
+                }
                 deleteTraining();
             }
         });
@@ -76,7 +87,9 @@ public class DeleteTrainingDialog extends Dialog {
                 toDelete=x;
             }
         }
+
         store.removeFromUserTrainings(toDelete);
+
         if(deleteTrainingCallback!=null){
             deleteTrainingCallback.onDeleteTraining();
         }

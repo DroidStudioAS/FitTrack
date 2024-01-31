@@ -43,6 +43,7 @@ public class promptDialog extends Dialog {
     //1- called from elsewhere
     public void noTrainingsPrompt(int status){
         userPromptTv.setText(R.string.no_training_prompt);
+        yesBut.setText("Lets Do It!");
         yesBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +66,7 @@ public class promptDialog extends Dialog {
     }
     public void trainingAddedPrompt(){
         userPromptTv.setText("Success. Check Trainings?");
+        yesBut.setText("Lets Do It!");
         yesBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +83,19 @@ public class promptDialog extends Dialog {
     }
     public void noDateInFoucsPrompt(){
         userPromptTv.setText("You Need To Have A Date Selected To See More Data!");
+        yesBut.setText("Ok!");
         noBut.setVisibility(View.GONE);
+        yesBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+    }
+    public void cantDeleteTrainingPrompt(){
+        userPromptTv.setText("You Can Not Delete A Training You Have Logged In Your Calendar! Please Delete The Training From Your Log First!");
+        noBut.setVisibility(View.GONE);
+        yesBut.setText("Ok!");
         yesBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
