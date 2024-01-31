@@ -3,9 +3,9 @@ public class TrainingEntry {
 
     private String training_date;
     private String training_name;
-    private String diff;
+    private String training_diff;
 
-    private String training_description;
+    private String training_desc;
     private boolean isFreestyle=false;
 
     public TrainingEntry(String training_date, String training_name) {
@@ -15,16 +15,16 @@ public class TrainingEntry {
     public TrainingEntry(String training_date, String training_name, String diff, String training_description){
         this.training_name=training_name;
         this.training_date=training_date;
-        this.diff=diff;
-        this.training_description=training_description;
+        this.training_diff=diff;
+        this.training_desc=training_description;
     }
 
     public String getDiff() {
-        return diff;
+        return training_diff;
     }
 
     public void setDiff(String diff) {
-        this.diff = diff;
+        this.training_diff = diff;
     }
 
     public TrainingEntry() {
@@ -42,11 +42,11 @@ public class TrainingEntry {
         return training_name;
     }
     public String getTraining_description() {
-        return training_description;
+        return training_desc;
     }
 
     public void setTraining_description(String training_description) {
-        this.training_description = training_description;
+        this.training_desc = training_description;
     }
 
     public void setTraining_name(String training_name) {

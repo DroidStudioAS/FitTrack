@@ -49,7 +49,7 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 store.setTrainingEntries(response.body().string());
-                Log.i("response from nh",store.getTrainingEntriesString());
+                Log.i("exclog from nh: ",store.getTrainingEntriesString());
             }
         });
 
