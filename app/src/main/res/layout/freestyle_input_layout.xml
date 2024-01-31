@@ -24,16 +24,6 @@
         app:layout_constraintTop_toBottomOf="@+id/closeFid"
         app:srcCompat="@drawable/centerpiece_fixed" />
 
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="How Difficult Was It?"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView21" />
-
     <Button
         android:id="@+id/fiEazyBut"
         android:layout_width="80dp"
@@ -61,6 +51,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/fiEazyBut"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How Difficult Was It?"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView21" />
 
     <Button
         android:id="@+id/fiHardBut"
@@ -107,5 +107,40 @@
         app:layout_constraintEnd_toEndOf="@+id/fiTrainingDescEt"
         app:layout_constraintStart_toStartOf="@+id/fiTrainingDescEt"
         app:layout_constraintTop_toBottomOf="@+id/fiMidBut" />
+
+    <ImageView
+        android:id="@+id/refresh"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/successTv"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/inputGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="fiEazyBut,fiTrainingDescEt,fInputTrigger,textView25,textView23,closeFid,fiHardBut,fiMidBut" />
+
+    <TextView
+        android:id="@+id/successTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Added FREESTYLE training. Click Here To Refresh"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/refreshGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:constraint_referenced_ids="refresh,successTv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

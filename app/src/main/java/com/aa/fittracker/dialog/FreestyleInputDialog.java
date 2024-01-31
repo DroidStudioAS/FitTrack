@@ -2,15 +2,16 @@ package com.aa.fittracker.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.media.Image;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.Group;
 
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
@@ -27,12 +28,18 @@ public class FreestyleInputDialog extends Dialog {
 
     ImageView closeFid;
     ImageView fiConfirmTrigger;
+    ImageView refreshTrigger;
 
     Button fiEazyBut;
     Button fiMediumBut;
     Button fiHardBut;
 
+    TextView succesTv;
+
     EditText fiTrainingDescriptionEt;
+
+    Group input;
+    Group refresh;
 
     int diff = -1;
 
@@ -44,12 +51,25 @@ public class FreestyleInputDialog extends Dialog {
         /*********Ui Initializations**********/
         closeFid=(ImageView) findViewById(R.id.closeFid);
         fiConfirmTrigger=(ImageView)findViewById(R.id.fInputTrigger);
+        refreshTrigger=(ImageView)findViewById(R.id.refresh);
 
         fiEazyBut=(Button)findViewById(R.id.fiEazyBut);
         fiMediumBut=(Button)findViewById(R.id.fiMidBut);
         fiHardBut=(Button)findViewById(R.id.fiHardBut);
 
         fiTrainingDescriptionEt=(EditText)findViewById(R.id.fiTrainingDescEt);
+        succesTv=(TextView)findViewById(R.id.successTv);
+
+        input=(Group)findViewById(R.id.inputGroup);
+        refresh=(Group) findViewById(R.id.refreshGroup);
+
+        if(input.getVisibility()==View.INVISIBLE){
+            input.setVisibility(View.VISIBLE);
+        }
+        if(refresh.getVisibility()==View.VISIBLE){
+            refresh.setVisibility(View.INVISIBLE);
+        }
+
 
         client=new OkHttpClient();
         /*********End Of Ui Initializations**********/
@@ -100,8 +120,9 @@ public class FreestyleInputDialog extends Dialog {
                 if(store.getServerResponseAddedFreestyleTrainingEntry().contains("!") && store.getServerResponseAddedFreestyleTrainingEntry().contains("ok")){
                     Toast.makeText(getContext(),"fail",Toast.LENGTH_SHORT).show();
                 }else if(store.getServerResponseAddedFreestyleTrainingEntry().contains("ok") && !store.getServerResponseAddedFreestyleTrainingEntry().contains("!")){
-                    Toast.makeText(getContext(),"added freestyle entry", Toast.LENGTH_SHORT).show();
-                    dismiss();
+                    input.setVisibility(View.INVISIBLE);
+                    refresh.setVisibility(View.VISIBLE);
+
                 }
 
             }
