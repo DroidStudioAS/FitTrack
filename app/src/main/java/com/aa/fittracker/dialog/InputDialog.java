@@ -183,7 +183,7 @@ public class InputDialog extends Dialog {
 
                         if(trainingToEnter.toLowerCase(Locale.ROOT).equals("freestyle")){
                             //Show the FreestyleInputDialog
-                            FreestyleInputDialog fid = new FreestyleInputDialog(getContext());
+                            FreestyleInputDialog fid = new FreestyleInputDialog(getContext(),listener);
                             fid.show();
                             fid.setCancelable(false);
                             dismiss();

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
 
+import com.aa.fittracker.OnInfoInputListener;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
@@ -41,11 +42,14 @@ public class FreestyleInputDialog extends Dialog {
     Group input;
     Group refresh;
 
+    OnInfoInputListener listener;
+
     int diff = -1;
 
 
-    public FreestyleInputDialog(@NonNull Context context) {
+    public FreestyleInputDialog(@NonNull Context context, OnInfoInputListener listener) {
         super(context);
+        this.listener=listener;
         setContentView(R.layout.freestyle_input_layout);
 
         /*********Ui Initializations**********/
@@ -76,6 +80,7 @@ public class FreestyleInputDialog extends Dialog {
 
 
         /*********OnClickListeners**********/
+
         closeFid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +127,15 @@ public class FreestyleInputDialog extends Dialog {
                 }else if(store.getServerResponseAddedFreestyleTrainingEntry().contains("ok") && !store.getServerResponseAddedFreestyleTrainingEntry().contains("!")){
                     input.setVisibility(View.INVISIBLE);
                     refresh.setVisibility(View.VISIBLE);
+
+                    refreshTrigger.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            store.addToTrainingEntries(toAdd);
+                            listener.onTrainingInput(toAdd);
+                            dismiss();
+                        }
+                    });
 
                 }
 

@@ -264,8 +264,8 @@ float beginingy;
         for(TrainingEntry x : store.getTrainingEntries()){
             Log.i("Training Entry Date", x.getTraining_date());
             Log.i("Training Entry Value", x.getTraining_name());
-            Log.i("Training Entry Desc", x.getTraining_description());
-            Log.i("Training Entry Diff", x.getDiff());
+            /*Log.i("Training Entry Desc", x.getTraining_description());
+            Log.i("Training Entry Diff", x.getDiff());*/
         }
         for(WeightEntry x : store.getWeightEntries()){
             Log.i("Weight Entry Date", x.getWeight_date());

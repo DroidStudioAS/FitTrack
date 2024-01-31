@@ -379,9 +379,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
     @Override
     public void onTrainingInput(TrainingEntry x) {
-        Log.i("training input", x.getTraining_date() + x.getTraining_name());
-
-
+        Log.i("traininginput", x.getTraining_date() + x.getTraining_name());
         recreate();
     }
 
