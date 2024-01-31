@@ -378,6 +378,13 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                 Debuger.dateLog("totalRestCount", String.valueOf(totalRestCount));
                                 break;
                         }
+                        for(TrainingEntry z : store.getTrainingEntries()){
+                            if(z.getTraining_name().equals("FREESTYLE")){
+                                if(z.getDiff().equals("1")){
+                                    trainingCount+=1;
+                                }
+                            }
+                        }
 
 
                         break;
@@ -506,6 +513,10 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     @Override
     public void onTrainingMatchFound(TrainingEntry x) {
         Log.i("Fragment Callback: ", x.getTraining_name());
+        if(x.getTraining_name().equals("FREESTYLE")){
+            contentTv.setText(x.getTraining_description());
+            return;
+        }
 
         for (Training y : store.getUserTrainings()) {
             if (y.getTraining_name().equals(x.getTraining_name())) {
