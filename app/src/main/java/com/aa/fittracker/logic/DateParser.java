@@ -327,7 +327,8 @@ public class DateParser {
                    String [] splitDate = trainingEntry.getTraining_date().split("-");
                    if(splitDate[0].equals(yearInFocus) && splitDate[1].equals(monthInFocus)){
                        //FOUND
-                       toReturn.add(trainingEntry.getTraining_date() + " : " + trainingEntry.getTraining_name());
+                       toReturn.add(trainingEntry.getTraining_date() + ":" + trainingEntry.getTraining_name() + ":" + trainingEntry.getDiff());
+                       Log.i("HERE I AM", trainingEntry.toString());
                        }
 
                    }
@@ -350,6 +351,9 @@ public class DateParser {
     }
 
     public static HashMap<String, String> monthBreakdownCounter(ArrayList<String> listToCount){
+        for(String o : listToCount){
+            Log.i("lc", o);
+        }
         /*******Training vars*****/
         int eazyCount = 0;
         int midCount = 0;
@@ -372,24 +376,49 @@ public class DateParser {
         toReturn.put("missing: " , String.valueOf(missingDays));
         switch (store.getUserMode()){
             case "journal":
-                //get num of missing days
-
                 //Count Out The Monthly Preformance
                 for(String x : listToCount){
+                    String diff = x.split(":")[2];
+                    Log.i("DIFF", diff);
                     if(x.contains("REST DAY") || x.contains("SKIPPED DAY")){
                         totalRestCount+=1;
                         if(x.contains("REST DAY")){
                             plannedRestCount+=1;
                         }
                     }
+                    if(!diff.equals("-1")){
+                        Log.i("IF ACTIVATED", diff + " " + x);
+                           if(diff.equals("1")) {
+                               Log.i("Found 1", String.valueOf(eazyCount) + " " + x);
+                               eazyCount += 1;
+                               Log.i("Found 1", String.valueOf(eazyCount)  + " " + x);
+                           }else if(diff.equals("2")) {
+                               Log.i("Found 2", String.valueOf(midCount) + " " + x);
+                               midCount += 1;
+                               Log.i("Found 2", String.valueOf(midCount) + " " + x);
+                           } else if(diff.equals("3")) {
+                               Log.i("Found 3", String.valueOf(hardCount) + " " + x);
+                               hardCount += 1;
+                               Log.i("Found 3", String.valueOf(hardCount) + " " + x);
+                           }
+                        }
                     for(Training y : store.getUserTrainings()){
                         if(x.contains(y.getTraining_name())){
                             if(y.getTraining_difficulty()==1){
+                                Log.i("Found 1", String.valueOf(eazyCount) + " " + x);
                                 eazyCount+=1;
+                                Log.i("Found 1", String.valueOf(eazyCount) + " " + x);
+                                break;
                             }else if(y.getTraining_difficulty()==2){
+                                Log.i("Found 2", String.valueOf(midCount) + " " + x);
                                 midCount+=1;
+                                Log.i("Found 2", String.valueOf(midCount) + " " + x);
+                                break;
                             }else if(y.getTraining_difficulty()==3){
+                                Log.i("Found 3", String.valueOf(hardCount) + " " + x);
                                 hardCount+=1;
+                                Log.i("Found 3", String.valueOf(hardCount) + " " + x);
+                                break;
                             }
                         }
                     }
