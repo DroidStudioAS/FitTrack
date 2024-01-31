@@ -71,6 +71,8 @@ public class DeleteTrainingDialog extends Dialog {
                         pd.show();
                         pd.cantDeleteTrainingPrompt();
                         pd.setCancelable(false);
+
+                        dismiss();
                         return;
                     }
                 }
