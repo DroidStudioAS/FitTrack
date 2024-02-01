@@ -39,6 +39,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     int totalRestCount, goodRestCount, trainingCount, missingDataCount = 0;
     double firstWeightOfWeek = -1;
     boolean firstWeightFound = false;
+
     float goodCount = 0;
     float badCount = 0;
     float sameCount = 0;
@@ -401,44 +402,49 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                         Log.i("Weight on date: ", x + " : " + weight);
                         double idealWeight = Double.parseDouble(store.getUserWeightKg());
                         double startWeight = Double.parseDouble(store.getUserStartWeight());
+                        double weightThreshold = 0.5;
 
                         double delta = startWeight-weight;
 
-                        boolean isIdealWeight = weight == idealWeight;
+                        boolean isIdealWeight = Math.abs(weight - idealWeight) <= weightThreshold;
                         boolean lostWeight = weight - startWeight <= 0;
                         boolean gainedWeight = weight - startWeight > 0;
 
+                        Log.i("isIdealWeight", "for date : " + x);
+                        Log.i("isIdealWeight", idealWeight + " startWeight " + startWeight + " Weight " + weight);
+                        Log.i("isIdealWeight", isIdealWeight + " lostWeight " + lostWeight + " Gained Weight " +gainedWeight);
+
                         if (isIdealWeight) {
                             idealCount+=1;
-                        deltas.get(index).setText("$") ;
+                        deltas.get(index).setText(String.valueOf((int) weight)) ;
                         deltas.get(index).setBackgroundResource(0);
                         deltas.get(index).setTextColor(getResources().getColor(R.color.mid_yellow));
                         } else {
-                            Log.i("switch activated: ", "x");
+                            Log.i("switch activated: ", x);
                             switch (store.getUserWeightGoal()) {
                                 case "+":
                                     if (gainedWeight) {
                                         goodCount+=1;
                                         if(delta<=0){
-                                           deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                           deltas.get(index).setText((int) weight) ;
                                         }else if(delta==0){
-                                            deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
+                                            deltas.get(index).setText((int) weight) ;
                                             sameCount+=1;
 
                                         }else {
-                                            deltas.get(index).setText("-"+String.format("%.1f", delta));
+                                            deltas.get(index).setText((int) weight);
                                         }
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
                                     } else if (lostWeight) {
                                         badCount+=1;
                                         if(delta<=0){
-                                            deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
+                                            deltas.get(index).setText((int)weight) ;
                                         }else if(delta==0){
-                                            deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
+                                            deltas.get(index).setText((int)weight) ;
 
                                         }else {
-                                            deltas.get(index).setText("-"+String.format("%.1f", delta));
+                                            deltas.get(index).setText((int)weight) ;
                                         }
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.hard_red));
@@ -447,26 +453,12 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                 case "-":
                                     if (gainedWeight) {
                                         badCount+=1;
-                                        if(delta<0){
-                                            deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
-                                        }else if(delta==0){
-                                            deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
-
-                                        }else {
-                                            deltas.get(index).setText("-"+String.format("%.1f", delta));
-                                        }
+                                        deltas.get(index).setText(String.valueOf((int)weight)) ;
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.hard_red));
                                     } else if (lostWeight) {
                                         goodCount+=1;
-                                        if(delta<0){
-                                            deltas.get(index).setText("+"+String.format("%.1f", Math.abs(delta))) ;
-                                        }else if(delta==0){
-                                            deltas.get(index).setText(String.valueOf(Math.abs(delta))) ;
-
-                                        }else {
-                                            deltas.get(index).setText("-"+String.format("%.1f", delta));
-                                        }
+                                        deltas.get(index).setText(String.valueOf((int)weight));
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
                                     }
@@ -537,9 +529,9 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             goodRestTv.setText(goodRestCount + " Of Which Were Planned");
             missingDataTv.setText(missingDataCount + " Days.");
         }else if(store.getUserMode().equals("weight")){
-            trainingCountTv.setText("Made Good Weight Changes: " + goodCount + " Times.");
-            totalRestCountTv.setText("Made Good Weight Changes: " + badCount + " Times");
-            goodRestTv.setText("Maintained Optimal Weight For: " + idealCount + " Days.");
+            trainingCountTv.setText("Made Good Weight Changes: " + (int)goodCount + " Times.");
+            totalRestCountTv.setText("Made Good Weight Changes: " + (int)badCount + " Times");
+            goodRestTv.setText("Maintained Optimal Weight For: " + (int)idealCount + " Days.");
             missingDataTv.setText(missingDataCount + " Days.");
         }
     }
@@ -552,6 +544,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         }
         //data present
         double weekDelta = weekStartWeight - currentWeight;
+        weekDelta = Math.round(weekDelta * 100.0) / 100.0;
 
         StringBuilder sb =  new StringBuilder();
         //build the info string for the user
@@ -575,13 +568,14 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             weekDelta=Math.abs(weekDelta);
         }else{
             sb.append("This Week Your Weight Did Not Change");
+            weekDelta=Math.round(Math.abs(weekDelta));
             isDelta0=true;
         }
         if(!isDelta0) {
             sb.append(weekDelta + " KG");
         }
 
-        sb.append("\n\n The Screen Below Shows You How Much Weight You Lost/Gained, Compared To Your Start Weight: " +store.getUserStartWeight()+ " KG");
+        sb.append("\n\n The Screen Below Shows Your Weight On Each Day Of The Week. You Started At: " +store.getUserStartWeight()+ " KG. " + "Anything Above This Is A Bad Weight Change. Anything Below, Is A Good Change. If You Are Within 0.5Kg Of Your Optimal Weight, It Is Considered Optimal Weight Maintenance");
 
         contentTv.setText(sb.toString());
 
