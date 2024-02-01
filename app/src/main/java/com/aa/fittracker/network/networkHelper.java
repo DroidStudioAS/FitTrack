@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,6 @@ import com.google.gson.Gson;
 public class networkHelper {
 
     /**************Training Service***************/
-
     public static void getExcEntries(OkHttpClient client){
         HttpUrl.Builder builder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/training_service/get_log").newBuilder();
         builder.addQueryParameter("username",store.getUSERNAME());
@@ -55,6 +55,7 @@ public class networkHelper {
 
 
     }
+
     public static void getExc(OkHttpClient client, String url, Map<String,String> params) throws IOException{
         //initialize response;
         String stringResponse = "";
@@ -88,6 +89,7 @@ public class networkHelper {
 
         //Request request = new Request.Builder().url(url)
     }
+
     public static void postExc(OkHttpClient client, String url, Map<String, String> params) throws IOException {
         // Create a FormBody.Builder to build the request body
         FormBody.Builder formBuilder = new FormBody.Builder();
@@ -118,6 +120,7 @@ public class networkHelper {
             }
         });
     }
+
     public static void deleteExc(OkHttpClient client){
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("username",store.getUSERNAME());
@@ -142,6 +145,7 @@ public class networkHelper {
         });
 
     }
+
     public static void patchExc(OkHttpClient client, Map<String,String> params){
         //Build the request Body Data
         FormBody.Builder builder = new FormBody.Builder();
@@ -196,6 +200,7 @@ public class networkHelper {
             }
         });
     }
+
     public static void postExcEntry(OkHttpClient client, String training_name){
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("username",store.getUSERNAME());
@@ -246,6 +251,35 @@ public class networkHelper {
             }
         });
     }
+    //shared trainings
+    public static void addToSharedTrainings(OkHttpClient client, Training toAdd){
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        //add parameters
+        formBuilder.add("username",store.getUSERNAME());
+        formBuilder.add("training_name",toAdd.getTraining_name());
+        formBuilder.add("training_desc",toAdd.getTraining_desc());
+        formBuilder.add("training_diff",String.valueOf(toAdd.getTraining_difficulty()));
+
+        RequestBody body = formBuilder.build();
+
+        Request postRequest = new Request.Builder()
+                .url("http://165g123.e2.mars-hosting.com/api/training_service/addToSharedTrainings")
+                .post(body)
+                .build();
+        client.newCall(postRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseAddedSharedTraining(response.body().string());
+                Log.i("added shared tr: ", store.getServerResponseAddedSharedTraining());
+            }
+        });
+
+    }
 
     /*******************Weight Service**********************/
     public static void getStartWeight (OkHttpClient client){
@@ -269,6 +303,7 @@ public class networkHelper {
         });
 
     }
+
     public static void getWeight(OkHttpClient client){
         if(store.getUSERNAME().equals("")){
             Log.e("nh get weight","username not found");
@@ -292,6 +327,7 @@ public class networkHelper {
             }
         });
     }
+
     public static void getWeightLog(OkHttpClient client){
         HttpUrl.Builder builder =  HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/weight_service/get_log").newBuilder();
         builder.addQueryParameter("username",store.getUSERNAME());
@@ -311,6 +347,7 @@ public class networkHelper {
             }
         });
     }
+
     public static void patchWeightGoal(OkHttpClient client,String newWeight){
         //Build the request Body Data
         FormBody.Builder builder = new FormBody.Builder();
@@ -368,6 +405,7 @@ public class networkHelper {
         });
 
     }
+
     public static void deleteWeightEntry(OkHttpClient client){
         FormBody.Builder formBuilder = new FormBody.Builder();
         formBuilder.add("username",store.getUSERNAME());
@@ -427,6 +465,7 @@ public class networkHelper {
 
     //Request request = new Request.Builder().url(url)
     }
+
     public static void registerUser(OkHttpClient client, Map<String,String> params){
         FormBody.Builder urlBuilder = new FormBody.Builder();
         for(Map.Entry<String,String> param : params.entrySet()){
@@ -450,5 +489,4 @@ public class networkHelper {
 
 
 
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 }
