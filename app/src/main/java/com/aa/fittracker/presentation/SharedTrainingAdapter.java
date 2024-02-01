@@ -16,11 +16,9 @@ import com.aa.fittracker.models.Training;
 import com.aa.fittracker.trainingservice.onItemClickListener;
 import java.util.List;
 
-public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyViewHolder> {
+public class SharedTrainingAdapter extends RecyclerView.Adapter<SharedTrainingAdapter.MyViewHolder> {
 
-    private List<Training> dataList;
-    private List<SharedTraining> sharedList;
-
+    private List<SharedTraining> dataList;
 
     private Context context;
     private onItemClickListener listener;
@@ -29,11 +27,11 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
         this.listener = listener;
     }
 
-    public void setDataList(List<Training> dataList) {
+    public void setDataList(List<SharedTraining> dataList) {
         this.dataList = dataList;
     }
 
-    public trainingAdapter(List<Training> dataList, Context context) {
+    public SharedTrainingAdapter(List<SharedTraining> dataList, Context context) {
         this.dataList = dataList;
         this.context = context;
     }
@@ -70,12 +68,12 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
             int index = startIndex + java.util.Arrays.asList(tv).indexOf(x);
 
             if (index < endIndex) {
-                Training currentItem = dataList.get(index);
-                x.setText(currentItem.getTraining_name());
+                SharedTraining currentItem = dataList.get(index);
+                x.setText(currentItem.getShared_training_name());
                 x.setVisibility(View.VISIBLE);
 
                 // Set the background color based on your logic (using getColor method)
-                int difficulty = currentItem.getTraining_difficulty();
+                int difficulty = currentItem.getShared_training_difficulty();
                 int backgroundColor = getColor(difficulty); // Use your getColor method
                 shapeDrawable.setColor(backgroundColor);
 
@@ -84,7 +82,7 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
                 x.setBackground(shapeDrawable);
 
                 // Set click listener
-                x.setOnClickListener(new View.OnClickListener() {
+              /*  x.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Your onClick logic here
@@ -94,7 +92,7 @@ public class trainingAdapter extends RecyclerView.Adapter<trainingAdapter.MyView
                             listener.onTrainingFocus(store.getTrainingInFocus());
                         }
                     }
-                });
+                });*/
             } else {
                 x.setVisibility(View.GONE);
             }

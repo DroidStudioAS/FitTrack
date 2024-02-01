@@ -2,6 +2,7 @@ package com.aa.fittracker.logic;
 
 import android.util.Log;
 
+import com.aa.fittracker.models.SharedTraining;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
@@ -25,6 +26,13 @@ public class store {
     private static String SERVER_RESPONSE_ADDER_TRAINING_ENTRY = "";
     private static String SERVER_RESPONSE_ADDED_FREESTYLE_TRAINING_ENTRY = "";
     private static String SERVER_RESPONSE_ADDED_SHARED_TRAINING = "";
+    private static String SERVER_RESPONSE_SHARED_TRAININGS = "";
+
+
+    public static String getServerResponseSharedTrainings() {
+        return SERVER_RESPONSE_SHARED_TRAININGS;
+    }
+
 
     public static String getServerResponseAddedSharedTraining() {
         return SERVER_RESPONSE_ADDED_SHARED_TRAINING;
@@ -101,6 +109,7 @@ public class store {
     private static Training TRAINING_IN_FOCUS = new Training();
     private static String TRAINING_TO_DELETE_NAME ="";
     private static int ACTIVE_DIFFICULTY_FILTER=-1;
+    private static List<SharedTraining> SHARED_TRAININGS = new ArrayList<>();
     private static boolean EDIT_MODE_ACTIVE=false;
 
     private static String TRAINING_ENTRIES_STRING = "";
@@ -310,6 +319,33 @@ public class store {
     }
     public static void setWeightEntries(ArrayList<WeightEntry> weightEntries) {
         WEIGHT_ENTRIES = weightEntries;
+    }
+
+    public static List<SharedTraining> getSharedTrainings() {
+        return SHARED_TRAININGS;
+    }
+
+    public static void setSharedTrainings(List<SharedTraining> sharedTrainings) {
+        SHARED_TRAININGS = sharedTrainings;
+    }
+
+    public static void setServerResponseSharedTrainings(String serverResponseSharedTrainings) {
+        //clear the list to prevent concatination
+        SHARED_TRAININGS.clear();
+        //setter
+        SERVER_RESPONSE_SHARED_TRAININGS = serverResponseSharedTrainings;
+        Gson gson = new Gson();
+
+        SharedTraining[] trainings = gson.fromJson(getServerResponseSharedTrainings(),SharedTraining[].class);
+        for(SharedTraining x : trainings){
+            Log.i("shared: ", x.toString());
+        }
+
+        SHARED_TRAININGS.addAll(Arrays.asList(trainings));
+        //TODO delete
+        for(SharedTraining x : SHARED_TRAININGS){
+            Log.i("training from final list", x.toString());
+        }
     }
     public static void setServerResponseAllExc(String serverResponseAllExc) {
         //clear the list so it does not concat

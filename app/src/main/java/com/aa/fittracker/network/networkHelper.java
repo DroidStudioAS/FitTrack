@@ -57,8 +57,6 @@ public class networkHelper {
     }
 
     public static void getExc(OkHttpClient client, String url, Map<String,String> params) throws IOException{
-        //initialize response;
-        String stringResponse = "";
         //initialize the urlBuilder
         HttpUrl.Builder urlBuilder =  HttpUrl.parse(url).newBuilder();
         //add the parameters to the url
@@ -87,7 +85,6 @@ public class networkHelper {
         });
 
 
-        //Request request = new Request.Builder().url(url)
     }
 
     public static void postExc(OkHttpClient client, String url, Map<String, String> params) throws IOException {
@@ -279,6 +276,31 @@ public class networkHelper {
             }
         });
 
+    }
+
+    public static void getSharedTrainings(OkHttpClient client) {
+        //initialize the urlBuilder
+        HttpUrl.Builder urlBuilder =  HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/training_service/getSharedTrainings").newBuilder();
+        //build the url
+        String URL = urlBuilder.build().toString();
+        //form the request
+        Request request = new Request.Builder().url(URL).build();
+        //Callback
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                //in case of network error
+                Log.i("IMPORTANT", "500");
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                //success
+                store.setServerResponseSharedTrainings(JsonParser.extractJsonArray(response.body().string()));
+                Log.i("SharedTrainings",store.getServerResponseSharedTrainings());
+
+            }
+        });
     }
 
     /*******************Weight Service**********************/
