@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,7 +12,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.aa.fittracker.R;
+import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.Training;
+import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
+
+import okhttp3.OkHttpClient;
 
 public class promptDialog extends Dialog {
     TrainingActivity ta;
@@ -101,6 +107,50 @@ public class promptDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 dismiss();
+            }
+        });
+
+    }
+    public void shareTrainingPrompt(Training toAdd, OkHttpClient client){
+        userPromptTv.setText("Are You Sure You Want To Add: " + toAdd.getTraining_name() + " To Community Trainings? This Means Other Users Will Be Able To View And Download Your Training.");
+        yesBut.setText("Lets Do It!");
+        noBut.setText("Maybe Later");
+        noBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        yesBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                networkHelper.addToSharedTrainings(client,toAdd);
+                while (store.getServerResponseAddedSharedTraining().equals("")){
+                    Log.i("Waiting", "...");
+                }
+                if(store.getServerResponseAddedSharedTraining().contains("ok") && !store.getServerResponseAddedSharedTraining().contains("!")){
+                    //sucess
+                    userPromptTv.setText("Thanks For Sharing " + toAdd.getTraining_name()+  " With The FitTracker Community");
+                    store.setServerResponseAddedSharedTraining("");
+                    noBut.setVisibility(View.GONE);
+                    yesBut.setText("Ok!");
+                    yesBut.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dismiss();
+                        }
+                    });
+                }else if(store.getServerResponseAddedSharedTraining().contains("name is taken")){
+                    userPromptTv.setText("Oops.. This Name Is Already Taken. Please Rename Your Training To A Unique Name!");
+                    noBut.setVisibility(View.GONE);
+                    yesBut.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            store.setServerResponseAddedSharedTraining("");
+                            dismiss();
+                        }
+                    });
+                }
             }
         });
     }

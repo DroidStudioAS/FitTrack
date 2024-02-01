@@ -59,11 +59,13 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
 
     Button filter;
     Button reset;
-    ImageView deleteBut;
-    ImageView editBut;
     Button easyFilter;
     Button mediumFilter;
     Button hardFilter;
+
+    ImageView deleteBut;
+    ImageView editBut;
+    ImageView shareBut;
     ImageView patchTrigger;
 
     OkHttpClient clientel;
@@ -107,6 +109,7 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         mediumFilter = (Button)view.findViewById(R.id.mediumFilter);
         hardFilter=(Button)view.findViewById(R.id.hardFilter);
         patchTrigger=(ImageView)view.findViewById(R.id.patchTrigger);
+        shareBut=(ImageView)view.findViewById(R.id.shareTrigger);
 
         browseView=(ScrollView)view.findViewById(R.id.scrollView2);
 
@@ -198,29 +201,6 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
                 }else{
                     dtd.setCancelable(false);
                     dtd.show();
-
-
-                    /*
-                    Snackbar deleteWarning = Snackbar.make(v,"Are you sure you want to delete "+store.getTrainingToDeleteName()+" ?",Snackbar.LENGTH_INDEFINITE);
-                    deleteWarning.setAction("Yes", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            networkHelper.deleteExc(clientel);
-                            Training toDelete = new Training();
-                            for(Training x : store.getUserTrainings()){
-                                if(x.getTraining_name().equals(store.getTrainingToDeleteName())){
-                                    toDelete=x;
-                                }
-                            }
-                            store.removeFromUserTrainings(toDelete);
-                            refreshList();
-                        }
-                    });
-
-                    deleteWarning.show();
-
-                     */
-
                 }
 
             }
@@ -374,6 +354,18 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
             }
         });
 
+        shareBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptDialog pd = new promptDialog(getContext());
+                pd.show();
+                pd.shareTrainingPrompt(store.getTrainingInFocus(), clientel);
+                pd.setCancelable(false);
+            }
+        });
+
+
+
         return view;
     }
     /*********Helpers**********/
@@ -418,6 +410,7 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
 
         deleteBut.setVisibility(View.GONE);
         editBut.setVisibility(View.GONE);
+        shareBut.setVisibility(View.GONE);
 
         nameTv.setText("No Training Selected");
         descTv.setText("");
@@ -463,6 +456,7 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
             descTv.setText(training.getTraining_desc());
             deleteBut.setVisibility(View.VISIBLE);
             editBut.setVisibility(View.VISIBLE);
+            shareBut.setVisibility(View.VISIBLE);
             //store the name of the training in focus as a parameter in case user wants to delete
             store.setTrainingToDeleteName(training.getTraining_name());
 
