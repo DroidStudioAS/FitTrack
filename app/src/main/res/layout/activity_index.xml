@@ -108,7 +108,7 @@
       android:alpha="0"
       android:background="@drawable/weight_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
-      app:layout_constraintCircleAngle="180"
+      app:layout_constraintCircleAngle="130"
       app:layout_constraintCircleRadius="170dp"
       tools:layout_editor_absoluteX="11dp"
       tools:layout_editor_absoluteY="301dp" />
@@ -277,4 +277,16 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/weightGoalLabelTv" />
+
+  <ImageView
+      android:id="@+id/communityBut"
+      android:alpha="0"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      app:layout_constraintCircle="@id/imageView2"
+      app:layout_constraintCircleAngle="225"
+      app:layout_constraintCircleRadius="170dp"
+      app:srcCompat="@drawable/icon_community"
+      tools:layout_editor_absoluteY="433dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
