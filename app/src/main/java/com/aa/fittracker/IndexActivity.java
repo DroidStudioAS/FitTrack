@@ -63,6 +63,7 @@ TextView weightGoalTv;
 ImageView journalButton;
 ImageView trainingsButton;
 ImageView noutritionButton;
+ImageView communityButton;
 ImageView weightButton;
 ImageView[] imageViews = {journalButton, trainingsButton, weightButton};
 ImageView imageView2;
@@ -109,6 +110,7 @@ float beginingy;
         startWeightTv = (TextView)findViewById(R.id.startWeightTv);
         welcomeTv = (TextView)findViewById(R.id.welcomeTv);
         weightGoalTv=(TextView)findViewById(R.id.weightGoalTv);
+        communityButton=(ImageView)findViewById(R.id.communityBut);
 
 
         editWeightGoalButton=(Button)findViewById(R.id.editWeightGoalButton);
@@ -238,6 +240,7 @@ float beginingy;
         AnimationHelper.fadeIn(journalButton);
         AnimationHelper.fadeIn(weightButton);
         AnimationHelper.fadeIn(trainingsButton);
+        AnimationHelper.fadeIn(communityButton);
 
         notificationReceiver.sendCustomNotification(this,"Help Us Grow","This App Is Developed And Maintained By A Single Developer. Donate On Paypal To Allow Us To Create A Better User Expirience!", "Donate");
     }
