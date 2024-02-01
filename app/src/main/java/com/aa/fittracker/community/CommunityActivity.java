@@ -30,7 +30,7 @@ public class CommunityActivity extends AppCompatActivity {
 
         networkHelper.getSharedTrainings(client);
 
-        while (store.getSharedTrainings().size()==0){
+        while (store.getServerResponseSharedTrainings().equals("")){
             Log.i("Fetching Data","...");
         }
 

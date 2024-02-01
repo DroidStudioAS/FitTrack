@@ -6,6 +6,15 @@ public class SharedTraining extends Training {
     private String shared_training_name;
     private String shared_training_desc;
 
+    public SharedTraining() {
+    }
+
+    public SharedTraining(int shared_training_difficulty, String shared_training_name, String shared_training_desc) {
+        this.shared_training_difficulty = shared_training_difficulty;
+        this.shared_training_name = shared_training_name;
+        this.shared_training_desc = shared_training_desc;
+    }
+
     public int getShared_training_difficulty() {
         return shared_training_difficulty;
     }

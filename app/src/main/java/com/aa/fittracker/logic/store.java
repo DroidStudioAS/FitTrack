@@ -191,6 +191,9 @@ public class store {
     public static void addToUserTrainings(Training training) {
         USER_TRAININGS.add(training);
     }
+    public static void addToSharedTrainings(SharedTraining st){
+        SHARED_TRAININGS.add(st);
+    }
 
     public static void removeFromUserTrainings(Training toDelete){
         Training toRemove = new Training();

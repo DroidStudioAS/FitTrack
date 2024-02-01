@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.SharedTraining;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
@@ -134,6 +135,7 @@ public class promptDialog extends Dialog {
                     store.setServerResponseAddedSharedTraining("");
                     noBut.setVisibility(View.GONE);
                     yesBut.setText("Ok!");
+                    store.addToSharedTrainings(new SharedTraining(toAdd.getTraining_difficulty(),toAdd.getTraining_name(),toAdd.getTraining_desc()));
                     yesBut.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
