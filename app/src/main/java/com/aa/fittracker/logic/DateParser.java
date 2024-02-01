@@ -176,8 +176,8 @@ public class DateParser {
         return days;
     }
 
-    public static HashMap<String,String> last7DaysWeight() {
-        HashMap<String,String> last7Days = new HashMap<>();
+    public static HashMap<String, String> last7DaysWeight() {
+        HashMap<String, String> last7Days = new HashMap<>();
         String date = store.getDateInFocus();
         String[] parts = date.split("-");
         int year = Integer.parseInt(parts[0]);
@@ -185,33 +185,25 @@ public class DateParser {
         int day = Integer.parseInt(parts[2]);
         boolean isYearOverlap = false;
 
-
-
         for (int i = 0; i < 7; i++) {
             String dateToFind = "";
             int dayToFind = day - i;
 
             if (dayToFind > 0) {
                 // Construct the date normally
-                dateToFind = year + "-" + (month > 9 ? month : "0" + month) + "-" + (dayToFind > 9 ? dayToFind : "0" + dayToFind);
+                dateToFind = String.format("%d-%02d-%02d", year, month, dayToFind);
             } else {
-                if(month==1 && !isYearOverlap){
-                    year=year-1;
-                    isYearOverlap=true;
+                if (month == 1 && !isYearOverlap) {
+                    year = year - 1;
+                    isYearOverlap = true;
                 }
+
                 // Adjust the date for the previous month
-                int lastDayOfPrevMonth = LocalDate.of(year, month, 1).minusDays(1).getDayOfMonth();
-                int remainingDays = Math.abs(dayToFind); // Remaining days needed from the previous month
+                int lastDayOfPrevMonth = getDaysInMonth((month > 1 ? month - 1 : 12), year);
+                int remainingDays = Math.abs(dayToFind);
 
                 // Construct the date for the previous month, including the last day if necessary
-                if (lastDayOfPrevMonth - remainingDays + 1 == 1) {
-                    dateToFind = year + "-" + (month > 1 ? month - 1 : 12) + "-" + (lastDayOfPrevMonth - remainingDays + 1);
-
-                } else {
-                    dateToFind = year + "-" + (month > 1 ? month - 1 : 12) + "-" + (lastDayOfPrevMonth - remainingDays);
-                }
-
-
+                dateToFind = String.format("%d-%02d-%02d", year, (month > 1 ? month - 1 : 12), (lastDayOfPrevMonth - remainingDays));
             }
 
             boolean matchFound = false;
@@ -222,26 +214,25 @@ public class DateParser {
 
                 if (x.getWeight_date().equals(dateToFind)) {
                     Log.i("dtw: ", dateToFind + "-" + x.getWeight_date());
-                    last7Days.put(x.getWeight_date(),x.getWeight_value());
+                    last7Days.put(x.getWeight_date(), x.getWeight_value());
                     matchFound = true;
                     break;
                 }
             }
-
-        }
-        for(Map.Entry x : last7Days.entrySet()){
-            Log.i("EXCDATE", "Map keys in end of l7dw" + x.getKey() + " : " + x.getValue());
         }
 
+        for (Map.Entry x : last7Days.entrySet()) {
+            Log.i("EXCDATE", "Map keys at the end of l7dw: " + x.getKey() + " : " + x.getValue());
+        }
 
         return last7Days;
     }
 
-    public static HashMap<String,String> last7DaysTraining() {
-        HashMap<String,String> last7Days = new HashMap<>();
+
+    public static HashMap<String, String> last7DaysTraining() {
+        HashMap<String, String> last7Days = new HashMap<>();
         String date = store.getDateInFocus();
         String[] parts = date.split("-");
-
         boolean isYearOverlap = false;
         int year = Integer.parseInt(parts[0]);
         int month = Integer.parseInt(parts[1]);
@@ -253,25 +244,19 @@ public class DateParser {
 
             if (dayToFind > 0) {
                 // Construct the date normally
-                dateToFind = year + "-" + (month > 9 ? month : "0" + month) + "-" + (dayToFind > 9 ? dayToFind : "0" + dayToFind);
-            }
-            else {
-
-                if(month==1 && !isYearOverlap){
-                    year=year-1;
-                    isYearOverlap=true;
+                dateToFind = String.format("%d-%02d-%02d", year, month, dayToFind);
+            } else {
+                if (month == 1 && !isYearOverlap) {
+                    year = year - 1;
+                    isYearOverlap = true;
                 }
 
                 // Adjust the date for the previous month
-                int lastDayOfPrevMonth = LocalDate.of(year, month, 1).minusDays(1).getDayOfMonth();
-                int remainingDays = Math.abs(dayToFind); // Remaining days needed from the previous month
+                int lastDayOfPrevMonth = getDaysInMonth((month > 1 ? month - 1 : 12), year);
+                int remainingDays = Math.abs(dayToFind);
 
                 // Construct the date for the previous month, including the last day if necessary
-                if (lastDayOfPrevMonth - remainingDays + 1 == 1) {
-                    dateToFind = year + "-" + (month > 1 ? month - 1 : 12) + "-" + (lastDayOfPrevMonth - remainingDays + 1);
-                } else {
-                    dateToFind = year + "-" + (month > 1 ? month - 1 : 12) + "-" + (lastDayOfPrevMonth - remainingDays);
-                }
+                dateToFind = String.format("%d-%02d-%02d", year, (month > 1 ? month - 1 : 12), (lastDayOfPrevMonth - remainingDays));
             }
 
             boolean matchFound = false;
@@ -282,29 +267,24 @@ public class DateParser {
 
                 if (x.getTraining_date().equals(dateToFind)) {
                     Log.i("Match found in fr: ", dateToFind + "-" + x.getTraining_date());
-                    last7Days.put(x.getTraining_date(),x.getTraining_name());
+                    last7Days.put(x.getTraining_date(), x.getTraining_name());
                     matchFound = true;
                     break;
                 }
             }
 
-           /* if (!matchFound && i==6){
-                //dummy date to prevent crashing
-                last7Days.put(dateToFind,"");
-            }*/
-            if(i==6 && !matchFound){
+            if (i == 6 && !matchFound) {
                 return last7Days;
             }
-
         }
 
-        for(Map.Entry x : last7Days.entrySet()){
-            Log.i("EXCDATE", "Map keys in end of l7dt" + x.getKey() + " : " + x.getValue());
+        for (Map.Entry x : last7Days.entrySet()) {
+            Log.i("EXCDATE", "Map keys at the end of l7dt: " + x.getKey() + " : " + x.getValue());
         }
-
 
         return last7Days;
     }
+
 
     public static ArrayList<String> monthBreakdown(){
         ArrayList<String> toReturn = new ArrayList<>();
