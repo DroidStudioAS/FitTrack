@@ -425,27 +425,12 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                 case "+":
                                     if (gainedWeight) {
                                         goodCount+=1;
-                                        if(delta<=0){
-                                           deltas.get(index).setText((int) weight) ;
-                                        }else if(delta==0){
-                                            deltas.get(index).setText((int) weight) ;
-                                            sameCount+=1;
-
-                                        }else {
-                                            deltas.get(index).setText((int) weight);
-                                        }
+                                        deltas.get(index).setText(String.valueOf((int)weight)) ;
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
                                     } else if (lostWeight) {
                                         badCount+=1;
-                                        if(delta<=0){
-                                            deltas.get(index).setText((int)weight) ;
-                                        }else if(delta==0){
-                                            deltas.get(index).setText((int)weight) ;
-
-                                        }else {
-                                            deltas.get(index).setText((int)weight) ;
-                                        }
+                                        deltas.get(index).setText(String.valueOf((int)weight)) ;
                                         deltas.get(index).setBackgroundResource(0);
                                         deltas.get(index).setTextColor(getResources().getColor(R.color.hard_red));
                                     }
