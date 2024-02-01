@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aa.fittracker.community.CommunityActivity;
 import com.aa.fittracker.dialog.EditGoalsDialog;
 import com.aa.fittracker.dialog.InfoDialog;
 import com.aa.fittracker.logic.NotificationReceiver;
@@ -212,6 +213,13 @@ float beginingy;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
+                startActivity(intent);
+            }
+        });
+        communityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CommunityActivity.class);
                 startActivity(intent);
             }
         });
