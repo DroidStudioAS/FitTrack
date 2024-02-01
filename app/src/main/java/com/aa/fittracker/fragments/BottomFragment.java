@@ -42,7 +42,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
 
     float goodCount = 0;
     float badCount = 0;
-    float sameCount = 0;
     float idealCount = 0;
 
 
@@ -266,7 +265,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         idealCount=0;
         goodCount=0;
         badCount=0;
-        sameCount=0;
         firstWeightFound=false;
     }
 
@@ -418,7 +416,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                             idealCount+=1;
                         deltas.get(index).setText(String.valueOf((int) weight)) ;
                         deltas.get(index).setBackgroundResource(0);
-                        deltas.get(index).setTextColor(getResources().getColor(R.color.mid_yellow));
+                        deltas.get(index).setTextColor(getResources().getColor(R.color.perfectGold));
                         } else {
                             Log.i("switch activated: ", x);
                             switch (store.getUserWeightGoal()) {
@@ -427,12 +425,12 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                         goodCount+=1;
                                         deltas.get(index).setText(String.valueOf((int)weight)) ;
                                         deltas.get(index).setBackgroundResource(0);
-                                        deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
+                                        deltas.get(index).setTextColor(getResources().getColor(R.color.goodGreen));
                                     } else if (lostWeight) {
                                         badCount+=1;
                                         deltas.get(index).setText(String.valueOf((int)weight)) ;
                                         deltas.get(index).setBackgroundResource(0);
-                                        deltas.get(index).setTextColor(getResources().getColor(R.color.hard_red));
+                                        deltas.get(index).setTextColor(getResources().getColor(R.color.badRed));
                                     }
                                     break;
                                 case "-":
@@ -440,12 +438,12 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
                                         badCount+=1;
                                         deltas.get(index).setText(String.valueOf((int)weight)) ;
                                         deltas.get(index).setBackgroundResource(0);
-                                        deltas.get(index).setTextColor(getResources().getColor(R.color.hard_red));
+                                        deltas.get(index).setTextColor(getResources().getColor(R.color.badRed));
                                     } else if (lostWeight) {
                                         goodCount+=1;
                                         deltas.get(index).setText(String.valueOf((int)weight));
                                         deltas.get(index).setBackgroundResource(0);
-                                        deltas.get(index).setTextColor(getResources().getColor(R.color.easy_green));
+                                        deltas.get(index).setTextColor(getResources().getColor(R.color.goodGreen));
                                     }
                                     Log.i("Count", String.valueOf(goodCount + " " + badCount + " " + idealCount));
                                     break;
@@ -515,7 +513,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
             missingDataTv.setText(missingDataCount + " Days.");
         }else if(store.getUserMode().equals("weight")){
             trainingCountTv.setText("Made Good Weight Changes: " + (int)goodCount + " Times.");
-            totalRestCountTv.setText("Made Good Weight Changes: " + (int)badCount + " Times");
+            totalRestCountTv.setText("Made Bad Weight Changes: " + (int)badCount + " Times");
             goodRestTv.setText("Maintained Optimal Weight For: " + (int)idealCount + " Days.");
             missingDataTv.setText(missingDataCount + " Days.");
         }
@@ -524,7 +522,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         //NO DATA FOR THE WEEK
         boolean isDelta0 = false;
         if(weekStartWeight==-1 || currentWeight==-1){
-            contentTv.setText("We Do Not Have Enough Data For This Week To Calculate Your Weight Loss. Log At Least 1 Day In The Week, And Todays Weight");
+            contentTv.setText("We Do Not Have Enough Data For This Week To Calculate Your Weight Change. Log At Least 1 Day In The Week, And Todays Weight");
             return;
         }
         //data present

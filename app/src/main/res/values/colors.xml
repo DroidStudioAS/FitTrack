@@ -15,5 +15,10 @@
     <color name="easy_green">#43C3DD</color>
     <color name="mid_yellow">#FFD230</color>
     <color name="hard_red">#800080</color>
+
+    <color name="goodGreen">#2E7D32</color>
+    <color name="badRed">#FF5252</color>
+    <color name="perfectGold">#FFD700</color>
+
 </resources>
 <!--primary  secondary higliht #1c1c1d-->
