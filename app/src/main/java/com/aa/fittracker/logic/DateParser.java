@@ -412,6 +412,8 @@ public class DateParser {
                 break;
             case "weight":
                 int startWeight = Integer.parseInt(store.getUserStartWeight());
+                double idealWeight = Double.parseDouble(store.getUserWeightKg());
+                double weightThreshold = 0.5;
                 for(String x : listToCount) {
                     Double weightOnDate = Double.parseDouble(x.split(":")[1]);
                     for (WeightEntry z : store.getWeightEntries()) {
@@ -419,7 +421,7 @@ public class DateParser {
                             double delta = weightOnDate - startWeight;
                             switch (store.getUserWeightGoal()) {
                                 case "+":
-                                    if (weightOnDate == Double.parseDouble(store.getUserWeightKg())) {
+                                    if (Math.abs(weightOnDate-idealWeight)<=weightThreshold) {
                                         perfectCount += 1;
                                     } else if (delta > 0) {
                                         goodChangeCount += 1;
@@ -428,7 +430,7 @@ public class DateParser {
                                     }
                                     break;
                                 case "-":
-                                    if (weightOnDate == Double.parseDouble(store.getUserWeightKg())) {
+                                    if (Math.abs(weightOnDate-idealWeight)<=weightThreshold) {
                                         perfectCount += 1;
                                     } else if (delta >= 0) {
                                         badChangeCount += 1;

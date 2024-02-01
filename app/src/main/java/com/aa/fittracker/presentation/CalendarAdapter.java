@@ -85,6 +85,7 @@ public class CalendarAdapter {
             case "weight":
                 double startWeight = Double.parseDouble(store.getUserStartWeight());
                 double optimalWeight = Double.parseDouble(store.getUserWeightKg());
+                double weightThreshold = 0.5;
                 /***************Determine if user wants to lose or gain weight****************/
                 if(startWeight-optimalWeight>0){
                     store.setUserWeightGoal("-");
@@ -112,7 +113,7 @@ public class CalendarAdapter {
                     /***************Icon Determiner****************/
 
                     /***************User Achieved Weight Goal On This Date****************/
-                    if(optimalWeight==weightOnActiveDate){
+                    if (Math.abs(optimalWeight - weightOnActiveDate) <= weightThreshold){
                         output.add(new EventDay(calendar,R.drawable.icon_optimal_weight));
                     }
                     /******************Does user want to gain (+) or lose(-) name****************/
