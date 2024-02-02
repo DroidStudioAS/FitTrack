@@ -26,6 +26,7 @@ import com.aa.fittracker.trainingservice.onItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 
@@ -126,6 +127,7 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
             @Override
             public void onClick(View v) {
                 List<SharedTraining> filtered = filterByDifficulty(store.getSharedTrainings());
+                filtered=filterByName(filtered,cSearchEt.getText().toString());
                 rvAdapter.setDataList(filtered);
                 sharedTrainingView.setAdapter(rvAdapter);
             }
@@ -176,6 +178,8 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
     }
 
     public List<SharedTraining> filterByDifficulty(List<SharedTraining> list){
+        //if the diff filter is not active it returns all trainins
+        //so, the text filter can be applied, to the returned list (should work in all circumstances);
         if(cDiffFilter==-1){
             return store.getSharedTrainings();
         }
@@ -187,11 +191,25 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
         }
         return filtered;
     }
+    public List<SharedTraining> filterByName(List<SharedTraining> list, String input){
+        if(input.equals("")){
+            return list;
+        }
+        List<SharedTraining> toReturn = new ArrayList<>();
+        for(SharedTraining x : list){
+            if(x.getShared_training_name().toLowerCase(Locale.ROOT).contains(input.toLowerCase(Locale.ROOT))){
+                toReturn.add(x);
+            }
+        }
+        return toReturn;
+    }
     public void resetCList(){
         cDifficultyFilterClickReaction(-1);
+        cSearchEt.setText("");
         List<SharedTraining> general = store.getSharedTrainings();
         rvAdapter.setDataList(general);
         sharedTrainingView.setAdapter(rvAdapter);
     }
+
 
 }
