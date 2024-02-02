@@ -27,6 +27,7 @@ import com.aa.fittracker.TrainingDeletedCallback;
 import com.aa.fittracker.dialog.DeleteTrainingDialog;
 import com.aa.fittracker.dialog.promptDialog;
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.models.SharedTraining;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.presentation.trainingAdapter;
@@ -459,6 +460,11 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
             shareBut.setVisibility(View.VISIBLE);
             //store the name of the training in focus as a parameter in case user wants to delete
             store.setTrainingToDeleteName(training.getTraining_name());
+
+    }
+
+    @Override
+    public void onSharedTrainingFocus(SharedTraining st) {
 
     }
 

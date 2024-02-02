@@ -82,17 +82,15 @@ public class SharedTrainingAdapter extends RecyclerView.Adapter<SharedTrainingAd
                 x.setBackground(shapeDrawable);
 
                 // Set click listener
-              /*  x.setOnClickListener(new View.OnClickListener() {
+                x.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Your onClick logic here
-                        store.setTrainingInFocusName(x.getText().toString());
-                        store.setTrainingInFocus(store.findInFocus(store.getTrainingInFocusName()));
                         if (listener != null) {
-                            listener.onTrainingFocus(store.getTrainingInFocus());
+                            listener.onSharedTrainingFocus(currentItem);
                         }
                     }
-                });*/
+                });
             } else {
                 x.setVisibility(View.GONE);
             }
