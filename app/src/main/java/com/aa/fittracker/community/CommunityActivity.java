@@ -104,6 +104,8 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
         rvAdapter.setOnItemClickListener(this);
         sharedTrainingView.setAdapter(rvAdapter);
 
+        downloadTrigger.setVisibility(View.INVISIBLE);
+
         /*********OnClickListeners**********/
 
         cEazyFilterButton.setOnClickListener(new View.OnClickListener() {

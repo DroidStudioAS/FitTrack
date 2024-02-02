@@ -98,6 +98,8 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
 
 
 
+
+
         browseRoot=(ConstraintLayout)view.findViewById(R.id.browseRoot);
         searchEt = (EditText)view.findViewById(R.id.searchET);
         editDescET=(EditText)view.findViewById(R.id.editDescET);
@@ -122,6 +124,10 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rv.setLayoutManager(layoutManager);
         context=getContext();
+
+        editBut.setVisibility(View.GONE);
+        shareBut.setVisibility(View.GONE);
+        deleteBut.setVisibility(View.GONE);
         //Communication mechanism between fragment and dialog
         dtd=new DeleteTrainingDialog(context);
         dtd.setDeleteTrainingCallback(this);
