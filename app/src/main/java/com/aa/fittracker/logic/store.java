@@ -27,7 +27,15 @@ public class store {
     private static String SERVER_RESPONSE_ADDED_FREESTYLE_TRAINING_ENTRY = "";
     private static String SERVER_RESPONSE_ADDED_SHARED_TRAINING = "";
     private static String SERVER_RESPONSE_SHARED_TRAININGS = "";
+    private static String SERVER_RESPONSE_TRAINING_ADDED = "";
 
+    public static String getServerResponseTrainingAdded() {
+        return SERVER_RESPONSE_TRAINING_ADDED;
+    }
+
+    public static void setServerResponseTrainingAdded(String serverResponseTrainingAdded) {
+        SERVER_RESPONSE_TRAINING_ADDED = serverResponseTrainingAdded;
+    }
 
     public static String getServerResponseSharedTrainings() {
         return SERVER_RESPONSE_SHARED_TRAININGS;

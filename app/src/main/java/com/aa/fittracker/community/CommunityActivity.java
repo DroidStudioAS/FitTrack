@@ -136,7 +136,7 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
 
                 promptDialog pd = new promptDialog(CommunityActivity.this);
                 pd.show();
-                pd.downloadTrainingPrompt(toAdd);
+                pd.downloadTrainingPrompt(client, toAdd);
                 pd.setCancelable(false);
             }
         });

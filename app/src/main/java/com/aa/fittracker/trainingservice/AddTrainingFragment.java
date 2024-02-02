@@ -137,11 +137,19 @@ public class AddTrainingFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                promptDialog pd = new promptDialog(getContext());
-                pd.show();
-                pd.trainingAddedPrompt();
+                while(store.getServerResponseTrainingAdded().equals("")){
+                    Log.i("Waiting...", "...");
+                }
+                if(store.getServerResponseTrainingAdded().contains("ok") && !store.getServerResponseTrainingAdded().contains("!")){
+                    promptDialog pd = new promptDialog(getContext());
+                    pd.show();
+                    pd.trainingAddedPrompt();
+                    store.setServerResponseTrainingAdded("");
+                }else{
+                    Toast.makeText(getContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
+                    store.setServerResponseTrainingAdded("");
+                }
 
-                Log.i("desc", trainingDesc.trim());
 
 
 

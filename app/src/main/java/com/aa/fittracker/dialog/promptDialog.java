@@ -18,6 +18,11 @@ import com.aa.fittracker.models.Training;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import okhttp3.OkHttpClient;
 
 public class promptDialog extends Dialog {
@@ -25,6 +30,8 @@ public class promptDialog extends Dialog {
     TextView userPromptTv;
     Button yesBut;
     Button noBut;
+
+
     public promptDialog(@NonNull Context context) {
         super(context);
     }
@@ -156,12 +163,54 @@ public class promptDialog extends Dialog {
             }
         });
     }
-    public void downloadTrainingPrompt(Training training){
+    public void downloadTrainingPrompt(OkHttpClient client, Training training){
         userPromptTv.setText("Are You Sure You Want To Download: \"" + training.getTraining_name() + "\" To Your Trainings?");
         noBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
+            }
+        });
+
+        yesBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                store.setServerResponseTrainingAdded("");
+                for(Training x : store.getUserTrainings()){
+                    if (x.getTraining_name().toLowerCase(Locale.ROOT).equals(training.getTraining_name().toLowerCase(Locale.ROOT))){
+                        //rename logic
+                        dismiss();
+                        return;
+                    }
+                }
+
+
+                Map<String,String> params = new HashMap<>();
+                params.put("username",store.getUSERNAME());
+                params.put("diff",String.valueOf(training.getTraining_difficulty()));
+                params.put("name",training.getTraining_name());
+                params.put("desc",training.getTraining_desc());
+
+                try {
+                    networkHelper.postExc(client,"http://165g123.e2.mars-hosting.com/api/exc/addExercise",params);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                while(store.getServerResponseTrainingAdded().equals("")){
+                    Log.i("Waiting","...");
+                }
+                if(store.getServerResponseTrainingAdded().contains("ok") && !store.getServerResponseTrainingAdded().contains("!")){
+                    store.addToUserTrainings(training);
+                    userPromptTv.setText("Added: \"" + training.getTraining_name() + "\" To Your Trainings");
+                    noBut.setVisibility(View.GONE);
+                    yesBut.setText("Ok!");
+                    yesBut.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dismiss();
+                        }
+                    });
+                }
             }
         });
     }

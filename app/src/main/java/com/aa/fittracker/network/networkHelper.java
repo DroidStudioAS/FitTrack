@@ -110,7 +110,8 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    Log.i("response from nh", response.body().string());
+                   store.setServerResponseTrainingAdded(response.body().string());
+                   Log.i("training added: " , store.getServerResponseTrainingAdded());
                 } else {
                     Log.i("IMPORTANT", "POST request failed with response code: " + response.code());
                 }
