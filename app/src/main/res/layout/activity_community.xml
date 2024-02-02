@@ -141,7 +141,6 @@
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/communityTrainingNameTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/communityTrainingNameTv"
         app:layout_constraintTop_toBottomOf="@+id/stView"
         app:srcCompat="@drawable/icon_action_download"
         tools:visibility="gone" />

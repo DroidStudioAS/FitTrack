@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aa.fittracker.R;
+import com.aa.fittracker.dialog.promptDialog;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.SharedTraining;
 import com.aa.fittracker.models.Training;
@@ -47,6 +48,9 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
 
     ImageView cSearchTrigger;
     ImageView cRefreshTrigger;
+    ImageView downloadTrigger;
+
+    SharedTraining toDownload;
 
     int cDiffFilter = -1;
 
@@ -57,6 +61,8 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
         setContentView(R.layout.activity_community);
 
         client = new OkHttpClient();
+
+        toDownload=new SharedTraining();
 
         /***********Fetch All The Shared Trainings***********/
         networkHelper.getSharedTrainings(client);
@@ -90,6 +96,7 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
 
         cSearchTrigger = (ImageView) findViewById(R.id.communitySearchTrigger);
         cRefreshTrigger = (ImageView) findViewById(R.id.communityRefreshTrigger);
+        downloadTrigger=(ImageView)findViewById(R.id.downloadTrigger);
 
 
         //first parameter: the list of trainings that will be displayed:
@@ -115,6 +122,20 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
             @Override
             public void onClick(View v) {
                 cDifficultyFilterClickReaction(3);
+            }
+        });
+        downloadTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Training toAdd = new Training();
+                toAdd.setTraining_name(toDownload.getShared_training_name());
+                toAdd.setTraining_desc(toDownload.getShared_training_desc());
+                toAdd.setTraining_difficulty(toDownload.getShared_training_difficulty());
+
+                promptDialog pd = new promptDialog(CommunityActivity.this);
+                pd.show();
+                pd.downloadTrainingPrompt(toAdd);
+                pd.setCancelable(false);
             }
         });
         cRefreshTrigger.setOnClickListener(new View.OnClickListener() {
@@ -164,18 +185,7 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
     }
 
 
-    @Override
-    public void onTrainingFocus(Training training) {
 
-    }
-
-    @Override
-    public void onSharedTrainingFocus(SharedTraining st) {
-
-        cTrainingNameTv.setText(st.getShared_training_name());
-        cTrainingDescTv.setText(st.getShared_training_desc());
-
-    }
 
     public List<SharedTraining> filterByDifficulty(List<SharedTraining> list){
         //if the diff filter is not active it returns all trainins
@@ -209,6 +219,25 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
         List<SharedTraining> general = store.getSharedTrainings();
         rvAdapter.setDataList(general);
         sharedTrainingView.setAdapter(rvAdapter);
+
+        cTrainingDescTv.setText("");
+        cTrainingNameTv.setText("No Training Selected");
+        downloadTrigger.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onTrainingFocus(Training training) {
+
+    }
+
+    @Override
+    public void onSharedTrainingFocus(SharedTraining st) {
+        cTrainingNameTv.setText(st.getShared_training_name());
+        cTrainingDescTv.setText(st.getShared_training_desc());
+        downloadTrigger.setVisibility(View.VISIBLE);
+
+        toDownload=st;
+        Log.i("td", toDownload.toString());
     }
 
 

@@ -156,4 +156,13 @@ public class promptDialog extends Dialog {
             }
         });
     }
+    public void downloadTrainingPrompt(Training training){
+        userPromptTv.setText("Are You Sure You Want To Download: \"" + training.getTraining_name() + "\" To Your Trainings?");
+        noBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+    }
 }
