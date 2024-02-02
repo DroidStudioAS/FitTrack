@@ -16,10 +16,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/communityMediumFilterBut" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/communitySearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -31,23 +31,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView20"
+        android:id="@+id/communityRefreshTrigger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/communitySearch"
+        app:layout_constraintEnd_toStartOf="@+id/communitySearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/icon_action_reset" />
 
     <ImageView
-        android:id="@+id/imageView22"
+        android:id="@+id/communitySearchTrigger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/communitySearch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
+        app:layout_constraintStart_toEndOf="@+id/communitySearch"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/icon_action_search" />
@@ -61,34 +61,34 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/communitySearch" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/communityEazyFilterBut"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:alpha="0.5"
         android:background="@color/easy_green"
         android:foreground="@color/easy_green"
-        app:layout_constraintEnd_toStartOf="@+id/button6"
+        app:layout_constraintEnd_toStartOf="@+id/communityMediumFilterBut"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/communityMediumFilterBut"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:alpha="0.5"
         android:background="@color/mid_yellow"
         android:foreground="@color/mid_yellow"
-        app:layout_constraintEnd_toStartOf="@+id/button7"
+        app:layout_constraintEnd_toStartOf="@+id/communityHardFilterBut"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintStart_toEndOf="@+id/communityEazyFilterBut"
         app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/communityHardFilterBut"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:alpha="0.5"
@@ -96,8 +96,8 @@
         android:foreground="@color/hard_red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button6"
-        app:layout_constraintTop_toTopOf="@+id/button6" />
+        app:layout_constraintStart_toEndOf="@+id/communityMediumFilterBut"
+        app:layout_constraintTop_toTopOf="@+id/communityMediumFilterBut" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
@@ -107,7 +107,7 @@
         app:layout_constraintGuide_percent="0.65" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/communityTrainingNameTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Training Selected"
@@ -123,10 +123,10 @@
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView41">
+        app:layout_constraintTop_toBottomOf="@+id/communityTrainingNameTv">
 
         <TextView
-            android:id="@+id/textView42"
+            android:id="@+id/communityTrainingDescTv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
