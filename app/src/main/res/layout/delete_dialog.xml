@@ -30,13 +30,13 @@
 
     <ImageView
         android:id="@+id/refreshTrig"
-        android:layout_width="174dp"
-        android:layout_height="35dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_margin="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deleteWarning"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
+        app:srcCompat="@drawable/icon_refresh" />
 
     <ImageView
         android:id="@+id/imageView17"

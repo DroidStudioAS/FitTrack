@@ -98,15 +98,12 @@
         app:layout_constraintStart_toStartOf="@+id/descriptionET"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
-    <Button
+    <ImageView
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/but"
-        android:text="+"
-        android:textColor="#9C27B0"
-        android:textSize="60sp"
+        android:src="@drawable/icon_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
