@@ -24,6 +24,9 @@ import com.aa.fittracker.presentation.SharedTrainingAdapter;
 import com.aa.fittracker.presentation.trainingAdapter;
 import com.aa.fittracker.trainingservice.onItemClickListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import okhttp3.OkHttpClient;
 
 public class CommunityActivity extends AppCompatActivity implements onItemClickListener {
@@ -113,10 +116,30 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
                 cDifficultyFilterClickReaction(3);
             }
         });
+        cRefreshTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetCList();
+            }
+        });
+        cSearchTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<SharedTraining> filtered = filterByDifficulty(store.getSharedTrainings());
+                rvAdapter.setDataList(filtered);
+                sharedTrainingView.setAdapter(rvAdapter);
+            }
+        });
 
     }
     public void cDifficultyFilterClickReaction(int filter_to_activate){
         switch (filter_to_activate){
+            case -1:
+                cDiffFilter=-1;
+                cEazyFilterButton.setAlpha((float) 0.4);
+                cMidFilterButton.setAlpha((float)0.4);
+                cHardFilterButton.setAlpha((float)0.4);
+                break;
             case 1:
                 cDiffFilter=1;
                 cEazyFilterButton.setAlpha(1);
@@ -138,13 +161,6 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
         }
     }
 
-    public SharedTraining sharedTrainingFactory(Training training){
-        SharedTraining toReturn = new SharedTraining();
-        toReturn.setShared_training_name(training.getTraining_name());
-        toReturn.setShared_training_desc(training.getTraining_desc());
-        toReturn.setShared_training_difficulty(training.getTraining_difficulty());
-        return toReturn;
-    }
 
     @Override
     public void onTrainingFocus(Training training) {
@@ -153,8 +169,29 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
 
     @Override
     public void onSharedTrainingFocus(SharedTraining st) {
+
         cTrainingNameTv.setText(st.getShared_training_name());
         cTrainingDescTv.setText(st.getShared_training_desc());
+
+    }
+
+    public List<SharedTraining> filterByDifficulty(List<SharedTraining> list){
+        if(cDiffFilter==-1){
+            return store.getSharedTrainings();
+        }
+        List<SharedTraining> filtered = new ArrayList<>();
+        for(SharedTraining x : list){
+            if(x.getShared_training_difficulty()==cDiffFilter){
+                filtered.add(x);
+            }
+        }
+        return filtered;
+    }
+    public void resetCList(){
+        cDifficultyFilterClickReaction(-1);
+        List<SharedTraining> general = store.getSharedTrainings();
+        rvAdapter.setDataList(general);
+        sharedTrainingView.setAdapter(rvAdapter);
     }
 
 }
