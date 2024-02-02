@@ -32,8 +32,8 @@
 
     <ImageView
         android:id="@+id/communityRefreshTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/communitySearch"
         app:layout_constraintEnd_toStartOf="@+id/communitySearch"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +43,8 @@
 
     <ImageView
         android:id="@+id/communitySearchTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/communitySearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/communitySearch"
@@ -118,6 +118,7 @@
         app:layout_constraintTop_toBottomOf="@+id/stView" />
 
     <ScrollView
+        android:id="@+id/scrollView4"
         android:layout_width="409dp"
         android:layout_height="278dp"
         android:layout_margin="8dp"
@@ -133,4 +134,15 @@
             android:textColor="@color/black"
             android:textSize="22sp" />
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/downloadTrigger"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/communityTrainingNameTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/communityTrainingNameTv"
+        app:layout_constraintTop_toBottomOf="@+id/stView"
+        app:srcCompat="@drawable/icon_action_download"
+        tools:visibility="gone" />
 </androidx.constraintlayout.widget.ConstraintLayout>

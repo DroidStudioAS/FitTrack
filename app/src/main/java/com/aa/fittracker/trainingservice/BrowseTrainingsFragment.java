@@ -58,12 +58,13 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
     EditText editDescET;
     EditText editNameET;
 
-    Button filter;
-    Button reset;
+
     Button easyFilter;
     Button mediumFilter;
     Button hardFilter;
 
+    ImageView filter;
+    ImageView reset;
     ImageView deleteBut;
     ImageView editBut;
     ImageView shareBut;
@@ -102,8 +103,8 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         editDescET=(EditText)view.findViewById(R.id.editDescET);
         editNameET=(EditText)view.findViewById(R.id.editTitleET);
 
-        filter = (Button) view.findViewById(R.id.filter);
-        reset = (Button) view.findViewById(R.id.reset);
+        filter = (ImageView) view.findViewById(R.id.filter);
+        reset = (ImageView) view.findViewById(R.id.reset);
         deleteBut=(ImageView)view.findViewById(R.id.deleteTrigger);
         editBut=(ImageView)view.findViewById(R.id.editTrigger);
         easyFilter = (Button)view.findViewById(R.id.easyFilter);

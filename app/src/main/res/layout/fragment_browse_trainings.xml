@@ -113,7 +113,7 @@
         app:layout_constraintStart_toEndOf="@+id/reset"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageView
         android:id="@+id/filter"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -126,12 +126,12 @@
         app:layout_constraintStart_toEndOf="@+id/searchET"
         app:layout_constraintTop_toTopOf="@+id/searchET" />
 
-    <Button
+    <ImageView
         android:id="@+id/reset"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="3dp"
-        android:background="@android:drawable/ic_menu_revert"
+        android:background="@color/white"
         android:foreground="@drawable/icon_action_reset"
         app:layout_constraintBottom_toBottomOf="@+id/searchET"
         app:layout_constraintEnd_toStartOf="@+id/searchET"
@@ -181,13 +181,14 @@
 
     <ImageView
         android:id="@+id/editTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/icon_action_edit"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/showNameTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/showNameTv" />
+        app:layout_constraintTop_toTopOf="@+id/showNameTv"
+        tools:visibility="gone" />
 
     <ImageView
         android:id="@+id/patchTrigger"
@@ -211,12 +212,14 @@
 
     <ImageView
         android:id="@+id/deleteTrigger"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/icon_action_delete"
-        android:visibility="gone"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/showNameTv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        app:layout_constraintTop_toTopOf="@+id/showNameTv"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/sb"
@@ -229,13 +232,14 @@
 
     <ImageView
         android:id="@+id/shareTrigger"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/icon_share"
-        android:visibility="gone"
+        android:src="@drawable/icon_action_share"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/editTrigger"
-        app:layout_constraintTop_toBottomOf="@+id/editTrigger" />
+        app:layout_constraintTop_toBottomOf="@+id/editTrigger"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
