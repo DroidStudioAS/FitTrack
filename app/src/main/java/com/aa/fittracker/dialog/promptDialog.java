@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.Group;
 
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
@@ -17,6 +19,8 @@ import com.aa.fittracker.models.SharedTraining;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,9 +31,18 @@ import okhttp3.OkHttpClient;
 
 public class promptDialog extends Dialog {
     TrainingActivity ta;
+
     TextView userPromptTv;
+    TextView trainingRenameTv;
+
+    EditText trainingRenameEt;
+
     Button yesBut;
     Button noBut;
+    Button confirmRenameBut;
+
+    Group promptGroup;
+    Group renameGroup;
 
 
     public promptDialog(@NonNull Context context) {
@@ -43,8 +56,23 @@ public class promptDialog extends Dialog {
 
 
         userPromptTv=(TextView) findViewById(R.id.userPromptTv);
+        trainingRenameTv=(TextView) findViewById(R.id.nameTakenTv);
+
+        trainingRenameEt=(EditText)findViewById(R.id.trainingRenameEt);
+
         yesBut=(Button) findViewById(R.id.yesBut);
         noBut=(Button) findViewById(R.id.noBut);
+        confirmRenameBut=(Button) findViewById(R.id.confirmRename);
+
+        promptGroup=(Group) findViewById(R.id.promptGroup);
+        renameGroup=(Group) findViewById(R.id.trainingRenameGroup);
+
+        if(renameGroup.getVisibility()==View.VISIBLE){
+            renameGroup.setVisibility(View.GONE);
+            promptGroup.setVisibility(View.VISIBLE);
+        }
+
+
 
         if(noBut.getVisibility()== View.GONE){
             noBut.setVisibility(View.VISIBLE);
@@ -175,43 +203,101 @@ public class promptDialog extends Dialog {
         yesBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                store.setServerResponseTrainingAdded("");
-                for(Training x : store.getUserTrainings()){
-                    if (x.getTraining_name().toLowerCase(Locale.ROOT).equals(training.getTraining_name().toLowerCase(Locale.ROOT))){
-                        //rename logic
-                        dismiss();
-                        return;
-                    }
-                }
+                /******Name Validation******/
+                if(isNameTaken(training.getTraining_name())){
+                    //name taken
+                    renameGroup.setVisibility(View.VISIBLE);
+                    promptGroup.setVisibility(View.INVISIBLE);
 
-
-                Map<String,String> params = new HashMap<>();
-                params.put("username",store.getUSERNAME());
-                params.put("diff",String.valueOf(training.getTraining_difficulty()));
-                params.put("name",training.getTraining_name());
-                params.put("desc",training.getTraining_desc());
-
-                try {
-                    networkHelper.postExc(client,"http://165g123.e2.mars-hosting.com/api/exc/addExercise",params);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                while(store.getServerResponseTrainingAdded().equals("")){
-                    Log.i("Waiting","...");
-                }
-                if(store.getServerResponseTrainingAdded().contains("ok") && !store.getServerResponseTrainingAdded().contains("!")){
-                    store.addToUserTrainings(training);
-                    userPromptTv.setText("Added: \"" + training.getTraining_name() + "\" To Your Trainings");
-                    noBut.setVisibility(View.GONE);
-                    yesBut.setText("Ok!");
-                    yesBut.setOnClickListener(new View.OnClickListener() {
+                    trainingRenameTv.setText("You Already Have A Training With This Name! Please Select Another One");
+                    setCancelable(true);
+                    confirmRenameBut.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            dismiss();
+                            if(isNameTaken(trainingRenameEt.getText().toString())){
+                                trainingRenameTv.setText("You Already Have A Training With This Name! Please Select Another One");
+                                return;
+                            }
+                            /******Name Validation End******/
+                            else{
+                                //Name Is Ok
+                                String newName = trainingRenameEt.getText().toString().toUpperCase(Locale.ROOT);
+                                Map<String,String> params = new HashMap<>();
+                                params.put("username",store.getUSERNAME());
+                                params.put("diff",String.valueOf(training.getTraining_difficulty()));
+                                params.put("name",newName);
+                                params.put("desc",training.getTraining_desc());
+                                /*********Network block*********/
+                                try {
+                                    networkHelper.postExc(client,"http://165g123.e2.mars-hosting.com/api/exc/addExercise",params);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                while(store.getServerResponseTrainingAdded().equals("")){
+                                    Log.i("Waiting...", "...");
+                                }
+                                if(store.getServerResponseTrainingAdded().contains("ok") && !store.getServerResponseTrainingAdded().contains("!")){
+                                    training.setTraining_name(newName);
+                                    renameGroup.setVisibility(View.GONE);
+                                    promptGroup.setVisibility(View.VISIBLE);
+                                    noBut.setVisibility(View.GONE);
+                                    userPromptTv.setText("Added :\"" + newName + "\" To You Trainings");
+                                    store.addToUserTrainings(training);
+                                    store.setServerResponseTrainingAdded("");
+                                    yesBut.setText("Ok!");
+                                    yesBut.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dismiss();
+                                        }
+                                    });
+                                }
+                            }
                         }
                     });
+                }else{
+                    //Name Is Ok
+                    Map<String,String> params = new HashMap<>();
+                    params.put("username",store.getUSERNAME());
+                    params.put("diff",String.valueOf(training.getTraining_difficulty()));
+                    params.put("name",training.getTraining_name());
+                    params.put("desc",training.getTraining_desc());
+                    /*********Network block*********/
+                    try {
+                        networkHelper.postExc(client,"http://165g123.e2.mars-hosting.com/api/exc/addExercise",params);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    while(store.getServerResponseTrainingAdded().equals("")){
+                        Log.i("Waiting...", "...");
+                    }
+                    if(store.getServerResponseTrainingAdded().contains("ok") && !store.getServerResponseTrainingAdded().contains("!")){
+                        userPromptTv.setText("Added :\"" + training.getTraining_name() + "\" To You Trainings");
+                        store.addToUserTrainings(training);
+                        store.setServerResponseTrainingAdded("");
+                        noBut.setVisibility(View.GONE);
+                        yesBut.setText("Ok!");
+                        yesBut.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dismiss();
+                            }
+                        });
+                    }
+
                 }
             }
         });
+    }
+    public boolean isNameTaken(String name){
+        String upperCaseName = name.toUpperCase(Locale.ROOT).trim();
+        for(Training x : store.getUserTrainings()){
+            if(x.getTraining_name().toUpperCase(Locale.ROOT).trim().equals(upperCaseName)){
+                return true;
+            }
+        }
+        return false;
     }
 }

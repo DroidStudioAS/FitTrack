@@ -7,6 +7,39 @@
     android:layout_gravity="center"
     android:padding="20dp">
 
+    <EditText
+        android:id="@+id/trainingRenameEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTakenTv" />
+
+    <Button
+        android:id="@+id/confirmRename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trainingRenameEt" />
+
+    <TextView
+        android:id="@+id/nameTakenTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
     <ImageView
         android:id="@+id/imageView11"
         android:layout_width="wrap_content"
@@ -54,4 +87,22 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/yesBut"
         app:layout_constraintTop_toBottomOf="@+id/userPromptTv" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/trainingRenameGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="trainingRenameEt,confirmRename,nameTakenTv"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="21dp" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/promptGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="userPromptTv,yesBut,noBut"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="21dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
