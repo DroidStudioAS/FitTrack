@@ -51,6 +51,11 @@ public class TrainingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training);
 
+        ActionBar ab = getSupportActionBar();
+        if(ab!=null){
+            ab.setTitle("My Trainings");
+        }
+
         vPager=(ViewPager) findViewById(R.id.vpTa);
         tl=(TabLayout)findViewById(R.id.taTabs);
         tl.setTabTextColors(ColorStateList.valueOf(Color.BLACK));
@@ -64,10 +69,7 @@ public class TrainingActivity extends AppCompatActivity {
         vPager.setAdapter(adapter);
         tl.setupWithViewPager(vPager);
 
-        ActionBar ab = getSupportActionBar();
-        if(ab!=null){
-            ab.setTitle("FitTracker");
-        }
+
     }
     public static void setCurrentPosition(int pos){
         vPager.setCurrentItem(pos);

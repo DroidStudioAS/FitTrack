@@ -1,5 +1,6 @@
 package com.aa.fittracker.community;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,11 @@ public class CommunityActivity extends AppCompatActivity {
         client=new OkHttpClient();
 
         networkHelper.getSharedTrainings(client);
+
+        ActionBar ab = getSupportActionBar();
+        if(ab!=null){
+            ab.setTitle("Community Trainings");
+        }
 
         while (store.getServerResponseSharedTrainings().equals("")){
             Log.i("Fetching Data","...");
