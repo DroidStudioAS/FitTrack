@@ -37,6 +37,10 @@ public class InfoDialog extends Dialog {
      TextView iconExpTv;
 
      Group fitIconsExpGroup;
+     Group weighIconsExpGroup;
+
+    //Community Elements
+    Group communityIconExpGroup;
 
 
 
@@ -57,8 +61,7 @@ public class InfoDialog extends Dialog {
         /*******Ui********/
         //MainMenu
         trainingInfoTrigger=(TextView) findViewById(R.id.trainingInformationTrigger);
-
-
+        communityInfoTrigger=(TextView)findViewById(R.id.communityInformationTrigger);
         journalInfoTrigger=(TextView)findViewById(R.id.JournalInformationTrigger);
         //journalSubMenu
         journalSubMenu=(Group) findViewById(R.id.jorunalSubMenu);
@@ -69,7 +72,12 @@ public class InfoDialog extends Dialog {
         expContainer=(ScrollView)findViewById(R.id.expContainer);
         expTv=(TextView)findViewById(R.id.explanaitonTv);
         iconExpTv=(TextView)findViewById(R.id.iconExpTv);
+
         fitIconsExpGroup=(Group)findViewById(R.id.fitIconsExpGroup);
+        weighIconsExpGroup=(Group)findViewById(R.id.weightIconExpGroup);
+
+        //community elements
+        communityIconExpGroup=(Group)findViewById(R.id.communityIconExpGroup);
 
 
 
@@ -82,6 +90,24 @@ public class InfoDialog extends Dialog {
             public void onClick(View v) {
                 //show the submenu
                 journalSubMenu.setVisibility(View.VISIBLE);
+                expContainer.setVisibility(View.GONE);
+                iconExpTv.setVisibility(View.GONE);
+                weighIconsExpGroup.setVisibility(View.GONE);
+                communityIconExpGroup.setVisibility(View.GONE);
+            }
+        });
+        communityInfoTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expContainer.setVisibility(View.VISIBLE);
+                expTv.setText(R.string.communityExp);
+                journalSubMenu.setVisibility(View.INVISIBLE);
+
+                iconExpTv.setVisibility(View.VISIBLE);
+                iconExpTv.setText(R.string.communityFurtherExp);
+                fitIconsExpGroup.setVisibility(View.GONE);
+                weighIconsExpGroup.setVisibility(View.GONE);
+                communityIconExpGroup.setVisibility(View.VISIBLE);
             }
         });
 
@@ -98,6 +124,7 @@ public class InfoDialog extends Dialog {
                 iconExpTv.setVisibility(View.VISIBLE);
                 iconExpTv.setText(R.string.icon_exp_trainings);
                 fitIconsExpGroup.setVisibility(View.VISIBLE);
+                weighIconsExpGroup.setVisibility(View.GONE);
 
             }
         });
@@ -113,6 +140,7 @@ public class InfoDialog extends Dialog {
                 iconExpTv.setText(R.string.icon_exp_weight);
                 //unneccesary for weight
                 fitIconsExpGroup.setVisibility(View.GONE);
+                weighIconsExpGroup.setVisibility(View.VISIBLE);
             }
         });
 

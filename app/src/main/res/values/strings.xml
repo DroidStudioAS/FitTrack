@@ -8,5 +8,7 @@
     <string name="icon_exp_trainings">Once You Add A Training, It Will Be Displayed On The Calendar, With One Of These Icons, Based On Its Difficulty</string>
     <string name="weightJournalExp">Here You Can Log Your Weight For The Day.\n\nSimply:\n\n1)Chose A Date\n\n2)Enter Your Weight For The Selected Date\n\n3)You Are Done!\nThe App Will Do The Rest For You, And Make All The Calculations Neccessary For You To Know If You Are On The Right Path To Your Weight Goals</string>
     <string name="icon_exp_weight">Once You Add A Weight Entry, It Will Be Displayed On The Calendar, With One Of These Icons, Based On Its Weather Your Weight Changes Are Good Or Bad.\n\nOptimal Weight Maintenance Is Considered Anything Withing 0.5 KG If Your Ideal Weight.</string>
-
+    <string name="communityExp">Our Community Is Where You Can Download Trainings From Other Users!\n\nSimply Enter The Community Page, And You Can Start Browsing Right Away.\n\nFeel Free To Search Trainings By Name Or Difficulty.\n\nYou Can Share Your Own Trainings With The FitTracker Community, From Your Trainings Page!</string>
+    <string name="communityFurtherExp">Note: You Can Not Download A Training By A Name, That You Already Used In Your Own Trainings! If You Try To Do So, The App Will Ask You To Select A New Name For The Downloaded Training!</string>
+    <string name="communityDownloadExp">To Download A Training,\nSimply:\n\n1)Select The Training You Want To Download\n\n2)Press This Button:</string>
 </resources>
