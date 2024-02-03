@@ -3,6 +3,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_training_prompt">You Have No Trainings Saved. Do You Want To Add Your Routines First (Recommended)?</string>
-    <string name="fitJournalExp">Here, You Can Log Your Training History. Simply:\n\n1)Choose A Date,\n\n2)Select The Training You Want To Input... If You Have No Trainings Saved,You Will Be Asked To Input Some. You Do Not Have To Follow This Step, You Can Also Add Freestyle Trainings (Trainings Without A Name, Just A Description And Difficulty). However, If You Do A Training Regularly, We Recommend Adding It First (See Trainings)\n\n3)If You Rested, Click The Green Button. If You Rested When You Should Not Have, Click The Red Button.\n\n4)Click The Add Button!
+    <string name="fitJournalExp">Here, You Can Log Your Training History.\n\nSimply:\n\n1)Choose A Date,\n\n2)Select The Training You Want To Input... If You Have No Trainings Saved,You Will Be Asked To Input Some. You Do Not Have To Follow This Step, You Can Also Add Freestyle Trainings (Trainings Without A Name, Just A Description And Difficulty). However, If You Do A Training Regularly, We Recommend Adding It First (See Trainings)\n\n3)If You Rested, Click The Green Button. If You Rested When You Should Not Have, Click The Red Button.\n\n4)Click The Add Button!
     </string>
+    <string name="icon_exp_trainings">Once You Add A Training, It Will Be Displayed On The Calendar, With One Of These Icons, Based On Its Difficulty</string>
+    <string name="weightJournalExp">Here You Can Log Your Weight For The Day.\n\nSimply:\n\n1)Chose A Date\n\n2)Enter Your Weight For The Selected Date\n\n3)You Are Done!\nThe App Will Do The Rest For You, And Make All The Calculations Neccessary For You To Know If You Are On The Right Path To Your Weight Goals</string>
+    <string name="icon_exp_weight">Once You Add A Weight Entry, It Will Be Displayed On The Calendar, With One Of These Icons, Based On Its Weather Your Weight Changes Are Good Or Bad.\n\nOptimal Weight Maintenance Is Considered Anything Withing 0.5 KG If Your Ideal Weight.</string>
+
 </resources>

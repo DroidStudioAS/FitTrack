@@ -6,7 +6,9 @@ import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,13 +20,23 @@ import org.w3c.dom.Text;
 
 public class InfoDialog extends Dialog {
 
-    TextView journalBut;
-    TextView comButton;
-    TextView trButton;
-    TextView fitInfoButton;
 
-    Group journalSubMenu;
-    Group fitJournal;
+    //parts of main menu
+     TextView trainingInfoTrigger;
+     TextView communityInfoTrigger;
+     TextView journalInfoTrigger;
+
+     Group journalSubMenu;
+     //parts of journalSubMenuGroup
+     TextView weightJournalInfoTrigger;
+     TextView fitJournalInfoTrigger;
+
+     //JORUNAL ELEMENTS
+     ScrollView expContainer;
+     TextView expTv;
+     TextView iconExpTv;
+
+     Group fitIconsExpGroup;
 
 
 
@@ -40,37 +52,81 @@ public class InfoDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_info);
+        getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT);
+        /*******Ui********/
+        //MainMenu
+        trainingInfoTrigger=(TextView) findViewById(R.id.trainingInformationTrigger);
 
-        journalBut=(TextView) findViewById(R.id.journalInfo);
-        fitInfoButton = (TextView)findViewById(R.id.fitInfo);
 
-        journalSubMenu=(Group) findViewById(R.id.journalSubMenu);
+        journalInfoTrigger=(TextView)findViewById(R.id.JournalInformationTrigger);
+        //journalSubMenu
+        journalSubMenu=(Group) findViewById(R.id.jorunalSubMenu);
+        weightJournalInfoTrigger=(TextView)findViewById(R.id.weightJournalInfoTrigger);
+        fitJournalInfoTrigger=(TextView)findViewById(R.id.fitJournalInfoTrigger);
 
-        fitJournal = (Group) findViewById(R.id.fitJournal);
+        //journal elements
+        expContainer=(ScrollView)findViewById(R.id.expContainer);
+        expTv=(TextView)findViewById(R.id.explanaitonTv);
+        iconExpTv=(TextView)findViewById(R.id.iconExpTv);
+        fitIconsExpGroup=(Group)findViewById(R.id.fitIconsExpGroup);
 
-        journalBut.setOnClickListener(new View.OnClickListener() {
+
+
+
+
+        /*******OnClickListeners********/
+        //Main Menu On Click Listeners
+        journalInfoTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //show the submenu
                 journalSubMenu.setVisibility(View.VISIBLE);
-
             }
         });
-        fitInfoButton.setOnClickListener(new View.OnClickListener() {
+
+
+        //Journal Sub Menu On Click Listeners
+        fitJournalInfoTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fitJournal.setVisibility(View.VISIBLE);
+                /*make everything visible
+                And set The strings accordingly
+                 */
+                expContainer.setVisibility(View.VISIBLE);
+                expTv.setText(R.string.fitJournalExp);
+                iconExpTv.setVisibility(View.VISIBLE);
+                iconExpTv.setText(R.string.icon_exp_trainings);
+                fitIconsExpGroup.setVisibility(View.VISIBLE);
+
             }
         });
-
-
-
-
-
-
-
-
+        weightJournalInfoTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*make everything visible
+                And set The strings accordingly
+                 */
+                expContainer.setVisibility(View.VISIBLE);
+                expTv.setText(R.string.weightJournalExp);
+                iconExpTv.setVisibility(View.VISIBLE);
+                iconExpTv.setText(R.string.icon_exp_weight);
+                //unneccesary for weight
+                fitIconsExpGroup.setVisibility(View.GONE);
+            }
+        });
 
     }
+
+
+
+
+
+
+
+
+
+
 
     public void setDialog() {
 
@@ -85,4 +141,5 @@ public class InfoDialog extends Dialog {
 
     }
 }
+
 
