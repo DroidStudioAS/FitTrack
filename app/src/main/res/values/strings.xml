@@ -3,4 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_training_prompt">You Have No Trainings Saved. Do You Want To Add Your Routines First (Recommended)?</string>
+    <string name="fitJournalExp">Here, You Can Log Your Training History. Simply:\n\n1)Choose A Date,\n\n2)Select The Training You Want To Input... If You Have No Trainings Saved,You Will Be Asked To Input Some. You Do Not Have To Follow This Step, You Can Also Add Freestyle Trainings (Trainings Without A Name, Just A Description And Difficulty). However, If You Do A Training Regularly, We Recommend Adding It First (See Trainings)\n\n3)If You Rested, Click The Green Button. If You Rested When You Should Not Have, Click The Red Button.\n\n4)Click The Add Button!
+    </string>
 </resources>

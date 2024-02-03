@@ -10,500 +10,246 @@
     android:scrollbars="vertical"
     android:visibility="visible">
 
-    <TextView
-        android:id="@+id/InfoTitle"
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/fitJournal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="App Walkthrough"
+        android:visibility="gone"
+        app:constraint_referenced_ids="midLabel,hrdLabel,badRestLabel,restIconLabel,goodRestLabel,ezIcon,mdIcon,ezLabel,instructionsView,hrdIcon,trainingIconLabel,goodRest,badRest"
+        tools:visibility="gone" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/weightJournal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/journalSubMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="fitInfo,weightInfo" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/centerpiece_fixed"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <TextView
+        android:id="@+id/trainingsInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="Trainings"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/communityInfo"
+        app:layout_constraintTop_toBottomOf="@+id/communityInfo" />
+
+    <TextView
+        android:id="@+id/journalInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:text="Journal"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@+id/communityInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/communityInfo" />
+
+    <TextView
+        android:id="@+id/communityInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Community"
         android:textColor="@color/black"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diss" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
-        android:id="@+id/trainingJournalExpButton"
+        android:id="@+id/fitInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="•Training Journal"
+        android:layout_marginTop="18dp"
+        android:text="Fitness"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toStartOf="@+id/weightInfo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/journalInfo" />
+
+    <TextView
+        android:id="@+id/weightInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Weight"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fitInfo"
+        app:layout_constraintTop_toBottomOf="@+id/trainingsInfo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <ScrollView
+        android:id='@+id/instructionsView'
+        style="@style/customScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trainingsExpButton" />
+        app:layout_constraintTop_toBottomOf="@+id/fitInfo">
+
+        <TextView
+            android:id="@+id/instructionTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:text="@string/fitJournalExp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </ScrollView>
 
     <TextView
-        android:id="@+id/weightJournalExpButton"
+        android:id="@+id/trainingIconLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="•Weight Journal"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/trainingJournalExpButton" />
-
-    <TextView
-        android:id="@+id/trainingsExpButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="•Trainings"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/InfoTitle" />
-
-    <TextView
-        android:id="@+id/expTarget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="18dp"
         android:gravity="center"
+        android:text="When Added, Trainings Will Display The Following Icons, Depending On There Difficulty:"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightJournalExpButton" />
+        app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@color/easy_green"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        android:id="@+id/ezIcon"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toStartOf="@+id/mdIcon"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expTarget" />
+        app:layout_constraintTop_toBottomOf="@+id/trainingIconLabel"
+        app:srcCompat="@drawable/icon_easy_training" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@color/mid_yellow"
-        app:layout_constraintEnd_toStartOf="@+id/imageView6"
+        android:id="@+id/mdIcon"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toStartOf="@+id/hrdIcon"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/expTarget" />
+        app:layout_constraintStart_toEndOf="@+id/ezIcon"
+        app:layout_constraintTop_toBottomOf="@+id/trainingIconLabel"
+        app:srcCompat="@drawable/icon_medium_training" />
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@color/hard_red"
+        android:id="@+id/hrdIcon"
+        android:layout_width="60dp"
+        android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/expTarget" />
+        app:layout_constraintStart_toEndOf="@+id/mdIcon"
+        app:layout_constraintTop_toBottomOf="@+id/trainingIconLabel"
+        app:srcCompat="@drawable/icon_hard_tr" />
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/ezLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Easy"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintEnd_toEndOf="@+id/ezIcon"
+        app:layout_constraintStart_toStartOf="@+id/ezIcon"
+        app:layout_constraintTop_toBottomOf="@+id/ezIcon" />
 
     <TextView
-        android:id="@+id/textView29"
+        android:id="@+id/midLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Medium"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintEnd_toEndOf="@+id/mdIcon"
+        app:layout_constraintStart_toStartOf="@+id/mdIcon"
+        app:layout_constraintTop_toBottomOf="@+id/mdIcon" />
 
     <TextView
-        android:id="@+id/textView30"
+        android:id="@+id/hrdLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hard"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imageView6"
-        app:layout_constraintStart_toStartOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintEnd_toEndOf="@+id/hrdIcon"
+        app:layout_constraintStart_toStartOf="@+id/hrdIcon"
+        app:layout_constraintTop_toBottomOf="@+id/hrdIcon" />
 
     <TextView
-        android:id="@+id/trainingPageExp"
+        android:id="@+id/restIconLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_margin="8dp"
         android:gravity="center"
-        android:text="Add Trainings From The Add Training Tab, And Edit. Browse And/Or Delete Your Trainings From The Browse Trainings Tab"
+        android:text="Rest Days Will Be Displayed Diffrent, Based On If They Were Logged As Planned Or Not:"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/trainingGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:constraint_referenced_ids="textView27,textView29,textView30,imageView4,imageView5,imageView6,trainingPageExp" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/tjGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:constraint_referenced_ids="imageView7,imageView8,textView33,textView32,textView34,textView35,imageView9,imageView13,imageView10,imageView12,textView36,textView39,textView40,textView38,imageView14,scrollView4,textView37,scrollView5" />
-
-    <ScrollView
-        android:id="@+id/scrollView5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expTarget"
-        app:layout_constraintVertical_bias="0.0"
-        style="@style/customScrollView">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView34"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icon_up" />
-
-            <TextView
-                android:id="@+id/textView38"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hard Training"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView9" />
-
-            <ImageView
-                android:id="@+id/imageView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/textView39"
-                app:layout_constraintStart_toStartOf="@+id/textView39"
-                app:layout_constraintTop_toBottomOf="@+id/textView39"
-                app:srcCompat="@drawable/icon_good_restt" />
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/textView36"
-                app:layout_constraintStart_toStartOf="@+id/textView36"
-                app:layout_constraintTop_toBottomOf="@+id/textView36"
-                app:srcCompat="@drawable/icon_easy_training" />
-
-            <TextView
-                android:id="@+id/textView36"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Easy Training"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@+id/textView37"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView35" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/textView32"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icon_menu_mb" />
-
-            <TextView
-                android:id="@+id/textView37"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Medium Training"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView36"
-                app:layout_constraintTop_toBottomOf="@+id/textView35" />
-
-            <TextView
-                android:id="@+id/textView40"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Unplanned Rest"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView39"
-                app:layout_constraintTop_toBottomOf="@+id/imageView12" />
-
-            <ImageView
-                android:id="@+id/imageView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/textView40"
-                app:layout_constraintStart_toStartOf="@+id/textView40"
-                app:layout_constraintTop_toBottomOf="@+id/textView40"
-                app:srcCompat="@drawable/icon_bad_restt" />
-
-            <TextView
-                android:id="@+id/textView35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Calendar Icons"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView32" />
-
-            <TextView
-                android:id="@+id/textView32"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Monthly Breakdown\nWhen You Click This Button,\nThe App\n Will Calculate \nYour Monthly  Preformance\n For The \nMonth In Focus"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
-
-            <TextView
-                android:id="@+id/textView39"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Planned Rest"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toStartOf="@+id/textView40"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView12" />
-
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/textView38"
-                app:layout_constraintStart_toStartOf="@+id/textView38"
-                app:layout_constraintTop_toBottomOf="@+id/textView38"
-                app:srcCompat="@drawable/icon_hard_training" />
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/textView37"
-                app:layout_constraintStart_toStartOf="@+id/textView37"
-                app:layout_constraintTop_toBottomOf="@+id/textView37"
-                app:srcCompat="@drawable/icon_medium_training" />
-
-            <TextView
-                android:id="@+id/textView34"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Weekly Breakdown\n This Button Will\nDisplay To You\nA Rundown Of The\nWork You Did In The\n7 Days Before\nAny Day You Select!"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView33" />
-
-            <TextView
-                android:id="@+id/textView33"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="More Data"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="@+id/imageView8"
-                app:layout_constraintStart_toStartOf="@+id/imageView8"
-                app:layout_constraintTop_toBottomOf="@+id/imageView8" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/textView52"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Calendar Icons"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView55" />
+        app:layout_constraintTop_toBottomOf="@+id/midLabel" />
 
     <ImageView
-        android:id="@+id/imageView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/textView53"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/textView53"
-        app:layout_constraintTop_toBottomOf="@+id/expTarget"
-        app:srcCompat="@drawable/icon_up" />
-
-    <ImageView
-        android:id="@+id/imageView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/textView55"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/textView55"
-        app:layout_constraintTop_toBottomOf="@+id/expTarget"
-        app:srcCompat="@drawable/icon_menu_mb" />
-
-    <TextView
-        android:id="@+id/textView57"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="More Data"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imageView25"
-        app:layout_constraintStart_toStartOf="@+id/imageView25"
-        app:layout_constraintTop_toBottomOf="@+id/imageView25" />
-
-    <TextView
-        android:id="@+id/textView53"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Weekly Breakdown\nThis Button Will\nDisplay To You\nA Rundown Of Your Weight\nIn The 7 Days Before\nAny Day You Select!"
-        android:textColor="@color/black"
-        android:textSize="10sp"
+        android:id="@+id/badRest"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView55"
-        app:layout_constraintTop_toBottomOf="@+id/textView57" />
+        app:layout_constraintStart_toEndOf="@+id/goodRest"
+        app:layout_constraintTop_toBottomOf="@+id/restIconLabel"
+        app:srcCompat="@drawable/icon_bad_restt" />
 
-    <TextView
-        android:id="@+id/textView55"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Monthly Breakdown\nWhen You Click This Button,\nThe App\n Will Calculate \nYour Monthly  Weight Movement\n For The \nMonth In Focus"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView53"
+    <ImageView
+        android:id="@+id/goodRest"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toStartOf="@+id/badRest"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView24" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/wjGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:constraint_referenced_ids="textView61,textView60,imageView30,imageView29,imageView31,textView59,textView52,imageView25,imageView24,textView57,textView53,textView55" />
-
-    <ImageView
-        android:id="@+id/imageView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/imageView30"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView60"
-        app:srcCompat="@drawable/icon_bad_weight_change" />
-
-    <ImageView
-        android:id="@+id/imageView30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView29"
-        app:layout_constraintTop_toBottomOf="@+id/textView61"
-        app:srcCompat="@drawable/icon_good_weight_change" />
-
-    <ImageView
-        android:id="@+id/imageView31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/textView59"
-        app:layout_constraintStart_toStartOf="@+id/textView59"
-        app:layout_constraintTop_toBottomOf="@+id/textView59"
-        app:srcCompat="@drawable/icon_optimal_weight" />
+        app:layout_constraintTop_toBottomOf="@+id/restIconLabel"
+        app:srcCompat="@drawable/icon_good_restt" />
 
     <TextView
-        android:id="@+id/textView59"
+        android:id="@+id/goodRestLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Optimal Weight!"
+        android:text="Planned"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView29" />
+        app:layout_constraintEnd_toEndOf="@+id/goodRest"
+        app:layout_constraintStart_toStartOf="@+id/goodRest"
+        app:layout_constraintTop_toBottomOf="@+id/goodRest" />
 
     <TextView
-        android:id="@+id/textView60"
+        android:id="@+id/badRestLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Bad Weight\nChange"
+        android:text="Unplanned"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imageView29"
-        app:layout_constraintStart_toStartOf="@+id/imageView29"
-        app:layout_constraintTop_toBottomOf="@+id/textView52" />
-
-    <TextView
-        android:id="@+id/textView61"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Good Weight\nChange"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/imageView30"
-        app:layout_constraintStart_toStartOf="@+id/imageView30"
-        app:layout_constraintTop_toBottomOf="@+id/textView52" />
-
-    <ImageView
-        android:id="@+id/diss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
-
-    <ImageView
-        android:id="@+id/imageView34"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/trainingsExpButton"
-        app:layout_constraintStart_toEndOf="@+id/trainingsExpButton"
-        app:layout_constraintTop_toTopOf="@+id/trainingsExpButton"
-        app:srcCompat="@drawable/training_service_drawable" />
-
-    <ImageView
-        android:id="@+id/imageView35"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/weightJournalExpButton"
-        app:layout_constraintStart_toEndOf="@+id/weightJournalExpButton"
-        app:layout_constraintTop_toTopOf="@+id/weightJournalExpButton"
-        app:srcCompat="@drawable/weight_service_drawable" />
-
-    <ImageView
-        android:id="@+id/imageView36"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/trainingJournalExpButton"
-        app:layout_constraintStart_toEndOf="@+id/trainingJournalExpButton"
-        app:layout_constraintTop_toTopOf="@+id/trainingJournalExpButton"
-        app:srcCompat="@drawable/journal_service_drawable" />
+        app:layout_constraintEnd_toEndOf="@+id/badRest"
+        app:layout_constraintStart_toStartOf="@+id/badRest"
+        app:layout_constraintTop_toBottomOf="@+id/badRest" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
