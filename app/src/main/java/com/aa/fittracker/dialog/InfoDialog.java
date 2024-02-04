@@ -42,6 +42,9 @@ public class InfoDialog extends Dialog {
     //Community Elements
     Group communityIconExpGroup;
 
+    //training elements
+    Group trainingExpGroup;
+
 
 
     public InfoDialog(@NonNull Context context) {
@@ -79,6 +82,10 @@ public class InfoDialog extends Dialog {
         //community elements
         communityIconExpGroup=(Group)findViewById(R.id.communityIconExpGroup);
 
+        //training Elements
+        trainingExpGroup=(Group)findViewById(R.id.trainingIconGroup);
+
+
 
 
 
@@ -94,6 +101,8 @@ public class InfoDialog extends Dialog {
                 iconExpTv.setVisibility(View.GONE);
                 weighIconsExpGroup.setVisibility(View.GONE);
                 communityIconExpGroup.setVisibility(View.GONE);
+                trainingExpGroup.setVisibility(View.GONE);
+
             }
         });
         communityInfoTrigger.setOnClickListener(new View.OnClickListener() {
@@ -107,9 +116,26 @@ public class InfoDialog extends Dialog {
                 iconExpTv.setText(R.string.communityFurtherExp);
                 fitIconsExpGroup.setVisibility(View.GONE);
                 weighIconsExpGroup.setVisibility(View.GONE);
+                trainingExpGroup.setVisibility(View.GONE);
+
                 communityIconExpGroup.setVisibility(View.VISIBLE);
             }
         });
+        trainingInfoTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expContainer.setVisibility(View.VISIBLE);
+                expTv.setText(R.string.trainingPageExp);
+                trainingExpGroup.setVisibility(View.VISIBLE);
+                journalSubMenu.setVisibility(View.INVISIBLE);
+
+                iconExpTv.setVisibility(View.GONE);
+                fitIconsExpGroup.setVisibility(View.GONE);
+                weighIconsExpGroup.setVisibility(View.GONE);
+                communityIconExpGroup.setVisibility(View.GONE);
+            }
+        });
+
 
 
         //Journal Sub Menu On Click Listeners
