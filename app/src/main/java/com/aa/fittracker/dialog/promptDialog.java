@@ -44,15 +44,21 @@ public class promptDialog extends Dialog {
     Group promptGroup;
     Group renameGroup;
 
+    int status;
+
 
     public promptDialog(@NonNull Context context) {
         super(context);
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prompt_dialog);
+
+
 
 
         userPromptTv=(TextView) findViewById(R.id.userPromptTv);
@@ -63,20 +69,22 @@ public class promptDialog extends Dialog {
         yesBut=(Button) findViewById(R.id.yesBut);
         noBut=(Button) findViewById(R.id.noBut);
         confirmRenameBut=(Button) findViewById(R.id.confirmRename);
+        if(status==-1){
+            noBut.setVisibility(View.GONE);
+        }
 
-        promptGroup=(Group) findViewById(R.id.promptGroup);
         renameGroup=(Group) findViewById(R.id.trainingRenameGroup);
 
         if(renameGroup.getVisibility()==View.VISIBLE){
             renameGroup.setVisibility(View.GONE);
-            promptGroup.setVisibility(View.VISIBLE);
+           yesBut.setVisibility(View.VISIBLE);
+           noBut.setVisibility(View.VISIBLE);
+           userPromptTv.setVisibility(View.VISIBLE);
         }
 
 
 
-        if(noBut.getVisibility()== View.GONE){
-            noBut.setVisibility(View.VISIBLE);
-        }
+
 
 
     }
@@ -124,9 +132,9 @@ public class promptDialog extends Dialog {
         });
     }
     public void noDateInFoucsPrompt(){
+        noBut.setVisibility(View.GONE);
         userPromptTv.setText("You Need To Have A Date Selected To See More Data!");
         yesBut.setText("Ok!");
-        noBut.setVisibility(View.GONE);
         yesBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +215,9 @@ public class promptDialog extends Dialog {
                 if(isNameTaken(training.getTraining_name())){
                     //name taken
                     renameGroup.setVisibility(View.VISIBLE);
-                    promptGroup.setVisibility(View.INVISIBLE);
+                    yesBut.setVisibility(View.GONE);
+                    noBut.setVisibility(View.GONE);
+                    userPromptTv.setVisibility(View.GONE);
 
                     trainingRenameTv.setText("You Already Have A Training With This Name! Please Select Another One");
                     setCancelable(true);

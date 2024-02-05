@@ -89,10 +89,6 @@ public class InfoDialog extends Dialog {
         boldFocusedTitle(-1);
 
 
-
-
-
-
         /*******OnClickListeners********/
         //Main Menu On Click Listeners
         journalInfoTrigger.setOnClickListener(new View.OnClickListener() {
