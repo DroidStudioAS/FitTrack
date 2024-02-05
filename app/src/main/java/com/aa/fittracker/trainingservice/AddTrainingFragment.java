@@ -43,6 +43,8 @@ public class AddTrainingFragment extends Fragment {
     Button hardBut;
     int difficulty;
 
+    TrainingAddedCallback callback;
+
     public AddTrainingFragment() {
         // Required empty public constructor
     }
@@ -57,6 +59,9 @@ public class AddTrainingFragment extends Fragment {
         client= new OkHttpClient();
         difficulty=-1; //SAFETY VALUE TO ENSURE THAT BUTTON WAS PRESSED;
         /***********UI Ref's***********/
+
+        callback=(TrainingAddedCallback) getContext();
+
         nameET=(EditText) view.findViewById(R.id.trainingNameET);
         descET=(EditText) view.findViewById(R.id.descriptionET);
 
@@ -143,7 +148,7 @@ public class AddTrainingFragment extends Fragment {
                     Log.i("Waiting...", "...");
                 }
                 if(store.getServerResponseTrainingAdded().contains("ok") && !store.getServerResponseTrainingAdded().contains("!")){
-                    promptDialog pd = new promptDialog(getContext());
+                    promptDialog pd = new promptDialog(getContext(),callback);
                     pd.show();
                     pd.trainingAddedPrompt();
                     store.setServerResponseTrainingAdded("");

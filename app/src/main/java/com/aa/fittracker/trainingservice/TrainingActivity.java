@@ -19,12 +19,11 @@ import com.aa.fittracker.presentation.pagerAdapter;
 import com.aa.fittracker.presentation.taAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class TrainingActivity extends AppCompatActivity {
+public class TrainingActivity extends AppCompatActivity implements TrainingAddedCallback {
 
     private static ViewPager vPager;
     private taAdapter adapter;
     private TabLayout tl;
-    TrainingDeletedCallback callback;
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -76,4 +75,8 @@ public class TrainingActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onTrainingInput() {
+
+    }
 }

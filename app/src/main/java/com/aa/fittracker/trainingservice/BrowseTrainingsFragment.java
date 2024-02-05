@@ -44,7 +44,7 @@ import java.util.Timer;
 
 import okhttp3.OkHttpClient;
 
-public class BrowseTrainingsFragment extends Fragment implements onItemClickListener, DeleteTrainingDialog.DeleteTrainingCallback {
+public class BrowseTrainingsFragment extends Fragment implements onItemClickListener, DeleteTrainingDialog.DeleteTrainingCallback, TrainingAddedCallback {
     trainingAdapter adapter;
     RecyclerView rv;
 
@@ -485,6 +485,11 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
     @Override
     public void onDeleteTraining() {
         Log.i("callback successful", "YES");
+        refreshList();
+    }
+
+    @Override
+    public void onTrainingInput() {
         refreshList();
     }
 }

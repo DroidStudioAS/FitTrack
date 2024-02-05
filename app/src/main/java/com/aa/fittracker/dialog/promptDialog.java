@@ -22,6 +22,8 @@ import com.aa.fittracker.network.networkHelper;
 import com.aa.fittracker.presentation.AnimationHelper;
 import com.aa.fittracker.presentation.SfxHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
+import com.aa.fittracker.trainingservice.TrainingAddedCallback;
+import com.aa.fittracker.trainingservice.onItemClickListener;
 
 import org.w3c.dom.Text;
 
@@ -33,7 +35,7 @@ import java.util.Map;
 import okhttp3.OkHttpClient;
 
 public class promptDialog extends Dialog {
-    TrainingActivity ta;
+    TrainingAddedCallback callback;
 
     TextView userPromptTv;
     TextView trainingRenameTv;
@@ -56,6 +58,14 @@ public class promptDialog extends Dialog {
         super(context);
     }
 
+    public promptDialog(@NonNull Context context, TrainingAddedCallback callback) {
+        super(context);
+        this.callback=(TrainingAddedCallback) callback;
+    }
+    public void setTrainingCallback(TrainingAddedCallback listener) {
+        this.callback = listener;
+    }
+
 
 
     @Override
@@ -75,6 +85,7 @@ public class promptDialog extends Dialog {
         confirmRenameBut=(Button) findViewById(R.id.confirmRename);
 
         renameGroup=(Group) findViewById(R.id.trainingRenameGroup);
+
 
         if(renameGroup.getVisibility()==View.VISIBLE){
             renameGroup.setVisibility(View.GONE);
@@ -130,6 +141,7 @@ public class promptDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 TrainingActivity.setCurrentPosition(1);
+                callback.onTrainingInput();
                 dismiss();
             }
         });
