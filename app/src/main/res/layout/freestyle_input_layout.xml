@@ -11,9 +11,8 @@
         android:id="@+id/closeFid"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/button_close" />
+        app:srcCompat="@drawable/button_close"
+        tools:layout_editor_absoluteX="357dp" />
 
     <ImageView
         android:id="@+id/fiLogo"
@@ -21,15 +20,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/closeFid"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/centerpiece_fixed" />
 
     <Button
         android:id="@+id/fiEazyBut"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:alpha="0.5"
         android:background="@color/easy_green"
         android:foreground="@color/easy_green"
@@ -42,8 +40,7 @@
         android:id="@+id/fiMidBut"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:alpha="0.5"
         android:background="@color/mid_yellow"
         android:foreground="@color/mid_yellow"
@@ -56,17 +53,18 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="How Difficult Was It?"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fiLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/fiTrainingDescEt" />
 
     <Button
         android:id="@+id/fiHardBut"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_margin="10dp"
+        android:layout_marginTop="8dp"
         android:alpha="0.5"
         android:background="@color/hard_red"
         android:foreground="@color/hard_red"
@@ -77,9 +75,8 @@
 
     <EditText
         android:id="@+id/fiTrainingDescEt"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="textMultiLine"
@@ -91,27 +88,28 @@
         android:id="@+id/fInputTrigger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fiTrainingDescEt"
+        app:layout_constraintTop_toBottomOf="@+id/fiMidBut"
         app:srcCompat="@drawable/icon_action_add" />
 
     <TextView
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="Describe Your Training:"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/fiTrainingDescEt"
-        app:layout_constraintStart_toStartOf="@+id/fiTrainingDescEt"
-        app:layout_constraintTop_toBottomOf="@+id/fiMidBut" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fiLogo" />
 
     <ImageView
         android:id="@+id/refresh"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginTop="16dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -128,13 +126,14 @@
         android:id="@+id/successTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Added FREESTYLE training. Click Here To Refresh"
         android:textColor="@color/black"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView23" />
+        app:layout_constraintTop_toBottomOf="@+id/fiLogo" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/refreshGroup"

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,6 +55,10 @@ public class FreestyleInputDialog extends Dialog {
         super(context);
         this.listener=listener;
         setContentView(R.layout.freestyle_input_layout);
+
+        getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         /*********Ui Initializations**********/
         closeFid=(ImageView) findViewById(R.id.closeFid);
