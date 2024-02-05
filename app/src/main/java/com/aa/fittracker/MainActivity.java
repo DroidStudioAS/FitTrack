@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.Group;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.AlarmManager;
@@ -19,7 +20,9 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aa.fittracker.dialog.InfoDialog;
@@ -27,6 +30,8 @@ import com.aa.fittracker.logic.NotificationReceiver;
 import com.aa.fittracker.network.FirebaseMessagingServ;
 import com.aa.fittracker.network.networkHelper;
 
+import com.aa.fittracker.presentation.AnimationHelper;
+import com.aa.fittracker.presentation.SfxHelper;
 import com.aa.fittracker.presentation.pagerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
    private pagerAdapter adapter;
    private TabLayout tl;
    private Button trigger;
+
+   private Button networkRefreshTrigger;
+
+    boolean isUserConnected;
+
+    ImageView ncLogo;
+
+   Group networkGroup;
 
    NotificationReceiver nr = new NotificationReceiver();
     @Override
@@ -74,11 +87,36 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
 
-        if(!networkHelper.isNetworkConnected(getApplicationContext())){
-            //user not connected to internet
+
+        ncLogo=(ImageView)findViewById(R.id.ncLogo);
+        networkRefreshTrigger=(Button)findViewById(R.id.networkRefreshTrigger);
+        networkGroup=(Group) findViewById(R.id.networkConnectionWarning);
+
+       isUserConnected = networkHelper.isNetworkConnected(getApplicationContext());
+
+        if(!isUserConnected){
+            networkGroup.setVisibility(View.VISIBLE);
+            ncLogo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AnimationHelper.centerpieceClick(ncLogo);
+                    SfxHelper.playBloop(getApplicationContext());
+                }
+            });
+            networkRefreshTrigger.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isUserConnected = networkHelper.isNetworkConnected(getApplicationContext());
+                    if(isUserConnected==true){
+                        networkGroup.setVisibility(View.GONE);
+                        recreate();
+                    }
+                }
+            });
+            return;
+        }
 
 
-        };
 
 
 
