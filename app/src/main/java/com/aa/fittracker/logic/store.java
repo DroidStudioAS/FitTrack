@@ -2,6 +2,8 @@ package com.aa.fittracker.logic;
 
 import android.util.Log;
 
+import androidx.core.app.NavUtils;
+
 import com.aa.fittracker.models.SharedTraining;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.models.TrainingEntry;
@@ -200,9 +202,18 @@ public class store {
     }
     public static void addToUserTrainings(Training training) {
         USER_TRAININGS.add(training);
+        refreshUserTrainings();
+    }
+    public static void refreshUserTrainings(){
+        if(USER_TRAININGS.isEmpty() || USER_TRAININGS==null){
+            return;
+        }
+        Collections.sort(USER_TRAININGS, Comparator.comparing(Training::getTraining_name));
+
     }
     public static void addToSharedTrainings(SharedTraining st){
         SHARED_TRAININGS.add(st);
+        sortSharedTrainings();
     }
 
     public static void removeFromUserTrainings(Training toDelete){

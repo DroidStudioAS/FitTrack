@@ -137,6 +137,7 @@ public class promptDialog extends Dialog {
     public void trainingAddedPrompt(){
         userPromptTv.setText("Success. Check Trainings?");
         yesBut.setText("Lets Do It!");
+        store.refreshUserTrainings();
         yesBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

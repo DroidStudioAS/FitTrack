@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.aa.fittracker.R;
 import com.aa.fittracker.TrainingDeletedCallback;
 import com.aa.fittracker.dialog.InfoDialog;
+import com.aa.fittracker.logic.store;
 import com.aa.fittracker.presentation.pagerAdapter;
 import com.aa.fittracker.presentation.taAdapter;
 import com.google.android.material.tabs.TabLayout;
@@ -72,6 +73,8 @@ public class TrainingActivity extends AppCompatActivity implements TrainingAdded
     }
     public static void setCurrentPosition(int pos){
         vPager.setCurrentItem(pos);
+
+        store.refreshUserTrainings();
     }
 
 
