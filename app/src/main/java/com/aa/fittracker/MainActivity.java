@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
 
+        if(!networkHelper.isNetworkConnected(getApplicationContext())){
+            //user not connected to internet
+
+
+        };
+
 
 
         // Set up the AlarmManager to trigger the BroadcastReceiver every 24 hours
