@@ -86,6 +86,9 @@ public class InfoDialog extends Dialog {
         trainingExpGroup=(Group)findViewById(R.id.trainingIconGroup);
 
 
+        boldFocusedTitle(-1);
+
+
 
 
 
@@ -102,6 +105,7 @@ public class InfoDialog extends Dialog {
                 weighIconsExpGroup.setVisibility(View.GONE);
                 communityIconExpGroup.setVisibility(View.GONE);
                 trainingExpGroup.setVisibility(View.GONE);
+                boldFocusedTitle(2);
 
             }
         });
@@ -119,6 +123,8 @@ public class InfoDialog extends Dialog {
                 trainingExpGroup.setVisibility(View.GONE);
 
                 communityIconExpGroup.setVisibility(View.VISIBLE);
+
+                boldFocusedTitle(3);
             }
         });
         trainingInfoTrigger.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +139,8 @@ public class InfoDialog extends Dialog {
                 fitIconsExpGroup.setVisibility(View.GONE);
                 weighIconsExpGroup.setVisibility(View.GONE);
                 communityIconExpGroup.setVisibility(View.GONE);
+
+                boldFocusedTitle(1);
             }
         });
 
@@ -171,28 +179,36 @@ public class InfoDialog extends Dialog {
         });
 
     }
-
-
-
-
-
-
-
-
-
-
-
-    public void setDialog() {
-
-    }
-
-    public void setExp() {
-
-    }
-
-    public void focusOnTitle(){
-
-
+    /********Helpers*********/
+    /*
+    -1 reset fontFace
+    1 trainings
+    2 journal
+    3 community
+    */
+    public void boldFocusedTitle(int status){
+        switch (status){
+            case -1:
+                trainingInfoTrigger.setTypeface(Typeface.DEFAULT);
+                communityInfoTrigger.setTypeface(Typeface.DEFAULT);
+                journalInfoTrigger.setTypeface(Typeface.DEFAULT);
+                break;
+            case 1:
+                trainingInfoTrigger.setTypeface(Typeface.DEFAULT_BOLD);
+                communityInfoTrigger.setTypeface(Typeface.DEFAULT);
+                journalInfoTrigger.setTypeface(Typeface.DEFAULT);
+                break;
+            case 2:
+                trainingInfoTrigger.setTypeface(Typeface.DEFAULT);
+                journalInfoTrigger.setTypeface(Typeface.DEFAULT_BOLD);
+                communityInfoTrigger.setTypeface(Typeface.DEFAULT);
+                break;
+            case 3:
+                trainingInfoTrigger.setTypeface(Typeface.DEFAULT);
+                journalInfoTrigger.setTypeface(Typeface.DEFAULT);
+                communityInfoTrigger.setTypeface(Typeface.DEFAULT_BOLD);
+                break;
+        }
     }
 }
 
