@@ -33,6 +33,8 @@ import com.aa.fittracker.trainingservice.TrainingActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -148,10 +150,11 @@ public class InputDialog extends Dialog {
             stringList.add(x.getTraining_name());
         }
         stringList.add("FREESTYLE");
+
         if(stringList.size()!=0){
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,stringList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item,stringList);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
         }
 
         /*************************Set the appropriate ET/SPINNERS*****************************/

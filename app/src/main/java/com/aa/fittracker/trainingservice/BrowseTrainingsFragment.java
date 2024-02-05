@@ -34,6 +34,8 @@ import com.aa.fittracker.presentation.trainingAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -144,6 +146,10 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
                     pd.noTrainingsPrompt(0);
                 }
 
+        }
+        //sort the list in alphabetical order
+        if(localList!=null && !localList.isEmpty()) {
+            Collections.sort(localList, Comparator.comparing(Training::getTraining_name));
         }
         /**************RV Configuration*******************/
         adapter = new trainingAdapter(localList, getContext());

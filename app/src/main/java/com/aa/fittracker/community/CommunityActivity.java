@@ -100,6 +100,10 @@ public class CommunityActivity extends AppCompatActivity implements onItemClickL
 
 
         //first parameter: the list of trainings that will be displayed:
+
+        if(store.getSharedTrainings()!=null && !store.getSharedTrainings().isEmpty()){
+            store.sortSharedTrainings();
+        }
         rvAdapter = new SharedTrainingAdapter(store.getSharedTrainings(), getApplicationContext());
         rvAdapter.setOnItemClickListener(this);
         sharedTrainingView.setAdapter(rvAdapter);

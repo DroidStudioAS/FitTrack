@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -220,6 +222,11 @@ public class store {
             }
         }
         return weight;
+    }
+    public static void sortSharedTrainings(){
+        if(SHARED_TRAININGS!=null && !SHARED_TRAININGS.isEmpty()) {
+            Collections.sort(SHARED_TRAININGS, Comparator.comparing(SharedTraining::getShared_training_name));
+        }
     }
 
     /*******************GETTERS***********************/
