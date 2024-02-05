@@ -17,7 +17,7 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+        app:layout_constraintTop_toBottomOf="@+id/dLogo" />
 
     <Button
         android:id="@+id/deleteConfirmTrigger"
@@ -39,7 +39,7 @@
         app:srcCompat="@drawable/icon_refresh" />
 
     <ImageView
-        android:id="@+id/imageView17"
+        android:id="@+id/dLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

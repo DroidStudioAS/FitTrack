@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,8 @@ import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.SharedTraining;
 import com.aa.fittracker.models.Training;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.AnimationHelper;
+import com.aa.fittracker.presentation.SfxHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
 
 import org.w3c.dom.Text;
@@ -44,6 +47,8 @@ public class promptDialog extends Dialog {
     Group promptGroup;
     Group renameGroup;
 
+    ImageView pdLogo;
+
     int status;
 
 
@@ -58,20 +63,16 @@ public class promptDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.prompt_dialog);
 
-
-
-
         userPromptTv=(TextView) findViewById(R.id.userPromptTv);
         trainingRenameTv=(TextView) findViewById(R.id.nameTakenTv);
 
         trainingRenameEt=(EditText)findViewById(R.id.trainingRenameEt);
 
+        pdLogo=(ImageView)findViewById(R.id.pdLogo);
+
         yesBut=(Button) findViewById(R.id.yesBut);
         noBut=(Button) findViewById(R.id.noBut);
         confirmRenameBut=(Button) findViewById(R.id.confirmRename);
-        if(status==-1){
-            noBut.setVisibility(View.GONE);
-        }
 
         renameGroup=(Group) findViewById(R.id.trainingRenameGroup);
 
@@ -81,6 +82,14 @@ public class promptDialog extends Dialog {
            noBut.setVisibility(View.VISIBLE);
            userPromptTv.setVisibility(View.VISIBLE);
         }
+
+        pdLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationHelper.centerpieceClick(pdLogo);
+                SfxHelper.playBloop(getContext());
+            }
+        });
 
 
 

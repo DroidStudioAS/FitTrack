@@ -25,8 +25,10 @@ import com.aa.fittracker.models.Training;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.AnimationHelper;
 import com.aa.fittracker.presentation.CalendarAdapter;
 //import com.aa.fittracker.trainingservice.AddTrainingActivity;
+import com.aa.fittracker.presentation.SfxHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -50,6 +52,7 @@ public class InputDialog extends Dialog {
     TextView unplannedLabel ;
 
     ImageView confirmTrigger;
+    ImageView inputLogo;
 
     Button plannedRestSwitch;
     Button unplannedRestSwitch;
@@ -121,6 +124,8 @@ public class InputDialog extends Dialog {
 
         confirmTrigger=(ImageView) findViewById(R.id.inputTrigger);
         confirmTrigger.setVisibility(View.VISIBLE);
+        inputLogo=(ImageView)findViewById(R.id.idLogo);
+
         plannedRestSwitch=(Button)findViewById(R.id.planedRest);
         unplannedRestSwitch=(Button)findViewById(R.id.unplanedRest);
 
@@ -154,6 +159,15 @@ public class InputDialog extends Dialog {
 
         plannedRestSwitch.setOnClickListener(buttonToggle);
         unplannedRestSwitch.setOnClickListener(buttonToggle);
+
+
+        inputLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationHelper.centerpieceClick(inputLogo);
+                SfxHelper.playBloop(getContext());
+            }
+        });
 
         confirmTrigger.setOnClickListener(new View.OnClickListener() {
             @Override

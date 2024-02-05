@@ -18,6 +18,8 @@ import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.AnimationHelper;
+import com.aa.fittracker.presentation.SfxHelper;
 
 import okhttp3.OkHttpClient;
 
@@ -30,6 +32,7 @@ public class FreestyleInputDialog extends Dialog {
     ImageView closeFid;
     ImageView fiConfirmTrigger;
     ImageView refreshTrigger;
+    ImageView fiLogo;
 
     Button fiEazyBut;
     Button fiMediumBut;
@@ -56,6 +59,7 @@ public class FreestyleInputDialog extends Dialog {
         closeFid=(ImageView) findViewById(R.id.closeFid);
         fiConfirmTrigger=(ImageView)findViewById(R.id.fInputTrigger);
         refreshTrigger=(ImageView)findViewById(R.id.refresh);
+        fiLogo=(ImageView)findViewById(R.id.fiLogo);
 
         fiEazyBut=(Button)findViewById(R.id.fiEazyBut);
         fiMediumBut=(Button)findViewById(R.id.fiMidBut);
@@ -81,6 +85,13 @@ public class FreestyleInputDialog extends Dialog {
 
         /*********OnClickListeners**********/
 
+        fiLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationHelper.centerpieceClick(fiLogo);
+                SfxHelper.playBloop(getContext());
+            }
+        });
         closeFid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

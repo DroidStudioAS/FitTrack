@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.AnimationHelper;
+import com.aa.fittracker.presentation.SfxHelper;
 
 import okhttp3.OkHttpClient;
 
@@ -30,6 +32,7 @@ public class EditGoalsDialog extends Dialog {
     EditText newWeightGoalEt;
 
     ImageView closeDialogButton;
+    ImageView egLogo;
 
     Button confirmPatch;
     OkHttpClient client;
@@ -48,7 +51,10 @@ public class EditGoalsDialog extends Dialog {
         /*********UI initializations**********/
         usernameTvEgd=(TextView) findViewById(R.id.usernameDialogLabel);
         newWeightGoalEt=(EditText) findViewById(R.id.newWeightGoalEt);
+
         closeDialogButton=(ImageView)findViewById(R.id.closeButton);
+        egLogo=(ImageView)findViewById(R.id.egLogo);
+
         confirmPatch=(Button)findViewById(R.id.confirmNewWeightGoalTrigger);
 
         client= new OkHttpClient();
@@ -60,6 +66,13 @@ public class EditGoalsDialog extends Dialog {
         newWeightGoalEt.setText(store.getUserWeightKg());
 
         /*************OnClicklisteners*****************/
+        egLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationHelper.centerpieceClick(egLogo);
+                SfxHelper.playBloop(getContext());
+            }
+        });
         closeDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

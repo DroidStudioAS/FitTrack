@@ -21,7 +21,9 @@ import androidx.annotation.NonNull;
 
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
+import com.aa.fittracker.presentation.AnimationHelper;
 import com.aa.fittracker.presentation.CalendarAdapter;
+import com.aa.fittracker.presentation.SfxHelper;
 
 import java.time.Month;
 import java.util.HashMap;
@@ -46,6 +48,7 @@ public class MonthlyBreakdownDialog extends Dialog {
     TextView breakdownTv5;
 
     ImageView closeDialog;
+    ImageView mbLogo;
 
 
     public MonthlyBreakdownDialog(@NonNull Context context) {
@@ -66,10 +69,18 @@ public class MonthlyBreakdownDialog extends Dialog {
         breakdownTv4 =(TextView) findViewById(R.id.breakdwonTv4);
         breakdownTv5 =(TextView) findViewById(R.id.breakdwonTv5);
         closeDialog = (ImageView) findViewById(R.id.closeDialog);
+        mbLogo=(ImageView)findViewById(R.id.mbLogo);
 
         toggleUiElements();
         setDialog();
 
+        mbLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationHelper.centerpieceClick(mbLogo);
+                SfxHelper.playBloop(getContext());
+            }
+        });
         closeDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

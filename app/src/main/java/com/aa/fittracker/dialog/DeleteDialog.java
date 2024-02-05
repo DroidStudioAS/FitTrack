@@ -21,6 +21,8 @@ import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
 import com.aa.fittracker.models.WeightEntry;
 import com.aa.fittracker.network.networkHelper;
+import com.aa.fittracker.presentation.AnimationHelper;
+import com.aa.fittracker.presentation.SfxHelper;
 
 import okhttp3.OkHttpClient;
 
@@ -28,6 +30,8 @@ public class DeleteDialog extends Dialog {
     TextView deleteLabel;
 
     Button confirmDelete;
+
+    ImageView dLogo;
     ImageView refreshIv;
 
 
@@ -51,11 +55,20 @@ public class DeleteDialog extends Dialog {
         confirmDelete=(Button) findViewById(R.id.deleteConfirmTrigger);
 
         refreshIv=(ImageView) findViewById(R.id.refreshTrig);
+        dLogo=(ImageView)findViewById(R.id.dLogo);
 
         refreshIv.setVisibility(View.INVISIBLE);
 
 
         deleteLabel.setText("Are You Sure You Want To Delete Entry For: " + store.getDateInFocus());
+
+        dLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationHelper.centerpieceClick(dLogo);
+                SfxHelper.playBloop(getContext());
+            }
+        });
         confirmDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
