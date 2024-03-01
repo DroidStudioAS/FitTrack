@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.aa.fittracker.community.CommunityActivity;
 import com.aa.fittracker.dialog.EditGoalsDialog;
 import com.aa.fittracker.dialog.InfoDialog;
+import com.aa.fittracker.dialog.promptDialog;
 import com.aa.fittracker.logic.NotificationReceiver;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.TrainingEntry;
@@ -40,6 +41,8 @@ import com.aa.fittracker.presentation.AnimationHelper;
 import com.aa.fittracker.presentation.SfxHelper;
 import com.aa.fittracker.trainingservice.TrainingActivity;
 import com.google.gson.Gson;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -59,6 +62,7 @@ TextView currentWeightTv;
 TextView startWeightTv;
 TextView welcomeTv;
 TextView weightGoalTv;
+TextView deleteAccountTv;
 
 
 ImageView journalButton;
@@ -111,6 +115,7 @@ float beginingy;
         startWeightTv = (TextView)findViewById(R.id.startWeightTv);
         welcomeTv = (TextView)findViewById(R.id.welcomeTv);
         weightGoalTv=(TextView)findViewById(R.id.weightGoalTv);
+        deleteAccountTv = (TextView)findViewById(R.id.deleteAccountTv);
         communityButton=(ImageView)findViewById(R.id.communityBut);
 
 
@@ -237,6 +242,14 @@ float beginingy;
                 goalsDialog.setCancelable(false);
                 goalsDialog.show();
 
+            }
+        });
+        deleteAccountTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptDialog pd = new promptDialog(IndexActivity.this);
+                pd.show();
+                pd.deleteAccountPrompt(client);
             }
         });
 

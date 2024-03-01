@@ -289,4 +289,16 @@
       app:layout_constraintCircleRadius="170dp"
       app:srcCompat="@drawable/icon_community"
       tools:layout_editor_absoluteY="433dp" />
+
+  <TextView
+      android:id="@+id/deleteAccountTv"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="I Want To Delete My Account"
+      android:textColor="@color/black"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/guideline8" />
 </androidx.constraintlayout.widget.ConstraintLayout>

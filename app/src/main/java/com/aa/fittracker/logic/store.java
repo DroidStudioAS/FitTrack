@@ -32,6 +32,15 @@ public class store {
     private static String SERVER_RESPONSE_ADDED_SHARED_TRAINING = "";
     private static String SERVER_RESPONSE_SHARED_TRAININGS = "";
     private static String SERVER_RESPONSE_TRAINING_ADDED = "";
+    private static String SERVER_RESPONSE_USER_DELETED = "";
+
+    public static String getServerResponseUserDeleted() {
+        return SERVER_RESPONSE_USER_DELETED;
+    }
+
+    public static void setServerResponseUserDeleted(String serverResponseUserDeleted) {
+        SERVER_RESPONSE_USER_DELETED = serverResponseUserDeleted;
+    }
 
     public static String getServerResponseTrainingAdded() {
         return SERVER_RESPONSE_TRAINING_ADDED;

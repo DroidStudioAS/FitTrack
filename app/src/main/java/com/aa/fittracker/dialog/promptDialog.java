@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
 
+import com.aa.fittracker.MainActivity;
 import com.aa.fittracker.R;
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.SharedTraining;
@@ -320,6 +321,39 @@ public class promptDialog extends Dialog {
                     }
 
                 }
+            }
+        });
+    }
+
+    public void deleteAccountPrompt(OkHttpClient client){
+        userPromptTv.setText("Are You Sure You Want To Delete Your Accout? The Community Is Going To Miss You :( ");
+        yesBut.setText("Yes");
+        noBut.setText("No");
+
+        noBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+        yesBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                networkHelper.deleteUser(client);
+                while (store.getServerResponseUserDeleted()==""){
+                    Log.i("Waiting...","...");
+                }
+                if(store.getServerResponseUserDeleted().contains("!")){
+                    //not succesful
+                }else if(store.getServerResponseUserDeleted().contains("ok") && !store.getServerResponseUserDeleted().contains("!")){
+                    //user is now deleted, push him to mainActivity;
+                }
+                //RESET RESPONSE TO EMPTY STRING
+                store.setServerResponseUserDeleted("");
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("deleted","yes");
+                getContext().startActivity(intent);
+
             }
         });
     }

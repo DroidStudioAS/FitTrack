@@ -526,6 +526,24 @@ public class networkHelper {
         });
     }
 
+    public static void deleteUser(OkHttpClient client){
+        FormBody.Builder urlBuilder = new FormBody.Builder();
+        urlBuilder.add("username", store.getUSERNAME());
+        RequestBody body = urlBuilder.build();
 
+        Request request = new Request.Builder().url("http://165g123.e2.mars-hosting.com/api/login_register/delete_user").delete(body).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                store.setServerResponseUserDeleted(response.body().string());
+                Log.i("user deleted: ", store.getServerResponseUserDeleted());
+            }
+        });
+    }
 
 }
