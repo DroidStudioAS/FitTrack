@@ -39,6 +39,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.Locale;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
+
+
 
 
         ncLogo=(ImageView)findViewById(R.id.ncLogo);

@@ -351,7 +351,7 @@ public class promptDialog extends Dialog {
                 //RESET RESPONSE TO EMPTY STRING
                 store.setServerResponseUserDeleted("");
                 Intent intent = new Intent(getContext(), MainActivity.class);
-                intent.putExtra("deleted","yes");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getContext().startActivity(intent);
 
             }
