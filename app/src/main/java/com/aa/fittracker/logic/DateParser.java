@@ -360,30 +360,30 @@ public class DateParser {
                 for(String x : listToCount){
                     String diff = x.split(":")[2];
                     Log.i("DIFF", diff);
+
                     if(x.contains("REST DAY") || x.contains("SKIPPED DAY")){
                         totalRestCount+=1;
                         if(x.contains("REST DAY")){
                             plannedRestCount+=1;
                         }
                     }
-                    if(!diff.equals("-1")){
+                    if(!diff.equals("-1")) {
                         Log.i("IF ACTIVATED", diff + " " + x);
-                           if(diff.equals("1")) {
-                               Log.i("Found 1", String.valueOf(eazyCount) + " " + x);
-                               eazyCount += 1;
-                               Log.i("Found 1", String.valueOf(eazyCount)  + " " + x);
-                           }else if(diff.equals("2")) {
-                               Log.i("Found 2", String.valueOf(midCount) + " " + x);
-                               midCount += 1;
-                               Log.i("Found 2", String.valueOf(midCount) + " " + x);
-                           } else if(diff.equals("3")) {
-                               Log.i("Found 3", String.valueOf(hardCount) + " " + x);
-                               hardCount += 1;
-                               Log.i("Found 3", String.valueOf(hardCount) + " " + x);
-                           }
+                        if (diff.equals("1")) {
+                            Log.i("Found 1", String.valueOf(eazyCount) + " " + x);
+                            eazyCount += 1;
+                        } else if (diff.equals("2")) {
+                            Log.i("Found 2", String.valueOf(midCount) + " " + x);
+                            Log.i("Found midcount", String.valueOf(midCount) + " " + x);
+                            midCount += 1;
+                            Log.i("djif", diff + " x" + x);
+                        } else if (diff.equals("3")) {
+                            Log.i("Found 3", String.valueOf(hardCount) + " " + x);
+                            hardCount += 1;
                         }
+                    }
                     for(Training y : store.getUserTrainings()){
-                        if(x.contains(y.getTraining_name())){
+                        if(x.split(":")[1].equals(y.getTraining_name())){
                             if(y.getTraining_difficulty()==1){
                                 Log.i("Found 1", String.valueOf(eazyCount) + " " + x);
                                 eazyCount+=1;
@@ -392,6 +392,7 @@ public class DateParser {
                             }else if(y.getTraining_difficulty()==2){
                                 Log.i("Found 2", String.valueOf(midCount) + " " + x);
                                 midCount+=1;
+                                Log.i("djif", diff + " x" + x + " training" + y.toString());
                                 Log.i("Found 2", String.valueOf(midCount) + " " + x);
                                 break;
                             }else if(y.getTraining_difficulty()==3){
