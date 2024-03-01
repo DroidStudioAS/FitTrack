@@ -360,6 +360,9 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
                             onTrainingFocus(store.getTrainingInFocus());
                             /***********Inform user of success*************/
                             Toast.makeText(getContext(),"success",Toast.LENGTH_SHORT).show();
+
+                            //fetch the new exc entries
+                            networkHelper.getExcEntries(clientel);
                         }
                     }
                 });
