@@ -108,16 +108,26 @@ public class RegisterFragment extends Fragment {
                 params.put("user_username",username);
                 params.put("user_start_weight",currentKg);
                 params.put("password",password);
+
+
                 networkHelper.registerUser(client,params);
 
                 while (store.getServerResponseRegister().equals("")){
                     Log.i("Sending Data", "...");
                 }
+                //server error
                 if(store.getServerResponseRegister().contains("!ok")){
                     //Fail
-                    Toast.makeText(getContext(),"500",Toast.LENGTH_SHORT);
-                    return;
+                    Toast.makeText(getContext(),"Oops... A Server Error Occured... Please Try Again Later",Toast.LENGTH_SHORT).show();
                 }
+
+                //username taken
+                if(store.getServerResponseRegister().equals("{\"msg\":\"error- Username Taken\"}")){
+                    //Fail
+                    Log.i("block active", "...");
+                    Toast.makeText(getContext(),"Username Is Already Taken!",Toast.LENGTH_SHORT).show();
+                }
+
                 //REGISTER SUCCESS
                 if(store.getServerResponseRegister().contains("ok") && !store.getServerResponseRegister().contains("!")){
                     store.setUSERNAME(username);
@@ -134,7 +144,9 @@ public class RegisterFragment extends Fragment {
                     startActivity(new Intent(getActivity(),IndexActivity.class).putExtra("new_user",true).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
                     requireActivity().finish();
                 }
-
+                Log.i("TrueFalse", String.valueOf(store.getServerResponseRegister().equals("{\"msg\":\"error- Username Taken\"}")));
+                Log.i("response", store.getServerResponseRegister());
+                store.setServerResponseRegister("");
 
             }
         });
