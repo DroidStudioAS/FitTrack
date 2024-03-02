@@ -85,6 +85,7 @@ public class DeleteTrainingDialog extends Dialog {
         confirmDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                store.setServerResponseTrainingDeleted("");
                 //check if training is in logs
                 int trainingOccurrenceCount = 0;
                 for(TrainingEntry x : store.getTrainingEntries()) {
@@ -95,10 +96,24 @@ public class DeleteTrainingDialog extends Dialog {
                 }
                     if(trainingOccurrenceCount!=0) {
                         deletePrompt.setText("Deleting This Training Will Delete " + trainingOccurrenceCount + " Logs From Your Calendar... Are You Sure You Want To Do This?");
-                        return;
+                        confirmDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //delete training removes the trainings from the db
+                                deleteTraining();
+                                //remove them from the frontend list for instant impl
+                                //next time user logs, they will not be fetched from backend
+                                while(store.getServerResponseTrainingDeleted().equals("")){
+                                    Log.i("Waiting..","...");
+                                }
+                               networkHelper.getExcEntries(client);
+                            }
+                        });
+                    }else{
+                        //no occurences exist
+                        deleteTraining();
                     }
-                //no occurences exist
-                deleteTraining();
+
             }
         });
 
@@ -106,6 +121,9 @@ public class DeleteTrainingDialog extends Dialog {
 
     public void deleteTraining (){
         networkHelper.deleteExc(client);
+
+        Log.i("resp", store.getServerResponseTrainingDeleted());
+
         Training toDelete = new Training();
         for(Training x : store.getUserTrainings()){
             if(x.getTraining_name().equals(store.getTrainingToDeleteName())){

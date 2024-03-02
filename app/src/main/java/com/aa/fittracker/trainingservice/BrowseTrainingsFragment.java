@@ -95,7 +95,7 @@ public class BrowseTrainingsFragment extends Fragment implements onItemClickList
         View view = inflater.inflate(R.layout.fragment_browse_trainings, container, false);
         TrainingActivity ta = (TrainingActivity)getActivity();
         /******UI Ref's******/
-        Intent incoming= getActivity().getIntent();
+        Intent incoming = getActivity().getIntent();
 
 
 

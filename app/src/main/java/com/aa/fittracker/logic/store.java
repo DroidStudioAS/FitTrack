@@ -158,8 +158,8 @@ public class store {
         }else{
             Log.i("Remove failed for: " , toDelete.toString());
         }
-
     }
+
     public static void removeFromWeightEntries(String date){
         WeightEntry toDelete = new WeightEntry();
         for(WeightEntry x : WEIGHT_ENTRIES){

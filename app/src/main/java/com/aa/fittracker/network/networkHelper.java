@@ -30,6 +30,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+
 import com.aa.fittracker.logic.store;
 import com.aa.fittracker.models.Training;
 import com.google.gson.Gson;
@@ -50,9 +51,9 @@ public class networkHelper {
 
 
     /**************Training Service***************/
-    public static void getExcEntries(OkHttpClient client){
+    public static void getExcEntries(OkHttpClient client) {
         HttpUrl.Builder builder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/training_service/get_log").newBuilder();
-        builder.addQueryParameter("username",store.getUSERNAME());
+        builder.addQueryParameter("username", store.getUSERNAME());
         String url = builder.build().toString();
 
         Request request = new Request.Builder().url(url).build();
@@ -65,19 +66,19 @@ public class networkHelper {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 store.setTrainingEntries(response.body().string());
-                Log.i("exclog from nh: ",store.getTrainingEntriesString());
+                Log.i("exclog from nh: ", store.getTrainingEntriesString());
             }
         });
 
 
     }
 
-    public static void getExc(OkHttpClient client, String url, Map<String,String> params) throws IOException{
+    public static void getExc(OkHttpClient client, String url, Map<String, String> params) throws IOException {
         //initialize the urlBuilder
-        HttpUrl.Builder urlBuilder =  HttpUrl.parse(url).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         //add the parameters to the url
-        for(Map.Entry<String,String> entry : params.entrySet()){
-            urlBuilder.addQueryParameter(entry.getKey(),entry.getValue());
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
         }
         //build the url
         String URL = urlBuilder.build().toString();
@@ -95,7 +96,7 @@ public class networkHelper {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 //success
                 store.setServerResponseAllExc(response.body().string());
-                Log.i("response from nh",store.getServerResponseAllExc());
+                Log.i("response from nh", store.getServerResponseAllExc());
 
             }
         });
@@ -123,11 +124,12 @@ public class networkHelper {
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.i("IMPORTANT", "Failed to make POST request: " + e.getMessage());
             }
+
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                   store.setServerResponseTrainingAdded(response.body().string());
-                   Log.i("training added: " , store.getServerResponseTrainingAdded());
+                    store.setServerResponseTrainingAdded(response.body().string());
+                    Log.i("training added: ", store.getServerResponseTrainingAdded());
                 } else {
                     Log.i("IMPORTANT", "POST request failed with response code: " + response.code());
                 }
@@ -135,10 +137,10 @@ public class networkHelper {
         });
     }
 
-    public static void deleteExc(OkHttpClient client){
+    public static void deleteExc(OkHttpClient client) {
         FormBody.Builder builder = new FormBody.Builder();
-        builder.add("username",store.getUSERNAME());
-        builder.add("training_name",store.getTrainingToDeleteName());
+        builder.add("username", store.getUSERNAME());
+        builder.add("training_name", store.getTrainingToDeleteName());
 
         RequestBody body = builder.build();
         Request request = new Request.Builder()
@@ -160,7 +162,7 @@ public class networkHelper {
 
     }
 
-    public static void patchExc(OkHttpClient client, Map<String,String> params){
+    public static void patchExc(OkHttpClient client, Map<String, String> params) {
         //Build the request Body Data
         FormBody.Builder builder = new FormBody.Builder();
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -188,13 +190,13 @@ public class networkHelper {
     }
 
     //tracking subservice
-    public static void postFreestyleEntry(OkHttpClient client, TrainingEntry entry){
+    public static void postFreestyleEntry(OkHttpClient client, TrainingEntry entry) {
         FormBody.Builder builder = new FormBody.Builder();
-        builder.add("username",store.getUSERNAME());
-        builder.add("training_name",entry.getTraining_name());
-        builder.add("training_desc",entry.getTraining_description());
-        builder.add("training_diff",entry.getDiff());
-        builder.add("date",store.getDateInFocus());
+        builder.add("username", store.getUSERNAME());
+        builder.add("training_name", entry.getTraining_name());
+        builder.add("training_desc", entry.getTraining_description());
+        builder.add("training_diff", entry.getDiff());
+        builder.add("date", store.getDateInFocus());
 
         RequestBody body = builder.build();
         Request request = new Request.Builder()
@@ -215,11 +217,11 @@ public class networkHelper {
         });
     }
 
-    public static void postExcEntry(OkHttpClient client, String training_name){
+    public static void postExcEntry(OkHttpClient client, String training_name) {
         FormBody.Builder builder = new FormBody.Builder();
-        builder.add("username",store.getUSERNAME());
-        builder.add("training_name",training_name);
-        builder.add("date",store.getDateInFocus());
+        builder.add("username", store.getUSERNAME());
+        builder.add("training_name", training_name);
+        builder.add("date", store.getDateInFocus());
 
         RequestBody body = builder.build();
         Request request = new Request.Builder()
@@ -240,9 +242,9 @@ public class networkHelper {
         });
     }
 
-    public static void deleteExcEntry(OkHttpClient client){
+    public static void deleteExcEntry(OkHttpClient client) {
         FormBody.Builder formBuilder = new FormBody.Builder();
-        formBuilder.add("username",store.getUSERNAME());
+        formBuilder.add("username", store.getUSERNAME());
         formBuilder.add("date", store.getDateInFocus());
         RequestBody body = formBuilder.build();
 
@@ -265,14 +267,15 @@ public class networkHelper {
             }
         });
     }
+
     //shared trainings
-    public static void addToSharedTrainings(OkHttpClient client, Training toAdd){
+    public static void addToSharedTrainings(OkHttpClient client, Training toAdd) {
         FormBody.Builder formBuilder = new FormBody.Builder();
         //add parameters
-        formBuilder.add("username",store.getUSERNAME());
-        formBuilder.add("training_name",toAdd.getTraining_name());
-        formBuilder.add("training_desc",toAdd.getTraining_desc());
-        formBuilder.add("training_diff",String.valueOf(toAdd.getTraining_difficulty()));
+        formBuilder.add("username", store.getUSERNAME());
+        formBuilder.add("training_name", toAdd.getTraining_name());
+        formBuilder.add("training_desc", toAdd.getTraining_desc());
+        formBuilder.add("training_diff", String.valueOf(toAdd.getTraining_difficulty()));
 
         RequestBody body = formBuilder.build();
 
@@ -297,7 +300,7 @@ public class networkHelper {
 
     public static void getSharedTrainings(OkHttpClient client) {
         //initialize the urlBuilder
-        HttpUrl.Builder urlBuilder =  HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/training_service/getSharedTrainings").newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/training_service/getSharedTrainings").newBuilder();
         //build the url
         String URL = urlBuilder.build().toString();
         //form the request
@@ -314,16 +317,16 @@ public class networkHelper {
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 //success
                 store.setServerResponseSharedTrainings(JsonParser.extractJsonArray(response.body().string()));
-                Log.i("SharedTrainings",store.getServerResponseSharedTrainings());
+                Log.i("SharedTrainings", store.getServerResponseSharedTrainings());
 
             }
         });
     }
 
     /*******************Weight Service**********************/
-    public static void getStartWeight (OkHttpClient client){
+    public static void getStartWeight(OkHttpClient client) {
         HttpUrl.Builder builder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/userinfo/getStartWeight").newBuilder();
-        builder.addQueryParameter("username",store.getUSERNAME());
+        builder.addQueryParameter("username", store.getUSERNAME());
 
         String url = builder.build().toString();
         Request request = new Request.Builder().url(url).build();
@@ -343,13 +346,13 @@ public class networkHelper {
 
     }
 
-    public static void getWeight(OkHttpClient client){
-        if(store.getUSERNAME().equals("")){
-            Log.e("nh get weight","username not found");
+    public static void getWeight(OkHttpClient client) {
+        if (store.getUSERNAME().equals("")) {
+            Log.e("nh get weight", "username not found");
             return;
         }
         HttpUrl.Builder urlBuilder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/userinfo/getWeight").newBuilder();
-        urlBuilder.addQueryParameter("username",store.getUSERNAME());
+        urlBuilder.addQueryParameter("username", store.getUSERNAME());
 
         String URL = urlBuilder.build().toString();
         Request request = new Request.Builder().url(URL).build();
@@ -367,9 +370,9 @@ public class networkHelper {
         });
     }
 
-    public static void getWeightLog(OkHttpClient client){
-        HttpUrl.Builder builder =  HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/weight_service/get_log").newBuilder();
-        builder.addQueryParameter("username",store.getUSERNAME());
+    public static void getWeightLog(OkHttpClient client) {
+        HttpUrl.Builder builder = HttpUrl.parse("http://165g123.e2.mars-hosting.com/api/weight_service/get_log").newBuilder();
+        builder.addQueryParameter("username", store.getUSERNAME());
 
         String url = builder.build().toString();
         Request request = new Request.Builder().url(url).build();
@@ -387,10 +390,10 @@ public class networkHelper {
         });
     }
 
-    public static void patchWeightGoal(OkHttpClient client,String newWeight){
+    public static void patchWeightGoal(OkHttpClient client, String newWeight) {
         //Build the request Body Data
         FormBody.Builder builder = new FormBody.Builder();
-        builder.add("username",store.getUSERNAME());
+        builder.add("username", store.getUSERNAME());
         builder.add("weight", newWeight);
         //Build the actual body
         RequestBody body = builder.build();
@@ -412,15 +415,16 @@ public class networkHelper {
             }
         });
     }
+
     //tracking subservice
-    public static void postWeightTrackEntry(OkHttpClient client,String weight_value,String date){
+    public static void postWeightTrackEntry(OkHttpClient client, String weight_value, String date) {
         FormBody.Builder formBuilder = new FormBody.Builder();
-        formBuilder.add("username",store.getUSERNAME());
-        formBuilder.add("weight_value",weight_value);
-        if(date.equals("")) {
+        formBuilder.add("username", store.getUSERNAME());
+        formBuilder.add("weight_value", weight_value);
+        if (date.equals("")) {
             formBuilder.add("date", store.getDateInFocus());
-        }else{
-            formBuilder.add("date",date);
+        } else {
+            formBuilder.add("date", date);
         }
 
         RequestBody body = formBuilder.build();
@@ -437,17 +441,17 @@ public class networkHelper {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-               store.setServerResponseAdderWeightEntry(response.body().string());
-               Log.i("Response from nh",store.getServerResponseAdderWeightEntry());
+                store.setServerResponseAdderWeightEntry(response.body().string());
+                Log.i("Response from nh", store.getServerResponseAdderWeightEntry());
 
             }
         });
 
     }
 
-    public static void deleteWeightEntry(OkHttpClient client){
+    public static void deleteWeightEntry(OkHttpClient client) {
         FormBody.Builder formBuilder = new FormBody.Builder();
-        formBuilder.add("username",store.getUSERNAME());
+        formBuilder.add("username", store.getUSERNAME());
         formBuilder.add("date", store.getDateInFocus());
         RequestBody body = formBuilder.build();
 
@@ -471,14 +475,14 @@ public class networkHelper {
     }
 
     /***********************Refactoring for higher level of abstraction********************/
-    public static void get(OkHttpClient client, String url, Map<String,String> params) throws IOException{
+    public static void get(OkHttpClient client, String url, Map<String, String> params) throws IOException {
         //initialize response;
         String stringResponse = "";
         //initialize the urlBuilder
-        HttpUrl.Builder urlBuilder =  HttpUrl.parse(url).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         //add the parameters to the url
-        for(Map.Entry<String,String> entry : params.entrySet()){
-            urlBuilder.addQueryParameter(entry.getKey(),entry.getValue());
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            urlBuilder.addQueryParameter(entry.getKey(), entry.getValue());
         }
         //build the url
         String URL = urlBuilder.build().toString();
@@ -502,13 +506,13 @@ public class networkHelper {
         });
 
 
-    //Request request = new Request.Builder().url(url)
+        //Request request = new Request.Builder().url(url)
     }
 
-    public static void registerUser(OkHttpClient client, Map<String,String> params){
+    public static void registerUser(OkHttpClient client, Map<String, String> params) {
         FormBody.Builder urlBuilder = new FormBody.Builder();
-        for(Map.Entry<String,String> param : params.entrySet()){
-            urlBuilder.add(param.getKey(),param.getValue());
+        for (Map.Entry<String, String> param : params.entrySet()) {
+            urlBuilder.add(param.getKey(), param.getValue());
         }
         RequestBody body = urlBuilder.build();
         Request request = new Request.Builder().url("http://165g123.e2.mars-hosting.com/api/login_register/reg_user").post(body).build();
@@ -526,7 +530,7 @@ public class networkHelper {
         });
     }
 
-    public static void deleteUser(OkHttpClient client){
+    public static void deleteUser(OkHttpClient client) {
         FormBody.Builder urlBuilder = new FormBody.Builder();
         urlBuilder.add("username", store.getUSERNAME());
         RequestBody body = urlBuilder.build();
