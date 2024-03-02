@@ -3,10 +3,12 @@ package com.aa.fittracker.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
@@ -30,6 +32,7 @@ public class DeleteTrainingDialog extends Dialog {
     OkHttpClient client;
 
     ImageView dtLogo;
+    TextView deletePrompt;
 
     BrowseTrainingsFragment fragment;
 
@@ -61,6 +64,8 @@ public class DeleteTrainingDialog extends Dialog {
         dismiss=(Button) findViewById(R.id.cancelBut);
 
         dtLogo=(ImageView)findViewById(R.id.dtLogo);
+        deletePrompt = (TextView)findViewById(R.id.textView16);
+
 
         dtLogo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +78,7 @@ public class DeleteTrainingDialog extends Dialog {
         dismiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                deletePrompt.setText("Are You Sure You Want To Delete This Training?");
                 dismiss();
             }
         });
@@ -80,22 +86,24 @@ public class DeleteTrainingDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 //check if training is in logs
-                for(TrainingEntry x : store.getTrainingEntries()){
-                    if(x.getTraining_name().equals(store.getTrainingToDeleteName())){
-                        promptDialog pd = new promptDialog(getContext());
-                        pd.show();
-                        pd.cantDeleteTrainingPrompt();
-                        pd.setCancelable(false);
-
-                        dismiss();
-                        return;
+                int trainingOccurrenceCount = 0;
+                for(TrainingEntry x : store.getTrainingEntries()) {
+                    if (x.getTraining_name().equals(store.getTrainingToDeleteName())) {
+                        trainingOccurrenceCount += 1;
+                        Log.i("matches found:", String.valueOf(trainingOccurrenceCount));
                     }
                 }
+                    if(trainingOccurrenceCount!=0) {
+                        deletePrompt.setText("Deleting This Training Will Delete " + trainingOccurrenceCount + " Logs From Your Calendar... Are You Sure You Want To Do This?");
+                        return;
+                    }
+                //no occurences exist
                 deleteTraining();
             }
         });
 
     }
+
     public void deleteTraining (){
         networkHelper.deleteExc(client);
         Training toDelete = new Training();

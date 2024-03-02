@@ -118,7 +118,7 @@ public class RegisterFragment extends Fragment {
                 //server error
                 if(store.getServerResponseRegister().contains("!ok")){
                     //Fail
-                    Toast.makeText(getContext(),"Oops... A Server Error Occured... Please Try Again Later",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Oops... A Server Error Occurred... Please Try Again Later",Toast.LENGTH_SHORT).show();
                 }
 
                 //username taken
