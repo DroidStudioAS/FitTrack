@@ -106,6 +106,9 @@ public class DeleteTrainingDialog extends Dialog {
                                 while(store.getServerResponseTrainingDeleted().equals("")){
                                     Log.i("Waiting..","...");
                                 }
+                                //clear the frontend list
+                                store.getTrainingEntries().clear();
+                                //fetch it from the back
                                networkHelper.getExcEntries(client);
                             }
                         });
