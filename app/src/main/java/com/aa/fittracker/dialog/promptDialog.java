@@ -326,7 +326,7 @@ public class promptDialog extends Dialog {
     }
 
     public void deleteAccountPrompt(OkHttpClient client){
-        userPromptTv.setText("Are You Sure You Want To Delete Your Accout? The Community Is Going To Miss You :( ");
+        userPromptTv.setText("Are You Sure You Want To Delete Your Account? The Community Is Going To Miss You");
         yesBut.setText("Yes");
         noBut.setText("No");
 
