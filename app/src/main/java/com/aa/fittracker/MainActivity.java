@@ -126,9 +126,9 @@ public class MainActivity extends AppCompatActivity {
         // Set up the AlarmManager to trigger the BroadcastReceiver every 24 hours
         long intervalMillis = 24 * 60 * 60 * 500; // 24 hours in milliseconds
         Intent intent = new Intent(this, NotificationReceiver.class);
-        PendingIntent pendingIntentFirst = PendingIntent.getBroadcast(this, 0, intent, 0);
+        PendingIntent pendingIntentFirst = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         // Create PendingIntent with request code 1 for the second notification
-        PendingIntent pendingIntentSecond = PendingIntent.getBroadcast(this, 1, intent, 0);
+        PendingIntent pendingIntentSecond = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
