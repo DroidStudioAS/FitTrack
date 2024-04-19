@@ -32,7 +32,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         // Create an explicit intent for an activity in your app
         Intent notificationIntent = new Intent(context, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         Notification.Builder builder = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -84,7 +84,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         // Create an implicit intent to open the PayPal URL
         Intent notificationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(paypalUrl));
         // Create a PendingIntent
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         Notification.Builder builder = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
