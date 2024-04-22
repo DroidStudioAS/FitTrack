@@ -166,12 +166,10 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         missingOptimalButton = (Button) findViewById(R.id.missingOptimalButton);
         deleteEntryTrigger = (Button) findViewById(R.id.deleteEntryTrigger);
         expandTrigger = (ImageView) findViewById(R.id.expandTrigger);
-        deleteEntryTrigger.setVisibility(View.INVISIBLE);
         bf = (BottomFragment) getSupportFragmentManager().findFragmentById(R.id.bf);
         fc = bf;
 
 
-        deleteEntryTrigger.setVisibility(View.INVISIBLE);
 
 
         /**********************Neccesary**********************/
@@ -234,6 +232,9 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
             }
         });
+
+        deleteEntryTrigger.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
