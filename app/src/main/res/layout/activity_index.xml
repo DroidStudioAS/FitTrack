@@ -66,12 +66,12 @@
       android:id="@+id/button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:alpha="0"
 
+      android:alpha="0"
       android:background="@drawable/journal_service_drawable"
       app:layout_constraintBottom_toTopOf="@+id/imageView2"
       app:layout_constraintCircle="@id/imageView2"
-      app:layout_constraintCircleAngle="315"
+      app:layout_constraintCircleAngle="330"
       app:layout_constraintCircleRadius="170dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent" />
@@ -84,7 +84,7 @@
       android:alpha="0"
       android:background="@drawable/training_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
-      app:layout_constraintCircleAngle="45"
+      app:layout_constraintCircleAngle="30"
       app:layout_constraintCircleRadius="170dp"
       tools:layout_editor_absoluteX="251dp"
       tools:layout_editor_absoluteY="60dp" />
@@ -108,7 +108,7 @@
       android:alpha="0"
       android:background="@drawable/weight_service_drawable"
       app:layout_constraintCircle="@id/imageView2"
-      app:layout_constraintCircleAngle="130"
+      app:layout_constraintCircleAngle="145"
       app:layout_constraintCircleRadius="170dp"
       tools:layout_editor_absoluteX="11dp"
       tools:layout_editor_absoluteY="301dp" />
@@ -285,7 +285,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
       app:layout_constraintCircle="@id/imageView2"
-      app:layout_constraintCircleAngle="225"
+      app:layout_constraintCircleAngle="210"
       app:layout_constraintCircleRadius="170dp"
       app:srcCompat="@drawable/icon_community"
       tools:layout_editor_absoluteY="433dp" />
