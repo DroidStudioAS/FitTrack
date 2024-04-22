@@ -147,11 +147,7 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
 
 
         cs.clone(root);
-
-
         cs.connect(R.id.infoTv,ConstraintSet.END,ConstraintSet.PARENT_ID,ConstraintSet.END,0);
-
-
 
         /*****Action Bar*******/
         ActionBar ab = getSupportActionBar();
@@ -174,6 +170,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         bf = (BottomFragment) getSupportFragmentManager().findFragmentById(R.id.bf);
         fc = bf;
 
+
+        deleteEntryTrigger.setVisibility(View.INVISIBLE);
 
 
         /**********************Neccesary**********************/
