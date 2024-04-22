@@ -173,7 +173,7 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
     public void translate() {
         //Close
         if (getExpanded() == 1) {
-            view.animate().translationY(1600);
+            view.animate().translationY(2000);
             switchExpanded();
         } else {    //Open
             view.animate().translationY(0);
