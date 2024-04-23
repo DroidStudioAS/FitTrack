@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.constraintlayout.widget.Group;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -79,6 +80,8 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     BottomFragment bf;
     FragmentCommunicator fc;
     GestureDetector gestureDetector;
+
+    Group expandButton;
 
 
     boolean isExpanded = false;
@@ -169,6 +172,9 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
         bf = (BottomFragment) getSupportFragmentManager().findFragmentById(R.id.bf);
         fc = bf;
 
+        expandButton= (Group)findViewById(R.id.expandButton);
+
+        expandButton.setVisibility(View.INVISIBLE);
 
 
 
@@ -214,12 +220,6 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
                     InputDialog inputDialog = new InputDialog(calendarActivity.this, calendarActivity.this);
                     inputDialog.show();
                     missingInfoButton.setVisibility(View.GONE);
-
-
-
-
-
-
             }
         });
         deleteEntryTrigger.setOnClickListener(new View.OnClickListener() {
@@ -321,6 +321,9 @@ public class calendarActivity extends AppCompatActivity implements OnDateClickLi
     public void onDateClicked(String date) {
         dateTV.setText(date);
         infoTv.setText("");
+
+        expandButton.setVisibility(View.VISIBLE);
+
         if (!isExpanded) {
             missingInfoButton.setVisibility(View.VISIBLE);
             deleteEntryTrigger.setVisibility(View.INVISIBLE);

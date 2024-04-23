@@ -136,24 +136,13 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         todayIv = (ImageView) view.findViewById(R.id.todayIv);
         ArrayList<ImageView> imageViewList = new ArrayList<>(Arrays.asList(dayOneIv, dayTwoIv, dayThreeIv, dayFourIv, dayFiveIv, daySixIv, todayIv));
 
-      /*  for(TextView x : labelList){
-            x.setText("");
-        }
-        for(ImageView x : imageViewList){
-            x.setImageDrawable(null);
-        }   */
-
-
-        // DateTv=(TextView)view.findViewById(R.id.dateTVf);
-        // valueTv=(TextView)view.findViewById(R.id.dataTv);
-        // optimalValueTv=(TextView)view.findViewById(R.id.optimalDataTv);
-        // firstLabel=(TextView)view.findViewById(R.id.firstLabel);
-        // secondLabel=(TextView)view.findViewById(R.id.secondLabel);
-
-
-        /***************onClicklisteners***************/
         labelSeter();
         uiToggle();
+
+
+        //set the fragment to be invisible on start
+        view.animate().translationY(2000);
+
 
         return view;
     }
@@ -275,15 +264,6 @@ public class BottomFragment extends Fragment implements FragmentCommunicator {
         } else if (getExpanded() == -1) {
             setExpanded(1);
         }
-    }
-
-
-    public static void setDateTvText(String txt) {
-        //DateTv.setText(txt);
-    }
-
-    public static void setDataTvText(String txt) {
-        // DataTv.setText(txt);
     }
 
     /**********Callbacks************/
