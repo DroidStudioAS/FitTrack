@@ -59,7 +59,7 @@ public class InputDialog extends Dialog {
     Button plannedRestSwitch;
     Button unplannedRestSwitch;
 
-    int plannedClickCounter, unplannedClickCounter = 1;
+    int plannedClickCounter, unplannedClickCounter = 0;
 
     ImageView resfreshTrigger;
 
@@ -78,11 +78,11 @@ public class InputDialog extends Dialog {
         public void onClick(View v) {
             if(v.equals(plannedRestSwitch)){
                 if(plannedClickCounter%2==0){
-                    planedRest=false;
-                    plannedRestSwitch.setAlpha((float) 0.35);
-                }else{
                     planedRest=true;
                     plannedRestSwitch.setAlpha(1);
+                }else{
+                    planedRest=false;
+                    plannedRestSwitch.setAlpha((float) 0.35);
                 }
                 unplannedRest=false;
                 unplannedRestSwitch.setAlpha((float) 0.35);
@@ -91,11 +91,11 @@ public class InputDialog extends Dialog {
             }
             if(v.equals(unplannedRestSwitch)){
                 if(unplannedClickCounter%2==0){
-                    unplannedRest=false;
-                    unplannedRestSwitch.setAlpha((float) 0.35);
-                }else{
                     unplannedRest=true;
                     unplannedRestSwitch.setAlpha(1);
+                }else{
+                    unplannedRest=false;
+                    unplannedRestSwitch.setAlpha((float) 0.35);
                 }
                 planedRest=false;
                 plannedRestSwitch.setAlpha((float) 0.35);
